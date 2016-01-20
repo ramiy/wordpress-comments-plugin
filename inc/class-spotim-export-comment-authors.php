@@ -1,4 +1,5 @@
 <?php
+
 class SpotIM_ExportCommentAuthors {
 
     public function __construct() {
@@ -6,10 +7,10 @@ class SpotIM_ExportCommentAuthors {
     }
 
     public function spotim_export_comment_authors() {
-        if ((isset($_REQUEST['download']) && $_REQUEST['download'] == 'comment-authors') && current_user_can('manage_options')) {
+        if ((isset($_REQUEST['download']) && $_REQUEST['download'] == 'comment-authors') && current_user_can( 'manage_options' )) {
             global $wpdb;
             $comment_table = $wpdb->prefix . "comments";
-            $authors = $wpdb->get_results("SELECT comment_author, comment_author_email FROM $comment_table WHERE comment_author_email != '' AND comment_author != '' AND comment_approved = '1' GROUP BY comment_author");
+            $authors = $wpdb->get_results("SELECT comment_author, comment_author_email FROM $comment_table WHERE comment_author_email != '' AND comment_author != '' GROUP BY comment_author");
             $stringData = '';
             if ($authors) {
                 foreach ($authors as $author) {
@@ -25,6 +26,7 @@ class SpotIM_ExportCommentAuthors {
             exit();
         }
     }
+
 }
 
 new SpotIM_ExportCommentAuthors();

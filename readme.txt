@@ -3,7 +3,7 @@ Contributors: Spotim
 Tags: Comment, comment form, commenting, comments, comment author, comment form, comment system, comment template, comments box, community, discuss, discussion, discussions, commenter, live update, real time, realtime, real-time, Spot.IM, reply, social login, widget, social, moderation, community, communities, engagement, Facebook, profile, sharing, newsfeed, chat, chat interface, notification, notifications, SEO, retention, pageviews, email alerts, direct message, direct messaging, group message, group messaging, content, content circulation, UGC, user generated content
 Requires at least: 3.8
 Tested up to: 4.2
-Stable tag: 1.10.3
+Stable tag: 1.10.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -189,6 +189,10 @@ Where can I see a Spot working live to get a better idea of it?
 
 
 == Changelog ==
+
+= 1.10.4 =
+
+* Remove comment sync and update frequency
 
 = 1.10.3 =
 
