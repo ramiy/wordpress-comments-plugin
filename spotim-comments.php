@@ -9,7 +9,7 @@
   Plugin URI: http://spot.im
   Description: Description for wp-spotim should be here
   Author: SpotIM
-  Version: 1.10.4
+  Version: 1.10.5
   Author URI: http://maorchasen.com/
  */
 
@@ -35,7 +35,7 @@ class WP_SpotIM {
 	$this->admin = new SpotIM_Admin;
 
 
-        
+
 	$this->api = new SpotIM_API_Dispatcher;
 
 

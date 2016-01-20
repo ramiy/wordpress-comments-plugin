@@ -12,7 +12,7 @@ class SpotIM_Frontend {
 
         add_filter('comments_number', array($_c, 'filter_comments_number'));
 
-        add_action('wp_head', array($_c, 'action_wp_head'));
+        add_action('wp_footer', array($_c, 'action_wp_footer'));
     }
 
     public static function filter_comments_template($theme_template) {
@@ -31,14 +31,14 @@ class SpotIM_Frontend {
         return $theme_template;
     }
 
-    public function filter_comments_number($count) {
+    public static function filter_comments_number($count) {
 
         global $post;
 
         return '<span class="spot-im-replies-count" data-post-id="' . $post->ID . '" data-disqus-url="' . get_permalink($post->ID) . '" data-disqus-identifier="' . $post->ID . ' ' . home_url() . '/?p=' . $post->ID . '" data-wp-import-endpoint="' . home_url('/?p=' . $post->ID . '&json-comments') . '">';
     }
 
-    public static function action_wp_head() {
+    public static function action_wp_footer() {
 
         $spot_id = WP_SpotIM::instance()->admin->get_option('spot_id', 'sp_foo');
         ?>

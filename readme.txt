@@ -3,7 +3,7 @@ Contributors: Spotim
 Tags: Comment, comment form, commenting, comments, comment author, comment form, comment system, comment template, comments box, community, discuss, discussion, discussions, commenter, live update, real time, realtime, real-time, Spot.IM, reply, social login, widget, social, moderation, community, communities, engagement, Facebook, profile, sharing, newsfeed, chat, chat interface, notification, notifications, SEO, retention, pageviews, email alerts, direct message, direct messaging, group message, group messaging, content, content circulation, UGC, user generated content
 Requires at least: 3.8
 Tested up to: 4.2
-Stable tag: 1.10.4
+Stable tag: 1.10.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,8 +37,8 @@ Spot.IM on your site is automatically optimized for all mobile platforms, ensuri
 
 **Prioritized Moderation**
 
-Moderation can be time-consuming, and even expensive. Spot.IM provides you with an unprecedented degree of automation, ease, and control to take the hard work out of monitoring your site. 
- 
+Moderation can be time-consuming, and even expensive. Spot.IM provides you with an unprecedented degree of automation, ease, and control to take the hard work out of monitoring your site.
+
 **Social Elements**
 
 Spot.IM combines a host of features that keep your users engaged with your content and one another at all times. Rewards for posting, liking, and sharing incentivize your site's visitors to keep creating and interacting with content. Users can also directly tag one another in real time with a simple '@'. And of course, it goes without saying that all types of media are supported for sharing.
@@ -50,9 +50,9 @@ Check out Time Inc's Entertainment Weekly for a live example of Spot.IM on one o
 
 == Installation ==
 
-1.	Install the Spot.IM Plugin either via the search option inside the WordPress plugins page (located in the toolbar of your admin page), or by uploading the files to your server (in the /wp-content/plugins/ directory). 
+1.	Install the Spot.IM Plugin either via the search option inside the WordPress plugins page (located in the toolbar of your admin page), or by uploading the files to your server (in the /wp-content/plugins/ directory).
 
-2.	Activate the Plugin (Install Now > Activate Plugin) 
+2.	Activate the Plugin (Install Now > Activate Plugin)
 
 3.	Then go to the Spot.IM Plugin Synchronize page (Spot.IM > Synchronize)  and then in the first step("choose Onwer") select the admin user.
 
@@ -69,38 +69,38 @@ Check out Time Inc's Entertainment Weekly for a live example of Spot.IM on one o
 •	Chat Interface – A chat UI is integrated into the commenting experience to stimulate vibrant conversations. See if a user is online and engage in free-flowing dialogue.
 •	Newsfeed – Hot topics and trending conversations are presented in a cross-site Newsfeed, driving discussion, clicks, and pageviews. Newsfeed offers smart content recommendation to your readers.
 •	Direct Messaging – Community members can elect to talk privately, discuss your site’s content, and share common passions and interests.
-•	Above-the-Fold – The Newsfeed can be accessed by clicking on an unobtrusive, yet attractive button that constantly sits on the side of your website. 
+•	Above-the-Fold – The Newsfeed can be accessed by clicking on an unobtrusive, yet attractive button that constantly sits on the side of your website.
 •	Mobile Integration
-	o	Unlike other commenting platforms, Spot.IM’s mobile interface is smooth and easy to navigate, allowing your community to flourish even when it’s on the go. 
+	o	Unlike other commenting platforms, Spot.IM’s mobile interface is smooth and easy to navigate, allowing your community to flourish even when it’s on the go.
 •	Notifications – Spot.IM instantly notifies your readers about new comments and hot conversations, so your content is circulated – and never missed.
 •	Seamless Implementation
 	o	Application of plugin within five minutes
 	o	User and commenting data imported or exported with a click
 	o	Automatic registration – Single Sign On (SSO) with a variety of different platforms (Facebook, LinkedIn, Google+, Twitter)
-•	@Mentions – With a simple “@,” your community members can address each other within a conversation. Mentioned users get an actionable, mobile notification (still?) and an email alert even if he or she is offline. 
-•	Community Interfacing – Beyond group and private messaging, users can like and share each other’s messages. 
+•	@Mentions – With a simple “@,” your community members can address each other within a conversation. Mentioned users get an actionable, mobile notification (still?) and an email alert even if he or she is offline.
+•	Community Interfacing – Beyond group and private messaging, users can like and share each other’s messages.
 •	Gameification – Spot.IM incentivizes your community by rewarding active contributors in your community with points and rankings. High-ranking community members push the level and flow of conversation.
 •	Customization and Branding – Make your community just that – yours – with a variety of customizable design options, including colors, schemes, and icons.
 •	Moderation – Advanced automatic, manual, and user moderation lets you eliminate trolls and spam, keeping your User Generated Content clean while allowing your star commenters to shine.
-•	Media Sharing – Videos, images, GIFs, you name it – Spot.IM’s system supports your community in bringing a little color to the conversation. 
-•	Analytics – Find out who’s clicking, where, and why to optimize and get the most out of your content. (I’d like to say more here but I’m not sure what state the analytics are in right now). 
+•	Media Sharing – Videos, images, GIFs, you name it – Spot.IM’s system supports your community in bringing a little color to the conversation.
+•	Analytics – Find out who’s clicking, where, and why to optimize and get the most out of your content. (I’d like to say more here but I’m not sure what state the analytics are in right now).
 •	Language Support – You can control your spot in 16 different languages.
 •	SEO support
 
-	For more information, please visit our website – Spot.IM 
+	For more information, please visit our website – Spot.IM
 
 == Frequently Asked Questions ==
 
 Export data was finished but the donwload of exported file didn't start?
-    
+
     Check the permission of the file /plugin_dir/sample-data/export.json or copy export text from textarea section on the fininsh step.
 
 If I don't set Spot’s ID what will happen?
-	
+
 	The standart comment form will be used.
 
 How I can get Spot’s ID?
-   
+
     You can get it sending them exported data to support@spot.im alongside contact details.
 
 If I change Spot’s ID or selected owner what will be happen?
@@ -110,36 +110,36 @@ If I change Spot’s ID or selected owner what will be happen?
 How I can change the selected owner?
 
    You can remove the plugin and install it again.
-   
+
 Export data stop at X(any number)%?
-   
+
     It happens when you have too many comments and memory of the server does not lack. Contact with your hosting provider support and ask them to increase php memory limit. Or you if you have PHP knowledge you can put code "define( 'WP_MEMORY_LIMIT', '256M' );" in your wp-config.php file.
 	You can read more here https://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP
-	
+
 Which browsers will support my Spot?
-	
+
 	All popular browsers support Spot! (Note: Need to consult developers on this)
 
 How do I moderate content on my Spot?
 
-	Spot.IM offers several moderation tools and options, all of which are either automatic, manual, or user-based. You can find all the information about our moderation tools here and also contact us at support@spot.im for any help, offers, or suggestions.  
+	Spot.IM offers several moderation tools and options, all of which are either automatic, manual, or user-based. You can find all the information about our moderation tools here and also contact us at support@spot.im for any help, offers, or suggestions.
 
 How do I access Spot analytics?
 
-	This feature, coming soon, will be available on our Manage page, which is also linked on the WordPress dashboard under the Spot.IM Plugin page. 
+	This feature, coming soon, will be available on our Manage page, which is also linked on the WordPress dashboard under the Spot.IM Plugin page.
 
 How does the Newsfeed work? Can I control what’s on it?
-	
+
 	The Newsfeed works through an algorithm that determines what trending and recent content on your website your users need to see. If you have questions about how that works in more depth, please contact us at support@spot.im.
 
 
-What is SEO and does Spot support it? 
+What is SEO and does Spot support it?
 
-	SEO stands for Search Engine Optimization. When you’re asking if Spot.IM has SEO, you’re asking if Spot allows all of your User Generated Content (UGC) to be indexed on your site so that a search engine like Google, or Bing, can read it. 
+	SEO stands for Search Engine Optimization. When you’re asking if Spot.IM has SEO, you’re asking if Spot allows all of your User Generated Content (UGC) to be indexed on your site so that a search engine like Google, or Bing, can read it.
 
-	The answer to that question is yes! Spot.IM is SEO-compatible. Unlike other popular commenting systems like Disqus or Facebook Comments, Spot.IM not only allows your UGC to be indexed and searched, it indexes that content only on your site itself. Other commenting systems use their own 3rd party destination websites to index your UGC, which means that when keywords are searched, their content comes up, and not yours. 
+	The answer to that question is yes! Spot.IM is SEO-compatible. Unlike other popular commenting systems like Disqus or Facebook Comments, Spot.IM not only allows your UGC to be indexed and searched, it indexes that content only on your site itself. Other commenting systems use their own 3rd party destination websites to index your UGC, which means that when keywords are searched, their content comes up, and not yours.
 
-	With Spot.IM, your content is your content, no matter if its an article you wrote or a user conversation in the comment section. This gives your website improved visibility in every way. 
+	With Spot.IM, your content is your content, no matter if its an article you wrote or a user conversation in the comment section. This gives your website improved visibility in every way.
 
 
 How do I get mobile working for my Spot?
@@ -156,14 +156,14 @@ How do I change the language of my Spot’s interface?
 	The language of the user’s browser determines the language of the interface: If a user is using a browser in French, they will see the translated interface in French, etc.
 
 	Is spam filtered?
-	Yes. To go along with other moderation tools, Spot.IM offers extensive word filter, blacklist, and spam control tools. 
+	Yes. To go along with other moderation tools, Spot.IM offers extensive word filter, blacklist, and spam control tools.
 
 
 How much does it cost?
 
 	Spot.IM is free! We care deeply about returning the power of content to publishers, and we want our product’s pricing to reflect that.
 
-	
+
 How do I update my Spot?
 
 	Like with other WordPress plugins, updating your Spot is easy. When an update is available, you’ll receive a notification on your site’s WordPress dashboard. From that dashboard, you’ll be able to quickly and easily update Spot.
@@ -178,7 +178,7 @@ Where can I see a Spot working live to get a better idea of it?
 
 	Are there any tips or tricks I can use to help make my Spot – and my community – more vibrant?
 
-	Why, how funny you should ask: there are! We strongly recommend you take a look at our Best Practices page to get a better idea o how to best utilize your Spot. A Spot is a versatile asset for your website, and you’ll want to manage it however best fits your specific needs. 
+	Why, how funny you should ask: there are! We strongly recommend you take a look at our Best Practices page to get a better idea o how to best utilize your Spot. A Spot is a versatile asset for your website, and you’ll want to manage it however best fits your specific needs.
 
 
 	My question wasn’t answered here. Where can I get further support?
@@ -190,6 +190,11 @@ Where can I see a Spot working live to get a better idea of it?
 
 == Changelog ==
 
+= 1.10.5 =
+
+* Move plugin's script from wp_head to wp_footer hook
+* Fix a bug with filter comments number
+
 = 1.10.4 =
 
 * Remove comment sync and update frequency
@@ -198,11 +203,9 @@ Where can I see a Spot working live to get a better idea of it?
 
 * Added user comment export
 
-
 = 1.10.1 =
 
 * Updated to use wp_new_comment function
-
 
 = 1.10.1 =
 * Updated to use home_url()
