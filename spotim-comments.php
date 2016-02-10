@@ -9,7 +9,7 @@
   Plugin URI: http://spot.im
   Description: Description for wp-spotim should be here
   Author: SpotIM
-  Version: 1.10.5
+  Version: 1.10.6
   Author URI: http://maorchasen.com/
  */
 
@@ -20,7 +20,7 @@ require_once 'inc/class-spotim-admin.php';
 require_once 'inc/class-spotim-util.php';
 require_once 'inc/class-spotim-frontend.php';
 require_once 'inc/abstract-class-spotim-api-base.php';
-require_once 'inc/class-spotim-api-dispatcher.php';
+// require_once 'inc/class-spotim-api-dispatcher.php';
 
 class WP_SpotIM {
 
@@ -36,7 +36,7 @@ class WP_SpotIM {
 
 
 
-	$this->api = new SpotIM_API_Dispatcher;
+	// $this->api = new SpotIM_API_Dispatcher;
 
 
 
@@ -112,7 +112,7 @@ class WP_SpotIM {
 
 	// create a spot via API
 
-	self::instance()->api->initiate_setup();
+	// self::instance()->api->initiate_setup();
 
     }
 
