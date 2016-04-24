@@ -24,7 +24,7 @@ class WP_SpotIM {
     protected function __construct() {
         $this->admin = new SpotIM_Admin;
 
-        if (!is_admin()) {
+        if ( ! is_admin() ) {
 
             // Launch embed code
             SpotIM_Frontend::setup();
