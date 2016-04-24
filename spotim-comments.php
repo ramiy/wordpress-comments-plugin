@@ -20,7 +20,6 @@ require_once 'inc/class-spotim-admin.php';
 require_once 'inc/class-spotim-util.php';
 require_once 'inc/class-spotim-frontend.php';
 require_once 'inc/abstract-class-spotim-api-base.php';
-// require_once 'inc/class-spotim-api-dispatcher.php';
 
 class WP_SpotIM {
 
