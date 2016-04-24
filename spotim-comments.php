@@ -19,7 +19,6 @@ require_once 'inc/class-spotim-generate-json-conversation.php';
 require_once 'inc/class-spotim-admin.php';
 require_once 'inc/class-spotim-util.php';
 require_once 'inc/class-spotim-frontend.php';
-require_once 'inc/abstract-class-spotim-api-base.php';
 
 class WP_SpotIM {
     private static $_instance;
