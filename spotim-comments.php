@@ -22,111 +22,37 @@ require_once 'inc/class-spotim-frontend.php';
 require_once 'inc/abstract-class-spotim-api-base.php';
 
 class WP_SpotIM {
-
     private static $_instance;
 
-    const AUTH_OPTION = 'spotim_auth';
-
     protected function __construct() {
+        $this->admin = new SpotIM_Admin;
 
+        if (!is_admin()) {
 
+            // Launch embed code
+            SpotIM_Frontend::setup();
 
-	$this->admin = new SpotIM_Admin;
+            // Import comments via JSON
+            if ( isset( $_GET['json-comments'] ) &&
+                ( isset( $_GET['p'] ) && ! empty( $_GET['p'] ) ) ) {
 
-
-
-	// $this->api = new SpotIM_API_Dispatcher;
-
-
-
-	// setup front-end
-
-
-
-	if (!is_admin()) {
-
-
-
-	    SpotIM_Frontend::setup();
-
-
-
-	    $get = $_GET;
-
-
-
-	    if ((isset($get['p']) && $get['p'] != '') && isset($get['json-comments'])) {
-
-
-
-		$post_ids = (array) $get['p'];
-
-
-
-		SpotIM_Export::generate_json_by_post($post_ids);
-
-
-
-	    }
-
-
-
-	}
-
-
-
+                $post_ids = (array) $_GET['p'];
+                SpotIM_Export::generate_json_by_post($post_ids);
+            }
+        }
     }
-
-
-
-
-
-
-
-    /**
-
-
-
-     * @return WP_SpotIM
-
-
-
-     */
 
     public static function instance() {
+        if ( is_null( self::$_instance ) ) {
+            self::$_instance = new self;
+        }
 
-	if (is_null(self::$_instance))
-
-	    self::$_instance = new self;
-
-	return self::$_instance;
-
-
-
+        return self::$_instance;
     }
-
-
-
-    public static function activation_hook() {
-
-	// create a spot via API
-
-	// self::instance()->api->initiate_setup();
-
-    }
-
 }
-
-
 
 function spotim_instance() {
-
-
-
     return WP_SpotIM::instance();
-
 }
 
-add_action('plugins_loaded', 'spotim_instance');
-
-register_activation_hook(__FILE__, array('WP_SpotIM', 'activation_hook'));
+add_action( 'plugins_loaded', 'spotim_instance' );
