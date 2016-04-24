@@ -14,10 +14,8 @@
  */
 
 require_once 'inc/class-spotim-export.php';
-require_once 'inc/class-spotim-export-comment-authors.php';
 require_once 'inc/class-spotim-generate-json-conversation.php';
 require_once 'inc/class-spotim-admin.php';
-require_once 'inc/class-spotim-util.php';
 require_once 'inc/class-spotim-frontend.php';
 
 class WP_SpotIM {
