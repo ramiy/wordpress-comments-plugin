@@ -26,14 +26,15 @@ class WP_SpotIM {
 
         if ( is_admin() ) {
             // Launch Admin Page
-            $this->admin = new SpotIM_Admin( $this->options );
+            $admin_page = new SpotIM_Admin( $this->options );
         } else {
-            // Launch embed code
+
+            // Launch frontend code: embed script, comments template, comments count.
             SpotIM_Frontend::launch( $this->options );
         }
     }
 
-    public static function run() {
+    public static function get_instance() {
         if ( is_null( self::$instance ) ) {
             self::$instance = new self;
         }
@@ -43,7 +44,7 @@ class WP_SpotIM {
 }
 
 function spotim_instance() {
-    return WP_SpotIM::run();
+    return WP_SpotIM::get_instance();
 }
 
 add_action( 'plugins_loaded', 'spotim_instance' );
