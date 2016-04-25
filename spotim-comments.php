@@ -13,6 +13,7 @@
   Author URI: http://maorchasen.com/
  */
 
+require_once 'inc/class-spotim-options.php';
 require_once 'inc/class-spotim-settings-fields.php';
 require_once 'inc/class-spotim-admin.php';
 require_once 'inc/class-spotim-frontend.php';
@@ -21,13 +22,14 @@ class WP_SpotIM {
     private static $instance;
 
     protected function __construct() {
-        $this->admin = new SpotIM_Admin();
-        $this->frontend = new SpotIM_Frontend( $this->admin );
+        $this->options = SpotIM_Options::get_instance();
 
-        if ( ! is_admin() ) {
-
+        if ( is_admin() ) {
+            // Launch Admin Page
+            $this->admin = new SpotIM_Admin( $this->options );
+        } else {
             // Launch embed code
-            $this->frontend->launch();
+            SpotIM_Frontend::launch( $this->options );
         }
     }
 

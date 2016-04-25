@@ -1,30 +1,27 @@
 <?php
 
 class SpotIM_Frontend {
-    private $admin, $templates_path;
+    private static $options;
 
-    public function __construct( $admin ) {
-        $this->admin = $admin;
-        $this->templates_path = plugin_dir_path( dirname( __FILE__ ) ) . 'templates/';
+    public static function launch( $options ) {
+        self::$options = $options;
+
+        add_filter( 'comments_template', array( __CLASS__, 'filter_comments_template' ), 1 );
+        add_filter( 'comments_number', array( __CLASS__, 'filter_comments_number' ), 1 );
+        add_action( 'wp_footer', array( __CLASS__, 'action_wp_footer' ) );
     }
 
-    public function launch() {
-        add_filter( 'comments_template', array( $this, 'filter_comments_template' ), 1 );
-        add_filter( 'comments_number', array( $this, 'filter_comments_number' ), 1 );
-        add_action( 'wp_footer', array( $this, 'action_wp_footer' ) );
-    }
-
-    public function filter_comments_template( $theme_template ) {
+    public static function filter_comments_template( $theme_template ) {
         $switch_comments_template = false;
 
         if ( is_page() && comments_open() ) {
-            $allow_comments = $this->admin->get_option( 'enable_comments_on_page' ) == '1';
+            $allow_comments = self::$options->get( 'enable_comments_on_page' ) == '1';
 
             if ( $allow_comments ) {
                 $switch_comments_template = true;
             }
         } else {
-            $allow_comments = $this->admin->get_option( 'enable_comments_replacement' ) == '1';
+            $allow_comments = self::$options->get( 'enable_comments_replacement' ) == '1';
 
             if ( $allow_comments && is_single() && comments_open() ) {
                 $switch_comments_template = true;
@@ -32,21 +29,21 @@ class SpotIM_Frontend {
         }
 
         if ( $switch_comments_template ) {
-            $theme_template = $this->templates_path . 'comments-template.php';
+            $theme_template = self::$options->templates_path . 'comments-template.php';
         }
 
         return $theme_template;
     }
 
-    public function filter_comments_number( $count ) {
+    public static function filter_comments_number( $count ) {
         global $post;
 
         return '<span class="spot-im-replies-count" data-post-id="' . $post->ID . '"></span>';
     }
 
-    public function action_wp_footer() {
-        $spot_id = $this->admin->get_option( 'spot_id' );
+    public static function action_wp_footer() {
+        $spot_id = self::$options->get( 'spot_id' );
 
-        require_once( $this->templates_path . 'embed-template.php' );
+        require_once( self::$options->templates_path . 'embed-template.php' );
     }
 }
