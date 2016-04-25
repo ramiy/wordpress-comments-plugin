@@ -1,59 +1,52 @@
 <?php
 
 class SpotIM_Frontend {
-    public static function setup() {
-        add_filter( 'comments_template', array( __CLASS__, 'filter_comments_template' ), 20 );
-        add_filter( 'comments_number', array( __CLASS__, 'filter_comments_number' ) );
-        add_action( 'wp_footer', array( __CLASS__, 'action_wp_footer' ) );
+    private $admin, $templates_path;
+
+    public function __construct( $admin ) {
+        $this->admin = $admin;
+        $this->templates_path = plugin_dir_path( dirname( __FILE__ ) ) . 'templates/';
     }
 
-    public static function filter_comments_template( $theme_template ) {
+    public function launch() {
+        add_filter( 'comments_template', array( $this, 'filter_comments_template' ), 1 );
+        add_filter( 'comments_number', array( $this, 'filter_comments_number' ), 1 );
+        add_action( 'wp_footer', array( $this, 'action_wp_footer' ) );
+    }
+
+    public function filter_comments_template( $theme_template ) {
+        $switch_comments_template = false;
+
         if ( is_page() && comments_open() ) {
-            $allow_comments = WP_SpotIM::instance()->admin->get_option( 'enable_comments_on_page' ) == '1';
+            $allow_comments = $this->admin->get_option( 'enable_comments_on_page' ) == '1';
 
             if ( $allow_comments ) {
-                $theme_template = plugin_dir_path( dirname( __FILE__ ) ) . 'templates/comments-template.php';
+                $switch_comments_template = true;
             }
         } else {
-            $allow_comments = WP_SpotIM::instance()->admin->get_option( 'enable_comments_replacement' ) == '1';
+            $allow_comments = $this->admin->get_option( 'enable_comments_replacement' ) == '1';
 
             if ( $allow_comments && is_single() && comments_open() ) {
-                $theme_template = plugin_dir_path( dirname( __FILE__ ) ) . 'templates/comments-template.php';
+                $switch_comments_template = true;
             }
+        }
+
+        if ( $switch_comments_template ) {
+            $theme_template = $this->templates_path . 'comments-template.php';
         }
 
         return $theme_template;
     }
 
-    public static function filter_comments_number( $count ) {
+    public function filter_comments_number( $count ) {
         global $post;
 
-        return '<span class="spot-im-replies-count" data-post-id="' . $post->ID . '" data-disqus-url="' . get_permalink($post->ID) . '" data-disqus-identifier="' . $post->ID . ' ' . home_url() . '/?p=' . $post->ID . '" data-wp-import-endpoint="' . home_url('/?p=' . $post->ID . '&json-comments') . '">';
+        return '<span class="spot-im-replies-count" data-post-id="' . $post->ID . '"></span>';
     }
 
-    public static function action_wp_footer() {
-        $spot_id = WP_SpotIM::instance()->admin->get_option( 'spot_id', 'sp_foo' );
-        ?>
+    public function action_wp_footer() {
+        $spot_id = $this->admin->get_option( 'spot_id' );
 
-        <!-- wp-spotim vars -->
-        <script type="text/javascript">
-            var WP_SpotIM = {
-                spot_id: '<?php echo esc_js($spot_id); ?>'
-            };
-
-            // spot.im embed
-            !function (t, e, n) {
-                function p() {
-                    var p = e.createElement("script");
-                    p.type = "text/javascript", p.async = !0, p.src = ("https:" === e.location.protocol ? "https" : "http") + ":" + n, t.parentElement.appendChild(p)
-                }
-                function a() {
-                    var t = e.getElementsByTagName("script"), n = t[t.length - 1];
-                    return n.parentNode
-                }
-                t.spotId = WP_SpotIM.spot_id, t.parentElement = a(), p()
-            }(window.SPOTIM = {}, document, "//v2.spot.im/launcher/bundle.js");
-        </script>
-        <?php
+        require_once( $this->templates_path . 'embed-template.php' );
     }
 }

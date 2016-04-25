@@ -1,8 +1,7 @@
 <?php
 
 class SpotIM_Admin {
-    private $hook;
-    protected $_screens = array();
+    protected $screens = array();
     protected $options;
     public $slug = 'wp-spotim-settings';
 
@@ -12,7 +11,7 @@ class SpotIM_Admin {
     }
 
     public function create_admin_menu() {
-        $this->_screens['main'] = add_menu_page(
+        $this->screens['main'] = add_menu_page(
             __( 'Spot.IM Settings', 'wp-spotim' ),
             __( 'Spot.IM', 'wp-spotim' ),
             'manage_options',
@@ -21,7 +20,7 @@ class SpotIM_Admin {
         );
 
         // Just make sure we are create instance.
-        add_action( 'load-' . $this->_screens['main'], array( $this, 'load_cb' ) );
+        add_action( 'load-' . $this->screens['main'], array( $this, 'load_cb' ) );
     }
 
     public function register_settings() {
@@ -89,12 +88,6 @@ class SpotIM_Admin {
         return ! empty( $settings[ $key ] ) ? $settings[ $key ] : $default_value;
     }
 
-    /**
-     * Returns all options
-     *
-     * @since 0.1
-     * @return array
-     */
     public function get_options() {
 
         // Allow other plugins to get spotim's options.
@@ -135,91 +128,4 @@ class SpotIM_Admin {
     }
 
     public function load_cb() {}
-}
-
-final class SpotIM_Settings_Fields {
-    public static function general_settings_section_header() {
-        ?>
-            <p><?php _e( 'These are some basic settings for SpotIM.', 'wp-spotim' ); ?></p>
-        <?php
-    }
-
-    public static function raw_html( $args ) {
-        if ( empty( $args['html'] ) ) {
-            return;
-        }
-
-        echo $args['html'];
-
-        if ( ! empty( $args['desc'] ) ) :
-            ?>
-                <p class="description">
-                    <?php echo $args['desc']; ?>
-                </p>
-            <?php
-        endif;
-    }
-
-    public static function text_field( $args ) {
-        $args = self::set_name_and_value( $args );
-
-        $args = wp_parse_args( $args, array(
-            'classes' => array()
-        ));
-
-        if ( empty( $args['id'] ) || empty( $args['page'] ) ) {
-            return;
-        }
-
-        ?>
-        <input type="text"
-            id="<?php echo esc_attr( $args['id'] ); ?>"
-            name="<?php echo esc_attr( $args['name'] ); ?>"
-            value="<?php echo esc_attr( $args['value'] ); ?>"
-            class="<?php echo implode( ' ', $args['classes'] ); ?>" />
-
-        <?php if (!empty($desc)) : ?>
-            <p class="description"><?php echo $desc; ?></p>
-        <?php
-        endif;
-    }
-
-    public static function yesno_field( $args ) {
-        $args = self::set_name_and_value( $args );
-        ?>
-
-        <label class="tix-yes-no description">
-            <input type="radio"
-                name="<?php echo esc_attr( $args['name'] ); ?>"
-                value="1"
-                <?php checked( $args['value'], true ); ?> /> <?php _e( 'Yes', 'wp-spotim' ); ?>
-        </label>
-
-        <label class="tix-yes-no description">
-            <input type="radio"
-                name="<?php echo esc_attr( $args['name'] ); ?>"
-                value="0" <?php checked( $args['value'], false ); ?> /> <?php _e( 'No', 'wp-spotim' ); ?>
-        </label>
-
-        <?php if ( isset( $args['description'] ) ) : ?>
-            <p class="description">
-                <?php echo $args['description']; ?>
-            </p>
-        <?php endif; ?>
-        <?php
-    }
-
-    private static function set_name_and_value( $args ) {
-        if ( ! isset( $args['name'] ) ) {
-            $args['name'] = sprintf(
-                '%s[%s]', esc_attr( $args['page'] ), esc_attr( $args['id'] )
-            );
-        }
-
-        if ( ! isset( $args['value'] ) ) {
-            $args['value'] = WP_SpotIM::instance()->admin->get_option( $args['id'] );
-        }
-
-        return $args;
-    }
 }
