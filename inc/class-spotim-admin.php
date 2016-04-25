@@ -18,9 +18,6 @@ class SpotIM_Admin {
             $this->slug,
             array( $this, 'admin_page_callback' )
         );
-
-        // Just make sure we are create instance.
-        add_action( 'load-' . $this->screens['main'], array( $this, 'load_cb' ) );
     }
 
     public function register_settings() {
@@ -126,6 +123,4 @@ class SpotIM_Admin {
         </div>
         <?php
     }
-
-    public function load_cb() {}
 }
