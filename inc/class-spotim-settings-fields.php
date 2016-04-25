@@ -80,7 +80,7 @@ final class SpotIM_Settings_Fields {
         }
 
         if ( ! isset( $args['value'] ) ) {
-            $args['value'] = WP_SpotIM::run()->admin->get_option( $args['id'] );
+            $args['value'] = SpotIM_Options::get_instance()->get( $args['id'] );
         }
 
         return $args;
