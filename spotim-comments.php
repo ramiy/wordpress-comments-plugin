@@ -13,8 +13,6 @@
   Author URI: http://maorchasen.com/
  */
 
-require_once 'inc/class-spotim-export.php';
-require_once 'inc/class-spotim-generate-json-conversation.php';
 require_once 'inc/class-spotim-settings-fields.php';
 require_once 'inc/class-spotim-admin.php';
 require_once 'inc/class-spotim-frontend.php';
@@ -27,16 +25,9 @@ class WP_SpotIM {
         $this->frontend = new SpotIM_Frontend( $this->admin );
 
         if ( ! is_admin() ) {
+
             // Launch embed code
             $this->frontend->launch();
-
-            // Import comments via JSON
-            // if ( isset( $_GET['json-comments'] ) &&
-            //     ( isset( $_GET['p'] ) && ! empty( $_GET['p'] ) ) ) {
-
-            //     $post_ids = (array) $_GET['p'];
-            //     SpotIM_Export::generate_json_by_post($post_ids);
-            // }
         }
     }
 
