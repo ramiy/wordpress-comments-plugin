@@ -26,9 +26,9 @@ class SpotIM_Settings_Fields {
         '&nbsp;&nbsp;&nbsp;</label>';
 
         // Backward compatability condition
-        if ( ! isset( $args['value'] ) || ! $args['value'] ) {
+        if ( ! isset( $args['value'] ) || false === $args['value'] ) {
             $args['value'] = '0';
-        } else {
+        } else if ( true === $args['value'] ) {
             $args['value'] = '1';
         }
 
