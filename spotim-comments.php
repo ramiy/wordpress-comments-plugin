@@ -1,16 +1,20 @@
 <?php
-/**
- * @package Spot
- * @version 0.1
- */
 
-/*
-  Plugin Name: Spot.IM
-  Plugin URI: http://spot.im
-  Description: Description for wp-spotim should be here
-  Author: SpotIM
-  Version: 1.10.6
-  Author URI: http://maorchasen.com/
+/**
+ *
+ * Official Spot.IM WP Plugin
+ *
+ * Plugin Name:         Spot.IM
+ * Plugin URI:          https://www.spot.im
+ * Description:         Official Spot.IM WP Plugin
+ * Version:             2.0.0
+ * Author:              Spot.IM (@Spot_IM)
+ * Author URI:          https://github.com/SpotIM
+ * License:             GPLv2
+ * License URI:         license.txt
+ * Text Domain:         wp-spotim
+ * GitHub Plugin URI:   git@github.com:SpotIM/WP-Plugin.git
+ *
  */
 
 require_once 'inc/class-spotim-options.php';
@@ -25,6 +29,7 @@ class WP_SpotIM {
         $this->options = SpotIM_Options::get_instance();
 
         if ( is_admin() ) {
+
             // Launch Admin Page
             SpotIM_Admin::launch( $this->options );
         } else {
@@ -48,3 +53,5 @@ function spotim_instance() {
 }
 
 add_action( 'plugins_loaded', 'spotim_instance' );
+
+?>
