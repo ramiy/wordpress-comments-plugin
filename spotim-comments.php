@@ -26,7 +26,7 @@ class WP_SpotIM {
 
         if ( is_admin() ) {
             // Launch Admin Page
-            $admin_page = new SpotIM_Admin( $this->options );
+            SpotIM_Admin::launch( $this->options );
         } else {
 
             // Launch frontend code: embed script, comments template, comments count.
