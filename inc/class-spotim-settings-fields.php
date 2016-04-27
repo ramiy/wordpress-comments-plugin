@@ -28,6 +28,8 @@ class SpotIM_Settings_Fields {
         // Backward compatability condition
         if ( ! isset( $args['value'] ) || ! $args['value'] ) {
             $args['value'] = '0';
+        } else {
+            $args['value'] = '1';
         }
 
         // Yes template
