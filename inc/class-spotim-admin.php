@@ -69,7 +69,7 @@ class SpotIM_Admin {
             array(
                 'id' => 'spot_id',
                 'page' => self::$options->slug,
-                'description' => "Find your Spot ID at the Spot.IM's <a href='https://www.spot.im/login' target='_blank'>Admin Dashboard</a> under Integrations section.<br> Don't have an account? <a href='http://www.spot.im/'' target='_blank'>Create</a> one for free!",
+                'description' => __( "Find your Spot ID at the Spot.IM's <a href='https://www.spot.im/login' target='_blank'>Admin Dashboard</a> under Integrations section.<br> Don't have an account? <a href='http://www.spot.im/'' target='_blank'>Create</a> one for free!", self::$options->lang_slug ),
                 'value' => self::$options->get( 'spot_id' )
             )
         );

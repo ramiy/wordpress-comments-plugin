@@ -3,7 +3,7 @@
 class SpotIM_Settings_Fields {
     public static function general_settings_section_header() {
         $lang_slug = SpotIM_Options::get_instance()->lang_slug;
-        $title = __( 'These are some basic settings for SpotIM.', $lang_slug );
+        $title = __( 'These are some basic settings for Spot.IM.', $lang_slug );
 
         echo "<p>$title</p>";
     }
