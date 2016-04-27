@@ -24,27 +24,29 @@ class SpotIM_Settings_Fields {
         $radio_template = '<label class="description">' .
             '<input type="radio" name="%s" value="%d" %s /> %s' .
         '&nbsp;&nbsp;&nbsp;</label>';
+        $yes_value = 1;
+        $no_value = 0;
 
         // Backward compatability condition
         if ( ! isset( $args['value'] ) || false === $args['value'] ) {
-            $args['value'] = '0';
+            $args['value'] = $no_value;
         } else if ( true === $args['value'] ) {
-            $args['value'] = '1';
+            $args['value'] = $yes_value;
         }
 
         // Yes template
         $template = sprintf($radio_template,
             esc_attr( $args['name'] ), // Input's name.
-            1, // Input's value.
-            checked( $args['value'], '1', 0 ), // If input checked or not.
+            $yes_value, // Input's value.
+            checked( $args['value'], $yes_value, 0 ), // If input checked or not.
             __( 'Yes', $lang_slug ) // Translated text.
         );
 
         // No template
         $template .= sprintf($radio_template,
             esc_attr( $args['name'] ), // Input's name.
-            0, // Input's value.
-            checked( $args['value'], '0', 0 ), // If input checked or not.
+            $no_value, // Input's value.
+            checked( $args['value'], $no_value, 0 ), // If input checked or not.
             __( 'No', $lang_slug ) // Translated text.
         );
 
