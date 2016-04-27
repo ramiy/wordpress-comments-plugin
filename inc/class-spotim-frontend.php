@@ -11,28 +11,36 @@ class SpotIM_Frontend {
         add_action( 'wp_footer', array( __CLASS__, 'action_wp_footer' ) );
     }
 
-    public static function filter_comments_template( $theme_template ) {
-        $switch_comments_template = false;
+    public static function allow_comments_on_page() {
+        $are_comments_allowed = false;
 
         if ( is_page() && comments_open() ) {
-            $allow_comments = self::$options->get( 'enable_comments_on_page' ) == '1';
-
-            if ( $allow_comments ) {
-                $switch_comments_template = true;
-            }
-        } else {
-            $allow_comments = self::$options->get( 'enable_comments_replacement' ) == '1';
-
-            if ( $allow_comments && is_single() && comments_open() ) {
-                $switch_comments_template = true;
+            if ( 1 === self::$options->get( 'enable_comments_on_page' ) ) {
+                $are_comments_allowed = true;
             }
         }
 
-        if ( $switch_comments_template ) {
-            $theme_template = self::$options->templates_path . 'comments-template.php';
+        return $are_comments_allowed;
+    }
+
+    public static function allow_comments_on_single() {
+        $are_comments_allowed = false;
+
+        if ( is_single() && comments_open() ) {
+            if ( 1 === self::$options->get( 'enable_comments_replacement' ) ) {
+                $are_comments_allowed = true;
+            }
         }
 
-        return $theme_template;
+        return $are_comments_allowed;
+    }
+
+    public static function filter_comments_template( $comments_template ) {
+        if ( self::allow_comments_on_page() || self::allow_comments_on_single() ) {
+            $comments_template = self::$options->templates_path . 'comments-template.php';
+        }
+
+        return $comments_template;
     }
 
     public static function filter_comments_number( $count ) {
