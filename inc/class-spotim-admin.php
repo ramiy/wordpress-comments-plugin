@@ -75,16 +75,24 @@ class SpotIM_Admin {
         );
     }
 
-    public static function validate_options($input) {
-        $options = self::$options->get_meta_tags();
+    public static function validate_options( $input ) {
+        $options = self::$options->get_meta_data();
 
-        // @todo some data validation/sanitization should go here
-        $output = apply_filters( 'spotim_validate_options', $input, $options );
+        foreach ( $input as $key => $value ) {
+            if ( isset( $input[$key] ) ) {
+                switch( $key ) {
+                    case 'enable_comments_replacement':
+                    case 'enable_comments_on_page':
+                        $options[$key] = intval( $value );
+                        break;
+                    case 'spot_id':
+                        $options[$key] = trim( esc_attr( $value ) );
+                        break;
+                }
+            }
+        }
 
-        // merge with current settings
-        $output = array_merge( $options, $output );
-
-        return $output;
+        return $options;
     }
 
     public static function admin_page_callback() {
