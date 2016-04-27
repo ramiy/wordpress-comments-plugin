@@ -23,8 +23,8 @@ class SpotIM_Options {
 
     private function create_options() {
         $options = array(
-            'enable_comments_replacement' => '1',
-            'enable_comments_on_page' => '0',
+            'enable_comments_replacement' => 1,
+            'enable_comments_on_page' => 0,
             'spot_id' => ''
         );
 
@@ -46,6 +46,4 @@ class SpotIM_Options {
     public function get( $key = '', $default_value = false ) {
         return ! empty( $this->data[ $key ] ) ? $this->data[ $key ] : $default_value;
     }
-
-    // public function update( $key, $value ) {}
 }
