@@ -1,103 +1,82 @@
 <?php
 
 class SpotIM_Admin {
-    protected $screens = array();
-    protected $options;
-    public $slug = 'wp-spotim-settings';
+    private static $options;
 
-    public function __construct() {
-        add_action( 'admin_menu', array( $this, 'create_admin_menu' ), 20 );
-        add_action( 'admin_init', array( $this, 'register_settings' ) );
+    public static function launch( $options ) {
+        self::$options = $options;
+
+        add_action( 'admin_menu', array( __CLASS__, 'create_admin_menu' ), 20 );
+        add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
     }
 
-    public function create_admin_menu() {
-        $this->screens['main'] = add_menu_page(
-            __( 'Spot.IM Settings', 'wp-spotim' ),
-            __( 'Spot.IM', 'wp-spotim' ),
+    public static function create_admin_menu() {
+        add_menu_page(
+            __( 'Spot.IM Settings', self::$options->lang_slug ),
+            __( 'Spot.IM', self::$options->lang_slug ),
             'manage_options',
-            $this->slug,
-            array( $this, 'admin_page_callback' )
+            self::$options->slug,
+            array( __CLASS__, 'admin_page_callback' )
         );
     }
 
-    public function register_settings() {
-        $this->options = $this->get_options();
-
-        // If no options exist, create them.
-        if ( ! get_option( $this->slug ) ) {
-            update_option( $this->slug, apply_filters( 'spotim_default_options', array(
-                'enable_comments_replacement' => true,
-                'spot_id' => 'sp_foo',
-            )));
-        }
-
-        register_setting( 'wp-spotim-options', $this->slug, array( $this, 'validate_options' ) );
+    public static function register_settings() {
+        register_setting(
+            self::$options->option_group,
+            self::$options->slug,
+            array( __CLASS__, 'validate_options' )
+        );
 
         add_settings_section(
             'general_settings_section',
-            __( 'Commenting Options', 'wp-spotim' ),
+            __( 'Commenting Options', self::$options->lang_slug ),
             array( 'SpotIM_Settings_Fields', 'general_settings_section_header' ),
-            $this->slug
+            self::$options->slug
         );
 
         add_settings_field(
             'enable_comments_replacement',
-            __( 'Enable Spot.IM comments?', 'wp-spotim' ),
-            array( 'SpotIM_Settings_Fields', 'yesno_field' ),
-            $this->slug,
+            __( 'Enable Spot.IM comments', self::$options->lang_slug ),
+            array( 'SpotIM_Settings_Fields', 'yes_no_fields' ),
+            self::$options->slug,
             'general_settings_section',
             array(
                 'id' => 'enable_comments_replacement',
-                'page' => $this->slug,
-                'value' => 1
+                'page' => self::$options->slug,
+                'value' => self::$options->get( 'enable_comments_replacement' )
             )
         );
 
         add_settings_field(
             'enable_comments_on_page',
-            __( 'Enable Spot.IM on pages?', 'wp-spotim' ),
-            array( 'SpotIM_Settings_Fields', 'yesno_field' ),
-            $this->slug,
+            __( 'Enable Spot.IM on pages', self::$options->lang_slug ),
+            array( 'SpotIM_Settings_Fields', 'yes_no_fields' ),
+            self::$options->slug,
             'general_settings_section',
             array(
                 'id' => 'enable_comments_on_page',
-                'page' => $this->slug,
+                'page' => self::$options->slug,
+                'value' => self::$options->get( 'enable_comments_on_page' )
             )
         );
 
         add_settings_field(
             'spot_id',
-            __( 'Your Spot ID', 'wp-spotim' ),
+            __( 'Your Spot ID', self::$options->lang_slug ),
             array( 'SpotIM_Settings_Fields', 'text_field' ),
-            $this->slug,
+            self::$options->slug,
             'general_settings_section',
             array(
                 'id' => 'spot_id',
-                'page' => $this->slug,
-                'desc' => 'Find your Spot\'s ID at the <a href="https://www.spot.im/login" target="_blank">Spot management dashboard</a>.<br> Don\'t have an account? <a href="http://www.spot.im/" target="_blank">Create one</a> for free!'
+                'page' => self::$options->slug,
+                'description' => "Find your Spot ID at the Spot.IM's <a href='https://www.spot.im/login' target='_blank'>Admin Dashboard</a> under Integrations section.<br> Don't have an account? <a href='http://www.spot.im/'' target='_blank'>Create</a> one for free!",
+                'value' => self::$options->get( 'spot_id' )
             )
         );
     }
 
-    public function get_option( $key = '', $default_value = false ) {
-        $settings = $this->get_options();
-
-        return ! empty( $settings[ $key ] ) ? $settings[ $key ] : $default_value;
-    }
-
-    public function get_options() {
-
-        // Allow other plugins to get spotim's options.
-        if ( isset( $this->options ) && is_array( $this->options ) &&
-            ! empty( $this->options ) ) {
-            return $this->options;
-        }
-
-        return apply_filters( 'spotim_options', get_option( $this->slug, array() ) );
-    }
-
-    public function validate_options($input) {
-        $options = $this->options; // CTX,L1504
+    public static function validate_options($input) {
+        $options = self::$options->get_meta_tags();
 
         // @todo some data validation/sanitization should go here
         $output = apply_filters( 'spotim_validate_options', $input, $options );
@@ -108,19 +87,7 @@ class SpotIM_Admin {
         return $output;
     }
 
-    public function admin_page_callback() {
-        ?>
-        <div class="wrap">
-            <div id="icon-themes" class="icon32"></div>
-            <h2 class="spotim-page-title"><?php _e( 'Spot.IM Settings', 'wp-spotim' ); ?></h2>
-            <form method="post" action="options.php">
-                <?php
-                    settings_fields( 'wp-spotim-options' );
-                    do_settings_sections( $this->slug );
-                    submit_button();
-                ?>
-            </form>
-        </div>
-        <?php
+    public static function admin_page_callback() {
+        require_once( self::$options->templates_path . 'admin-template.php' );
     }
 }
