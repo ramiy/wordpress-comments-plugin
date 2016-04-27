@@ -22,8 +22,13 @@ class SpotIM_Settings_Fields {
         $lang_slug = SpotIM_Options::get_instance()->lang_slug;
         $args = self::set_name( $args );
         $radio_template = '<label class="description">' .
-            '<input type="radio" name="%s" value="%n" %s /> %s' .
+            '<input type="radio" name="%s" value="%d" %s /> %s' .
         '&nbsp;&nbsp;&nbsp;</label>';
+
+        // Backward compatability condition
+        if ( ! isset( $args['value'] ) || ! $args['value'] ) {
+            $args['value'] = '0';
+        }
 
         // Yes template
         $template = sprintf($radio_template,
