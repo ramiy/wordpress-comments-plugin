@@ -44,6 +44,8 @@ class SpotIM_Frontend {
     public static function action_wp_footer() {
         $spot_id = self::$options->get( 'spot_id' );
 
-        require_once( self::$options->templates_path . 'embed-template.php' );
+        if ( ! empty( $spot_id ) ) {
+            require_once( self::$options->templates_path . 'embed-template.php' );
+        }
     }
 }
