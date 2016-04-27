@@ -99,3 +99,5 @@ class SpotIM_Admin {
         require_once( self::$options->templates_path . 'admin-template.php' );
     }
 }
+
+?>
