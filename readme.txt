@@ -62,6 +62,10 @@ Check out Time Inc's Entertainment Weekly for a live example of Spot.IM on one o
 
 
 == Screenshots ==
+1. Spot.IM on tablet.
+2. Spot.IM on desktop and mobile.
+2. Spot.IM on mobile.
+2. Spot.IM on mobile.
 
 == Features ==
 
