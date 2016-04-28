@@ -1,133 +1,57 @@
 <?php
+
 /**
- * @package Spot
- * @version 0.1
+ *
+ * Official Spot.IM WP Plugin
+ *
+ * Plugin Name:         Spot.IM Comments
+ * Plugin URI:          https://github.com/SpotIM/wordpress-comments-plugin
+ * Description:         Real-time comments widget turns your site into its own content-circulating ecosystem. Implement an innovative conversation UI and dynamic newsfeed to spur user engagement, growth, and retention.
+ * Version:             2.0.0
+ * Author:              Spot.IM (@Spot_IM)
+ * Author URI:          https://github.com/SpotIM
+ * License:             GPLv2
+ * License URI:         license.txt
+ * Text Domain:         wp-spotim
+ * GitHub Plugin URI:   git@github.com:SpotIM/wordpress-comments-plugin.git
+ *
  */
 
-/*
-  Plugin Name: Spot.IM
-  Plugin URI: http://spot.im
-  Description: Description for wp-spotim should be here
-  Author: SpotIM
-  Version: 1.10.6
-  Author URI: http://maorchasen.com/
- */
-
-require_once 'inc/class-spotim-export.php';
-require_once 'inc/class-spotim-export-comment-authors.php';
-require_once 'inc/class-spotim-generate-json-conversation.php';
+require_once 'inc/class-spotim-options.php';
+require_once 'inc/class-spotim-settings-fields.php';
 require_once 'inc/class-spotim-admin.php';
-require_once 'inc/class-spotim-util.php';
 require_once 'inc/class-spotim-frontend.php';
-require_once 'inc/abstract-class-spotim-api-base.php';
-// require_once 'inc/class-spotim-api-dispatcher.php';
 
 class WP_SpotIM {
-
-    private static $_instance;
-
-    const AUTH_OPTION = 'spotim_auth';
+    private static $instance;
 
     protected function __construct() {
+        $this->options = SpotIM_Options::get_instance();
 
+        if ( is_admin() ) {
 
+            // Launch Admin Page
+            SpotIM_Admin::launch( $this->options );
+        } else {
 
-	$this->admin = new SpotIM_Admin;
-
-
-
-	// $this->api = new SpotIM_API_Dispatcher;
-
-
-
-	// setup front-end
-
-
-
-	if (!is_admin()) {
-
-
-
-	    SpotIM_Frontend::setup();
-
-
-
-	    $get = $_GET;
-
-
-
-	    if ((isset($get['p']) && $get['p'] != '') && isset($get['json-comments'])) {
-
-
-
-		$post_ids = (array) $get['p'];
-
-
-
-		SpotIM_Export::generate_json_by_post($post_ids);
-
-
-
-	    }
-
-
-
-	}
-
-
-
+            // Launch frontend code: embed script, comments template, comments count.
+            SpotIM_Frontend::launch( $this->options );
+        }
     }
 
+    public static function get_instance() {
+        if ( is_null( self::$instance ) ) {
+            self::$instance = new self;
+        }
 
-
-
-
-
-
-    /**
-
-
-
-     * @return WP_SpotIM
-
-
-
-     */
-
-    public static function instance() {
-
-	if (is_null(self::$_instance))
-
-	    self::$_instance = new self;
-
-	return self::$_instance;
-
-
-
+        return self::$instance;
     }
-
-
-
-    public static function activation_hook() {
-
-	// create a spot via API
-
-	// self::instance()->api->initiate_setup();
-
-    }
-
 }
-
-
 
 function spotim_instance() {
-
-
-
-    return WP_SpotIM::instance();
-
+    return WP_SpotIM::get_instance();
 }
 
-add_action('plugins_loaded', 'spotim_instance');
+add_action( 'plugins_loaded', 'spotim_instance' );
 
-register_activation_hook(__FILE__, array('WP_SpotIM', 'activation_hook'));
+?>
