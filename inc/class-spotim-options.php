@@ -38,6 +38,9 @@ class SpotIM_Options {
 
         if ( empty( $data ) ) {
             $data = $this->create_options();
+        } else {
+            $data['enable_comments_replacement'] = intval( $data['enable_comments_replacement'] );
+            $data['enable_comments_on_page'] = intval( $data['enable_comments_on_page'] );
         }
 
         return $data;
