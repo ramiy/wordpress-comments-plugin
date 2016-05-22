@@ -52,4 +52,4 @@ function spotim_instance() {
     return WP_SpotIM::get_instance();
 }
 
-add_action( 'plugins_loaded', 'spotim_instance' );
+add_action( 'after_setup_theme', 'spotim_instance' );
