@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: spotim-comments\n"
-"POT-Creation-Date: 2016-05-22 17:39+0300\n"
+"POT-Creation-Date: 2016-05-22 18:13+0300\n"
 "PO-Revision-Date: 2016-04-27 20:19+0300\n"
 "Last-Translator: \n"
 "Language-Team: Spot.IM <support@spot.im>\n"
@@ -35,6 +35,11 @@ msgstr ""
 
 #: inc/class-spotim-admin.php:55
 msgid "Enable Spot.IM on pages"
+msgstr ""
+
+#: inc/class-spotim-admin.php:66
+#, php-format
+msgid "Find your Spot ID at the Spot.IM's %1$sAdmin Dashboard%2$s under Integrations section.%3$s Don't have an account? %4$sCreate%5$s one for free!"
 msgstr ""
 
 #: inc/class-spotim-admin.php:78

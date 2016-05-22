@@ -71,7 +71,7 @@ class SpotIM_Admin {
             '<br />',
             '<a href="http://www.spot.im/" target="_blank">',
             '</a>'
-        )
+        );
 
         add_settings_field(
             'spot_id',

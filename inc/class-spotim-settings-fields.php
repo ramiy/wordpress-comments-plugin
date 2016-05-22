@@ -50,10 +50,7 @@ class SpotIM_Settings_Fields {
 
         // Description template
         if ( isset( $args['description'] ) && ! empty( $args['description'] ) ) {
-            $escaped_description = sanitize_text_field( $args['description'] );
-            $description_template = sprintf( '<p class="description">%s</p>',  $escaped_description );
-
-            $escaped_template .= $description_template;
+            $escaped_template .= sprintf( '<p class="description">%s</p>',  $args['description'] );
         }
 
         echo $escaped_template;
@@ -72,10 +69,7 @@ class SpotIM_Settings_Fields {
 
         // Description template
         if ( isset( $args['description'] ) && ! empty( $args['description'] ) ) {
-            $escaped_description = sanitize_text_field( $args['description'] );
-            $description_template = sprintf( '<p class="description">%s</p>', $escaped_description );
-
-            $escaped_template .= $description_template;
+            $escaped_template .= sprintf( '<p class="description">%s</p>', $args['description'] );
         }
 
         echo $escaped_template;
