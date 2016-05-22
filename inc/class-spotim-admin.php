@@ -91,16 +91,14 @@ class SpotIM_Admin {
         $options = self::$options->get_meta_data();
 
         foreach ( $input as $key => $value ) {
-            if ( isset( $input[$key] ) ) {
-                switch( $key ) {
-                    case 'enable_comments_replacement':
-                    case 'enable_comments_on_page':
-                        $options[$key] = intval( $value );
-                        break;
-                    case 'spot_id':
-                        $options[$key] = trim( esc_attr( $value ) );
-                        break;
-                }
+            switch( $key ) {
+                case 'enable_comments_replacement':
+                case 'enable_comments_on_page':
+                    $options[$key] = intval( $value );
+                    break;
+                case 'spot_id':
+                    $options[$key] = sanitize_text_field( $value );
+                    break;
             }
         }
 
