@@ -50,7 +50,9 @@ class SpotIM_Frontend {
     public static function filter_comments_number( $count ) {
         global $post;
 
-        return '<span class="spot-im-replies-count" data-post-id="' . $post->ID . '"></span>';
+        $post_id = absint( $post->ID );
+
+        return '<span class="spot-im-replies-count" data-post-id="' . $post_id . '"></span>';
     }
 
     public static function action_wp_footer() {

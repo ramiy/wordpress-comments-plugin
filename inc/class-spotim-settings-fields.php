@@ -2,7 +2,7 @@
 
 class SpotIM_Settings_Fields {
     public static function general_settings_section_header() {
-        $title = __( 'These are some basic settings for Spot.IM.', 'wp-spotim' );
+        $title = esc_html__( 'These are some basic settings for Spot.IM.', 'wp-spotim' );
 
         echo "<p>$title</p>";
     }
@@ -35,22 +35,24 @@ class SpotIM_Settings_Fields {
         // Yes template
         $escaped_template = sprintf($radio_template,
             esc_attr( $args['name'] ), // Input's name.
-            $yes_value, // Input's value.
+            sanitize_text_field( $yes_value ), // Input's value.
             checked( $args['value'], $yes_value, 0 ), // If input checked or not.
-            __( 'Yes', 'wp-spotim' ) // Translated text.
+            esc_html__( 'Yes', 'wp-spotim' ) // Translated text.
         );
 
         // No template
         $escaped_template .= sprintf($radio_template,
             esc_attr( $args['name'] ), // Input's name.
-            $no_value, // Input's value.
+            sanitize_text_field( $no_value ), // Input's value.
             checked( $args['value'], $no_value, 0 ), // If input checked or not.
-            __( 'No', 'wp-spotim' ) // Translated text.
+            esc_html__( 'No', 'wp-spotim' ) // Translated text.
         );
 
         // Description template
         if ( isset( $args['description'] ) && ! empty( $args['description'] ) ) {
-            $description_template = sprintf( '<p class="description">%s</p>', $args['description'] );
+            $escaped_description = sanitize_text_field( $args['description'] );
+            $description_template = sprintf( '<p class="description">%s</p>',  $escaped_description );
+
             $escaped_template .= $description_template;
         }
 
@@ -70,7 +72,9 @@ class SpotIM_Settings_Fields {
 
         // Description template
         if ( isset( $args['description'] ) && ! empty( $args['description'] ) ) {
-            $description_template = sprintf( '<p class="description">%s</p>', $args['description'] );
+            $escaped_description = sanitize_text_field( $args['description'] );
+            $description_template = sprintf( '<p class="description">%s</p>', $escaped_description );
+
             $escaped_template .= $description_template;
         }
 

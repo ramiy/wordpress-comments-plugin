@@ -1,7 +1,7 @@
 <script type="text/javascript">
     // v2.0.3
     window.SPOTIM = {
-        spotId: '<?php echo esc_js( $this->get( 'spot_id' ) ); ?>',
+        spotId: '<?php echo sanitize_text_field( $this->get( 'spot_id' ) ); ?>',
         parentElement: document.body,
         options: {}
     };
