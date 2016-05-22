@@ -12,8 +12,8 @@ class SpotIM_Admin {
 
     public static function create_admin_menu() {
         add_menu_page(
-            __( 'Spot.IM Settings', self::$options->lang_slug ),
-            __( 'Spot.IM', self::$options->lang_slug ),
+            __( 'Spot.IM Settings', 'wp-spotim' ),
+            __( 'Spot.IM', 'wp-spotim' ),
             'manage_options',
             self::$options->slug,
             array( __CLASS__, 'admin_page_callback' )
@@ -29,14 +29,14 @@ class SpotIM_Admin {
 
         add_settings_section(
             'general_settings_section',
-            __( 'Commenting Options', self::$options->lang_slug ),
+            __( 'Commenting Options', 'wp-spotim' ),
             array( 'SpotIM_Settings_Fields', 'general_settings_section_header' ),
             self::$options->slug
         );
 
         add_settings_field(
             'enable_comments_replacement',
-            __( 'Enable Spot.IM comments', self::$options->lang_slug ),
+            __( 'Enable Spot.IM comments', 'wp-spotim' ),
             array( 'SpotIM_Settings_Fields', 'yes_no_fields' ),
             self::$options->slug,
             'general_settings_section',
@@ -49,7 +49,7 @@ class SpotIM_Admin {
 
         add_settings_field(
             'enable_comments_on_page',
-            __( 'Enable Spot.IM on pages', self::$options->lang_slug ),
+            __( 'Enable Spot.IM on pages', 'wp-spotim' ),
             array( 'SpotIM_Settings_Fields', 'yes_no_fields' ),
             self::$options->slug,
             'general_settings_section',
@@ -62,14 +62,14 @@ class SpotIM_Admin {
 
         add_settings_field(
             'spot_id',
-            __( 'Your Spot ID', self::$options->lang_slug ),
+            __( 'Your Spot ID', 'wp-spotim' ),
             array( 'SpotIM_Settings_Fields', 'text_field' ),
             self::$options->slug,
             'general_settings_section',
             array(
                 'id' => 'spot_id',
                 'page' => self::$options->slug,
-                'description' => __( "Find your Spot ID at the Spot.IM's <a href='https://www.spot.im/login' target='_blank'>Admin Dashboard</a> under Integrations section.<br> Don't have an account? <a href='http://www.spot.im/'' target='_blank'>Create</a> one for free!", self::$options->lang_slug ),
+                'description' => __( "Find your Spot ID at the Spot.IM's <a href='https://www.spot.im/login' target='_blank'>Admin Dashboard</a> under Integrations section.<br> Don't have an account? <a href='http://www.spot.im/'' target='_blank'>Create</a> one for free!", 'wp-spotim' ),
                 'value' => self::$options->get( 'spot_id' )
             )
         );

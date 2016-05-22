@@ -2,8 +2,7 @@
 
 class SpotIM_Settings_Fields {
     public static function general_settings_section_header() {
-        $lang_slug = SpotIM_Options::get_instance()->lang_slug;
-        $title = __( 'These are some basic settings for Spot.IM.', $lang_slug );
+        $title = __( 'These are some basic settings for Spot.IM.', 'wp-spotim' );
 
         echo "<p>$title</p>";
     }
@@ -19,7 +18,6 @@ class SpotIM_Settings_Fields {
     }
 
     public static function yes_no_fields( $args ) {
-        $lang_slug = SpotIM_Options::get_instance()->lang_slug;
         $args = self::set_name( $args );
         $radio_template = '<label class="description">' .
             '<input type="radio" name="%s" value="%d" %s /> %s' .
@@ -39,7 +37,7 @@ class SpotIM_Settings_Fields {
             esc_attr( $args['name'] ), // Input's name.
             $yes_value, // Input's value.
             checked( $args['value'], $yes_value, 0 ), // If input checked or not.
-            __( 'Yes', $lang_slug ) // Translated text.
+            __( 'Yes', 'wp-spotim' ) // Translated text.
         );
 
         // No template
@@ -47,7 +45,7 @@ class SpotIM_Settings_Fields {
             esc_attr( $args['name'] ), // Input's name.
             $no_value, // Input's value.
             checked( $args['value'], $no_value, 0 ), // If input checked or not.
-            __( 'No', $lang_slug ) // Translated text.
+            __( 'No', 'wp-spotim' ) // Translated text.
         );
 
         // Description template

@@ -3,13 +3,12 @@
 class SpotIM_Options {
     private static $instance;
     private $data;
-    public $templates_path, $slug, $lang_slug, $option_group;
+    public $templates_path, $slug, $option_group;
 
     protected function __construct() {
         $this->templates_path = plugin_dir_path( dirname( __FILE__ ) ) . 'templates/';
         $this->slug = 'wp-spotim-settings';
         $this->option_group = 'wp-spotim-options';
-        $this->lang_slug = 'wp-spotim';
         $this->data = $this->get_meta_data();
     }
 
