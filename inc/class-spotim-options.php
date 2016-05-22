@@ -48,4 +48,27 @@ class SpotIM_Options {
     public function get( $key = '', $default_value = false ) {
         return ! empty( $this->data[ $key ] ) ? $this->data[ $key ] : $default_value;
     }
+
+    public function require_file( $path = '', $return_path = false ) {
+        $valid = validate_file( $path );
+
+        if ( 0 === $valid ) {
+            if ( $return_path ) {
+                $output = $path;
+            } else {
+                require_once( $path );
+                $output = $valid;
+            }
+        } else {
+            $output = $valid;
+        }
+
+        return $output;
+    }
+
+    public function require_template( $path = '', $return_path = false ) {
+        $path = $this->templates_path . $path;
+
+        return $this->require_file( $path, $return_path );
+    }
 }

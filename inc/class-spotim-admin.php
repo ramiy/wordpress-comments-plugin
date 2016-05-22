@@ -108,6 +108,6 @@ class SpotIM_Admin {
     }
 
     public static function admin_page_callback() {
-        require_once( self::$options->templates_path . 'admin-template.php' );
+        self::$options->require_template( 'admin-template.php' );
     }
 }

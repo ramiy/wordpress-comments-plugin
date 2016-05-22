@@ -5,8 +5,8 @@
     </h2>
     <form method="post" action="options.php">
         <?php
-            settings_fields( self::$options->option_group );
-            do_settings_sections( self::$options->slug );
+            settings_fields( $this->option_group );
+            do_settings_sections( $this->slug );
             submit_button();
         ?>
     </form>
