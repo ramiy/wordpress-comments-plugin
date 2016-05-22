@@ -63,14 +63,15 @@ class SpotIM_Admin {
             )
         );
 
-        $description_string = sprintf(
-            'Find your Spot ID at the Spot.IM\'s %1$sAdmin Dashboard%2$s under Integrations section.%3$s Don\'t have an account? %4$sCreate%5$s one for free!',
+        $translated_spot_id_description = __('Find your Spot ID at the Spot.IM\'s %1$sAdmin Dashboard%2$s under Integrations section.%3$s Don\'t have an account? %4$sCreate%5$s one for free!' , 'wp-spotim');
+
+        $parsed_translated_spot_id_description = sprintf( $translated_spot_id_description,
             '<a href="https://www.spot.im/login" target="_blank">',
             '</a>',
             '<br />',
             '<a href="http://www.spot.im/" target="_blank">',
             '</a>'
-        );
+        )
 
         add_settings_field(
             'spot_id',
@@ -81,7 +82,7 @@ class SpotIM_Admin {
             array(
                 'id' => 'spot_id',
                 'page' => self::$options->slug,
-                'description' => __( $description_string, 'wp-spotim' ),
+                'description' => $parsed_translated_spot_id_description,
                 'value' => self::$options->get( 'spot_id' )
             )
         );
