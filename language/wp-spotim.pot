@@ -36,16 +36,12 @@ msgstr ""
 msgid "Enable Spot.IM on pages"
 msgstr ""
 
-#: inc/class-spotim-admin.php:65
+#: inc/class-spotim-admin.php:74
 msgid "Your Spot ID"
 msgstr ""
 
-#: inc/class-spotim-admin.php:72
-msgid ""
-"Find your Spot ID at the Spot.IM's <a href='https://www.spot.im/login' "
-"target='_blank'>Admin Dashboard</a> under Integrations section.<br> Don't "
-"have an account? <a href='http://www.spot.im/'' target='_blank'>Create</a> "
-"one for free!"
+#: inc/class-spotim-admin.php:81
+msgid "Find your Spot ID at the Spot.IM\'s %1$sAdmin Dashboard%2$s under Integrations section.%3$s Don\'t have an account? %4$sCreate%5$s one for free!"
 msgstr ""
 
 #: inc/class-spotim-settings-fields.php:6
