@@ -33,7 +33,7 @@ class SpotIM_Settings_Fields {
         }
 
         // Yes template
-        $template = sprintf($radio_template,
+        $escaped_template = sprintf($radio_template,
             esc_attr( $args['name'] ), // Input's name.
             $yes_value, // Input's value.
             checked( $args['value'], $yes_value, 0 ), // If input checked or not.
@@ -41,7 +41,7 @@ class SpotIM_Settings_Fields {
         );
 
         // No template
-        $template .= sprintf($radio_template,
+        $escaped_template .= sprintf($radio_template,
             esc_attr( $args['name'] ), // Input's name.
             $no_value, // Input's value.
             checked( $args['value'], $no_value, 0 ), // If input checked or not.
@@ -51,10 +51,10 @@ class SpotIM_Settings_Fields {
         // Description template
         if ( isset( $args['description'] ) && ! empty( $args['description'] ) ) {
             $description_template = sprintf( '<p class="description">%s</p>', $args['description'] );
-            $template .= $description_template;
+            $escaped_template .= $description_template;
         }
 
-        echo $template;
+        echo $escaped_template;
     }
 
     public static function text_field( $args ) {
@@ -63,7 +63,7 @@ class SpotIM_Settings_Fields {
         $text_template = '<input name="%s" type="text" value="%s" />';
 
         // Text input template
-        $template = sprintf($text_template,
+        $escaped_template = sprintf($text_template,
             esc_attr( $args['name'] ), // Input's name.
             esc_attr( $args['value'] ) // Input's value.
         );
@@ -71,9 +71,9 @@ class SpotIM_Settings_Fields {
         // Description template
         if ( isset( $args['description'] ) && ! empty( $args['description'] ) ) {
             $description_template = sprintf( '<p class="description">%s</p>', $args['description'] );
-            $template .= $description_template;
+            $escaped_template .= $description_template;
         }
 
-        echo $template;
+        echo $escaped_template;
     }
 }
