@@ -66,7 +66,7 @@ class SpotIM_Admin {
         $translated_spot_id_description = __('Find your Spot ID at the Spot.IM\'s %1$sAdmin Dashboard%2$s under Integrations section.%3$s Don\'t have an account? %4$sCreate%5$s one for free!' , 'wp-spotim');
 
         $parsed_translated_spot_id_description = sprintf( $translated_spot_id_description,
-            '<a href="https://www.spot.im/login" target="_blank">',
+            '<a href="https://admin.spot.im/login" target="_blank">',
             '</a>',
             '<br />',
             '<a href="http://www.spot.im/" target="_blank">',
