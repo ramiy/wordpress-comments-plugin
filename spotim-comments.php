@@ -53,5 +53,3 @@ function spotim_instance() {
 }
 
 add_action( 'plugins_loaded', 'spotim_instance' );
-
-?>

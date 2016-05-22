@@ -50,5 +50,3 @@ class SpotIM_Options {
         return ! empty( $this->data[ $key ] ) ? $this->data[ $key ] : $default_value;
     }
 }
-
-?>

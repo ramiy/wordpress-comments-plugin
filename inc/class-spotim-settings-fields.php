@@ -79,5 +79,3 @@ class SpotIM_Settings_Fields {
         echo $template;
     }
 }
-
-?>

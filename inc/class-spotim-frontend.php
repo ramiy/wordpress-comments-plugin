@@ -57,5 +57,3 @@ class SpotIM_Frontend {
         }
     }
 }
-
-?>
