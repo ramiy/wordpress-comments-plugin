@@ -50,7 +50,8 @@ class SpotIM_Settings_Fields {
 
         // Description template
         if ( isset( $args['description'] ) && ! empty( $args['description'] ) ) {
-            $escaped_template .= sprintf( '<p class="description">%s</p>',  $args['description'] );
+            $sanitized_description = wp_kses_post( $args['description'] );
+            $escaped_template .= sprintf( '<p class="description">%s</p>',  $sanitized_description );
         }
 
         echo $escaped_template;
@@ -69,7 +70,8 @@ class SpotIM_Settings_Fields {
 
         // Description template
         if ( isset( $args['description'] ) && ! empty( $args['description'] ) ) {
-            $escaped_template .= sprintf( '<p class="description">%s</p>', $args['description'] );
+            $sanitized_description = wp_kses_post( $args['description'] );
+            $escaped_template .= sprintf( '<p class="description">%s</p>', $sanitized_description );
         }
 
         echo $escaped_template;
