@@ -2,8 +2,7 @@
 
 class SpotIM_Settings_Fields {
     public static function general_settings_section_header() {
-        $lang_slug = SpotIM_Options::get_instance()->lang_slug;
-        $title = __( 'These are some basic settings for Spot.IM.', $lang_slug );
+        $title = esc_html__( 'These are some basic settings for Spot.IM.', 'wp-spotim' );
 
         echo "<p>$title</p>";
     }
@@ -19,7 +18,6 @@ class SpotIM_Settings_Fields {
     }
 
     public static function yes_no_fields( $args ) {
-        $lang_slug = SpotIM_Options::get_instance()->lang_slug;
         $args = self::set_name( $args );
         $radio_template = '<label class="description">' .
             '<input type="radio" name="%s" value="%d" %s /> %s' .
@@ -35,28 +33,28 @@ class SpotIM_Settings_Fields {
         }
 
         // Yes template
-        $template = sprintf($radio_template,
+        $escaped_template = sprintf($radio_template,
             esc_attr( $args['name'] ), // Input's name.
-            $yes_value, // Input's value.
+            sanitize_text_field( $yes_value ), // Input's value.
             checked( $args['value'], $yes_value, 0 ), // If input checked or not.
-            __( 'Yes', $lang_slug ) // Translated text.
+            esc_html__( 'Yes', 'wp-spotim' ) // Translated text.
         );
 
         // No template
-        $template .= sprintf($radio_template,
+        $escaped_template .= sprintf($radio_template,
             esc_attr( $args['name'] ), // Input's name.
-            $no_value, // Input's value.
+            sanitize_text_field( $no_value ), // Input's value.
             checked( $args['value'], $no_value, 0 ), // If input checked or not.
-            __( 'No', $lang_slug ) // Translated text.
+            esc_html__( 'No', 'wp-spotim' ) // Translated text.
         );
 
         // Description template
         if ( isset( $args['description'] ) && ! empty( $args['description'] ) ) {
-            $description_template = sprintf( '<p class="description">%s</p>', $args['description'] );
-            $template .= $description_template;
+            $sanitized_description = wp_kses_post( $args['description'] );
+            $escaped_template .= sprintf( '<p class="description">%s</p>',  $sanitized_description );
         }
 
-        echo $template;
+        echo $escaped_template;
     }
 
     public static function text_field( $args ) {
@@ -65,19 +63,17 @@ class SpotIM_Settings_Fields {
         $text_template = '<input name="%s" type="text" value="%s" />';
 
         // Text input template
-        $template = sprintf($text_template,
+        $escaped_template = sprintf($text_template,
             esc_attr( $args['name'] ), // Input's name.
             esc_attr( $args['value'] ) // Input's value.
         );
 
         // Description template
         if ( isset( $args['description'] ) && ! empty( $args['description'] ) ) {
-            $description_template = sprintf( '<p class="description">%s</p>', $args['description'] );
-            $template .= $description_template;
+            $sanitized_description = wp_kses_post( $args['description'] );
+            $escaped_template .= sprintf( '<p class="description">%s</p>', $sanitized_description );
         }
 
-        echo $template;
+        echo $escaped_template;
     }
 }
-
-?>

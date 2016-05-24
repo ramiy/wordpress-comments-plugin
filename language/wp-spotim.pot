@@ -1,7 +1,8 @@
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: spotim-comments\n"
-"POT-Creation-Date: 2016-04-27 20:19+0300\n"
+"POT-Creation-Date: 2016-05-22 18:13+0300\n"
 "PO-Revision-Date: 2016-04-27 20:19+0300\n"
 "Last-Translator: \n"
 "Language-Team: Spot.IM <support@spot.im>\n"
@@ -13,49 +14,46 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: inc/class-spotim-admin.php:15 templates/admin-template.php:4
+#: inc/class-spotim-admin.php:17 templates/admin-template.php:4
 msgid "Spot.IM Settings"
 msgstr ""
 
-#: inc/class-spotim-admin.php:16
+#: inc/class-spotim-admin.php:18
 msgid "Spot.IM"
 msgstr ""
 
-#: inc/class-spotim-admin.php:32
+#: inc/class-spotim-admin.php:35
 msgid "Commenting Options"
 msgstr ""
 
-#: inc/class-spotim-admin.php:39
+#: inc/class-spotim-admin.php:42
 msgid "Enable Spot.IM comments"
 msgstr ""
 
-#: inc/class-spotim-admin.php:52
+#: inc/class-spotim-admin.php:55
 msgid "Enable Spot.IM on pages"
 msgstr ""
 
-#: inc/class-spotim-admin.php:65
+#: inc/class-spotim-admin.php:66
+#, php-format
+msgid "Find your Spot ID at the Spot.IM's %1$sAdmin Dashboard%2$s under Integrations section.%3$s Don't have an account? %4$sCreate%5$s one for free!"
+msgstr ""
+
+#: inc/class-spotim-admin.php:78
 msgid "Your Spot ID"
 msgstr ""
 
-#: inc/class-spotim-admin.php:72
-msgid ""
-"Find your Spot ID at the Spot.IM's <a href='https://www.spot.im/login' "
-"target='_blank'>Admin Dashboard</a> under Integrations section.<br> Don't "
-"have an account? <a href='http://www.spot.im/'' target='_blank'>Create</a> "
-"one for free!"
-msgstr ""
-
-#: inc/class-spotim-settings-fields.php:6
+#: inc/class-spotim-settings-fields.php:5
 msgid "These are some basic settings for Spot.IM."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:42
+#: inc/class-spotim-settings-fields.php:40
 msgid "Yes"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:50
+#: inc/class-spotim-settings-fields.php:48
 msgid "No"
 msgstr ""

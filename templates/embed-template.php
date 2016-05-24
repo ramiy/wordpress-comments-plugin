@@ -1,7 +1,7 @@
 <script type="text/javascript">
     // v2.0.3
     window.SPOTIM = {
-        spotId: '<?php echo esc_js( $spot_id ); ?>',
+        spotId: <?php echo wp_json_encode( $this->get( 'spot_id' ) ); ?>,
         parentElement: document.body,
         options: {}
     };

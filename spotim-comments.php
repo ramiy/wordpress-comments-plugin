@@ -17,10 +17,10 @@
  *
  */
 
-require_once 'inc/class-spotim-options.php';
-require_once 'inc/class-spotim-settings-fields.php';
-require_once 'inc/class-spotim-admin.php';
-require_once 'inc/class-spotim-frontend.php';
+require_once( 'inc/class-spotim-options.php' );
+require_once( 'inc/class-spotim-settings-fields.php' );
+require_once( 'inc/class-spotim-admin.php' );
+require_once( 'inc/class-spotim-frontend.php' );
 
 class WP_SpotIM {
     private static $instance;
@@ -52,6 +52,4 @@ function spotim_instance() {
     return WP_SpotIM::get_instance();
 }
 
-add_action( 'plugins_loaded', 'spotim_instance' );
-
-?>
+add_action( 'after_setup_theme', 'spotim_instance' );

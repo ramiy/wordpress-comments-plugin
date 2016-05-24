@@ -37,7 +37,11 @@ class SpotIM_Frontend {
 
     public static function filter_comments_template( $comments_template ) {
         if ( self::allow_comments_on_page() || self::allow_comments_on_single() ) {
-            $comments_template = self::$options->templates_path . 'comments-template.php';
+            $require_template_path = self::$options->require_template( 'comments-template.php', true );
+
+            if ( ! empty( $require_template_path ) ) {
+                $comments_template = $require_template_path;
+            }
         }
 
         return $comments_template;
@@ -46,16 +50,16 @@ class SpotIM_Frontend {
     public static function filter_comments_number( $count ) {
         global $post;
 
-        return '<span class="spot-im-replies-count" data-post-id="' . $post->ID . '"></span>';
+        $post_id = absint( $post->ID );
+
+        return '<span class="spot-im-replies-count" data-post-id="' . $post_id . '"></span>';
     }
 
     public static function action_wp_footer() {
         $spot_id = self::$options->get( 'spot_id' );
 
         if ( ! empty( $spot_id ) ) {
-            require_once( self::$options->templates_path . 'embed-template.php' );
+            self::$options->require_template( 'embed-template.php' );
         }
     }
 }
-
-?>
