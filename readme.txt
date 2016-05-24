@@ -1,9 +1,9 @@
 === Spot.IM Comments ===
-Contributors: Spotim
+Contributors: Spot.IM
 Tags: Comment, comment form, commenting, comments, comment author, comment form, comment system, comment template, comments box, community, discuss, discussion, discussions, commenter, live update, real time, realtime, real-time, Spot.IM, reply, social login, widget, social, moderation, community, communities, engagement, Facebook, profile, sharing, newsfeed, chat, chat interface, notification, notifications, SEO, retention, pageviews, email alerts, direct message, direct messaging, group message, group messaging, content, content circulation, UGC, user generated content
 Requires at least: 3.8
 Tested up to: 4.5.1
-Stable tag: 2.0.3
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: license.txt
 
@@ -193,6 +193,19 @@ Where can I see a Spot working live to get a better idea of it?
 
 
 == Changelog ==
+
+= 2.1.0 =
+
+* Added admin menu icon.
+* Change the way we use templates and require templates.
+* Validating, sanitizing, and escaping user data.
+* Remove lang slug variable and replaced it with the string.
+
+More information - https://github.com/SpotIM/wordpress-comments-plugin/pull/1
+
+= 2.0.3 =
+
+* Change javascript loader.
 
 = 2.0.2 =
 
