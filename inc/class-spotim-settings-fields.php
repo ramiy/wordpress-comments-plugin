@@ -5,6 +5,10 @@ class SpotIM_Settings_Fields {
         echo '<p>' . esc_html__( 'These are some basic settings for Spot.IM.', 'wp-spotim' ) . '</p>';
     }
 
+    public static function import_settings_section_header() {
+        echo '<p>' . esc_html__( 'Some explanation about Spot.IM import to WordPress.', 'wp-spotim' ) . '</p>';
+    }
+
     private static function set_name( $args ) {
         if ( ! isset( $args['name'] ) ) {
             $args['name'] = sprintf(
@@ -71,6 +75,17 @@ class SpotIM_Settings_Fields {
             $sanitized_description = wp_kses_post( $args['description'] );
             $escaped_template .= sprintf( '<p class="description">%s</p>', $sanitized_description );
         }
+
+        echo $escaped_template;
+    }
+
+    public static function button( $args ) {
+        $button_template = '<button id="%s" class="button button-primary">%s</button>';
+
+        $escaped_template = sprintf($button_template,
+            esc_attr( $args['id'] ), // Button's id.
+            esc_attr( $args['text'] ) // Button's text.
+        );
 
         echo $escaped_template;
     }

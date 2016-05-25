@@ -30,6 +30,11 @@ class SpotIM_Admin {
             array( __CLASS__, 'validate_options' )
         );
 
+        self::register_general_section();
+        self::register_import_section();
+    }
+
+    private static function register_general_section() {
         add_settings_section(
             'general_settings_section',
             __( 'Commenting Options', 'wp-spotim' ),
@@ -84,6 +89,41 @@ class SpotIM_Admin {
                 'page' => self::$options->slug,
                 'description' => $parsed_translated_spot_id_description,
                 'value' => self::$options->get( 'spot_id' )
+            )
+        );
+    }
+
+    private static function register_import_section() {
+        add_settings_section(
+            'import_settings_section',
+            __( 'Import Options', 'wp-spotim' ),
+            array( 'SpotIM_Settings_Fields', 'import_settings_section_header' ),
+            self::$options->slug
+        );
+
+        add_settings_field(
+            'spot_id',
+            __( 'Your API key', 'wp-spotim' ),
+            array( 'SpotIM_Settings_Fields', 'text_field' ),
+            self::$options->slug,
+            'import_settings_section',
+            array(
+                'id' => 'import_api_key',
+                'page' => self::$options->slug,
+                'description' => 'some description about where to get the api key.',
+                'value' => self::$options->get( 'import_api_key' )
+            )
+        );
+
+        add_settings_field(
+            'import_button',
+            __( '', 'wp-spotim' ),
+            array( 'SpotIM_Settings_Fields', 'button' ),
+            self::$options->slug,
+            'import_settings_section',
+            array(
+                'id' => 'import_button',
+                'text' => 'Import'
             )
         );
     }
