@@ -2,9 +2,7 @@
 
 class SpotIM_Settings_Fields {
     public static function general_settings_section_header() {
-        $title = esc_html__( 'These are some basic settings for Spot.IM.', 'wp-spotim' );
-
-        echo "<p>$title</p>";
+        echo '<p>' . esc_html__( 'These are some basic settings for Spot.IM.', 'wp-spotim' ) . '</p>';
     }
 
     private static function set_name( $args ) {
