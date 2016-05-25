@@ -7,6 +7,8 @@ class SpotIM_Options {
 
     protected function __construct() {
         $this->templates_path = plugin_dir_path( dirname( __FILE__ ) ) . 'templates/';
+        $this->javascript_path = plugin_dir_url( dirname( __FILE__ ) ) . 'javascript/';
+
         $this->slug = 'wp-spotim-settings';
         $this->option_group = 'wp-spotim-options';
         $this->data = $this->get_meta_data();
@@ -60,7 +62,11 @@ class SpotIM_Options {
                 $output = $valid;
             }
         } else {
-            $output = $valid;
+            if ( $return_path ) {
+                $output = '';
+            } else {
+                $output = $valid;
+            }
         }
 
         return $output;
@@ -68,6 +74,12 @@ class SpotIM_Options {
 
     public function require_template( $path = '', $return_path = false ) {
         $path = $this->templates_path . $path;
+
+        return $this->require_file( $path, $return_path );
+    }
+
+    public function require_javascript( $path = '', $return_path = false ) {
+        $path = $this->javascript_path . $path;
 
         return $this->require_file( $path, $return_path );
     }
