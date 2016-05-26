@@ -32,7 +32,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'enable_comments_replacement',
             __( 'Enable Spot.IM comments', 'wp-spotim' ),
-            array( 'SpotIM_Form_Helpers', 'yes_no_fields' ),
+            array( 'SpotIM_Form_Helper', 'yes_no_fields' ),
             $this->options->slug,
             'general_settings_section',
             array(
@@ -45,7 +45,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'enable_comments_on_page',
             __( 'Enable Spot.IM on pages', 'wp-spotim' ),
-            array( 'SpotIM_Form_Helpers', 'yes_no_fields' ),
+            array( 'SpotIM_Form_Helper', 'yes_no_fields' ),
             $this->options->slug,
             'general_settings_section',
             array(
@@ -68,7 +68,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'spot_id',
             __( 'Your Spot ID', 'wp-spotim' ),
-            array( 'SpotIM_Form_Helpers', 'text_field' ),
+            array( 'SpotIM_Form_Helper', 'text_field' ),
             $this->options->slug,
             'general_settings_section',
             array(
@@ -91,7 +91,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'spot_id',
             __( 'Your API key', 'wp-spotim' ),
-            array( 'SpotIM_Form_Helpers', 'text_field' ),
+            array( 'SpotIM_Form_Helper', 'text_field' ),
             $this->options->slug,
             'import_settings_section',
             array(
@@ -105,7 +105,7 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'import_button',
             __( '', 'wp-spotim' ),
-            array( 'SpotIM_Form_Helpers', 'button' ),
+            array( 'SpotIM_Form_Helper', 'button' ),
             $this->options->slug,
             'import_settings_section',
             array(

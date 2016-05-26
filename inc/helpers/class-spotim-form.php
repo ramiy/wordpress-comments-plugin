@@ -1,6 +1,6 @@
 <?php
 
-class SpotIM_Form_Helpers {
+class SpotIM_Form_Helper {
     private static function set_name( $args ) {
         if ( ! isset( $args['name'] ) ) {
             $args['name'] = sprintf(
