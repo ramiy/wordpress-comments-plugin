@@ -1,14 +1,6 @@
 <?php
 
-class SpotIM_Settings_Fields {
-    public static function general_settings_section_header() {
-        echo '<p>' . esc_html__( 'These are some basic settings for Spot.IM.', 'wp-spotim' ) . '</p>';
-    }
-
-    public static function import_settings_section_header() {
-        echo '<p>' . esc_html__( 'Some explanation about Spot.IM import to WordPress.', 'wp-spotim' ) . '</p>';
-    }
-
+class SpotIM_Form_Helpers {
     private static function set_name( $args ) {
         if ( ! isset( $args['name'] ) ) {
             $args['name'] = sprintf(

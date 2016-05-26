@@ -18,6 +18,7 @@
  */
 
 require_once( 'inc/class-spotim-options.php' );
+require_once( 'inc/helpers/class-spotim-form.php' );
 require_once( 'inc/class-spotim-settings-fields.php' );
 require_once( 'inc/class-spotim-admin.php' );
 require_once( 'inc/class-spotim-frontend.php' );
