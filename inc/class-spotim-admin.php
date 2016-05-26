@@ -9,6 +9,8 @@ class SpotIM_Admin {
         add_action( 'admin_menu', array( __CLASS__, 'create_admin_menu' ), 20 );
         add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
         add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_javascript' ) );
+        add_action( 'wp_ajax_start_import', array( __CLASS__, 'import_callback' ) );
+
     }
 
     public static function admin_javascript( $hook ) {
@@ -42,5 +44,10 @@ class SpotIM_Admin {
 
     public static function admin_page_callback() {
         self::$options->require_template( 'admin-template.php' );
+    }
+
+    public static function import_callback() {
+        echo wp_json_encode( array( 'Hello World' ) );
+        wp_die();
     }
 }
