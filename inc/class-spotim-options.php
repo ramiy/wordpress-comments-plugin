@@ -23,15 +23,15 @@ class SpotIM_Options {
     }
 
     private function create_options() {
-        $options = array(
+        $default_options = array(
             'enable_comments_replacement' => 1,
             'enable_comments_on_page' => 0,
             'spot_id' => ''
         );
 
-        update_option( $this->slug, $options );
+        update_option( $this->slug, $default_options );
 
-        return $options;
+        return $default_options;
     }
 
     public function get_meta_data() {
@@ -49,6 +49,24 @@ class SpotIM_Options {
 
     public function get( $key = '', $default_value = false ) {
         return ! empty( $this->data[ $key ] ) ? $this->data[ $key ] : $default_value;
+    }
+
+    public function validate( $input ) {
+        $options = $this->get_meta_data();
+
+        foreach ( $input as $key => $value ) {
+            switch( $key ) {
+                case 'enable_comments_replacement':
+                case 'enable_comments_on_page':
+                    $options[$key] = intval( $value );
+                    break;
+                case 'spot_id':
+                    $options[$key] = sanitize_text_field( $value );
+                    break;
+            }
+        }
+
+        return $options;
     }
 
     public function require_file( $path = '', $return_path = false ) {
