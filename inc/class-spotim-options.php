@@ -26,7 +26,8 @@ class SpotIM_Options {
         $default_options = array(
             'enable_comments_replacement' => 1,
             'enable_comments_on_page' => 0,
-            'spot_id' => ''
+            'spot_id' => '',
+            'import_token' => ''
         );
 
         update_option( $this->slug, $default_options );

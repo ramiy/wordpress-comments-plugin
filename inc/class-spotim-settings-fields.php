@@ -90,15 +90,15 @@ class SpotIM_Settings_Fields {
 
         add_settings_field(
             'spot_id',
-            __( 'Your API key', 'wp-spotim' ),
+            __( 'Your Token', 'wp-spotim' ),
             array( 'SpotIM_Form_Helper', 'text_field' ),
             $this->options->slug,
             'import_settings_section',
             array(
-                'id' => 'import_api_key',
+                'id' => 'import_token',
                 'page' => $this->options->slug,
                 'description' => 'some description about where to get the api key.',
-                'value' => $this->options->get( 'import_api_key' )
+                'value' => $this->options->get( 'import_token' )
             )
         );
 
