@@ -47,7 +47,12 @@ class SpotIM_Admin {
     }
 
     public static function import_callback() {
-        echo wp_json_encode( array( 'Hello World' ) );
+        $import = new SpotIM_Import( self::$options );
+
+        $output = $import->start();
+
+        echo wp_json_encode( $output );
+
         wp_die();
     }
 }
