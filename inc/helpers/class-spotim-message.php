@@ -1,10 +1,10 @@
 <?php
 
-define( 'COMMENT_IMPORT_AGENT', 'Spot.IM/1.0 (Export)' );
+define( 'SPOTIM_COMMENT_IMPORT_AGENT', 'Spot.IM/1.0 (Export)' );
 
 class SpotIM_Message {
     private $messages_map;
-    private $message_data = array();
+    private $message_data;
     private $comment_data;
     private $users;
     private $post_id;
@@ -14,17 +14,14 @@ class SpotIM_Message {
         $this->users = $users;
         $this->post_id = absint( $post_id );
 
-        // $this->messages_map = $this->create_messages_map();
+        $this->messages_map = $this->get_messages_map();
         $this->comment_data = $this->create_comment_data();
     }
 
-    // public function update_messages_map( $comment_id ) {}
-
     public function is_comment_exists() {
-        // $sp_comments_ids_map = get_post_meta( $post_id, 'spotim_messages_map', true );
         $comment_exists = false;
 
-        // if ( ! isset( $comments_ids_map[ $sp_comment->sp_comment_id ] ) ) {
+        if ( ! isset( $this->messages_map[ $this->message->id ] ) ) {
             $comments_args = array(
                 'parent' => absint( $this->comment_data[ 'comment_parent' ] ),
                 'post_id' => absint( $this->post_id ),
@@ -44,14 +41,17 @@ class SpotIM_Message {
                         $comment->comment_date === $this->comment_data[ 'comment_date' ] &&
                         absint( $comment->comment_parent ) === absint( $this->comment_data[ 'comment_parent' ] ) ) {
 
-var_dump('HODOR, no way jose');
-                        // $this->update_messages_map( $comment->comment_id );
+                        $this->update_messages_map( $comment->comment_ID );
+
                         $comment_exists = true;
+
                         break;
                     }
                 }
             }
-        // }
+        } else {
+            $comment_exists = true;
+        }
 
         return $comment_exists;
     }
@@ -60,18 +60,35 @@ var_dump('HODOR, no way jose');
         return $this->comment_data;
     }
 
+
+    public function update_messages_map( $comment_id ) {
+        $this->messages_map[ $this->message->id ] = $comment_id;
+
+        update_post_meta( $this->post_id, 'spotim_messages_map', $this->messages_map );
+    }
+
     private function get_comment_parent_id() {
         $comment_parent_id = 0;
 
         if ( isset( $this->message->comment_id ) ) {
-            $this->messages_map = get_post_meta( $this->post_id, 'spotim_messages_map', true );
-
-            if ( isset( $this->messages_map[ $this->message->id ] ) ) {
-                $comment_parent_id = $this->messages_map[ $sp_message->id ];
+            if ( isset( $this->messages_map[ $this->message->comment_id ] ) ) {
+                $comment_parent_id = $this->messages_map[ $this->message->comment_id ];
             }
         }
 
         return $comment_parent_id;
+    }
+
+    private function get_messages_map() {
+        $messages_map = get_post_meta( $this->post_id, 'spotim_messages_map', true );
+
+        if ( is_string( $messages_map ) ) {
+            $messages_map = array();
+
+            add_post_meta( $this->post_id, 'spotim_messages_map', $messages_map );
+        }
+
+        return $messages_map;
     }
 
     private function create_comment_data() {
@@ -81,7 +98,7 @@ var_dump('HODOR, no way jose');
         $date_gmt = get_gmt_from_date( $date );
 
         return array(
-            'comment_agent' => COMMENT_IMPORT_AGENT,
+            'comment_agent' => SPOTIM_COMMENT_IMPORT_AGENT,
             'comment_approved' => 1,
             'comment_author' => $author[ 'name' ],
             'comment_author_email' => $author[ 'email' ],

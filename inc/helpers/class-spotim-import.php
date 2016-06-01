@@ -21,7 +21,7 @@ class SpotIM_Import {
                     'spot_id' => $this->spot_id,
                     'post_id' => $post_id,
                     'etag' => absint( $post_etag )
-                ), IMPORT_URL );
+                ), SPOTIM_EXPORT_URL );
 
                 $response = wp_remote_retrieve_body(
                     wp_remote_get( $url, array( 'sslverify' => true ) )
@@ -94,7 +94,7 @@ class SpotIM_Import {
             $comment_id = wp_insert_comment( $message->get_comment_data() );
 
             if ( $comment_id ) {
-                // $message->update_messages_map( $comment_id );
+                $message->update_messages_map( $comment_id );
 
                 $comment_created = true;
             }
