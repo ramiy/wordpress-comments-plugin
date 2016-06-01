@@ -47,7 +47,7 @@ class SpotIM_Admin {
     }
 
     public static function import_callback() {
-        $import = new SpotIM_Import( self::$options );
+        $import = new SpotIM_Import( self::$options->get( 'spot_id' ) );
 
         $output = $import->start();
 

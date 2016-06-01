@@ -17,6 +17,7 @@
  *
  */
 
+require_once( 'inc/helpers/class-spotim-message.php' );
 require_once( 'inc/helpers/class-spotim-import.php' );
 require_once( 'inc/helpers/class-spotim-form.php' );
 
