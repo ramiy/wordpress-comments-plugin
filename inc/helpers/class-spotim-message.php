@@ -9,19 +9,27 @@ class SpotIM_Message {
     private $users;
     private $post_id;
 
-    public function __construct( $message, $users, $post_id ) {
+    public function __construct( $type, $message, $users, $post_id ) {
         $this->message = $message;
         $this->users = count( (array) $users ) ? $users : new stdClass();
         $this->post_id = absint( $post_id );
 
         $this->messages_map = $this->get_messages_map();
-        $this->comment_data = $this->create_comment_data();
+
+        switch( $type ) {
+            case 'new':
+                $this->comment_data = $this->new_comment_data();
+            break;
+            case 'update':
+                $this->comment_data = $this->update_comment_data();
+            break;
+        }
     }
 
     public function is_comment_exists() {
         $comment_exists = false;
 
-        if ( ! isset( $this->messages_map[ $this->message->id ] ) ) {
+        if ( ! $this->get_comment_id() ) {
             $comments_args = array(
                 'parent' => absint( $this->comment_data[ 'comment_parent' ] ),
                 'post_id' => absint( $this->post_id ),
@@ -60,6 +68,9 @@ class SpotIM_Message {
         return $this->comment_data;
     }
 
+    public function get_comment_id() {
+        return isset( $this->messages_map[ $this->message->id ] ) ? $this->messages_map[ $this->message->id ] : null;
+    }
 
     public function update_messages_map( $comment_id ) {
         $this->messages_map[ $this->message->id ] = $comment_id;
@@ -91,7 +102,7 @@ class SpotIM_Message {
         return $messages_map;
     }
 
-    private function create_comment_data() {
+    private function new_comment_data() {
         $author = $this->get_comment_author();
         $comment_parent = $this->get_comment_parent_id();
         $date = date('Y-m-d H:i:s', absint( $this->message->written_at ) );
@@ -111,6 +122,23 @@ class SpotIM_Message {
             'comment_type' => 'comment',
             'user_id' => 0
         );
+    }
+
+    private function update_comment_data() {
+        $data = array();
+
+        if ( ! empty( $this->message->content ) ) {
+            $data['comment_ID'] = absint( $this->get_comment_id() );
+            $data['comment_post_ID'] = absint( $this->post_id );
+            $data['comment_content'] = wp_kses_post( $this->message->content );
+
+            $parent_comment_id = absint( $this->get_comment_parent_id() );
+            if ( $parent_comment_id ) {
+                $data['comment_parent'] = $parent_comment_id;
+            }
+        }
+
+        return $data;
     }
 
     private function get_comment_author() {

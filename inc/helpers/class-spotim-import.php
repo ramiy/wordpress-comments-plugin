@@ -1,6 +1,5 @@
 <?php
 
-define( 'JSONSTUB_EXPORT_URL', 'http://jsonstub.com/export/wordpress/' );
 
 class SpotIM_Import {
     public function __construct( $spot_id ) {
@@ -10,30 +9,36 @@ class SpotIM_Import {
     public function start() {
         $post_ids = $this->get_post_ids();
 
-        if ( ! empty( $post_ids ) ) {
+        // if ( ! empty( $post_ids ) ) {
 
-            while ( ! empty( $post_ids ) ) {
-                $post_id = array_shift( $post_ids );
-                $post_etag = get_post_meta( $post_id, 'spotim_etag', true );
+        //     while ( ! empty( $post_ids ) ) {
+        //         $post_id = array_shift( $post_ids );
+        //         $post_etag = get_post_meta( $post_id, 'spotim_etag', true );
 
-                $response = $this->request( array(
-                    'spot_id' => $this->spot_id,
-                    'post_id' => $post_id,
-                    'etag' => absint( $post_etag ),
-                    'count' => 1000
-                ) );
+        //         $response = $this->request( array(
+        //             'spot_id' => $this->spot_id,
+        //             'post_id' => $post_id,
+        //             'etag' => absint( $post_etag ),
+        //             'count' => 1000
+        //         ) );
 
-                if ( $response->is_ok && $response->from_etag < $response->new_etag ) {
-                    $this->sync_comments( $response->events, $response->users, $post_id );
+        //         if ( $response->is_ok && $response->from_etag < $response->new_etag ) {
+        //             $this->sync_comments( $response->events, $response->users, $post_id );
 
-                    update_post_meta(
-                        $post_id,
-                        'spotim_etag',
-                        absint( $response->new_etag ),
-                        $post_etag
-                    );
-                }
-            }
+        //             update_post_meta(
+        //                 $post_id,
+        //                 'spotim_etag',
+        //                 absint( $response->new_etag ),
+        //                 $post_etag
+        //             );
+        //         }
+        //     }
+        // }
+
+        $response = $this->request_mock();
+
+        if ( $response->is_ok && $response->from_etag < $response->new_etag ) {
+            $this->sync_comments( $response->events, $response->users, $response->post_id );
         }
 
         return 'HODOR';
@@ -52,19 +57,21 @@ class SpotIM_Import {
         return $data;
     }
 
-    private function request_mock( $query_args ) {
+    private function request_mock() {
         $retrieved_body = wp_remote_retrieve_body(
             wp_remote_get( JSONSTUB_EXPORT_URL, array(
                 'headers' => array(
                     'JsonStub-User-Key'     => '0fce8d12-9e2c-45c9-9284-e8c6d57a6fe1',
                     'JsonStub-Project-Key'  => '08e0f77f-5dce-4576-b3b2-4f3ed49c1e67',
-                    'Content-Type'          => 'application/json',
-                ),
-                'body' => json_encode( $query_args )
+                    'Content-Type'          => 'application/json'
+                )
             ) )
         );
 
-        return $retrieved_body;
+        $data = json_decode( $retrieved_body );
+        $data->is_ok = true;
+
+        return $data;
     }
 
     private function get_post_ids() {
@@ -109,7 +116,7 @@ class SpotIM_Import {
     private function add_new_comment( $sp_message, $sp_users, $post_id ) {
         $comment_created = false;
 
-        $message = new SpotIM_Message( $sp_message, $sp_users, $post_id );
+        $message = new SpotIM_Message( 'new', $sp_message, $sp_users, $post_id );
 
         if ( ! $message->is_comment_exists() ) {
             $comment_id = wp_insert_comment( $message->get_comment_data() );
@@ -123,9 +130,18 @@ class SpotIM_Import {
 
         return $comment_created;
     }
-    private function update_comment( $message, $users, $post_id ) {
-        var_dump('update_comment');
-        // return true;
+    private function update_comment( $sp_message, $sp_users, $post_id ) {
+        $comment_updated = false;
+
+        $message = new SpotIM_Message( 'update', $sp_message, $sp_users, $post_id );
+
+        if ( $message->is_comment_exists() ) {
+            $comment_id = wp_update_comment( $message->get_comment_data() );
+
+            $comment_updated = true;
+        }
+
+        return $comment_updated;
     }
     private function delete_comment( $message, $users, $post_id ) {
         var_dump('delete_comment');
