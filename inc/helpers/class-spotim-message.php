@@ -11,7 +11,7 @@ class SpotIM_Message {
 
     public function __construct( $message, $users, $post_id ) {
         $this->message = $message;
-        $this->users = $users;
+        $this->users = count( (array) $users ) ? $users : new stdClass();
         $this->post_id = absint( $post_id );
 
         $this->messages_map = $this->get_messages_map();

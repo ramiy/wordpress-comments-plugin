@@ -1,5 +1,6 @@
 <?php
 
+define( 'JSONSTUB_EXPORT_URL', 'http://jsonstub.com/export/wordpress/' );
 
 class SpotIM_Import {
     public function __construct( $spot_id ) {
@@ -8,36 +9,62 @@ class SpotIM_Import {
 
     public function start() {
         $post_ids = $this->get_post_ids();
-        // $responses = array();
 
         if ( ! empty( $post_ids ) ) {
 
             while ( ! empty( $post_ids ) ) {
                 $post_id = array_shift( $post_ids );
-
                 $post_etag = get_post_meta( $post_id, 'spotim_etag', true );
 
-                $url = add_query_arg( array(
+                $response = $this->request( array(
                     'spot_id' => $this->spot_id,
                     'post_id' => $post_id,
-                    'etag' => absint( $post_etag )
-                ), SPOTIM_EXPORT_URL );
+                    'etag' => absint( $post_etag ),
+                    'count' => 1000
+                ) );
 
-                $response = wp_remote_retrieve_body(
-                    wp_remote_get( $url, array( 'sslverify' => true ) )
-                );
+                if ( $response->is_ok && $response->from_etag < $response->new_etag ) {
+                    $this->sync_comments( $response->events, $response->users, $post_id );
 
-                // $responses[] = $response;
-                // $responses[] = json_decode( $response );
-
-                if ( ! empty( $response ) ) {
-                    $this->sync_comments( $response, $post_etag );
+                    update_post_meta(
+                        $post_id,
+                        'spotim_etag',
+                        absint( $response->new_etag ),
+                        $post_etag
+                    );
                 }
             }
         }
 
         return 'HODOR';
-        // return $responses;
+    }
+
+    private function request( $query_args ) {
+        $url = add_query_arg( $query_args, SPOTIM_EXPORT_URL );
+
+        $retrieved_body = wp_remote_retrieve_body(
+            wp_remote_get( $url, array( 'sslverify' => true ) )
+        );
+
+        $data = json_decode( $retrieved_body );
+        $data->is_ok = true;
+
+        return $data;
+    }
+
+    private function request_mock( $query_args ) {
+        $retrieved_body = wp_remote_retrieve_body(
+            wp_remote_get( JSONSTUB_EXPORT_URL, array(
+                'headers' => array(
+                    'JsonStub-User-Key'     => '0fce8d12-9e2c-45c9-9284-e8c6d57a6fe1',
+                    'JsonStub-Project-Key'  => '08e0f77f-5dce-4576-b3b2-4f3ed49c1e67',
+                    'Content-Type'          => 'application/json',
+                ),
+                'body' => json_encode( $query_args )
+            ) )
+        );
+
+        return $retrieved_body;
     }
 
     private function get_post_ids() {
@@ -51,37 +78,31 @@ class SpotIM_Import {
         return get_posts( $args );
     }
 
-    private function sync_comments( $json, $post_etag ) {
-        $stream = json_decode( $json );
-
-        if ( $stream->from_etag < $stream->new_etag ) {
-            $users = count( (array) $stream->users ) ? $stream->users : new stdClass();
-
-            foreach ( $stream->events as $event ) {
+    private function sync_comments( $events, $users, $post_id ) {
+        if ( ! empty( $events ) ) {
+            foreach ( $events as $event ) {
                 switch ( $event->type ) {
                     case 'c+':
                     case 'r+':
-                        $this->add_new_comment( $event->message, $users, $stream->post_id );
+                        $this->add_new_comment( $event->message, $users, $post_id );
                         break;
                     case 'c~':
                     case 'r~':
-                        $this->update_comment( $event->message, $users, $stream->post_id );
+                        $this->update_comment( $event->message, $users, $post_id );
                         break;
                     case 'c-':
                     case 'r-':
-                        $this->delete_comment( $event->message, $users, $stream->post_id );
+                        $this->delete_comment( $event->message, $users, $post_id );
                         break;
                     case 'c*':
-                        $this->soft_delete_comment( $event->message, $users, $stream->post_id );
+                        $this->soft_delete_comment( $event->message, $users, $post_id );
                         break;
                     case 'c@':
                     case 'r@':
-                        $this->anonymous_comment( $event->message, $users, $stream->post_id );
+                        $this->anonymous_comment( $event->message, $users, $post_id );
                         break;
                 }
             }
-
-            // update_post_meta( $stream->post_id, 'spotim_etag', absint( $stream->new_etag ), $post_etag );
         }
     }
 
