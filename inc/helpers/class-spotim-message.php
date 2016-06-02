@@ -19,10 +19,13 @@ class SpotIM_Message {
         switch( $type ) {
             case 'new':
                 $this->comment_data = $this->new_comment_data();
-            break;
+                break;
             case 'update':
                 $this->comment_data = $this->update_comment_data();
-            break;
+                break;
+            case 'delete':
+                break;
+
         }
     }
 
@@ -69,7 +72,7 @@ class SpotIM_Message {
     }
 
     public function get_comment_id() {
-        return isset( $this->messages_map[ $this->message->id ] ) ? $this->messages_map[ $this->message->id ] : null;
+        return isset( $this->messages_map[ $this->message->id ] ) ? $this->messages_map[ $this->message->id ] : 0;
     }
 
     public function update_messages_map( $comment_id ) {

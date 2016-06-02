@@ -1,5 +1,6 @@
 <?php
 
+define( 'JSONSTUB_EXPORT_URL', 'http://jsonstub.com/export/wordpress/delete/reply' );
 
 class SpotIM_Import {
     public function __construct( $spot_id ) {
@@ -136,16 +137,21 @@ class SpotIM_Import {
         $message = new SpotIM_Message( 'update', $sp_message, $sp_users, $post_id );
 
         if ( $message->is_comment_exists() ) {
-            $comment_id = wp_update_comment( $message->get_comment_data() );
-
-            $comment_updated = true;
+            $comment_updated = wp_update_comment( $message->get_comment_data() );
         }
 
         return $comment_updated;
     }
     private function delete_comment( $message, $users, $post_id ) {
-        var_dump('delete_comment');
-        // return true;
+        $comment_deleted = false;
+
+        $message = new SpotIM_Message( 'delete', $message, $users, $post_id );
+
+        if ( $message->is_comment_exists() ) {
+            $comment_deleted = wp_delete_comment( $message->get_comment_id(), true );
+        }
+
+        return $comment_deleted;
     }
     private function soft_delete_comment( $message, $users, $post_id ) {
         var_dump('soft_delete_comment');
