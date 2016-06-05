@@ -1,6 +1,6 @@
 <?php
 
-define( 'JSONSTUB_EXPORT_URL', 'http://jsonstub.com/export/wordpress/delete/comment-with-replies' );
+define( 'JSONSTUB_EXPORT_URL', 'http://jsonstub.com/export/wordpress/soft-delete/comment' );
 
 class SpotIM_Import {
     public function __construct( $spot_id ) {
@@ -22,7 +22,6 @@ class SpotIM_Import {
         //             'etag' => absint( $post_etag ),
         //             'count' => 1000
         //         ) );
-
 
         //         if ( $response->is_ok && $response->from_etag < $response->new_etag ) {
         //             $this->sync_comments( $response->events, $response->users, $post_id );
@@ -55,6 +54,8 @@ class SpotIM_Import {
         );
 
         $data = json_decode( $retrieved_body );
+
+        // TODO: handle actual errors.
         $data->is_ok = true;
 
         return $data;
@@ -133,6 +134,7 @@ class SpotIM_Import {
 
         return $comment_created;
     }
+
     private function update_comment( $sp_message, $sp_users, $post_id ) {
         $comment_updated = false;
 
@@ -144,10 +146,11 @@ class SpotIM_Import {
 
         return $comment_updated;
     }
+
     private function delete_comment( $message, $users, $post_id ) {
         $comment_deleted = false;
 
-        $message = new SpotIM_Message( 'delete', $message, $users, $post_id );
+        $message = new SpotIM_Message( 'delete', $sp_message, $sp_users, $post_id );
 
         if ( $message->is_comment_exists() ) {
             $messages_ids = $message->get_message_and_children_ids_map();
@@ -163,11 +166,20 @@ class SpotIM_Import {
 
         return $comment_deleted;
     }
-    private function soft_delete_comment( $message, $users, $post_id ) {
-        var_dump('soft_delete_comment');
-        // return true;
+
+    private function soft_delete_comment( $sp_message, $sp_users, $post_id ) {
+        $comment_soft_deleted = false;
+
+        $message = new SpotIM_Message( 'soft_delete', $sp_message, $sp_users, $post_id );
+
+        if ( $message->is_comment_exists() ) {
+            $comment_soft_deleted = wp_update_comment( $message->get_comment_data() );
+        }
+
+        return $comment_soft_deleted;
     }
-    private function anonymous_comment( $message, $users, $post_id ) {
+
+    private function anonymous_comment( $sp_message, $sp_users, $post_id ) {
         var_dump('anonymous_comment');
         // return true;
     }

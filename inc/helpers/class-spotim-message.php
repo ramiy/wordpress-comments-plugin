@@ -25,9 +25,9 @@ class SpotIM_Message {
                 break;
             case 'delete':
                 break;
-            // case 'soft_delete':
-            //     $this->comment_data = $this->soft_delete_comment_data();
-            //     break;
+            case 'soft_delete':
+                $this->comment_data = $this->soft_delete_comment_data();
+                break;
         }
     }
 
@@ -142,14 +142,14 @@ class SpotIM_Message {
     private function new_comment_data() {
         $author = $this->get_comment_author();
         $comment_parent = $this->get_comment_parent_id();
-        $date = date('Y-m-d H:i:s', absint( $this->message->written_at ) );
+        $date = date( 'Y-m-d H:i:s', absint( $this->message->written_at ) );
         $date_gmt = get_gmt_from_date( $date );
 
         return array(
             'comment_agent' => SPOTIM_COMMENT_IMPORT_AGENT,
             'comment_approved' => 1,
-            'comment_author' => $author[ 'name' ],
-            'comment_author_email' => $author[ 'email' ],
+            'comment_author' => $author['name'],
+            'comment_author_email' => $author['email'],
             'comment_author_url' => '',
             'comment_content' => wp_kses_post( $this->message->content ),
             'comment_date' => $date,
@@ -164,16 +164,29 @@ class SpotIM_Message {
     private function update_comment_data() {
         $data = array();
 
-        if ( ! empty( $this->message->content ) ) {
-            $data['comment_ID'] = absint( $this->get_comment_id() );
-            $data['comment_post_ID'] = absint( $this->post_id );
-            $data['comment_content'] = wp_kses_post( $this->message->content );
+        $data['comment_ID'] = absint( $this->get_comment_id() );
+        $data['comment_post_ID'] = absint( $this->post_id );
 
-            $parent_comment_id = absint( $this->get_comment_parent_id() );
-            if ( $parent_comment_id ) {
-                $data['comment_parent'] = $parent_comment_id;
-            }
+        if ( ! empty( $this->message->content ) ) {
+            $data['comment_content'] = wp_kses_post( $this->message->content );
         }
+
+        $parent_comment_id = absint( $this->get_comment_parent_id() );
+
+        if ( $parent_comment_id ) {
+            $data['comment_parent'] = $parent_comment_id;
+        }
+
+        return $data;
+    }
+
+    private function soft_delete_comment_data() {
+        $data = $this->update_comment_data();
+        $author = $this->get_comment_author();
+
+        $data['comment_content'] = esc_html__( 'This message was deleted.', 'wp-spotim' );
+        $data['comment_author'] = $author['name'];
+        $data['comment_author_email'] = $author['email'];
 
         return $data;
     }
