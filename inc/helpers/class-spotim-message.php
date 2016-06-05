@@ -28,6 +28,9 @@ class SpotIM_Message {
             case 'soft_delete':
                 $this->comment_data = $this->soft_delete_comment_data();
                 break;
+            case 'anonymous_comment':
+                $this->comment_data = $this->anonymous_comment_data();
+                break;
         }
     }
 
@@ -181,10 +184,17 @@ class SpotIM_Message {
     }
 
     private function soft_delete_comment_data() {
+        $data = $this->anonymous_comment_data();
+
+        $data['comment_content'] = esc_html__( 'This message was deleted.', 'wp-spotim' );
+
+        return $data;
+    }
+
+    private function anonymous_comment_data() {
         $data = $this->update_comment_data();
         $author = $this->get_comment_author();
 
-        $data['comment_content'] = esc_html__( 'This message was deleted.', 'wp-spotim' );
         $data['comment_author'] = $author['name'];
         $data['comment_author_email'] = $author['email'];
 

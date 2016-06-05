@@ -1,6 +1,6 @@
 <?php
 
-define( 'JSONSTUB_EXPORT_URL', 'http://jsonstub.com/export/wordpress/soft-delete/comment' );
+define( 'JSONSTUB_EXPORT_URL', 'http://jsonstub.com/export/wordpress/anonymous/reply' );
 
 class SpotIM_Import {
     public function __construct( $spot_id ) {
@@ -10,33 +10,33 @@ class SpotIM_Import {
     public function start() {
         $post_ids = $this->get_post_ids();
 
-        // if ( ! empty( $post_ids ) ) {
+        if ( ! empty( $post_ids ) ) {
 
-        //     while ( ! empty( $post_ids ) ) {
-        //         $post_id = array_shift( $post_ids );
-        //         $post_etag = get_post_meta( $post_id, 'spotim_etag', true );
+            while ( ! empty( $post_ids ) ) {
+                $post_id = array_shift( $post_ids );
+                $post_etag = get_post_meta( $post_id, 'spotim_etag', true );
 
-        //         $response = $this->request( array(
-        //             'spot_id' => $this->spot_id,
-        //             'post_id' => $post_id,
-        //             'etag' => absint( $post_etag ),
-        //             'count' => 1000
-        //         ) );
+                $response = $this->request( array(
+                    'spot_id' => $this->spot_id,
+                    'post_id' => $post_id,
+                    'etag' => absint( $post_etag ),
+                    'count' => 1000
+                ) );
 
-        //         if ( $response->is_ok && $response->from_etag < $response->new_etag ) {
-        //             $this->sync_comments( $response->events, $response->users, $post_id );
+                if ( $response->is_ok && $response->from_etag < $response->new_etag ) {
+                    $this->sync_comments( $response->events, $response->users, $post_id );
 
-        //             update_post_meta(
-        //                 $post_id,
-        //                 'spotim_etag',
-        //                 absint( $response->new_etag ),
-        //                 $post_etag
-        //             );
-        //         }
-        //     }
-        // }
+                    update_post_meta(
+                        $post_id,
+                        'spotim_etag',
+                        absint( $response->new_etag ),
+                        $post_etag
+                    );
+                }
+            }
+        }
 
-        $response = $this->request_mock();
+        // $response = $this->request_mock();
         // file_put_contents( dirname( __FILE__ )  . '/response.txt', json_encode( $response ) . "\r\n", FILE_APPEND);
 
         if ( $response->is_ok && $response->from_etag < $response->new_etag ) {
@@ -180,7 +180,14 @@ class SpotIM_Import {
     }
 
     private function anonymous_comment( $sp_message, $sp_users, $post_id ) {
-        var_dump('anonymous_comment');
-        // return true;
+        $comment_anonymized = false;
+
+        $message = new SpotIM_Message( 'anonymous_comment', $sp_message, $sp_users, $post_id );
+
+        if ( $message->is_comment_exists() ) {
+            $comment_anonymized = wp_update_comment( $message->get_comment_data() );
+        }
+
+        return $comment_anonymized;
     }
 }
