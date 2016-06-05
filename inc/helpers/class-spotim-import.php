@@ -1,6 +1,6 @@
 <?php
 
-define( 'JSONSTUB_EXPORT_URL', 'http://jsonstub.com/export/wordpress/delete/reply' );
+define( 'JSONSTUB_EXPORT_URL', 'http://jsonstub.com/export/wordpress/delete/comment-with-replies' );
 
 class SpotIM_Import {
     public function __construct( $spot_id ) {
@@ -23,6 +23,7 @@ class SpotIM_Import {
         //             'count' => 1000
         //         ) );
 
+
         //         if ( $response->is_ok && $response->from_etag < $response->new_etag ) {
         //             $this->sync_comments( $response->events, $response->users, $post_id );
 
@@ -37,6 +38,7 @@ class SpotIM_Import {
         // }
 
         $response = $this->request_mock();
+        // file_put_contents( dirname( __FILE__ )  . '/response.txt', json_encode( $response ) . "\r\n", FILE_APPEND);
 
         if ( $response->is_ok && $response->from_etag < $response->new_etag ) {
             $this->sync_comments( $response->events, $response->users, $response->post_id );
@@ -148,7 +150,15 @@ class SpotIM_Import {
         $message = new SpotIM_Message( 'delete', $message, $users, $post_id );
 
         if ( $message->is_comment_exists() ) {
-            $comment_deleted = wp_delete_comment( $message->get_comment_id(), true );
+            $messages_ids = $message->get_message_and_children_ids_map();
+
+            foreach( $messages_ids as $message_id => $comment_id ) {
+                $comment_deleted = wp_delete_comment( $comment_id, true );
+
+                if ( $comment_deleted ) {
+                    $message->delete_from_messages_map( $message_id );
+                }
+            }
         }
 
         return $comment_deleted;

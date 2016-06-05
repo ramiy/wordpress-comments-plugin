@@ -25,7 +25,9 @@ class SpotIM_Message {
                 break;
             case 'delete':
                 break;
-
+            // case 'soft_delete':
+            //     $this->comment_data = $this->soft_delete_comment_data();
+            //     break;
         }
     }
 
@@ -72,13 +74,45 @@ class SpotIM_Message {
     }
 
     public function get_comment_id() {
-        return isset( $this->messages_map[ $this->message->id ] ) ? $this->messages_map[ $this->message->id ] : 0;
+        $comment_id = 0;
+
+        if ( isset( $this->messages_map[ $this->message->id ] ) ) {
+            $comment_id = $this->messages_map[ $this->message->id ]['comment_id'];
+        }
+
+        return $comment_id;
     }
 
     public function update_messages_map( $comment_id ) {
-        $this->messages_map[ $this->message->id ] = $comment_id;
+        $this->messages_map[ $this->message->id ] = array(
+            'comment_id' => $comment_id
+        );
+
+        if ( isset( $this->message->comment_id ) ) {
+            $this->messages_map[ $this->message->id ]['parent_message_id'] = $this->message->comment_id;
+        }
 
         update_post_meta( $this->post_id, 'spotim_messages_map', $this->messages_map );
+    }
+
+    public function get_message_and_children_ids_map() {
+        $messages_map[ $this->message->id ] = $this->messages_map[ $this->message->id ]['comment_id'];
+
+        foreach( $this->messages_map as $message_id => $message ) {
+            if ( isset( $message['parent_message_id'] ) &&
+                 $this->message->id === $message['parent_message_id'] ) {
+                $messages_map[ $message_id ] = $message['comment_id'];
+            }
+        }
+
+        return $messages_map;
+    }
+
+    public function delete_from_messages_map( $message_id ) {
+        if ( isset( $this->messages_map[ $message_id ] ) ) {
+            unset( $this->messages_map[ $message_id ] );
+            update_post_meta( $this->post_id, 'spotim_messages_map', $this->messages_map );
+        }
     }
 
     private function get_comment_parent_id() {
@@ -86,7 +120,7 @@ class SpotIM_Message {
 
         if ( isset( $this->message->comment_id ) ) {
             if ( isset( $this->messages_map[ $this->message->comment_id ] ) ) {
-                $comment_parent_id = $this->messages_map[ $this->message->comment_id ];
+                $comment_parent_id = $this->messages_map[ $this->message->comment_id ]['comment_id'];
             }
         }
 
