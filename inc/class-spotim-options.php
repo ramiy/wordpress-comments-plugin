@@ -27,7 +27,9 @@ class SpotIM_Options {
             'enable_comments_replacement' => 1,
             'enable_comments_on_page' => 0,
             'spot_id' => '',
-            'import_token' => ''
+            'import_token' => '',
+            'import_request_error' => '',
+            'import_sync_comments_error' => ''
         );
 
         update_option( $this->slug, $default_options );
@@ -35,7 +37,7 @@ class SpotIM_Options {
         return $default_options;
     }
 
-    public function get_meta_data() {
+    private function get_meta_data() {
         $data = get_option( $this->slug, array() );
 
         if ( empty( $data ) ) {
@@ -43,13 +45,61 @@ class SpotIM_Options {
         } else {
             $data['enable_comments_replacement'] = intval( $data['enable_comments_replacement'] );
             $data['enable_comments_on_page'] = intval( $data['enable_comments_on_page'] );
+
+            if ( ! isset( $data['import_token'] ) ) {
+                $data['import_token'] = '';
+            }
+
+            if ( ! isset( $data['import_request_error'] ) ) {
+                $data['import_request_error'] = '';
+            }
+
+            if ( ! isset( $data['import_sync_comments_error'] ) ) {
+                $data['import_sync_comments_error'] = '';
+            }
         }
 
         return $data;
     }
 
     public function get( $key = '', $default_value = false ) {
-        return ! empty( $this->data[ $key ] ) ? $this->data[ $key ] : $default_value;
+        return isset( $this->data[ $key ] ) ? $this->data[ $key ] : $default_value;
+    }
+
+    public function update( $name, $value ) {
+        $new_option = array();
+        $new_option[ $name ] = $value;
+
+        // validate new option and retrive with old ones to update as a whole
+        $options = $this->validate( $new_option );
+
+        $options_updated = update_option( $this->slug, $options );
+
+        if ( $options_updated ) {
+            $this->data = $options;
+        }
+
+        return $options_updated;
+    }
+
+    public function reset( $name ) {
+        $value = $this->get( $name );
+
+        switch( gettype( $value ) ) {
+            case 'integer':
+                $value = 0;
+                break;
+            case 'string':
+                $value = '';
+                break;
+            case 'boolean':
+            default:
+                $value = false;
+        }
+
+        $this->update( $name, $value );
+
+        return $value;
     }
 
     public function validate( $input ) {
@@ -59,11 +109,14 @@ class SpotIM_Options {
             switch( $key ) {
                 case 'enable_comments_replacement':
                 case 'enable_comments_on_page':
-                    $options[$key] = intval( $value );
+                    $options[ $key ] = intval( $value );
                     break;
                 case 'spot_id':
                 case 'import_token':
-                    $options[$key] = sanitize_text_field( $value );
+                case 'import_request_error':
+                case 'import_sync_comments_error':
+                default:
+                    $options[ $key ] = sanitize_text_field( $value );
                     break;
             }
         }
