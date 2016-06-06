@@ -10,7 +10,6 @@ class SpotIM_Admin {
         add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
         add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_javascript' ) );
         add_action( 'wp_ajax_start_import', array( __CLASS__, 'import_callback' ) );
-
     }
 
     public static function admin_javascript( $hook ) {
@@ -47,12 +46,14 @@ class SpotIM_Admin {
     }
 
     public static function import_callback() {
-        $import = new SpotIM_Import( self::$options->get( 'spot_id' ) );
+        $import = new SpotIM_Import( self::$options );
 
         $output = $import->start();
 
-        echo wp_json_encode( $output );
-
-        wp_die();
+        if ( 'success' === $output['status'] ) {
+            wp_send_json_success( $output['message'] );
+        } else {
+            wp_send_json_error( $output['message'] );
+        }
     }
 }
