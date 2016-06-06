@@ -43,9 +43,8 @@ class SpotIM_Form_Helper {
         );
 
         // Description template
-        if ( isset( $args['description'] ) && ! empty( $args['description'] ) ) {
-            $sanitized_description = wp_kses_post( $args['description'] );
-            $escaped_template .= sprintf( '<p class="description">%s</p>',  $sanitized_description );
+        if ( isset( $args['description'] ) ) {
+            $escaped_template .= self::get_description_html( $args['description'] );
         }
 
         echo $escaped_template;
@@ -63,9 +62,8 @@ class SpotIM_Form_Helper {
         );
 
         // Description template
-        if ( isset( $args['description'] ) && ! empty( $args['description'] ) ) {
-            $sanitized_description = wp_kses_post( $args['description'] );
-            $escaped_template .= sprintf( '<p class="description">%s</p>', $sanitized_description );
+        if ( isset( $args['description'] ) ) {
+            $escaped_template .= self::get_description_html( $args['description'] );
         }
 
         echo $escaped_template;
@@ -79,6 +77,15 @@ class SpotIM_Form_Helper {
             esc_attr( $args['text'] ) // Button's text.
         );
 
+        // Description template
+        if ( isset( $args['description'] ) ) {
+            $escaped_template .= self::get_description_html( $args['description'] );
+        }
+
         echo $escaped_template;
+    }
+
+    private static function get_description_html( $text ) {
+        return sprintf( '<p class="description">%s</p>', wp_kses_post( $text ) );
     }
 }
