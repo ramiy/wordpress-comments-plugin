@@ -62,6 +62,7 @@ class SpotIM_Options {
                     $options[$key] = intval( $value );
                     break;
                 case 'spot_id':
+                case 'import_token':
                     $options[$key] = sanitize_text_field( $value );
                     break;
             }

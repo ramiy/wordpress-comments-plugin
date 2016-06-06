@@ -1,6 +1,6 @@
 <?php
 
-define( 'JSONSTUB_EXPORT_URL', 'http://jsonstub.com/export/wordpress/anonymous/reply' );
+// define( 'JSONSTUB_EXPORT_URL', 'http://jsonstub.com/export/wordpress/anonymous/reply' );
 
 class SpotIM_Import {
     public function __construct( $spot_id ) {
@@ -39,26 +39,34 @@ class SpotIM_Import {
         // $response = $this->request_mock();
         // file_put_contents( dirname( __FILE__ )  . '/response.txt', json_encode( $response ) . "\r\n", FILE_APPEND);
 
-        if ( $response->is_ok && $response->from_etag < $response->new_etag ) {
-            $this->sync_comments( $response->events, $response->users, $response->post_id );
-        }
+        // if ( $response->is_ok && $response->from_etag < $response->new_etag ) {
+        //     $this->sync_comments( $response->events, $response->users, $response->post_id );
+        // }
 
-        return 'HODOR';
+        return esc_html__( 'Done.', 'wp-spotim' );
     }
 
     private function request( $query_args ) {
         $url = add_query_arg( $query_args, SPOTIM_EXPORT_URL );
+        $response_body = new stdClass();
+        $response_body->is_ok = false;
 
-        $retrieved_body = wp_remote_retrieve_body(
-            wp_remote_get( $url, array( 'sslverify' => true ) )
-        );
+        $response = wp_remote_get( $url, array( 'sslverify' => true ) );
 
-        $data = json_decode( $retrieved_body );
+        if ( ! is_wp_error( $response ) &&
+             'OK' === wp_remote_retrieve_response_message( $response ) &&
+             200 === wp_remote_retrieve_response_code( $response ) ) {
 
-        // TODO: handle actual errors.
-        $data->is_ok = true;
+            $response_body = json_decode( wp_remote_retrieve_body( $response ) );
 
-        return $data;
+            if ( isset( $response_body->success ) && false === $response_body->success ) {
+                $response_body->is_ok = false;
+            } else {
+                $response_body->is_ok = true
+            }
+        }
+
+        return $response_body;
     }
 
     private function request_mock() {
