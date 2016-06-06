@@ -104,13 +104,14 @@ class SpotIM_Settings_Fields {
 
         add_settings_field(
             'import_button',
-            __( '', 'wp-spotim' ),
+            '',
             array( 'SpotIM_Form_Helper', 'button' ),
             $this->options->slug,
             'import_settings_section',
             array(
                 'id' => 'import_button',
-                'text' => 'Import'
+                'text' => __( 'Import', 'wp-spotim' ),
+                'description' => ''
             )
         );
     }
