@@ -95,7 +95,7 @@ class SpotIM_Message {
             $this->messages_map[ $this->message->id ]['parent_message_id'] = $this->message->comment_id;
         }
 
-        update_post_meta( $this->post_id, 'spotim_messages_map', $this->messages_map );
+        return update_post_meta( $this->post_id, 'spotim_messages_map', $this->messages_map );
     }
 
     public function get_message_and_children_ids_map() {
@@ -114,7 +114,9 @@ class SpotIM_Message {
     public function delete_from_messages_map( $message_id ) {
         if ( isset( $this->messages_map[ $message_id ] ) ) {
             unset( $this->messages_map[ $message_id ] );
-            update_post_meta( $this->post_id, 'spotim_messages_map', $this->messages_map );
+            return update_post_meta( $this->post_id, 'spotim_messages_map', $this->messages_map );
+        } else {
+            return true;
         }
     }
 
