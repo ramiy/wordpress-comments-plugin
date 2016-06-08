@@ -7,54 +7,60 @@ class SpotIM_Import {
         $this->options = $options;
     }
 
-    public function start() {
+    public function start( $spot_id, $import_token ) {
         $post_ids = $this->get_post_ids();
         $streams = array();
-        $response = array(
-            // 'status' => 'error',
-            // 'message' => __( 'Something gone wrong, try a bit later or contact us at support@spot.im', 'wp-spotim' )
-            'status' => 'success',
-            'message' => __( 'Done. You are welcome.', 'wp-spotim' )
-        );
 
-        $this->options->reset( 'import_request_error' );
-        $this->options->reset( 'import_sync_comments_error' );
+        $this->options->update( 'spot_id', $spot_id );
+        $this->options->update( 'import_token', $import_token );
 
+        // import comments data from Spot.IM
+        $streams = $this->fetch_comments( $post_ids );
+
+        // sync comments data with wordpress comments
+        $this->merge_comments $streams );
+
+    }
+
+    private function fetch_comments( $post_ids ) {
         if ( ! empty( $post_ids ) ) {
-
-            // import comments data from Spot.IM
             while ( ! empty( $post_ids ) ) {
                 $post_id = array_shift( $post_ids );
                 $post_etag = get_post_meta( $post_id, 'spotim_etag', true );
 
-                $streams[] = $this->request( array(
+                $stream = $this->request( array(
                     'spot_id' => $this->options->get( 'spot_id' ),
                     'post_id' => $post_id,
                     'etag' => absint( $post_etag ),
-                    'count' => 1000
+                    'count' => 1000,
+                    'token' => $this->options->get( 'import_token' )
                 ) );
 
-                // error checking
-                $request_error = $this->options->get( 'import_request_error' );
-
-                if ( ! empty( $request_error ) ) {
-                    $response['message'] = $this->options->get( 'import_request_error' );
-                    break;
+                if ( $stream->is_ok ) {
+                    $streams[] = $stream->body;
+                } else {
+                    $this->response( array(
+                        'status' => 'error',
+                        'message' => $stream->body
+                    ) );
                 }
             }
         } else {
-            $response['status'] = 'success';
-            $response['message'] = __( 'Your website doesn\'t have any publish blog posts', 'wp-spotim' );
+            $this->response( array(
+                'status' => 'success',
+                'message' => __( 'Your website doesn\'t have any publish blog posts', 'wp-spotim' )
+            ) );
         }
 
-        // sync comments data with wordpress comments
+        return $stream;
+    }
+
+    private function merge_comments $streams ) {
         if ( ! empty( $streams ) ) {
             while ( ! empty( $streams ) ) {
                 $stream = array_shift( $streams );
-                $post_etag = get_post_meta( $stream->post_id, 'spotim_etag', true );
 
                 if ( $stream->from_etag < $stream->new_etag ) {
-
                     $sync_status = $this->sync_comments(
                         $stream->events,
                         $stream->users,
@@ -62,14 +68,14 @@ class SpotIM_Import {
                     );
 
                     if ( ! $sync_status ) {
-                        $response['status'] = 'error';
-                        $response['message'] = __( 'Could not import comments of from this stream: '. json_encode( $stream ), 'wp-spotim' );
-                        break;
-                        // $request_error = $this->options->get( 'import_sync_comments_error' );
-                        // if ( ! empty( $request_error ) ) {
-                        //     $response['message'] = $this->options->get( 'import_sync_comments_error' );
-                        //     break;
-                        // }
+                        $translated_error = __(
+                            'Could not import comments of from this stream: %s', 'wp-spotim'
+                        );
+
+                        $this->response( array(
+                            'status' => 'error',
+                            'message' => sprintf( $translated_error, json_encode( $stream ) )
+                        ) );
                     }
 
                 } else if ( $stream->from_etag === $stream->new_etag ) {
@@ -77,29 +83,23 @@ class SpotIM_Import {
                         $stream->post_id,
                         'spotim_etag',
                         absint( $stream->new_etag ),
-                        $post_etag
+                        absint( $stream->from_etag )
                     );
                 }
             }
-        } else {
-            $response['status'] = 'success';
-            $response['message'] = __( 'All comments are up to date.', 'wp-spotim' );
         }
 
-        return $response;
-
-        // $response = $this->request_mock();
-        // file_put_contents( dirname( __FILE__ )  . '/response.txt', json_encode( $response ) . "\r\n", FILE_APPEND);
-
-        // if ( $response->is_ok && $response->from_etag < $response->new_etag ) {
-        //     $this->sync_comments( $response->events, $response->users, $response->post_id );
-        // }
+        $this->response( array(
+            'status' => 'success',
+            'message' => __( 'All comments are up to date.', 'wp-spotim' )
+        ) );
     }
 
     private function request( $query_args ) {
         $url = add_query_arg( $query_args, SPOTIM_EXPORT_URL );
-        $response_body = new stdClass();
-        $is_ok = false;
+
+        $result = new stdClass();
+        $result->is_ok = false;
 
         $response = wp_remote_get( $url, array( 'sslverify' => true ) );
 
@@ -110,17 +110,44 @@ class SpotIM_Import {
             $response_body = json_decode( wp_remote_retrieve_body( $response ) );
 
             if ( isset( $response_body->success ) && false === $response_body->success ) {
-                $is_ok = false;
+                $result->is_ok = false;
             } else {
-                $is_ok = true;
+                $result->is_ok = true;
+                $result->body = $response_body;
             }
         }
 
-        if ( ! $is_ok ) {
-            $this->options->update( 'import_request_error', 'Retriving data failed from this URL: ' . $url );
+        if ( ! $result->is_ok ) {
+            $translated_error = __( 'Retriving data failed from this URL: %s', 'wp-spotim' );
+
+            $result->body = sprintf( $translated_error, esc_attr( $url ) );
         }
 
-        return $response_body;
+        return $result;
+    }
+
+    public function response( $args = array() ) {
+        $defaults = array(
+            'status' => '',
+            'message' => ''
+        );
+
+        if ( ! empty( $args ) ) {
+            $args = array_merge( $defaults, $args );
+
+            if ( ! empty( $args['status'] ) && ! empty( $args['message'] ) ) {
+                $escaped_message = sanitize_text_field( $args['message'] );
+
+                switch( $args['status'] ) {
+                    case 'success':
+                        wp_send_json_success( $escaped_message );
+                        break;
+                    case 'error':
+                        wp_send_json_error( $escaped_message );
+                        break;
+                }
+            }
+        }
     }
 
     private function request_mock() {
@@ -150,6 +177,8 @@ class SpotIM_Import {
 
         return get_posts( $args );
     }
+
+
 
     private function sync_comments( $events, $users, $post_id ) {
         $flag = true;
