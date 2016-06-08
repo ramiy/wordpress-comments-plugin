@@ -22,7 +22,7 @@ class SpotIM_Import {
 
     }
 
-    private function fetch_comments( $post_ids ) {
+    private function fetch_comments( $post_ids = array() ) {
         if ( ! empty( $post_ids ) ) {
             while ( ! empty( $post_ids ) ) {
                 $post_id = array_shift( $post_ids );
@@ -35,7 +35,6 @@ class SpotIM_Import {
                     'count' => 1000,
                     'token' => $this->options->get( 'import_token' )
                 ) );
-
                 if ( $stream->is_ok ) {
                     $streams[] = $stream->body;
                 } else {
@@ -48,14 +47,14 @@ class SpotIM_Import {
         } else {
             $this->response( array(
                 'status' => 'success',
-                'message' => __( 'Your website doesn\'t have any publish blog posts', 'wp-spotim' )
+                'message' => __( 'Your website doesn\'t have any published blog posts', 'wp-spotim' )
             ) );
         }
 
-        return $stream;
+        return $streams;
     }
 
-    private function merge_comments( $streams ) {
+    private function merge_comments( $streams = array() ) {
         if ( ! empty( $streams ) ) {
             while ( ! empty( $streams ) ) {
                 $stream = array_shift( $streams );
@@ -77,15 +76,14 @@ class SpotIM_Import {
                             'message' => sprintf( $translated_error, json_encode( $stream ) )
                         ) );
                     }
-
-                } else if ( $stream->from_etag === $stream->new_etag ) {
-                    update_post_meta(
-                        $stream->post_id,
-                        'spotim_etag',
-                        absint( $stream->new_etag ),
-                        absint( $stream->from_etag )
-                    );
                 }
+
+                update_post_meta(
+                    $stream->post_id,
+                    'spotim_etag',
+                    absint( $stream->new_etag ),
+                    absint( $stream->from_etag )
+                );
             }
         }
 
