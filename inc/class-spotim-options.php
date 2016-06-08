@@ -27,9 +27,7 @@ class SpotIM_Options {
             'enable_comments_replacement' => 1,
             'enable_comments_on_page' => 0,
             'spot_id' => '',
-            'import_token' => '',
-            'import_request_error' => '',
-            'import_sync_comments_error' => ''
+            'import_token' => ''
         );
 
         update_option( $this->slug, $default_options );
@@ -48,14 +46,6 @@ class SpotIM_Options {
 
             if ( ! isset( $data['import_token'] ) ) {
                 $data['import_token'] = '';
-            }
-
-            if ( ! isset( $data['import_request_error'] ) ) {
-                $data['import_request_error'] = '';
-            }
-
-            if ( ! isset( $data['import_sync_comments_error'] ) ) {
-                $data['import_sync_comments_error'] = '';
             }
         }
 
@@ -113,8 +103,6 @@ class SpotIM_Options {
                     break;
                 case 'spot_id':
                 case 'import_token':
-                case 'import_request_error':
-                case 'import_sync_comments_error':
                 default:
                     $options[ $key ] = sanitize_text_field( $value );
                     break;
