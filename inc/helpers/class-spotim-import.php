@@ -18,7 +18,7 @@ class SpotIM_Import {
         $streams = $this->fetch_comments( $post_ids );
 
         // sync comments data with wordpress comments
-        $this->merge_comments $streams );
+        $this->merge_comments( $streams );
 
     }
 
@@ -55,7 +55,7 @@ class SpotIM_Import {
         return $stream;
     }
 
-    private function merge_comments $streams ) {
+    private function merge_comments( $streams ) {
         if ( ! empty( $streams ) ) {
             while ( ! empty( $streams ) ) {
                 $stream = array_shift( $streams );
