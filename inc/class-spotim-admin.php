@@ -48,12 +48,23 @@ class SpotIM_Admin {
     public static function import_callback() {
         $import = new SpotIM_Import( self::$options );
 
-        $output = $import->start();
+        // check for spot id
+        if ( ! isset( $_POST['spotim_spot_id'] ) || empty( $_POST['spotim_spot_id'] ) ) {
+            $import->response( array(
+                'status' => 'error',
+                'message' => __( 'Your Spot Id is missing.', 'wp-spotim' )
+            ) );
 
-        if ( 'success' === $output['status'] ) {
-            wp_send_json_success( $output['message'] );
+        // check for import token
+        } else if ( ! isset( $_POST['spotim_import_token'] ) || empty( $_POST['spotim_import_token'] ) ) {
+            $import->response( array(
+                'status' => 'error',
+                'message' => __( 'Your Token is missing.', 'wp-spotim' )
+            ) );
+
+        //  else start the comments importing process
         } else {
-            wp_send_json_error( $output['message'] );
+            $import->start( $_POST['spotim_spot_id'], $_POST['spotim_import_token'] );
         }
     }
 }
