@@ -35,9 +35,14 @@ jQuery( document ).ready(function ( $ ) {
                     importCommetsToWP( params, $importButton, $messageField );
                     break;
                 case 'success':
+                    // enable the import button
+                    $importButton.attr( 'disabled', false );
                     break;
                 case 'error':
                     $messageField.css({ 'color': '#db3737' });
+
+                    // enable the import button
+                    $importButton.attr( 'disabled', false );
                     break;
             }
 
@@ -45,9 +50,6 @@ jQuery( document ).ready(function ( $ ) {
 
             // show response message inside message field
             $messageField.html( response.message );
-
-            // enable the import button
-            $importButton.attr( 'disabled', false );
 
         }, 'json' );
     }

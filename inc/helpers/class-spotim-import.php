@@ -41,11 +41,10 @@ class SpotIM_Import {
         );
 
         $total_posts_count = count( $this->get_post_ids() );
+        $current_posts_count = $this->posts_per_page;
 
-        if ( 0 === $this->page_number ) {
-            $current_posts_count = $this->posts_per_page;
-        } else {
-            $current_posts_count = $this->posts_per_page * $this->page_number;
+        if ( 0 < $this->page_number ) {
+            $current_posts_count = $current_posts_count + ( $this->posts_per_page * $this->page_number );
         }
 
         if ( 0 === $total_posts_count ) {
