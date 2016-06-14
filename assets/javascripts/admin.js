@@ -8,7 +8,7 @@ jQuery( document ).ready(function ( $ ) {
 
         // empty message field from any text and reset css
         $messageField
-            .css({ 'color': '' })
+            .removeClass('red-color')
             .html('');
 
         // disable the import button
@@ -39,7 +39,7 @@ jQuery( document ).ready(function ( $ ) {
                     $importButton.attr( 'disabled', false );
                     break;
                 case 'error':
-                    $messageField.css({ 'color': '#db3737' });
+                    $messageField.addClass('red-color');
 
                     // enable the import button
                     $importButton.attr( 'disabled', false );
@@ -51,7 +51,10 @@ jQuery( document ).ready(function ( $ ) {
             // show response message inside message field
             $messageField.html( response.message );
 
-        }, 'json' );
+        }, 'json' )
+        .fail(function( response ) {
+            console.log( 'error?', response );
+        });
     }
 
 });
