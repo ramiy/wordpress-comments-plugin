@@ -8,7 +8,7 @@ class SpotIM_Import {
     public function __construct( $options ) {
         $this->options = $options;
 
-        $this->posts_per_page = 10;
+        $this->posts_per_page = 50;
         $this->page_number = 0;
     }
 
@@ -195,7 +195,7 @@ class SpotIM_Import {
     private function get_post_ids( $posts_per_page = -1, $page_number = 0 ) {
         $args = array(
             'posts_per_page' => $posts_per_page,
-            'post_type' => 'post',
+            'post_type' => array( 'post' ),
             'post_status' => 'publish',
             'orderby' => 'id',
             'order' => 'ASC',
@@ -204,6 +204,10 @@ class SpotIM_Import {
 
         if ( -1 !== $posts_per_page ) {
             $args['offset'] = $posts_per_page * $page_number;
+        }
+
+        if ( 1 === $this->options->get( 'enable_comments_on_page' ) ) {
+            $args['post_type'][] = 'page';
         }
 
         return get_posts( $args );
