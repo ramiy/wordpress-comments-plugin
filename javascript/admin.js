@@ -28,12 +28,10 @@ jQuery( document ).ready(function ( $ ) {
 
     function importCommetsToWP( params, $importButton, $messageField ) {
         $.post( ajaxurl, params, function( response ) {
-
             switch( response.status ) {
                 case 'continue':
-                    console.log( response.message );
-
                     params.spotim_page_number = params.spotim_page_number + 1;
+
                     importCommetsToWP( params, $importButton, $messageField );
                     break;
                 case 'success':
@@ -42,6 +40,8 @@ jQuery( document ).ready(function ( $ ) {
                     $messageField.css({ 'color': '#db3737' });
                     break;
             }
+
+            console.log( response.message );
 
             // show response message inside message field
             $messageField.html( response.message );
