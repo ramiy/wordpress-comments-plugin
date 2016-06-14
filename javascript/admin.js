@@ -1,10 +1,10 @@
 jQuery( document ).ready(function ( $ ) {
 
     $('#import_button').on('click', function( event ) {
-        var $this = $(this),
-            $messageField = $this.parent().find('.description'),
-            spotIdInputValue = $this.parents('form').find('[name="wp-spotim-settings[spot_id]"]').attr('value').trim(),
-            importTokenInputValue = $this.parents('.form-table').find('[name="wp-spotim-settings[import_token]"]').attr('value').trim();
+        var $importButton = $(this),
+            $messageField = $importButton.parent().find('.description'),
+            spotIdInputValue = $importButton.parents('form').find('[name="wp-spotim-settings[spot_id]"]').attr('value').trim(),
+            importTokenInputValue = $importButton.parents('.form-table').find('[name="wp-spotim-settings[import_token]"]').attr('value').trim();
 
         // empty message field from any text and reset css
         $messageField
@@ -12,28 +12,44 @@ jQuery( document ).ready(function ( $ ) {
             .html('');
 
         // disable the import button
-        $this.attr( 'disabled', true );
+        $importButton.attr( 'disabled', true );
 
         var data = {
             'action': 'start_import',
             'spotim_spot_id': spotIdInputValue,
-            'spotim_import_token': importTokenInputValue
+            'spotim_import_token': importTokenInputValue,
+            'spotim_page_number': 0
         };
 
-        $.post( ajaxurl, data, function( response ) {
-            if ( false === response.success ) {
-                $messageField.css({ 'color': '#db3737' });
-            }
-
-            // show response message inside message field
-            $messageField.html( response.data );
-
-            // enable the import button
-            $this.attr( 'disabled', false );
-
-        }, 'json' );
+        importCommetsToWP( data, $importButton, $messageField );
 
         event.preventDefault();
     });
+
+    function importCommetsToWP( params, $importButton, $messageField ) {
+        $.post( ajaxurl, params, function( response ) {
+
+            switch( response.status ) {
+                case 'continue':
+                    console.log( response.message );
+
+                    params.spotim_page_number = params.spotim_page_number + 1;
+                    importCommetsToWP( params, $importButton, $messageField );
+                    break;
+                case 'success':
+                    break;
+                case 'error':
+                    $messageField.css({ 'color': '#db3737' });
+                    break;
+            }
+
+            // show response message inside message field
+            $messageField.html( response.message );
+
+            // enable the import button
+            $importButton.attr( 'disabled', false );
+
+        }, 'json' );
+    }
 
 });
