@@ -209,17 +209,24 @@ class SpotIM_Message {
             'name' => 'Guest'
         );
 
-        // set author's name
-        if ( isset( $this->message->user_id ) &&
-             isset( $this->users->{ $this->message->user_id }->user_name ) ) {
-            $author[ 'name' ] = sanitize_text_field( $this->users->{ $this->message->user_id }->user_name );
-        }
+        if ( isset( $this->message->user_id ) ) {
 
-        // set author's email
-        if ( isset( $this->message->user_id ) &&
-             isset( $this->users->{ $this->message->user_id }->email ) &&
-             is_email( $this->users->{ $this->message->user_id }->email ) ) {
-            $author[ 'email' ] = $this->users->{ $this->message->user_id }->email;
+            // set author's name
+            if ( isset( $this->users->{ $this->message->user_id }->nick_name ) ) {
+                $author['name'] = sanitize_text_field(
+                    $this->users->{ $this->message->user_id }->nick_name
+                );
+            } else if ( isset( $this->users->{ $this->message->user_id }->user_name ) ) {
+                $author['name'] = sanitize_text_field(
+                    $this->users->{ $this->message->user_id }->user_name
+                );
+            }
+
+            // set author's email
+            if ( isset( $this->users->{ $this->message->user_id }->email ) &&
+                 is_email( $this->users->{ $this->message->user_id }->email ) ) {
+                $author['email'] = $this->users->{ $this->message->user_id }->email;
+            }
         }
 
         return $author;
