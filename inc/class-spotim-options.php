@@ -3,12 +3,9 @@
 class SpotIM_Options {
     private static $instance;
     private $data;
-    public $templates_path, $slug, $option_group;
+    public $slug, $option_group;
 
     protected function __construct() {
-        $this->templates_path = plugin_dir_path( dirname( __FILE__ ) ) . 'templates/';
-        $this->javascript_path = plugin_dir_url( dirname( __FILE__ ) ) . 'javascript/';
-
         $this->slug = 'wp-spotim-settings';
         $this->option_group = 'wp-spotim-options';
         $this->data = $this->get_meta_data();
@@ -134,13 +131,19 @@ class SpotIM_Options {
     }
 
     public function require_template( $path = '', $return_path = false ) {
-        $path = $this->templates_path . $path;
+        $path = plugin_dir_path( dirname( __FILE__ ) ) . 'templates/' . $path;
 
         return $this->require_file( $path, $return_path );
     }
 
     public function require_javascript( $path = '', $return_path = false ) {
-        $path = $this->javascript_path . $path;
+        $path = plugin_dir_url( dirname( __FILE__ ) ) . 'assets/javascripts/' . $path;
+
+        return $this->require_file( $path, $return_path );
+    }
+
+    public function require_stylesheet( $path = '', $return_path = false ) {
+        $path = plugin_dir_url( dirname( __FILE__ ) ) . 'assets/stylesheets/' . $path;
 
         return $this->require_file( $path, $return_path );
     }

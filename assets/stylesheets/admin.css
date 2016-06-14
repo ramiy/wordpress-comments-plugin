@@ -1,0 +1,21 @@
+.form-table p.description.red-color {
+    color: #db3737;
+}
+
+.form-table #import_button[disabled] {
+    position: relative;
+}
+.form-table #import_button[disabled]:after {
+    background-image: url('../images/ajax-loader.gif');
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+    content: "";
+    display: inline-block;
+    height: 17px;
+    margin-top: -9px;
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    width: 17px;
+}

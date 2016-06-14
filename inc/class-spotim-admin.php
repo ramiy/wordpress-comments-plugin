@@ -8,16 +8,17 @@ class SpotIM_Admin {
 
         add_action( 'admin_menu', array( __CLASS__, 'create_admin_menu' ), 20 );
         add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
-        add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_javascript' ) );
+        add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_assets' ) );
         add_action( 'wp_ajax_start_import', array( __CLASS__, 'import_callback' ) );
     }
 
-    public static function admin_javascript( $hook ) {
+    public static function admin_assets( $hook ) {
         if ( 'toplevel_page_wp-spotim-settings' !== $hook ) {
             return;
         }
 
-        wp_enqueue_script( 'admin_javascript', self::$options->require_javascript( 'admin.js', true ) );
+        wp_enqueue_style( 'admin_stylesheet', self::$options->require_stylesheet( 'admin.css', true ) );
+        wp_enqueue_script( 'admin_javascript', self::$options->require_javascript( 'admin.js', true ), array( 'jquery' ) );
     }
 
     public static function create_admin_menu() {
