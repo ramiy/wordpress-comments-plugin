@@ -64,7 +64,11 @@ class SpotIM_Admin {
 
         //  else start the comments importing process
         } else {
-            $import->start( $_POST['spotim_spot_id'], $_POST['spotim_import_token'] );
+            $spot_id = sanitize_text_field( $_POST['spotim_spot_id'] );
+            $import_token = sanitize_text_field( $_POST['spotim_import_token'] );
+            $page_number = isset( $_POST['spotim_page_number'] ) ? absint( $_POST['spotim_page_number'] ) : 0;
+
+            $import->start( $spot_id, $import_token, $page_number );
         }
     }
 }
