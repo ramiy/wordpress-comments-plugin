@@ -3,23 +3,61 @@
 // define( 'JSONSTUB_EXPORT_URL', 'http://jsonstub.com/export/wordpress/anonymous/reply' );
 
 class SpotIM_Import {
+    private $options, $posts_per_page, $page_number;
+
     public function __construct( $options ) {
         $this->options = $options;
+
+        $this->posts_per_page = 10;
+        $this->page_number = 0;
     }
 
-    public function start( $spot_id, $import_token ) {
-        $post_ids = $this->get_post_ids();
-        $streams = array();
+    public function start( $spot_id, $import_token, $page_number = 0 ) {
 
+        $this->page_number = absint( $page_number );
+        $post_ids = $this->get_post_ids( $this->posts_per_page, $this->page_number );
+
+        // save spot_id and import_token in plugin's options meta
         $this->options->update( 'spot_id', $spot_id );
         $this->options->update( 'import_token', $import_token );
 
         // import comments data from Spot.IM
+        $streams = array();
         $streams = $this->fetch_comments( $post_ids );
 
         // sync comments data with wordpress comments
         $this->merge_comments( $streams );
 
+        //
+        $this->finish();
+    }
+
+    private function finish() {
+        $response_args = array(
+            'status' => '',
+            'message' => ''
+        );
+
+        $total_posts_count = count( $this->get_post_ids() );
+
+        if ( 0 === $this->page_number ) {
+            $current_posts_count = $this->posts_per_page;
+        } else {
+            $current_posts_count = $this->posts_per_page * $this->page_number;
+        }
+
+        if ( $current_posts_count < $total_posts_count ) {
+            $translated_message = __( '%d / %d posts are synchronize comments.', 'wp-spotim' );
+            $parsed_message = sprintf( $translated_message, $current_posts_count, $total_posts_count );
+
+            $response_args['status'] = 'continue';
+            $response_args['message'] = $parsed_message;
+        } else {
+            $response_args['status'] = 'success';
+            $response_args['message'] = __( 'Your comments are up to date.', 'wp-spotim' );
+        }
+
+        $this->response( $response_args );
     }
 
     private function fetch_comments( $post_ids = array() ) {
@@ -86,11 +124,6 @@ class SpotIM_Import {
                 );
             }
         }
-
-        $this->response( array(
-            'status' => 'success',
-            'message' => __( 'All comments are up to date.', 'wp-spotim' )
-        ) );
     }
 
     private function request( $query_args ) {
@@ -125,6 +158,8 @@ class SpotIM_Import {
     }
 
     public function response( $args = array() ) {
+        $statuses_list = array( 'continue', 'success', 'error' );
+
         $defaults = array(
             'status' => '',
             'message' => ''
@@ -134,15 +169,10 @@ class SpotIM_Import {
             $args = array_merge( $defaults, $args );
 
             if ( ! empty( $args['status'] ) && ! empty( $args['message'] ) ) {
-                $escaped_message = sanitize_text_field( $args['message'] );
+                $args['message'] = sanitize_text_field( $args['message'] );
 
-                switch( $args['status'] ) {
-                    case 'success':
-                        wp_send_json_success( $escaped_message );
-                        break;
-                    case 'error':
-                        wp_send_json_error( $escaped_message );
-                        break;
+                if ( in_array( $args['status'], $statuses_list ) ) {
+                    wp_send_json( $args );
                 }
             }
         }
@@ -165,18 +195,22 @@ class SpotIM_Import {
         return $data;
     }
 
-    private function get_post_ids() {
+    private function get_post_ids( $posts_per_page = -1, $page_number = 0 ) {
         $args = array(
-            'posts_per_page' => -1,
+            'posts_per_page' => $posts_per_page,
             'post_type' => 'post',
             'post_status' => 'publish',
+            'orderby' => 'id',
+            'order' => 'ASC',
             'fields' => 'ids'
         );
 
+        if ( -1 !== $posts_per_page ) {
+            $args['offset'] = $posts_per_page * $page_number;
+        }
+
         return get_posts( $args );
     }
-
-
 
     private function sync_comments( $events, $users, $post_id ) {
         $flag = true;
