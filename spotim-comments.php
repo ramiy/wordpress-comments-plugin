@@ -17,10 +17,11 @@
  *
  */
 
-require_once( 'inc/helpers/class-spotim-message.php' );
-require_once( 'inc/helpers/class-spotim-import.php' );
 require_once( 'inc/helpers/class-spotim-form.php' );
+require_once( 'inc/helpers/class-spotim-message.php' );
+require_once( 'inc/helpers/class-spotim-comment.php' );
 
+require_once( 'inc/class-spotim-import.php' );
 require_once( 'inc/class-spotim-options.php' );
 require_once( 'inc/class-spotim-settings-fields.php' );
 require_once( 'inc/class-spotim-admin.php' );
