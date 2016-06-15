@@ -8,6 +8,14 @@ class SpotIM_Options {
     protected function __construct() {
         $this->slug = 'wp-spotim-settings';
         $this->option_group = 'wp-spotim-options';
+        $this->default_options = array(
+            'enable_comments_replacement' => 1,
+            'enable_comments_on_page' => 0,
+            'spot_id' => '',
+            'import_token' => '',
+            'posts_per_request' => 10
+        );
+
         $this->data = $this->get_meta_data();
     }
 
@@ -20,16 +28,9 @@ class SpotIM_Options {
     }
 
     private function create_options() {
-        $default_options = array(
-            'enable_comments_replacement' => 1,
-            'enable_comments_on_page' => 0,
-            'spot_id' => '',
-            'import_token' => ''
-        );
+        update_option( $this->slug, $this->default_options );
 
-        update_option( $this->slug, $default_options );
-
-        return $default_options;
+        return $this->default_options;
     }
 
     private function get_meta_data() {
@@ -41,9 +42,7 @@ class SpotIM_Options {
             $data['enable_comments_replacement'] = intval( $data['enable_comments_replacement'] );
             $data['enable_comments_on_page'] = intval( $data['enable_comments_on_page'] );
 
-            if ( ! isset( $data['import_token'] ) ) {
-                $data['import_token'] = '';
-            }
+            $data = array_merge( $this->default_options, $data );
         }
 
         return $data;
@@ -97,6 +96,10 @@ class SpotIM_Options {
                 case 'enable_comments_replacement':
                 case 'enable_comments_on_page':
                     $options[ $key ] = intval( $value );
+                    break;
+                case 'posts_per_request':
+                    $value = absint( $value );
+                    $options[ $key ] = 0 === $value ? 1 : $value;
                     break;
                 case 'spot_id':
                 case 'import_token':

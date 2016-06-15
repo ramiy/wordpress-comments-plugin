@@ -4,7 +4,9 @@ jQuery( document ).ready(function ( $ ) {
         var $importButton = $(this),
             $messageField = $importButton.parent().find('.description'),
             spotIdInputValue = $importButton.parents('form').find('[name="wp-spotim-settings[spot_id]"]').attr('value').trim(),
-            importTokenInputValue = $importButton.parents('.form-table').find('[name="wp-spotim-settings[import_token]"]').attr('value').trim();
+            importTokenInputValue = $importButton.parents('.form-table').find('[name="wp-spotim-settings[import_token]"]').attr('value').trim(),
+            postsPerRequestValue = $importButton.parents('.form-table').find('[name="wp-spotim-settings[posts_per_request]"]').attr('value').trim();
+
 
         // empty message field from any text and reset css
         $messageField
@@ -18,6 +20,7 @@ jQuery( document ).ready(function ( $ ) {
             'action': 'start_import',
             'spotim_spot_id': spotIdInputValue,
             'spotim_import_token': importTokenInputValue,
+            'spotim_posts_per_request': postsPerRequestValue,
             'spotim_page_number': 0
         };
 

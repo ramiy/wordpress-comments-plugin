@@ -53,7 +53,7 @@ class SpotIM_Form_Helper {
     public static function text_field( $args ) {
         $args = self::set_name( $args );
         $args['value'] = sanitize_text_field( $args['value'] );
-        $text_template = '<input name="%s" type="text" value="%s" />';
+        $text_template = '<input name="%s" type="text" value="%s" autocomplete="off" />';
 
         // Text input template
         $escaped_template = sprintf($text_template,

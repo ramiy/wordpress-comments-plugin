@@ -89,7 +89,7 @@ class SpotIM_Settings_Fields {
         );
 
         add_settings_field(
-            'spot_id',
+            'import_token',
             __( 'Your Token', 'wp-spotim' ),
             array( 'SpotIM_Form_Helper', 'text_field' ),
             $this->options->slug,
@@ -99,6 +99,20 @@ class SpotIM_Settings_Fields {
                 'page' => $this->options->slug,
                 'description' => 'some description about where to get the api key.',
                 'value' => $this->options->get( 'import_token' )
+            )
+        );
+
+        add_settings_field(
+            'posts_per_request',
+            __( 'Posts Per Request', 'wp-spotim' ),
+            array( 'SpotIM_Form_Helper', 'text_field' ),
+            $this->options->slug,
+            'import_settings_section',
+            array(
+                'id' => 'posts_per_request',
+                'page' => $this->options->slug,
+                'description' => 'some description about the field.',
+                'value' => $this->options->get( 'posts_per_request' )
             )
         );
 

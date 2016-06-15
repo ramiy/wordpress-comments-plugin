@@ -3,23 +3,26 @@
 // define( 'JSONSTUB_EXPORT_URL', 'http://jsonstub.com/export/wordpress/anonymous/reply' );
 
 class SpotIM_Import {
-    private $options, $posts_per_page, $page_number;
+    private $options, $posts_per_request, $page_number;
 
     public function __construct( $options ) {
         $this->options = $options;
 
-        $this->posts_per_page = 50;
+        $this->posts_per_request = 50;
         $this->page_number = 0;
     }
 
-    public function start( $spot_id, $import_token, $page_number = 0 ) {
+    public function start( $spot_id, $import_token, $page_number = 0, $posts_per_request = 1 ) {
 
         // save spot_id and import_token in plugin's options meta
         $this->options->update( 'spot_id', $spot_id );
         $this->options->update( 'import_token', $import_token );
 
         $this->page_number = absint( $page_number );
-        $post_ids = $this->get_post_ids( $this->posts_per_page, $this->page_number );
+        $this->posts_per_request = absint( $posts_per_request );
+        $this->options->update( 'posts_per_request', $posts_per_request );
+
+        $post_ids = $this->get_post_ids( $this->posts_per_request, $this->page_number );
 
         if ( ! empty( $post_ids ) ) {
             // import comments data from Spot.IM
@@ -41,10 +44,10 @@ class SpotIM_Import {
         );
 
         $total_posts_count = count( $this->get_post_ids() );
-        $current_posts_count = $this->posts_per_page;
+        $current_posts_count = $this->posts_per_request;
 
         if ( 0 < $this->page_number ) {
-            $current_posts_count = $current_posts_count + ( $this->posts_per_page * $this->page_number );
+            $current_posts_count = $current_posts_count + ( $this->posts_per_request * $this->page_number );
         }
 
         if ( 0 === $total_posts_count ) {

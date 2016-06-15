@@ -69,7 +69,15 @@ class SpotIM_Admin {
             $import_token = sanitize_text_field( $_POST['spotim_import_token'] );
             $page_number = isset( $_POST['spotim_page_number'] ) ? absint( $_POST['spotim_page_number'] ) : 0;
 
-            $import->start( $spot_id, $import_token, $page_number );
+            if ( isset( $_POST['spotim_posts_per_request'] ) ) {
+                $posts_per_request = absint( $_POST['spotim_posts_per_request'] );
+                $posts_per_request = 0 === $posts_per_request ? 1 : $posts_per_request;
+            } else {
+                $posts_per_request = 1;
+            }
+
+
+            $import->start( $spot_id, $import_token, $page_number, $posts_per_request );
         }
     }
 }
