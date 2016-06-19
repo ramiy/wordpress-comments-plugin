@@ -9,11 +9,12 @@ class SpotIM_Options {
         $this->slug = 'wp-spotim-settings';
         $this->option_group = 'wp-spotim-options';
         $this->default_options = array(
-            'enable_comments_replacement' => 1,
             'enable_comments_on_page' => 0,
-            'spot_id' => '',
+            'enable_comments_replacement' => 1,
             'import_token' => '',
-            'posts_per_request' => 10
+            'page_number' => 0,
+            'posts_per_request' => 10,
+            'spot_id' => ''
         );
 
         $this->data = $this->get_meta_data();
@@ -61,18 +62,20 @@ class SpotIM_Options {
 
         $options_updated = update_option( $this->slug, $options );
 
+
         if ( $options_updated ) {
             $this->data = $options;
         }
 
-        return $options_updated;
+        // return updated value
+        return $this->data[ $name ];
     }
 
     public function reset( $name ) {
         $value = $this->get( $name );
 
         switch( gettype( $value ) ) {
-            case 'integer':
+            case 'number':
                 $value = 0;
                 break;
             case 'string':
@@ -83,9 +86,7 @@ class SpotIM_Options {
                 $value = false;
         }
 
-        $this->update( $name, $value );
-
-        return $value;
+        return $this->update( $name, $value );
     }
 
     public function validate( $input ) {
@@ -100,6 +101,9 @@ class SpotIM_Options {
                 case 'posts_per_request':
                     $value = absint( $value );
                     $options[ $key ] = 0 === $value ? 1 : $value;
+                    break;
+                case 'page_number':
+                    $options[ $key ] = absint( $value );
                     break;
                 case 'spot_id':
                 case 'import_token':

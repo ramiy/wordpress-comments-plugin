@@ -19,6 +19,11 @@ class SpotIM_Admin {
 
         wp_enqueue_style( 'admin_stylesheet', self::$options->require_stylesheet( 'admin.css', true ) );
         wp_enqueue_script( 'admin_javascript', self::$options->require_javascript( 'admin.js', true ), array( 'jquery' ) );
+
+        wp_localize_script( 'admin_javascript', 'spotimVariables', array(
+            'pageNumber' => self::$options->get('page_number'),
+            'errorMessage' => __( 'Oops something got wrong. Please try again or send us an email.', 'wp-spotim' )
+        ) );
     }
 
     public static function create_admin_menu() {

@@ -4,34 +4,31 @@ class SpotIM_Comment {
     public static function sync( $events, $users, $post_id ) {
         $flag = true;
 
-        if ( ! empty( $events ) ) {
-            foreach ( $events as $event ) {
-
-                switch ( $event->type ) {
-                    case 'c+':
-                    case 'r+':
-                        $flag = self::add_new_comment( $event->message, $users, $post_id );
-                        break;
-                    case 'c~':
-                    case 'r~':
-                        $flag = self::update_comment( $event->message, $users, $post_id );
-                        break;
-                    case 'c-':
-                    case 'r-':
-                        $flag = self::delete_comment( $event->message, $users, $post_id );
-                        break;
-                    case 'c*':
-                        $flag = self::soft_delete_comment( $event->message, $users, $post_id );
-                        break;
-                    case 'c@':
-                    case 'r@':
-                        $flag = self::anonymous_comment( $event->message, $users, $post_id );
-                        break;
-                }
-
-                if ( ! $flag ) {
+        foreach ( $events as $event ) {
+            switch ( $event->type ) {
+                case 'c+':
+                case 'r+':
+                    $flag = self::add_new_comment( $event->message, $users, $post_id );
                     break;
-                }
+                case 'c~':
+                case 'r~':
+                    $flag = self::update_comment( $event->message, $users, $post_id );
+                    break;
+                case 'c-':
+                case 'r-':
+                    $flag = self::delete_comment( $event->message, $users, $post_id );
+                    break;
+                case 'c*':
+                    $flag = self::soft_delete_comment( $event->message, $users, $post_id );
+                    break;
+                case 'c@':
+                case 'r@':
+                    $flag = self::anonymous_comment( $event->message, $users, $post_id );
+                    break;
+            }
+
+            if ( ! $flag ) {
+                break;
             }
         }
 
@@ -49,6 +46,8 @@ class SpotIM_Comment {
             if ( $comment_id ) {
                 $comment_created = $message->update_messages_map( $comment_id );
             }
+        } else {
+            $comment_created = self::update_comment( $sp_message, $sp_users, $post_id );
         }
 
         return !! $comment_created;
@@ -59,20 +58,21 @@ class SpotIM_Comment {
 
         $message = new SpotIM_Message( 'update', $sp_message, $sp_users, $post_id );
 
-        if ( $message->is_comment_exists() ) {
+        if ( $message->is_comment_exists() && ! $message->is_same_comment() ) {
             $comment_updated = wp_update_comment( $message->get_comment_data() );
+        } else {
+            $comment_updated = true;
         }
 
         return !! $comment_updated;
     }
 
-    private static function delete_comment( $message, $users, $post_id ) {
+    private static function delete_comment( $sp_message, $sp_users, $post_id ) {
         $comment_deleted = false;
         $message_deleted_from_map = false;
 
         $message = new SpotIM_Message( 'delete', $sp_message, $sp_users, $post_id );
-
-        if ( $message->is_comment_exists() ) {
+        if ( $message->get_comment_id() ) {
             $messages_ids = $message->get_message_and_children_ids_map();
 
             foreach( $messages_ids as $message_id => $comment_id ) {
@@ -88,6 +88,9 @@ class SpotIM_Comment {
                     break;
                 }
             }
+        } else {
+            $comment_deleted = true;
+            $message_deleted_from_map = true;
         }
 
         return !! $comment_deleted && !! $message_deleted_from_map;
@@ -110,8 +113,10 @@ class SpotIM_Comment {
 
         $message = new SpotIM_Message( 'anonymous_comment', $sp_message, $sp_users, $post_id );
 
-        if ( $message->is_comment_exists() ) {
+        if ( $message->is_comment_exists() && ! $message->is_same_comment() ) {
             $comment_anonymized = wp_update_comment( $message->get_comment_data() );
+        } else {
+            $comment_anonymized = true;
         }
 
         return !! $comment_anonymized;

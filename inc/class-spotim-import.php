@@ -20,12 +20,24 @@ class SpotIM_Import {
         $this->options->update( 'spot_id', $spot_id );
         $this->options->update( 'import_token', $import_token );
 
-        $this->page_number = absint( $page_number );
-        $this->posts_per_request = absint( $posts_per_request );
-        $this->options->update( 'posts_per_request', $posts_per_request );
+        $this->page_number = $this->options->update(
+            'page_number', absint( $page_number )
+        );
+
+        $this->posts_per_request = $this->options->update(
+            'posts_per_request', absint( $posts_per_request )
+        );
 
         $post_ids = $this->get_post_ids( $this->posts_per_request, $this->page_number );
 
+        // fetch, merge comments and return a response
+        $this->pull_comments( $post_ids );
+
+        // return a response to client via json
+        $this->finish();
+    }
+
+    private function pull_comments( $post_ids = array() ) {
         if ( ! empty( $post_ids ) ) {
             // import comments data from Spot.IM
             $streams = array();
@@ -34,9 +46,73 @@ class SpotIM_Import {
             // sync comments data with wordpress comments
             $this->merge_comments( $streams );
         }
+    }
 
-        //
-        $this->finish();
+    private function fetch_comments( $post_ids = array() ) {
+        $streams = array();
+
+        while ( ! empty( $post_ids ) ) {
+            $post_id = array_shift( $post_ids );
+            $post_etag = get_post_meta( $post_id, 'spotim_etag', true );
+
+            $stream = $this->request( array(
+                'spot_id' => $this->options->get( 'spot_id' ),
+                'post_id' => $post_id,
+                'etag' => absint( $post_etag ),
+                'count' => 1000,
+                'token' => $this->options->get( 'import_token' )
+            ) );
+
+            if ( $stream->is_ok ) {
+                $streams[] = $stream->body;
+            } else {
+                $this->response( array(
+                    'status' => 'error',
+                    'message' => $stream->body
+                ) );
+            }
+        }
+
+        return $streams;
+    }
+
+    private function merge_comments( $streams = array() ) {
+        while ( ! empty( $streams ) ) {
+            $stream = array_shift( $streams );
+
+            file_put_contents( dirname( __FILE__ )  . '/post_etags.txt', json_encode( array( absint( $stream->post_id ), absint( $stream->from_etag ), absint( $stream->new_etag ) ) ) . "\r\n", FILE_APPEND);
+
+            if ( $stream->from_etag < $stream->new_etag ) {
+                if ( ! empty( $stream->events ) ) {
+                    $sync_status = SpotIM_Comment::sync(
+                        $stream->events,
+                        $stream->users,
+                        $stream->post_id
+                    );
+
+                    if ( ! $sync_status ) {
+                        $translated_error = __(
+                            'Could not import comments of from this url: %s', 'wp-spotim'
+                        );
+
+                        $this->response( array(
+                            'status' => 'error',
+                            'message' => sprintf( $translated_error, esc_attr( $stream->url ) )
+                        ) );
+                    }
+                }
+
+                update_post_meta(
+                    absint( $stream->post_id ),
+                    'spotim_etag',
+                    absint( $stream->new_etag ),
+                    absint( $stream->from_etag )
+                );
+
+
+                $this->pull_comments( array( $stream->post_id ) );
+            }
+        }
     }
 
     private function finish() {
@@ -64,68 +140,32 @@ class SpotIM_Import {
         } else {
             $response_args['status'] = 'success';
             $response_args['message'] = __( 'Your comments are up to date.', 'wp-spotim' );
+
+            $this->options->reset('page_number');
         }
 
         $this->response( $response_args );
     }
 
-    private function fetch_comments( $post_ids = array() ) {
-        $streams = array();
+    private function get_post_ids( $posts_per_page = -1, $page_number = 0 ) {
+        $args = array(
+            'posts_per_page' => $posts_per_page,
+            'post_type' => array( 'post' ),
+            'post_status' => 'publish',
+            'orderby' => 'id',
+            'order' => 'ASC',
+            'fields' => 'ids'
+        );
 
-        while ( ! empty( $post_ids ) ) {
-            $post_id = array_shift( $post_ids );
-            $post_etag = get_post_meta( $post_id, 'spotim_etag', true );
-
-            $stream = $this->request( array(
-                'spot_id' => $this->options->get( 'spot_id' ),
-                'post_id' => $post_id,
-                'etag' => absint( $post_etag ),
-                'count' => 1000,
-                'token' => $this->options->get( 'import_token' )
-            ) );
-            if ( $stream->is_ok ) {
-                $streams[] = $stream->body;
-            } else {
-                $this->response( array(
-                    'status' => 'error',
-                    'message' => $stream->body
-                ) );
-            }
+        if ( -1 !== $posts_per_page ) {
+            $args['offset'] = $posts_per_page * $page_number;
         }
 
-        return $streams;
-    }
-
-    private function merge_comments( $streams = array() ) {
-        while ( ! empty( $streams ) ) {
-            $stream = array_shift( $streams );
-
-            if ( $stream->from_etag < $stream->new_etag ) {
-                $sync_status = SpotIM_Comment::sync(
-                    $stream->events,
-                    $stream->users,
-                    $stream->post_id
-                );
-
-                if ( ! $sync_status ) {
-                    $translated_error = __(
-                        'Could not import comments of from this stream: %s', 'wp-spotim'
-                    );
-
-                    $this->response( array(
-                        'status' => 'error',
-                        'message' => sprintf( $translated_error, json_encode( $stream ) )
-                    ) );
-                }
-            }
-
-            update_post_meta(
-                $stream->post_id,
-                'spotim_etag',
-                absint( $stream->new_etag ),
-                absint( $stream->from_etag )
-            );
+        if ( 1 === $this->options->get( 'enable_comments_on_page' ) ) {
+            $args['post_type'][] = 'page';
         }
+
+        return get_posts( $args );
     }
 
     private function request( $query_args ) {
@@ -147,6 +187,7 @@ class SpotIM_Import {
             } else {
                 $result->is_ok = true;
                 $result->body = $response_body;
+                $result->body->url = $url;
             }
         }
 
@@ -195,26 +236,5 @@ class SpotIM_Import {
         $data->is_ok = true;
 
         return $data;
-    }
-
-    private function get_post_ids( $posts_per_page = -1, $page_number = 0 ) {
-        $args = array(
-            'posts_per_page' => $posts_per_page,
-            'post_type' => array( 'post' ),
-            'post_status' => 'publish',
-            'orderby' => 'id',
-            'order' => 'ASC',
-            'fields' => 'ids'
-        );
-
-        if ( -1 !== $posts_per_page ) {
-            $args['offset'] = $posts_per_page * $page_number;
-        }
-
-        if ( 1 === $this->options->get( 'enable_comments_on_page' ) ) {
-            $args['post_type'][] = 'page';
-        }
-
-        return get_posts( $args );
     }
 }
