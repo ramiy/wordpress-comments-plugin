@@ -2,7 +2,6 @@
 
 define( 'SPOTIM_API_URL', 'https://www.spot.im/api/open-api/v1/' );
 define( 'SPOTIM_EXPORT_URL', SPOTIM_API_URL . 'export/wordpress' );
-// define( 'JSONSTUB_EXPORT_URL', 'http://jsonstub.com/export/wordpress/anonymous/reply' );
 
 class SpotIM_Import {
     private $options, $posts_per_request, $page_number;
@@ -79,8 +78,6 @@ class SpotIM_Import {
     private function merge_comments( $streams = array() ) {
         while ( ! empty( $streams ) ) {
             $stream = array_shift( $streams );
-
-            file_put_contents( dirname( __FILE__ )  . '/post_etags.txt', json_encode( array( absint( $stream->post_id ), absint( $stream->from_etag ), absint( $stream->new_etag ) ) ) . "\r\n", FILE_APPEND);
 
             if ( $stream->from_etag < $stream->new_etag ) {
                 if ( ! empty( $stream->events ) ) {
@@ -219,22 +216,5 @@ class SpotIM_Import {
                 }
             }
         }
-    }
-
-    private function request_mock() {
-        $retrieved_body = wp_remote_retrieve_body(
-            wp_remote_get( JSONSTUB_EXPORT_URL, array(
-                'headers' => array(
-                    'JsonStub-User-Key'     => '0fce8d12-9e2c-45c9-9284-e8c6d57a6fe1',
-                    'JsonStub-Project-Key'  => '08e0f77f-5dce-4576-b3b2-4f3ed49c1e67',
-                    'Content-Type'          => 'application/json'
-                )
-            ) )
-        );
-
-        $data = json_decode( $retrieved_body );
-        $data->is_ok = true;
-
-        return $data;
     }
 }
