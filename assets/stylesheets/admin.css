@@ -19,3 +19,12 @@
     top: 50%;
     width: 17px;
 }
+
+.form-table #cancel_import_link {
+    display: none;
+    font-size: 13px;
+    margin-left: 40px;
+}
+.form-table .in-progress #cancel_import_link {
+    display: inline-block;
+}

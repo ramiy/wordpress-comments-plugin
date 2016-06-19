@@ -201,7 +201,7 @@ class SpotIM_Import {
     }
 
     public function response( $args = array() ) {
-        $statuses_list = array( 'continue', 'success', 'error' );
+        $statuses_list = array( 'continue', 'success', 'cancel', 'error' );
 
         $defaults = array(
             'status' => '',
@@ -211,7 +211,7 @@ class SpotIM_Import {
         if ( ! empty( $args ) ) {
             $args = array_merge( $defaults, $args );
 
-            if ( ! empty( $args['status'] ) && ! empty( $args['message'] ) ) {
+            if ( ! empty( $args['status'] ) ) {
                 $args['message'] = sanitize_text_field( $args['message'] );
 
                 if ( in_array( $args['status'], $statuses_list ) ) {

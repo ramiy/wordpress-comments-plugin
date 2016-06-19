@@ -10,6 +10,7 @@ class SpotIM_Admin {
         add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
         add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_assets' ) );
         add_action( 'wp_ajax_start_import', array( __CLASS__, 'import_callback' ) );
+        add_action( 'wp_ajax_cancel_import', array( __CLASS__, 'cancel_import_callback' ) );
     }
 
     public static function admin_assets( $hook ) {
@@ -22,7 +23,8 @@ class SpotIM_Admin {
 
         wp_localize_script( 'admin_javascript', 'spotimVariables', array(
             'pageNumber' => self::$options->get('page_number'),
-            'errorMessage' => __( 'Oops something got wrong. Please try again or send us an email.', 'wp-spotim' )
+            'errorMessage' => __( 'Oops something got wrong. Please try again or send us an email.', 'wp-spotim' ),
+            'cancelImportMessage' => __( 'Cancel importing...', 'wp-spotim' )
         ) );
     }
 
@@ -84,5 +86,16 @@ class SpotIM_Admin {
 
             $import->start( $spot_id, $import_token, $page_number, $posts_per_request );
         }
+    }
+
+    public static function cancel_import_callback() {
+        $import = new SpotIM_Import( self::$options );
+        $page_number = isset( $_POST['spotim_page_number'] ) ? absint( $_POST['spotim_page_number'] ) : 0;
+
+        self::$options->update( 'page_number', $page_number );
+
+        $import->response( array(
+            'status' => 'cancel'
+        ) );
     }
 }

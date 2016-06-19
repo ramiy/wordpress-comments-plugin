@@ -85,7 +85,29 @@ class SpotIM_Form_Helper {
         echo $escaped_template;
     }
 
-    private static function get_description_html( $text ) {
+    public static function import_button( $args ) {
+
+        // Import button template
+        $button_template = '<button id="%s" class="button button-primary">%s</button>';
+        $escaped_template = sprintf($button_template,
+            esc_attr( $args['import_button']['id'] ), // Button's id.
+            esc_attr( $args['import_button']['text'] ) // Button's text.
+        );
+
+        // Cancel import link
+        $link_template = '<a href="#cancel" id="%s" class="">%s</a>';
+        $escaped_template .= sprintf($link_template,
+            esc_attr( $args['cancel_import_link']['id'] ), // Link's id.
+            esc_attr( $args['cancel_import_link']['text'] ) // Link's text.
+        );
+
+        // Description template
+        $escaped_template .= self::get_description_html();
+
+        echo $escaped_template;
+    }
+
+    private static function get_description_html( $text = '' ) {
         return sprintf( '<p class="description">%s</p>', wp_kses_post( $text ) );
     }
 }
