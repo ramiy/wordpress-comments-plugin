@@ -23,7 +23,7 @@ class SpotIM_Admin {
 
         wp_localize_script( 'admin_javascript', 'spotimVariables', array(
             'pageNumber' => self::$options->get('page_number'),
-            'errorMessage' => __( 'Oops something got wrong. Please try again or send us an email.', 'wp-spotim' ),
+            'errorMessage' => __( 'Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@spot.im.', 'wp-spotim' ),
             'cancelImportMessage' => __( 'Cancel importing...', 'wp-spotim' )
         ) );
     }

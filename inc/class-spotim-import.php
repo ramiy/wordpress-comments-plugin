@@ -189,7 +189,7 @@ class SpotIM_Import {
         }
 
         if ( ! $result->is_ok ) {
-            $translated_error = __( 'Retriving data failed from this URL: %s', 'wp-spotim' );
+            $translated_error = __( 'Retriving data failed from this url: %s', 'wp-spotim' );
 
             $result->body = sprintf( $translated_error, esc_attr( $url ) );
         }

@@ -18,7 +18,7 @@ class SpotIM_Settings_Fields {
     }
 
     public function import_settings_section_header() {
-        echo '<p>' . esc_html__( 'Some explanation about Spot.IM import to WordPress.', 'wp-spotim' ) . '</p>';
+        echo '<p>' . esc_html__( 'Import your comments from Spot.IM to WordPress.', 'wp-spotim' ) . '</p>';
     }
 
     public function register_general_section() {
@@ -97,7 +97,7 @@ class SpotIM_Settings_Fields {
             array(
                 'id' => 'import_token',
                 'page' => $this->options->slug,
-                'description' => 'some description about where to get the api key.',
+                'description' => 'Don\'t have a token? please send us an email to support@spot.im and get one.',
                 'value' => $this->options->get( 'import_token' )
             )
         );
@@ -111,7 +111,7 @@ class SpotIM_Settings_Fields {
             array(
                 'id' => 'posts_per_request',
                 'page' => $this->options->slug,
-                'description' => 'some description about the field.',
+                'description' => 'Amount of posts to retrieve in each request, depending on your server\'s strength.',
                 'value' => $this->options->get( 'posts_per_request' )
             )
         );
