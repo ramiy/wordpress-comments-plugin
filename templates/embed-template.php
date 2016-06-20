@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    // v2.1.1
+    // v3.0.0
     window.SPOTIM = {
         spotId: <?php echo wp_json_encode( $this->get( 'spot_id' ) ); ?>,
         parentElement: document.body,

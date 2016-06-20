@@ -1,77 +1,137 @@
 <?php
 
 class SpotIM_Settings_Fields {
-    public static function general_settings_section_header() {
+    public function __construct( $options ) {
+        $this->options = $options;
+    }
+
+    public function register_settings() {
+        register_setting(
+            $this->options->option_group,
+            $this->options->slug,
+            array( $this->options, 'validate' )
+        );
+    }
+
+    public function general_settings_section_header() {
         echo '<p>' . esc_html__( 'These are some basic settings for Spot.IM.', 'wp-spotim' ) . '</p>';
     }
 
-    private static function set_name( $args ) {
-        if ( ! isset( $args['name'] ) ) {
-            $args['name'] = sprintf(
-                '%s[%s]', esc_attr( $args['page'] ), esc_attr( $args['id'] )
-            );
-        }
-
-        return $args;
+    public function import_settings_section_header() {
+        echo '<p>' . esc_html__( 'Import your comments from Spot.IM to WordPress.', 'wp-spotim' ) . '</p>';
     }
 
-    public static function yes_no_fields( $args ) {
-        $args = self::set_name( $args );
-        $radio_template = '<label class="description">' .
-            '<input type="radio" name="%s" value="%d" %s /> %s' .
-        '&nbsp;&nbsp;&nbsp;</label>';
-        $yes_value = 1;
-        $no_value = 0;
-
-        // Backward compatability condition
-        if ( ! isset( $args['value'] ) || false === $args['value'] ) {
-            $args['value'] = $no_value;
-        } else if ( true === $args['value'] ) {
-            $args['value'] = $yes_value;
-        }
-
-        // Yes template
-        $escaped_template = sprintf($radio_template,
-            esc_attr( $args['name'] ), // Input's name.
-            sanitize_text_field( $yes_value ), // Input's value.
-            checked( $args['value'], $yes_value, 0 ), // If input checked or not.
-            esc_html__( 'Yes', 'wp-spotim' ) // Translated text.
+    public function register_general_section() {
+        add_settings_section(
+            'general_settings_section',
+            __( 'Commenting Options', 'wp-spotim' ),
+            array( $this, 'general_settings_section_header' ),
+            $this->options->slug
         );
 
-        // No template
-        $escaped_template .= sprintf($radio_template,
-            esc_attr( $args['name'] ), // Input's name.
-            sanitize_text_field( $no_value ), // Input's value.
-            checked( $args['value'], $no_value, 0 ), // If input checked or not.
-            esc_html__( 'No', 'wp-spotim' ) // Translated text.
+        add_settings_field(
+            'enable_comments_replacement',
+            __( 'Enable Spot.IM comments', 'wp-spotim' ),
+            array( 'SpotIM_Form_Helper', 'yes_no_fields' ),
+            $this->options->slug,
+            'general_settings_section',
+            array(
+                'id' => 'enable_comments_replacement',
+                'page' => $this->options->slug,
+                'value' => $this->options->get( 'enable_comments_replacement' )
+            )
         );
 
-        // Description template
-        if ( isset( $args['description'] ) && ! empty( $args['description'] ) ) {
-            $sanitized_description = wp_kses_post( $args['description'] );
-            $escaped_template .= sprintf( '<p class="description">%s</p>',  $sanitized_description );
-        }
+        add_settings_field(
+            'enable_comments_on_page',
+            __( 'Enable Spot.IM on pages', 'wp-spotim' ),
+            array( 'SpotIM_Form_Helper', 'yes_no_fields' ),
+            $this->options->slug,
+            'general_settings_section',
+            array(
+                'id' => 'enable_comments_on_page',
+                'page' => $this->options->slug,
+                'value' => $this->options->get( 'enable_comments_on_page' )
+            )
+        );
 
-        echo $escaped_template;
+        $translated_spot_id_description = __('Find your Spot ID at the Spot.IM\'s %1$sAdmin Dashboard%2$s under Integrations section.%3$s Don\'t have an account? %4$sCreate%5$s one for free!' , 'wp-spotim');
+
+        $parsed_translated_spot_id_description = sprintf( $translated_spot_id_description,
+            '<a href="https://admin.spot.im/login" target="_blank">',
+            '</a>',
+            '<br />',
+            '<a href="http://www.spot.im/" target="_blank">',
+            '</a>'
+        );
+
+        add_settings_field(
+            'spot_id',
+            __( 'Your Spot ID', 'wp-spotim' ),
+            array( 'SpotIM_Form_Helper', 'text_field' ),
+            $this->options->slug,
+            'general_settings_section',
+            array(
+                'id' => 'spot_id',
+                'page' => $this->options->slug,
+                'description' => $parsed_translated_spot_id_description,
+                'value' => $this->options->get( 'spot_id' )
+            )
+        );
     }
 
-    public static function text_field( $args ) {
-        $args = self::set_name( $args );
-        $args['value'] = sanitize_text_field( $args['value'] );
-        $text_template = '<input name="%s" type="text" value="%s" />';
-
-        // Text input template
-        $escaped_template = sprintf($text_template,
-            esc_attr( $args['name'] ), // Input's name.
-            esc_attr( $args['value'] ) // Input's value.
+    public function register_import_section() {
+        add_settings_section(
+            'import_settings_section',
+            __( 'Import Options', 'wp-spotim' ),
+            array( $this, 'import_settings_section_header' ),
+            $this->options->slug
         );
 
-        // Description template
-        if ( isset( $args['description'] ) && ! empty( $args['description'] ) ) {
-            $sanitized_description = wp_kses_post( $args['description'] );
-            $escaped_template .= sprintf( '<p class="description">%s</p>', $sanitized_description );
-        }
+        add_settings_field(
+            'import_token',
+            __( 'Your Token', 'wp-spotim' ),
+            array( 'SpotIM_Form_Helper', 'text_field' ),
+            $this->options->slug,
+            'import_settings_section',
+            array(
+                'id' => 'import_token',
+                'page' => $this->options->slug,
+                'description' => 'Don\'t have a token? please send us an email to support@spot.im and get one.',
+                'value' => $this->options->get( 'import_token' )
+            )
+        );
 
-        echo $escaped_template;
+        add_settings_field(
+            'posts_per_request',
+            __( 'Posts Per Request', 'wp-spotim' ),
+            array( 'SpotIM_Form_Helper', 'text_field' ),
+            $this->options->slug,
+            'import_settings_section',
+            array(
+                'id' => 'posts_per_request',
+                'page' => $this->options->slug,
+                'description' => 'Amount of posts to retrieve in each request, depending on your server\'s strength.',
+                'value' => $this->options->get( 'posts_per_request' )
+            )
+        );
+
+        add_settings_field(
+            'import_button',
+            '',
+            array( 'SpotIM_Form_Helper', 'import_button' ),
+            $this->options->slug,
+            'import_settings_section',
+            array(
+                'import_button' => array(
+                    'id' => 'import_button',
+                    'text' => __( 'Import', 'wp-spotim' )
+                ),
+                'cancel_import_link' => array(
+                    'id' => 'cancel_import_link',
+                    'text' => __( 'Cancel', 'wp-spotim' )
+                )
+            )
+        );
     }
 }
