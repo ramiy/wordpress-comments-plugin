@@ -2,8 +2,8 @@
 Contributors: Spot.IM
 Tags: Comment, comment form, commenting, comments, comment author, comment form, comment system, comment template, comments box, community, discuss, discussion, discussions, commenter, live update, real time, realtime, real-time, Spot.IM, reply, social login, widget, social, moderation, community, communities, engagement, Facebook, profile, sharing, newsfeed, chat, chat interface, notification, notifications, SEO, retention, pageviews, email alerts, direct message, direct messaging, group message, group messaging, content, content circulation, UGC, user generated content
 Requires at least: 3.8
-Tested up to: 4.5.1
-Stable tag: 2.1.1
+Tested up to: 4.5.2
+Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: license.txt
 
@@ -193,6 +193,13 @@ Where can I see a Spot working live to get a better idea of it?
 
 
 == Changelog ==
+
+= 3.0.0 =
+
+* Import comments from Spot.IM to Wordpress feature is out.
+* Added features to options file.
+* Restructure settings fields file.
+* and many more stuff, you can check the full changelog at our github.
 
 = 2.1.1 =
 
