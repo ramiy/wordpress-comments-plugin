@@ -6,8 +6,8 @@ class SpotIM_Frontend {
     public static function launch( $options ) {
         self::$options = $options;
 
-        add_filter( 'comments_template', array( __CLASS__, 'filter_comments_template' ), 1 );
-        add_filter( 'comments_number', array( __CLASS__, 'filter_comments_number' ), 1 );
+        add_filter( 'comments_template', array( __CLASS__, 'filter_comments_template' ), 20 );
+        add_filter( 'comments_number', array( __CLASS__, 'filter_comments_number' ), 20 );
         add_action( 'wp_footer', array( __CLASS__, 'action_wp_footer' ) );
     }
 

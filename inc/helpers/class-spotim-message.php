@@ -229,11 +229,18 @@ class SpotIM_Message {
         if ( isset( $this->message->user_id ) ) {
 
             // set author's name
-            if ( isset( $this->users->{ $this->message->user_id }->nick_name ) ) {
+            if ( isset( $this->users->{ $this->message->user_id }->nick_name ) &&
+                ! empty ($this->users->{ $this->message->user_id }->nick_name ) ) {
                 $author['comment_author'] = sanitize_text_field(
                     $this->users->{ $this->message->user_id }->nick_name
                 );
-            } else if ( isset( $this->users->{ $this->message->user_id }->user_name ) ) {
+            } else if ( isset( $this->users->{ $this->message->user_id }->display_name ) &&
+                ! empty ($this->users->{ $this->message->user_id }->display_name ) ) {
+                $author['comment_author'] = sanitize_text_field(
+                    $this->users->{ $this->message->user_id }->display_name
+                );
+            } else if ( isset( $this->users->{ $this->message->user_id }->user_name ) &&
+                ! empty ($this->users->{ $this->message->user_id }->user_name ) ) {
                 $author['comment_author'] = sanitize_text_field(
                     $this->users->{ $this->message->user_id }->user_name
                 );
