@@ -21,7 +21,6 @@ define('SPOTIM_EXPORT', true);
 
 function init_spotim_once_per_plugin()
 {
-	SpotIM_Options::get_instance()->update('display_welcome', 'display');
 }
 
 require_once dirname(__FILE__).'/spotim/spotim-comments.php';
