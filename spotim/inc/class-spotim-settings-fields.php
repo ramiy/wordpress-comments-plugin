@@ -44,7 +44,7 @@ class SpotIM_Settings_Fields {
 
         add_settings_field(
             'enable_comments_on_page',
-            __( 'Enable Spot.IM on pages', 'wp-spotim' ),
+            sprintf(__( 'Enable Spot.IM on %s', 'wp-spotim' ), __('pages', 'wp-spotim')),
             array( 'SpotIM_Form_Helper', 'yes_no_fields' ),
             $this->options->slug,
             'general_settings_section',
@@ -54,6 +54,23 @@ class SpotIM_Settings_Fields {
                 'value' => $this->options->get( 'enable_comments_on_page' )
             )
         );
+
+        for ($i = SpotIM_posttypes::get_instance()->count()-1; $i >= 0; --$i) {
+            $typeObj = SpotIM_posttypes::get_instance()->get($i);
+            add_settings_field(
+                $typeObj->option,
+                sprintf(__( 'Enable Spot.IM on %s', 'wp-spotim' ), $typeObj->name),
+                array( 'SpotIM_Form_Helper', 'yes_no_fields' ),
+                $this->options->slug,
+                'general_settings_section',
+                array(
+                    'id' => $typeObj->option,
+                    'page' => $this->options->slug,
+                    'value' => $this->options->get( $typeObj->option ),
+                    'description' => __( 'The comments will be visible only if they are defined as open.', 'wp-spotim' ),
+                )
+            );
+        }
 
         $translated_spot_id_description = __('Find your Spot ID at the Spot.IM\'s %1$sAdmin Dashboard%2$s under Integrations section.%3$s Don\'t have an account? %4$sCreate%5$s one for free!' , 'wp-spotim');
 
@@ -75,9 +92,25 @@ class SpotIM_Settings_Fields {
                 'id' => 'spot_id',
                 'page' => $this->options->slug,
                 'description' => $parsed_translated_spot_id_description,
-                'value' => $this->options->get( 'spot_id' )
+                'value' => $this->options->get( 'spot_id' ),
+                'readonly' => ($this->options->get( 'spot_id' ) != '')
             )
         );
+        if ($this->options->get( 'plugin_secret' ) == '') {
+            add_settings_field(
+                'plugin_secret',
+                __('Your Plugin Secret', 'wp-spotim'),
+                array('SpotIM_Form_Helper', 'text_field'),
+                $this->options->slug,
+                'general_settings_section',
+                array(
+                    'id' => 'plugin_secret',
+                    'page' => $this->options->slug,
+//                    'description' => $parsed_translated_spot_id_description,
+                    'value' => $this->options->get( 'plugin_secret' )
+                )
+            );
+        }
     }
 
     public function register_import_section() {
@@ -133,5 +166,18 @@ class SpotIM_Settings_Fields {
                 )
             )
         );
+    }
+
+    private function get_custom_post_types()
+    {
+        $args = array(
+            'public'   => true,
+            'publicly_queryable'  => true,
+            'exclude_from_search' => false,
+            'show_ui'  => true,
+            '_builtin' => false
+        );
+
+        return get_post_types( $args, 'objects' );
     }
 }

@@ -13,19 +13,22 @@ class SpotIM_Options {
             'enable_comments_replacement' => 1,
             'import_token' => '',
             'page_number' => 0,
-            'posts_per_request' => 10,
-            'spot_id' => ''
+            'posts_per_request' => 100,
+            'spot_id' => '',
+            'plugin_secret' => ''
         );
-
+        for ($i = SpotIM_posttypes::get_instance()->count()-1; $i >= 0; --$i) {
+            $this->default_options[SpotIM_posttypes::get_instance()->get($i)->option] = 0;
+        }
         $this->data = $this->get_meta_data();
     }
 
     public static function get_instance() {
-        if ( is_null( static::$instance ) ) {
-            static::$instance = new static();
+        if ( is_null( self::$instance ) ) {
+            self::$instance = new SpotIM_Options();
         }
 
-        return static::$instance;
+        return self::$instance;
     }
 
     private function create_options() {
@@ -42,6 +45,12 @@ class SpotIM_Options {
         } else {
             $data['enable_comments_replacement'] = intval( $data['enable_comments_replacement'] );
             $data['enable_comments_on_page'] = intval( $data['enable_comments_on_page'] );
+            for ($i = SpotIM_posttypes::get_instance()->count()-1; $i >= 0; --$i) {
+                $option = SpotIM_posttypes::get_instance()->get($i)->option;
+                if (array_key_exists($option, $data)) {
+                    $data[$option] = intval($data[$option]);
+                }
+            }
 
             $data = array_merge( $this->default_options, $data );
         }
@@ -100,15 +109,26 @@ class SpotIM_Options {
                     break;
                 case 'posts_per_request':
                     $value = absint( $value );
-                    $options[ $key ] = 0 === $value ? 1 : $value;
+                    $options[ $key ] = ((0 === $value) ? 100 : $value);
                     break;
                 case 'page_number':
                     $options[ $key ] = absint( $value );
                     break;
                 case 'spot_id':
+                case 'plugin_secret':
                 case 'import_token':
                 default:
-                    $options[ $key ] = sanitize_text_field( $value );
+                    $notFound = true;
+                    for ($i = SpotIM_posttypes::get_instance()->count()-1; $notFound && $i >= 0; --$count) {
+                        $posttype_option = SpotIM_posttypes::get_instance()->get($i)->option;
+                        if ($posttype_option == $key){
+                            $options[ $key ] = absint( $value );
+                            $notFound = false;
+                        }
+                    }
+                    if ($notFound){
+                        $options[ $key ] = sanitize_text_field( $value );
+                    }
                     break;
             }
         }
@@ -138,7 +158,7 @@ class SpotIM_Options {
     }
 
     public function require_template( $path = '', $return_path = false ) {
-        $path = plugin_dir_path( dirname( __FILE__ ) ) . 'templates/' . $path;
+        $path = SPOTIM_BASEDIR . 'templates/' . $path;
 
         return $this->require_file( $path, $return_path );
     }
@@ -151,6 +171,12 @@ class SpotIM_Options {
 
     public function require_stylesheet( $path = '', $return_path = false ) {
         $path = plugin_dir_url( dirname( __FILE__ ) ) . 'assets/stylesheets/' . $path;
+
+        return $this->require_file( $path, $return_path );
+    }
+
+    public function require_welcome( $path = '', $return_path = false ) {
+        $path = SPOTIM_ABSDIR . 'welcome/' . $path;
 
         return $this->require_file( $path, $return_path );
     }

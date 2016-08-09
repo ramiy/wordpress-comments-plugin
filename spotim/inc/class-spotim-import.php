@@ -161,7 +161,12 @@ class SpotIM_Import {
         if ( 1 === $this->options->get( 'enable_comments_on_page' ) ) {
             $args['post_type'][] = 'page';
         }
-
+        for ($i = SpotIM_posttypes::get_instance()->count()-1; $i >= 0; --$i) {
+            $typeObj = SpotIM_posttypes::get_instance()->get($i);
+            if ( 1 === $this->options->get( $typeObj->option ) ) {
+                $args['post_type'][] = $typeObj->slug;
+            }
+        }
         return get_posts( $args );
     }
 

@@ -14,9 +14,14 @@ class SpotIM_Frontend {
     public static function allow_comments_on_page() {
         $are_comments_allowed = false;
 
-        if ( is_page() && comments_open() ) {
-            if ( 1 === self::$options->get( 'enable_comments_on_page' ) ) {
+        if ( comments_open() ) {
+            if ( is_page() && 1 === self::$options->get( 'enable_comments_on_page' ) ) {
                 $are_comments_allowed = true;
+            }
+            else {
+                if (SpotIM_posttypes::get_instance()->get(get_post_type())) {
+                    $are_comments_allowed = true;
+                }
             }
         }
 

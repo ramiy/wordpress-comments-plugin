@@ -53,12 +53,14 @@ class SpotIM_Form_Helper {
     public static function text_field( $args ) {
         $args = self::set_name( $args );
         $args['value'] = sanitize_text_field( $args['value'] );
-        $text_template = '<input name="%s" type="text" value="%s" autocomplete="off" />';
+        $readonly = isset($args['readonly']) && $args['readonly'] ? ' readonly' : '';
+        $text_template = '<input name="%s" type="text" value="%s"%s autocomplete="off" />';
 
         // Text input template
         $escaped_template = sprintf($text_template,
             esc_attr( $args['name'] ), // Input's name.
-            esc_attr( $args['value'] ) // Input's value.
+            esc_attr( $args['value'] ), // Input's value.
+            $readonly
         );
 
         // Description template

@@ -121,7 +121,7 @@ class SpotIM_Export extends SpotIM_RestAPI {
 			$commentsData['messages'][$id] =
 				[
 					'user_id'    => $user_id,
-					'content'    => preg_replace('[ ]+', ' ', strip_tags(str_replace('<', ' <', $comment->comment_content)),
+					'content'    => preg_replace('[ ]+', ' ', strip_tags(str_replace('<', ' <', $comment->comment_content))),
 					'written_at' => strtotime($comment->comment_date),
 				];
 		}
