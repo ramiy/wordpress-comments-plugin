@@ -28,6 +28,7 @@ class SpotIM_Settings_Fields {
             array( $this, 'general_settings_section_header' ),
             $this->options->slug
         );
+        settings_errors($this->options->option_group);
 
         add_settings_field(
             'enable_comments_replacement',

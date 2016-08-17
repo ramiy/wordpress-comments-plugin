@@ -98,6 +98,17 @@ class SpotIM_Options {
         return $this->update( $name, $value );
     }
 
+//      /// Good to validate ints - not in use now
+//    public function validate_field( $key, $value ) {
+//        for ($i = SpotIM_posttypes::get_instance()->count()-1; $i >= 0; --$i) {
+//            $posttype_option = SpotIM_posttypes::get_instance()->get($i)->option;
+//            if ($posttype_option == $key) {
+//                return absint( $value );
+//            }
+//        }
+//        return sanitize_text_field( $value );
+//    }
+
     public function validate( $input ) {
         $options = $this->get_meta_data();
 
@@ -114,21 +125,33 @@ class SpotIM_Options {
                 case 'page_number':
                     $options[ $key ] = absint( $value );
                     break;
-                case 'spot_id':
                 case 'plugin_secret':
+                    if ($options['plugin_secret'] != '') {
+                        break;
+                    }
+                    $value =  trim(sanitize_text_field( $value ));
+                    require_once 'class-spotim-validate-secret.php';
+                    $validator = new SpotIM_ValidateSecret();
+                    $result = $validator->validate($this, $value);
+                    if ($result->success != 'true') {
+                        $msg = __('Validation of secret failed: ', 'wp-spotim'). $result->error_code;
+                        $type = 'error';
+                    }
+                    else {
+                        $options[ $key ] = $value;
+                        $msg = __('Secret validated OK', 'wp-spotim');
+                        $type = 'updated';
+                    }
+                    add_settings_error(
+                            $this->option_group,
+                            'plugin_secret',
+                            $msg,
+                            $type);
+                    break;
+                case 'spot_id':
                 case 'import_token':
                 default:
-                    $notFound = true;
-                    for ($i = SpotIM_posttypes::get_instance()->count()-1; $notFound && $i >= 0; --$count) {
-                        $posttype_option = SpotIM_posttypes::get_instance()->get($i)->option;
-                        if ($posttype_option == $key){
-                            $options[ $key ] = absint( $value );
-                            $notFound = false;
-                        }
-                    }
-                    if ($notFound){
-                        $options[ $key ] = sanitize_text_field( $value );
-                    }
+                    $options[ $key ] = sanitize_text_field($value);
                     break;
             }
         }
@@ -165,14 +188,20 @@ class SpotIM_Options {
 
     public function require_javascript( $path = '', $return_path = false ) {
         $path = plugin_dir_url( dirname( __FILE__ ) ) . 'assets/javascripts/' . $path;
-
-        return $this->require_file( $path, $return_path );
+        $str = "<script src='$path'></script>";
+        if ($return_path)
+            return $str;
+        else
+            echo $str;
     }
 
     public function require_stylesheet( $path = '', $return_path = false ) {
         $path = plugin_dir_url( dirname( __FILE__ ) ) . 'assets/stylesheets/' . $path;
-
-        return $this->require_file( $path, $return_path );
+        $str = "<link rel='stylesheet' type='text/css' href='$path'></script>";
+        if ($return_path)
+            return $str;
+        else
+            echo $str;
     }
 
     public function require_welcome( $path = '', $return_path = false ) {

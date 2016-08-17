@@ -28,3 +28,20 @@
 .form-table .in-progress #cancel_import_link {
     display: inline-block;
 }
+
+#setting-error-plugin_secret.error {
+    color: RED;
+}
+/*
+#toplevel_page_wp-spotim-settings .wp-menu-name span {
+    background: red;
+    display: inline-block;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    line-height: 16px;
+    font-weight: bold;
+    font-size: 12px;
+}
+*/

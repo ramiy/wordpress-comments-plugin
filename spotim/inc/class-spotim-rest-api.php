@@ -34,6 +34,10 @@ class SpotIM_RestAPI {
         if (is_wp_error( $body ))
             return (object)['success' => 'false', 'error_code' => 'WP:no body'];
 
-        return json_decode( $body );
+        $response = json_decode( $body );
+        if ( isset($response->code) && $response->code != 200)
+            return (object)['success' => 'false', 'error_code' => "WP:responce({$response->code}):{$response->message} - $url$subject"];
+
+        return $response;
     }
 }
