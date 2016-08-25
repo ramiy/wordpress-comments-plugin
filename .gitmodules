@@ -1,0 +1,3 @@
+[submodule "spotim"]
+	path = spotim
+	url = https://github.com/SpotIM/wordpress-spotim-plugin-core.git
