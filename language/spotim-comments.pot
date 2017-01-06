@@ -15,106 +15,106 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: inc/class-spotim-admin.php:51
+#: inc/class-spotim-admin.php:59
 msgid "Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@spot.im."
 msgstr ""
 
-#: inc/class-spotim-admin.php:53
+#: inc/class-spotim-admin.php:61
 msgid "Cancel importing..."
 msgstr ""
 
-#: inc/class-spotim-admin.php:69, templates/admin-template.php:7
+#: inc/class-spotim-admin.php:77, templates/admin-template.php:7
 msgid "Spot.IM Settings"
 msgstr ""
 
-#: inc/class-spotim-admin.php:71
+#: inc/class-spotim-admin.php:79
 msgid "Spot.IM"
 msgstr ""
 
-#: inc/class-spotim-admin.php:125
+#: inc/class-spotim-admin.php:133
 msgid "Your Spot Id is missing."
 msgstr ""
 
-#: inc/class-spotim-admin.php:139
+#: inc/class-spotim-admin.php:147
 msgid "Your Token is missing."
 msgstr ""
 
-#: inc/class-spotim-import.php:181
+#: inc/class-spotim-import.php:189
 msgid "Could not import comments of from this url: %s"
 msgstr ""
 
-#: inc/class-spotim-import.php:255
+#: inc/class-spotim-import.php:263
 msgid "Your website doesn't have any published blog posts"
 msgstr ""
 
-#: inc/class-spotim-import.php:259
+#: inc/class-spotim-import.php:267
 msgid "%d / %d posts are synchronize comments."
 msgstr ""
 
-#: inc/class-spotim-import.php:273
+#: inc/class-spotim-import.php:281
 msgid "Your comments are up to date."
 msgstr ""
 
-#: inc/class-spotim-import.php:379
+#: inc/class-spotim-import.php:387
 msgid "Retriving data failed from this url: %s"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:33
+#: inc/class-spotim-settings-fields.php:41
 msgid "These are some basic settings for Spot.IM."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:41
+#: inc/class-spotim-settings-fields.php:49
 msgid "Import your comments from Spot.IM to WordPress."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:53
+#: inc/class-spotim-settings-fields.php:61
 msgid "Commenting Options"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:67
+#: inc/class-spotim-settings-fields.php:75
 msgid "Enable Spot.IM comments"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:93
+#: inc/class-spotim-settings-fields.php:101
 msgid "Enable Spot.IM on pages"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:115
+#: inc/class-spotim-settings-fields.php:123
 msgid "Find your Spot ID at the Spot.IM's %1$sAdmin Dashboard%2$s under Integrations section.%3$s Don't have an account? %4$sCreate%5$s one for free!"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:139
+#: inc/class-spotim-settings-fields.php:147
 msgid "Your Spot ID"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:171
+#: inc/class-spotim-settings-fields.php:179
 msgid "Import Options"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:185
+#: inc/class-spotim-settings-fields.php:193
 msgid "Your Token"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:213
+#: inc/class-spotim-settings-fields.php:221
 msgid "Posts Per Request"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:255
+#: inc/class-spotim-settings-fields.php:263
 msgid "Import"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:263
+#: inc/class-spotim-settings-fields.php:271
 msgid "Cancel"
 msgstr ""
 
-#: inc/helpers/class-spotim-form.php:67
+#: inc/helpers/class-spotim-form.php:75
 msgid "Yes"
 msgstr ""
 
-#: inc/helpers/class-spotim-form.php:83
+#: inc/helpers/class-spotim-form.php:91
 msgid "No"
 msgstr ""
 
-#: inc/helpers/class-spotim-message.php:417
+#: inc/helpers/class-spotim-message.php:425
 msgid "This message was deleted."
 msgstr ""
