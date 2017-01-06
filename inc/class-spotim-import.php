@@ -92,7 +92,7 @@ class SpotIM_Import {
                     );
 
                     if ( ! $sync_status ) {
-                        $translated_error = __( 'Could not import comments of from this url: %s', 'spotim-comments' );
+                        $translated_error = esc_html__( 'Could not import comments of from this url: %s', 'spotim-comments' );
 
                         $this->response( array(
                             'status' => 'error',
@@ -129,16 +129,16 @@ class SpotIM_Import {
 
         if ( 0 === $total_posts_count ) {
             $response_args['status'] = 'success';
-            $response_args['message'] = __( 'Your website doesn\'t have any published blog posts', 'spotim-comments' );
+            $response_args['message'] = esc_html__( 'Your website doesn\'t have any published blog posts', 'spotim-comments' );
         } else if ( $current_posts_count < $total_posts_count ) {
-            $translated_message = __( '%d / %d posts are synchronize comments.', 'spotim-comments' );
+            $translated_message = esc_html__( '%d / %d posts are synchronize comments.', 'spotim-comments' );
             $parsed_message = sprintf( $translated_message, $current_posts_count, $total_posts_count );
 
             $response_args['status'] = 'continue';
             $response_args['message'] = $parsed_message;
         } else {
             $response_args['status'] = 'success';
-            $response_args['message'] = __( 'Your comments are up to date.', 'spotim-comments' );
+            $response_args['message'] = esc_html__( 'Your comments are up to date.', 'spotim-comments' );
 
             $this->options->reset('page_number');
         }
@@ -191,7 +191,7 @@ class SpotIM_Import {
         }
 
         if ( ! $result->is_ok ) {
-            $translated_error = __( 'Retriving data failed from this url: %s', 'spotim-comments' );
+            $translated_error = esc_html__( 'Retriving data failed from this url: %s', 'spotim-comments' );
 
             $result->body = sprintf( $translated_error, esc_attr( $url ) );
         }
