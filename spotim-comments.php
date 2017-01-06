@@ -17,6 +17,11 @@
  *
  */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 require_once( 'inc/helpers/class-spotim-form.php' );
 require_once( 'inc/helpers/class-spotim-message.php' );
 require_once( 'inc/helpers/class-spotim-comment.php' );

@@ -1,4 +1,8 @@
 <?php
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 define( 'SPOTIM_COMMENT_IMPORT_AGENT', 'Spot.IM/1.0 (Export)' );
 

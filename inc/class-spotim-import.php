@@ -1,4 +1,8 @@
 <?php
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 define( 'SPOTIM_API_URL', 'https://www.spot.im/api/open-api/v1/' );
 define( 'SPOTIM_EXPORT_URL', SPOTIM_API_URL . 'export/wordpress' );
