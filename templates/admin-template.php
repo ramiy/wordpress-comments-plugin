@@ -1,7 +1,7 @@
 <div class="wrap">
     <div id="icon-themes" class="icon32"></div>
     <h2 class="spotim-page-title">
-        <?php esc_html_e( 'Spot.IM Settings', 'wp-spotim' ); ?>
+        <?php esc_html_e( 'Spot.IM Settings', 'spotim-comments' ); ?>
     </h2>
     <form method="post" action="options.php">
         <?php

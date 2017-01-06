@@ -12,7 +12,7 @@
  * Author URI:          https://github.com/SpotIM
  * License:             GPLv2
  * License URI:         license.txt
- * Text Domain:         wp-spotim
+ * Text Domain:         spotim-comments
  * GitHub Plugin URI:   git@github.com:SpotIM/wordpress-comments-plugin.git
  *
  */

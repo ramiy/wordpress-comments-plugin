@@ -206,7 +206,7 @@ class SpotIM_Message {
     private function soft_delete_comment_data() {
         $comment_data = $this->anonymous_comment_data();
 
-        $comment_data['comment_content'] = esc_html__( 'This message was deleted.', 'wp-spotim' );
+        $comment_data['comment_content'] = esc_html__( 'This message was deleted.', 'spotim-comments' );
 
         return $comment_data;
     }

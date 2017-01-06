@@ -14,24 +14,24 @@ class SpotIM_Settings_Fields {
     }
 
     public function general_settings_section_header() {
-        echo '<p>' . esc_html__( 'These are some basic settings for Spot.IM.', 'wp-spotim' ) . '</p>';
+        echo '<p>' . esc_html__( 'These are some basic settings for Spot.IM.', 'spotim-comments' ) . '</p>';
     }
 
     public function import_settings_section_header() {
-        echo '<p>' . esc_html__( 'Import your comments from Spot.IM to WordPress.', 'wp-spotim' ) . '</p>';
+        echo '<p>' . esc_html__( 'Import your comments from Spot.IM to WordPress.', 'spotim-comments' ) . '</p>';
     }
 
     public function register_general_section() {
         add_settings_section(
             'general_settings_section',
-            __( 'Commenting Options', 'wp-spotim' ),
+            __( 'Commenting Options', 'spotim-comments' ),
             array( $this, 'general_settings_section_header' ),
             $this->options->slug
         );
 
         add_settings_field(
             'enable_comments_replacement',
-            __( 'Enable Spot.IM comments', 'wp-spotim' ),
+            __( 'Enable Spot.IM comments', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'yes_no_fields' ),
             $this->options->slug,
             'general_settings_section',
@@ -44,7 +44,7 @@ class SpotIM_Settings_Fields {
 
         add_settings_field(
             'enable_comments_on_page',
-            __( 'Enable Spot.IM on pages', 'wp-spotim' ),
+            __( 'Enable Spot.IM on pages', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'yes_no_fields' ),
             $this->options->slug,
             'general_settings_section',
@@ -55,7 +55,7 @@ class SpotIM_Settings_Fields {
             )
         );
 
-        $translated_spot_id_description = __('Find your Spot ID at the Spot.IM\'s %1$sAdmin Dashboard%2$s under Integrations section.%3$s Don\'t have an account? %4$sCreate%5$s one for free!' , 'wp-spotim');
+        $translated_spot_id_description = __('Find your Spot ID at the Spot.IM\'s %1$sAdmin Dashboard%2$s under Integrations section.%3$s Don\'t have an account? %4$sCreate%5$s one for free!' , 'spotim-comments');
 
         $parsed_translated_spot_id_description = sprintf( $translated_spot_id_description,
             '<a href="https://admin.spot.im/login" target="_blank">',
@@ -67,7 +67,7 @@ class SpotIM_Settings_Fields {
 
         add_settings_field(
             'spot_id',
-            __( 'Your Spot ID', 'wp-spotim' ),
+            __( 'Your Spot ID', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'text_field' ),
             $this->options->slug,
             'general_settings_section',
@@ -83,14 +83,14 @@ class SpotIM_Settings_Fields {
     public function register_import_section() {
         add_settings_section(
             'import_settings_section',
-            __( 'Import Options', 'wp-spotim' ),
+            __( 'Import Options', 'spotim-comments' ),
             array( $this, 'import_settings_section_header' ),
             $this->options->slug
         );
 
         add_settings_field(
             'import_token',
-            __( 'Your Token', 'wp-spotim' ),
+            __( 'Your Token', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'text_field' ),
             $this->options->slug,
             'import_settings_section',
@@ -104,7 +104,7 @@ class SpotIM_Settings_Fields {
 
         add_settings_field(
             'posts_per_request',
-            __( 'Posts Per Request', 'wp-spotim' ),
+            __( 'Posts Per Request', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'text_field' ),
             $this->options->slug,
             'import_settings_section',
@@ -125,11 +125,11 @@ class SpotIM_Settings_Fields {
             array(
                 'import_button' => array(
                     'id' => 'import_button',
-                    'text' => __( 'Import', 'wp-spotim' )
+                    'text' => __( 'Import', 'spotim-comments' )
                 ),
                 'cancel_import_link' => array(
                     'id' => 'cancel_import_link',
-                    'text' => __( 'Cancel', 'wp-spotim' )
+                    'text' => __( 'Cancel', 'spotim-comments' )
                 )
             )
         );

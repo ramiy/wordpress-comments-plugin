@@ -31,7 +31,7 @@ class SpotIM_Form_Helper {
             esc_attr( $args['name'] ), // Input's name.
             sanitize_text_field( $yes_value ), // Input's value.
             checked( $args['value'], $yes_value, 0 ), // If input checked or not.
-            esc_html__( 'Yes', 'wp-spotim' ) // Translated text.
+            esc_html__( 'Yes', 'spotim-comments' ) // Translated text.
         );
 
         // No template
@@ -39,7 +39,7 @@ class SpotIM_Form_Helper {
             esc_attr( $args['name'] ), // Input's name.
             sanitize_text_field( $no_value ), // Input's value.
             checked( $args['value'], $no_value, 0 ), // If input checked or not.
-            esc_html__( 'No', 'wp-spotim' ) // Translated text.
+            esc_html__( 'No', 'spotim-comments' ) // Translated text.
         );
 
         // Description template
