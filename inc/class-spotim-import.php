@@ -7,16 +7,81 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'SPOTIM_API_URL', 'https://www.spot.im/api/open-api/v1/' );
 define( 'SPOTIM_EXPORT_URL', SPOTIM_API_URL . 'export/wordpress' );
 
+/**
+ * SpotIM_Import
+ *
+ * Plugin import class.
+ *
+ * @since 3.0.0
+ */
 class SpotIM_Import {
-    private $options, $posts_per_request, $page_number;
 
+    /**
+     * Options
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @var SpotIM_Options
+     */
+    private $options;
+
+    /**
+     * Posts Per Request
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @var int
+     */
+    private $posts_per_request;
+
+    /**
+     * Page Number
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @var int
+     */
+    private $page_number;
+
+    /**
+     * Constructor
+     *
+     * Get things started.
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     *
+     * @param SpotIM_Options $options Plugin options.
+     */
     public function __construct( $options ) {
         $this->options = $options;
-
         $this->posts_per_request = 50;
         $this->page_number = 0;
     }
 
+    /**
+     * Start
+     *
+     * Start the import.
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     *
+     * @param int $spot_id Sport ID.
+     * @param string $import_token Import token,
+     * @param int $page_number Page number.
+     * @param int $posts_per_request Posts Per Request.
+     *
+     * @return void
+     */
     public function start( $spot_id, $import_token, $page_number = 0, $posts_per_request = 1 ) {
 
         // save spot_id and import_token in plugin's options meta
@@ -40,6 +105,19 @@ class SpotIM_Import {
         $this->finish();
     }
 
+    /**
+     * Pull Comments
+     *
+     * Import comments from Spot.IM and merge them.
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @param array $post_ids An array of post IDs.
+     *
+     * @return void
+     */
     private function pull_comments( $post_ids = array() ) {
         if ( ! empty( $post_ids ) ) {
             // import comments data from Spot.IM
@@ -51,6 +129,19 @@ class SpotIM_Import {
         }
     }
 
+    /**
+     * Fetch Comments
+     *
+     * Import comments from Spot.IM.
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @param array $post_ids An array of post IDs.
+     *
+     * @return array $streams An array of streams.
+     */
     private function fetch_comments( $post_ids = array() ) {
         $streams = array();
 
@@ -79,6 +170,19 @@ class SpotIM_Import {
         return $streams;
     }
 
+    /**
+     * Merge Comments
+     *
+     * Sync comments data with wordpress comments.
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @param array $streams An array of streams.
+     *
+     * @return void
+     */
     private function merge_comments( $streams = array() ) {
         while ( ! empty( $streams ) ) {
             $stream = array_shift( $streams );
@@ -114,6 +218,17 @@ class SpotIM_Import {
         }
     }
 
+    /**
+     * Finish
+     *
+     * Return a response to client via json.
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @return void
+     */
     private function finish() {
         $response_args = array(
             'status' => '',
@@ -146,6 +261,20 @@ class SpotIM_Import {
         $this->response( $response_args );
     }
 
+    /**
+     * Get Post IDs
+     *
+     * Retrieve an array of post IDs.
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @param int $posts_per_page Posts per page.
+     * @param int $page_number Page number.
+     *
+     * @return array
+     */
     private function get_post_ids( $posts_per_page = -1, $page_number = 0 ) {
         $args = array(
             'posts_per_page' => $posts_per_page,
@@ -167,6 +296,19 @@ class SpotIM_Import {
         return get_posts( $args );
     }
 
+    /**
+     * Request
+     *
+     * Retrieve data from a remote server.
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @param string|array $query_args Either a query variable key, or an associative array of query variables.
+     *
+     * @return object
+     */
     private function request( $query_args ) {
         $url = add_query_arg( $query_args, SPOTIM_EXPORT_URL );
 
@@ -199,6 +341,19 @@ class SpotIM_Import {
         return $result;
     }
 
+    /**
+     * Response
+     *
+     * Retrieve an array of post IDs.
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     *
+     * @param array $args An associative array of query variables.
+     *
+     * @return void
+     */
     public function response( $args = array() ) {
         $statuses_list = array( 'continue', 'success', 'cancel', 'error' );
 

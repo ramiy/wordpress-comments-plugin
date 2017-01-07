@@ -6,11 +6,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'SPOTIM_COMMENT_IMPORT_AGENT', 'Spot.IM/1.0 (Export)' );
 
+/**
+ * SpotIM_Message
+ *
+ * Comment functions.
+ *
+ * @since 3.0.0
+ */
 class SpotIM_Message {
+
     private $messages_map;
+
     private $message_data;
+
     private $comment_data;
+
     private $users;
+
     private $post_id;
 
     public function __construct( $type, $message, $users, $post_id ) {

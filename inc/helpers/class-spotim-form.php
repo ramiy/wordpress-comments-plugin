@@ -4,7 +4,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * SpotIM_Form_Helper
+ *
+ * Form helpers.
+ *
+ * @since 3.0.0
+ */
 class SpotIM_Form_Helper {
+
     private static function set_name( $args ) {
         if ( ! isset( $args['name'] ) ) {
             $args['name'] = sprintf(

@@ -4,9 +4,39 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * SpotIM_Admin
+ *
+ * Plugin settings page.
+ *
+ * @since 1.0.2
+ */
 class SpotIM_Admin {
+
+    /**
+     * Options
+     *
+     * @since 1.0.2
+     *
+     * @access private
+     * @static
+     *
+     * @var SpotIM_Options
+     */
     private static $options;
 
+    /**
+     * Launch
+     *
+     * @since 2.0.0
+     *
+     * @access public
+     * @static
+     *
+     * @param SpotIM_Options $options Plugin options.
+     *
+     * @return void
+     */
     public static function launch( $options ) {
         self::$options = $options;
 
@@ -17,6 +47,18 @@ class SpotIM_Admin {
         add_action( 'wp_ajax_cancel_import', array( __CLASS__, 'cancel_import_callback' ) );
     }
 
+    /**
+     * Admin Assets
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     * @static
+     *
+     * @param string $hook The current admin page.
+     *
+     * @return void
+     */
     public static function admin_assets( $hook ) {
         if ( 'toplevel_page_wp-spotim-settings' !== $hook ) {
             return;
@@ -32,6 +74,16 @@ class SpotIM_Admin {
         ) );
     }
 
+    /**
+     * Admin Menu
+     *
+     * @since 1.0.2
+     *
+     * @access public
+     * @static
+     *
+     * @return void
+     */
     public static function create_admin_menu() {
         $menu_icon = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTciIHZpZXdCb3g9IjAgMCAxNiAxNyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+Y2hhdCBjb3B5PC90aXRsZT48cGF0aCBkPSJNLjc0IDE1LjkxbC42MzQtMi42MTVjLjA1Ni0uMjMuMDEtLjQ4LS4xMy0uNzA3Qy0xLjg0NyA3LjU3OCAxLjE0NSAxLjAzIDYuNjY1LjExYzUuMzg2LS44OTYgMTAuMDkgMy43OTMgOS4yMzMgOS40MjItLjc4NiA1LjE2Ny02LjE5NCA4LjMxLTEwLjk3IDYuMjYtLjI1LS4xMS0uNTE4LS4xMS0uNzM0LS4wMDNMMS45NCAxNi45MWMtLjY1LjMyMi0xLjM3My0uMjc3LTEuMi0xem0yLjE5LTQuMzFjLjIzLjM3My4zLjguMjA2IDEuMjA1TDIuNjEzIDE1bDEuODU3LS45NGMuMzczLS4xOS44Mi0uMTk1IDEuMjMtLjAxNiAzLjU3IDEuNTU4IDcuNjM1LS44MjIgOC4yMjUtNC43Ny42MzQtNC4yNDUtMi44MjctNy44ODItNi45My03LjE5QzIuODI1IDIuNzk1LjYzIDcuODAyIDIuOTMgMTEuNnoiIGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==';
 
@@ -45,6 +97,16 @@ class SpotIM_Admin {
         );
     }
 
+    /**
+     * Register Settings
+     *
+     * @since 1.0.2
+     *
+     * @access public
+     * @static
+     *
+     * @return void
+     */
     public static function register_settings() {
         $settings_fields = new SpotIM_Settings_Fields( self::$options );
 
@@ -53,10 +115,30 @@ class SpotIM_Admin {
         $settings_fields->register_import_section();
     }
 
+    /**
+     * Admin Page Callback
+     *
+     * @since 1.0.2
+     *
+     * @access public
+     * @static
+     *
+     * @return void
+     */
     public static function admin_page_callback() {
         self::$options->require_template( 'admin-template.php' );
     }
 
+    /**
+     * Import Callback
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     * @static
+     *
+     * @return void
+     */
     public static function import_callback() {
         $import = new SpotIM_Import( self::$options );
 
@@ -87,11 +169,20 @@ class SpotIM_Admin {
                 $posts_per_request = 1;
             }
 
-
             $import->start( $spot_id, $import_token, $page_number, $posts_per_request );
         }
     }
 
+    /**
+     * Cancel Import Callback
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     * @static
+     *
+     * @return void
+     */
     public static function cancel_import_callback() {
         $import = new SpotIM_Import( self::$options );
         $page_number = isset( $_POST['spotim_page_number'] ) ? absint( $_POST['spotim_page_number'] ) : 0;

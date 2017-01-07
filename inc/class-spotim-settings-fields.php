@@ -4,11 +4,41 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * SpotIM_Settings_Fields
+ *
+ * Plugin settings fields.
+ *
+ * @since 2.0.0
+ */
 class SpotIM_Settings_Fields {
+
+    /**
+     * Constructor
+     *
+     * Get things started.
+     *
+     * @since 2.0.0
+     *
+     * @access public
+     *
+     * @param SpotIM_Options $options Plugin options.
+     */
     public function __construct( $options ) {
         $this->options = $options;
     }
 
+    /**
+     * Register Settings
+     *
+     * Register admin settings for the plugin.
+     *
+     * @since 2.0.0
+     *
+     * @access public
+     *
+     * @return void
+     */
     public function register_settings() {
         register_setting(
             $this->options->option_group,
@@ -17,14 +47,41 @@ class SpotIM_Settings_Fields {
         );
     }
 
+    /**
+     * General Settings Section Header
+     *
+     * @since 2.0.0
+     *
+     * @access public
+     *
+     * @return void
+     */
     public function general_settings_section_header() {
         echo '<p>' . esc_html__( 'These are some basic settings for Spot.IM.', 'spotim-comments' ) . '</p>';
     }
 
+    /**
+     * Import Settings Section Header
+     *
+     * @since 2.0.0
+     *
+     * @access public
+     *
+     * @return void
+     */
     public function import_settings_section_header() {
         echo '<p>' . esc_html__( 'Import your comments from Spot.IM to WordPress.', 'spotim-comments' ) . '</p>';
     }
 
+    /**
+     * Register General Section
+     *
+     * @since 2.0.0
+     *
+     * @access public
+     *
+     * @return void
+     */
     public function register_general_section() {
         add_settings_section(
             'general_settings_section',
@@ -63,7 +120,7 @@ class SpotIM_Settings_Fields {
 		    __('Find your Spot ID at the Spot.IM\'s <a href="%s" target="_blank">Admin Dashboard</a> under Integrations section.' , 'spotim-comments'),
             'https://admin.spot.im/login'
         ) . '<br />' . sprintf(
-			__('Don\'t have an account? <a href="%s" target="_blank">Create</a> one for free!' , 'spotim-comments'),
+            __('Don\'t have an account? <a href="%s" target="_blank">Create</a> one for free!' , 'spotim-comments'),
             'https://admin.spot.im/login'
         );
 
@@ -82,6 +139,15 @@ class SpotIM_Settings_Fields {
         );
     }
 
+    /**
+     * Register Import Section
+     *
+     * @since 2.0.0
+     *
+     * @access public
+     *
+     * @return void
+     */
     public function register_import_section() {
         add_settings_section(
             'import_settings_section',
