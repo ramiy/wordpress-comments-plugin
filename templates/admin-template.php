@@ -1,5 +1,5 @@
 <div class="wrap">
-    <h1 class="spotim-page-title"><?php esc_html_e( 'Spot.IM Settings', 'spotim-comments' ); ?></h1>
+    <h1 class="spotim-page-title"><?php echo get_admin_page_title(); ?></h1>
     <form method="post" action="options.php">
         <?php
             settings_fields( $this->option_group );
