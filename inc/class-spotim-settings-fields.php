@@ -165,7 +165,7 @@ class SpotIM_Settings_Fields {
             array(
                 'id' => 'import_token',
                 'page' => $this->options->slug,
-                'description' => 'Don\'t have a token? please send us an email to support@spot.im and get one.',
+                'description' => esc_html__( 'Don\'t have a token? please send us an email to support@spot.im and get one.', 'spotim-comments' ),
                 'value' => $this->options->get( 'import_token' )
             )
         );
@@ -179,7 +179,7 @@ class SpotIM_Settings_Fields {
             array(
                 'id' => 'posts_per_request',
                 'page' => $this->options->slug,
-                'description' => 'Amount of posts to retrieve in each request, depending on your server\'s strength.',
+                'description' => esc_html__( 'Amount of posts to retrieve in each request, depending on your server\'s strength.', 'spotim-comments' ),
                 'value' => $this->options->get( 'posts_per_request' )
             )
         );
