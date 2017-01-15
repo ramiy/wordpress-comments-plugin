@@ -62,6 +62,28 @@ class SpotIM_Form_Helper {
         echo $escaped_template;
     }
 
+    public static function radio_fields( $args ) {
+        $args = self::set_name( $args );
+        $radio_template = '<label class="description"><input type="radio" name="%s" value="%s" %s /> %s &nbsp;&nbsp;&nbsp;</label>';
+        $escaped_template = '';
+
+		foreach ( $args['fields'] as $key => $value ) {
+            $escaped_template .= sprintf($radio_template,
+                esc_attr( $args['name'] ), // Input's name.
+                sanitize_text_field( $key ), // Input's value.
+                checked( $args['value'], $key, 0 ), // If input checked or not.
+                $value // Translated text.
+            );
+		}
+
+        // Description template
+        if ( isset( $args['description'] ) ) {
+            $escaped_template .= self::get_description_html( $args['description'] );
+        }
+
+        echo $escaped_template;
+    }
+
     public static function text_field( $args ) {
         $args = self::set_name( $args );
         $args['value'] = sanitize_text_field( $args['value'] );
