@@ -230,35 +230,6 @@ class SpotIM_Settings_Fields {
             )
         );
 
-		/*
-        add_settings_field(
-            'enable_auto_import',
-            esc_html__( 'Enable Auto Import', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'yes_no_fields' ),
-            $this->options->slug,
-            'import_settings_section',
-            array(
-                'id' => 'enable_autom_import',
-                'page' => $this->options->slug,
-                'value' => $this->options->get( 'enable_autom_import' )
-            )
-        );
-
-        add_settings_field(
-            'import_recurrence',
-            esc_html__( 'Import Recurrence', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'text_field' ),
-            $this->options->slug,
-            'import_settings_section',
-            array(
-                'id' => 'import_recurrence',
-                'page' => $this->options->slug,
-                'description' => esc_html__( 'How often the Auto-Import should reoccur. Allowed values: hourly, twicedaily, daily', 'spotim-comments' ),
-                'value' => $this->options->get( 'import_recurrence' )
-            )
-        );
-		*/
-
         add_settings_field(
             'auto_import',
             esc_html__( 'Auto Import', 'spotim-comments' ),
