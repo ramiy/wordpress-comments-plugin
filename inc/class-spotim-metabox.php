@@ -13,15 +13,48 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Spotim_Meta_Box {
 
-	public function __construct() {
+    /**
+     * Options
+     *
+     * @since 4.0.0
+     *
+     * @access private
+     * @static
+     *
+     * @var SpotIM_Options
+     */
+    private static $options;
+
+    /**
+     * Constructor
+     *
+     * Get things started.
+     *
+     * @since 4.0.0
+     *
+     * @access public
+     *
+     * @param SpotIM_Options $options Plugin options.
+     */
+	public function __construct( $options ) {
 
 		if ( is_admin() ) {
+			self::$options = $options;
 			add_action( 'load-post.php',     array( $this, 'init_metabox' ) );
 			add_action( 'load-post-new.php', array( $this, 'init_metabox' ) );
 		}
 
 	}
 
+    /**
+     * Init Meta Box
+     *
+     * @since 4.0.0
+     *
+     * @access public
+     *
+     * @return void
+     */
 	public function init_metabox() {
 
 		add_action( 'add_meta_boxes',        array( $this, 'add_metabox' )         );
@@ -29,19 +62,46 @@ class Spotim_Meta_Box {
 
 	}
 
+    /**
+     * Add Meta Box
+     *
+     * @since 4.0.0
+     *
+     * @access public
+     *
+     * @return void
+     */
 	public function add_metabox() {
 
+		// Default screen where the boxes should be display in
+		$screen = array ( 'post' );
+
+		// Check whete to show on Pages too
+		if ( self::$options->get( 'enable_comments_on_page' ) ) {
+			array_push( $screen, 'page' );
+		}
+
+		// Add metabox
 		add_meta_box(
 			'spotim',
-			__( 'Spot.im', 'spotim-comments' ),
+			esc_html__( 'Spot.im', 'spotim-comments' ),
 			array( $this, 'render_metabox' ),
-			'post',
+			$screen,
 			'advanced',
 			'default'
 		);
 
 	}
 
+    /**
+     * Render Meta Box
+     *
+     * @since 4.0.0
+     *
+     * @access public
+     *
+     * @return void
+     */
 	public function render_metabox( $post ) {
 
 		// Add nonce for security and authentication.
@@ -96,6 +156,15 @@ class Spotim_Meta_Box {
 
 	}
 
+    /**
+     * Save Meta Box
+     *
+     * @since 4.0.0
+     *
+     * @access public
+     *
+     * @return void
+     */
 	public function save_metabox( $post_id, $post ) {
 
 		// Add nonce for security and authentication.
