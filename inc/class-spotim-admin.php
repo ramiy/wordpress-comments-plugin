@@ -109,10 +109,21 @@ class SpotIM_Admin {
      */
     public static function register_settings() {
         $settings_fields = new SpotIM_Settings_Fields( self::$options );
-
         $settings_fields->register_settings();
-        $settings_fields->register_general_section();
-        $settings_fields->register_import_section();
+
+        // Register settings fields only for the active tab
+        switch ( self::$options->active_tab ) {
+            case 'import':
+                $settings_fields->register_import_section();
+                break;
+            case 'display':
+                $settings_fields->register_display_section();
+                break;
+            case 'general':
+            default:
+                $settings_fields->register_general_section();
+                break;
+        }
     }
 
     /**

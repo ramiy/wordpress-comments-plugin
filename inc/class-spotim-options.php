@@ -70,6 +70,17 @@ class SpotIM_Options {
 	public $option_group;
 
     /**
+     * Active Tab
+     *
+     * @since 4.0.0
+     *
+     * @access public
+     *
+     * @var string
+     */
+    public $active_tab;
+
+    /**
      * Constructor
      *
      * Get things started.
@@ -90,6 +101,8 @@ class SpotIM_Options {
             'spot_id' => ''
         );
         $this->data = $this->get_meta_data();
+
+        $this->active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'general';
     }
 
     /**

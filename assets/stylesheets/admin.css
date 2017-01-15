@@ -1,3 +1,16 @@
+.spotim-page-wrap .nav-tab-active {
+    background-color: #fff;
+    border-bottom-color: #fff;
+}
+.spotim-page-wrap form {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: 0;
+    padding: 5px 15px;
+}
+.spotim-page-wrap h2 {
+    font-weight: bold;
+}
 .spotim-page-wrap p.description.red-color {
     color: #db3737;
 }
