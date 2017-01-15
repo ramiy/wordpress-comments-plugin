@@ -93,12 +93,16 @@ class SpotIM_Options {
         $this->slug = 'wp-spotim-settings';
         $this->option_group = 'wp-spotim-options';
         $this->default_options = array(
-            'enable_comments_on_page' => 0,
+            // General
+            'spot_id' => '',
+            // Display
             'enable_comments_replacement' => 1,
+            'enable_questions_replacement' => 0,
+            'enable_comments_on_page' => 0,
+            // Import
             'import_token' => '',
-            'page_number' => 0,
             'posts_per_request' => 10,
-            'spot_id' => ''
+            'auto_import' => 0,
         );
         $this->data = $this->get_meta_data();
 
