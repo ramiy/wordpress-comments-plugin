@@ -194,8 +194,23 @@ You are also always more than welcome to contact our team at support@spot.im. We
 
 == Changelog ==
 
-= 3.0.0 =
+= 4.0.0 =
+* New UI for Spot.IM settings page with tabs.
+* Add "Spot.IM Questions" support to the WordPress plugin.
+* Add auto-import feature to import content from Spot.IM to local db.
+* Add Spot.IM Meta Box to posts to allow users to override global setting for each post.
+* Add gulp tasks for textdomain-check and pot-file-generation.
+* i18n: Update wrong translation textdomains to match the plugin slug.
+* i18n: Add missin translation functions to translation strings.
+* i18n: Use translate.wordpress.org to translate the plugin.
+* Security: Escape translation strings.
+* Security: Prevent direct access to php files.
+* Security: Prevent direct access to directories.
+* Docs: Add phpDocs all over the code, to document everything.
+* a11y: Remove depricated admin icon from the plugin settings page.
+* a11y: Replace `<h2>` with `<h1>` heading in the settings page.
 
+= 3.0.0 =
 * Import comments from Spot.IM to Wordpress feature is out.
 * Added features to options file.
 * Restructure settings fields file.
