@@ -1,25 +1,124 @@
 <?php
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
+/**
+ * SpotIM_Options
+ *
+ * Plugin options.
+ *
+ * @since 2.0.0
+ */
 class SpotIM_Options {
-    private static $instance;
-    private $data;
-    public $slug, $option_group;
 
+    /**
+     * Instance
+     *
+     * @since 2.0.0
+     *
+     * @access private
+     * @static
+     *
+     * @var SpotIM_Options
+     */
+    private static $instance;
+
+    /**
+     * Data
+     *
+     * @since 2.0.0
+     *
+     * @access private
+     *
+     * @var array
+     */
+    private $data;
+
+    /**
+     * Default Options
+     *
+     * @since 2.0.0
+     *
+     * @access private
+     *
+     * @var array
+     */
+    private $default_options;
+
+    /**
+     * Slug
+     *
+     * @since 2.0.0
+     *
+     * @access public
+     *
+     * @var string
+     */
+    public $slug;
+
+    /**
+     * Option Group
+     *
+     * @since 2.0.0
+     *
+     * @access public
+     *
+     * @var string
+     */
+	public $option_group;
+
+    /**
+     * Active Tab
+     *
+     * @since 4.0.0
+     *
+     * @access public
+     *
+     * @var string
+     */
+    public $active_tab;
+
+    /**
+     * Constructor
+     *
+     * Get things started.
+     *
+     * @since 2.0.0
+     *
+     * @access protected
+     */
     protected function __construct() {
         $this->slug = 'wp-spotim-settings';
         $this->option_group = 'wp-spotim-options';
         $this->default_options = array(
-            'enable_comments_on_page' => 0,
+            // General
+            'spot_id' => '',
+            // Display
             'enable_comments_replacement' => 1,
+            'enable_questions_replacement' => 0,
+            'enable_comments_on_page' => 0,
+            // Import
             'import_token' => '',
-            'page_number' => 0,
             'posts_per_request' => 10,
-            'spot_id' => ''
+            'auto_import' => 0,
         );
-
         $this->data = $this->get_meta_data();
+
+        $this->active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'general';
     }
 
+    /**
+     * Get Instance
+     *
+     * @since 2.0.0
+     *
+     * @access public
+     * @static
+     *
+     * @return SpotIM_Options
+     */
     public static function get_instance() {
         if ( is_null( static::$instance ) ) {
             static::$instance = new static();
@@ -28,12 +127,30 @@ class SpotIM_Options {
         return static::$instance;
     }
 
+    /**
+     * Create Options
+     *
+     * @since 2.0.0
+     *
+     * @access private
+     *
+     * @return array
+     */
     private function create_options() {
         update_option( $this->slug, $this->default_options );
 
         return $this->default_options;
     }
 
+    /**
+     * Get Meta Data
+     *
+     * @since 2.0.0
+     *
+     * @access private
+     *
+     * @return array
+     */
     private function get_meta_data() {
         $data = get_option( $this->slug, array() );
 
@@ -49,10 +166,34 @@ class SpotIM_Options {
         return $data;
     }
 
+    /**
+     * Get
+     *
+     * @since 2.0.0
+     *
+     * @access public
+     *
+     * @param string     $key
+     * @param array|bool $default_value
+     *
+     * @return array|false
+     */
     public function get( $key = '', $default_value = false ) {
         return isset( $this->data[ $key ] ) ? $this->data[ $key ] : $default_value;
     }
 
+    /**
+     * Update
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     *
+     * @param string $name
+     * @param string $value
+     *
+     * @return array
+     */
     public function update( $name, $value ) {
         $new_option = array();
         $new_option[ $name ] = $value;
@@ -71,6 +212,17 @@ class SpotIM_Options {
         return $this->data[ $name ];
     }
 
+    /**
+     * Update
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     *
+     * @param string $name
+     *
+     * @return array
+     */
     public function reset( $name ) {
         $value = $this->get( $name );
 
@@ -89,6 +241,17 @@ class SpotIM_Options {
         return $this->update( $name, $value );
     }
 
+    /**
+     * Validate
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     *
+     * @param array $input
+     *
+     * @return array
+     */
     public function validate( $input ) {
         $options = $this->get_meta_data();
 
@@ -116,6 +279,18 @@ class SpotIM_Options {
         return $options;
     }
 
+    /**
+     * Require File
+     *
+     * @since 2.1.0
+     *
+     * @access public
+     *
+     * @param string       $path
+     * @param string|false $return_path
+     *
+     * @return string
+     */
     public function require_file( $path = '', $return_path = false ) {
         $valid = validate_file( $path );
 
@@ -137,18 +312,54 @@ class SpotIM_Options {
         return $output;
     }
 
+    /**
+     * Require Template
+     *
+     * @since 2.1.0
+     *
+     * @access public
+     *
+     * @param string       $path
+     * @param string|false $return_path
+     *
+     * @return string
+     */
     public function require_template( $path = '', $return_path = false ) {
         $path = plugin_dir_path( dirname( __FILE__ ) ) . 'templates/' . $path;
 
         return $this->require_file( $path, $return_path );
     }
 
+    /**
+     * Require JavaScript
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     *
+     * @param string       $path
+     * @param string|false $return_path
+     *
+     * @return string
+     */
     public function require_javascript( $path = '', $return_path = false ) {
         $path = plugin_dir_url( dirname( __FILE__ ) ) . 'assets/javascripts/' . $path;
 
         return $this->require_file( $path, $return_path );
     }
 
+    /**
+     * Require Stylesheet
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     *
+     * @param string       $path
+     * @param string|false $return_path
+     *
+     * @return string
+     */
     public function require_stylesheet( $path = '', $return_path = false ) {
         $path = plugin_dir_url( dirname( __FILE__ ) ) . 'assets/stylesheets/' . $path;
 

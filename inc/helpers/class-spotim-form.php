@@ -1,6 +1,18 @@
 <?php
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
+/**
+ * SpotIM_Form_Helper
+ *
+ * Form helpers.
+ *
+ * @since 3.0.0
+ */
 class SpotIM_Form_Helper {
+
     private static function set_name( $args ) {
         if ( ! isset( $args['name'] ) ) {
             $args['name'] = sprintf(
@@ -31,7 +43,7 @@ class SpotIM_Form_Helper {
             esc_attr( $args['name'] ), // Input's name.
             sanitize_text_field( $yes_value ), // Input's value.
             checked( $args['value'], $yes_value, 0 ), // If input checked or not.
-            esc_html__( 'Yes', 'wp-spotim' ) // Translated text.
+            esc_html__( 'Yes', 'spotim-comments' ) // Translated text.
         );
 
         // No template
@@ -39,8 +51,30 @@ class SpotIM_Form_Helper {
             esc_attr( $args['name'] ), // Input's name.
             sanitize_text_field( $no_value ), // Input's value.
             checked( $args['value'], $no_value, 0 ), // If input checked or not.
-            esc_html__( 'No', 'wp-spotim' ) // Translated text.
+            esc_html__( 'No', 'spotim-comments' ) // Translated text.
         );
+
+        // Description template
+        if ( isset( $args['description'] ) ) {
+            $escaped_template .= self::get_description_html( $args['description'] );
+        }
+
+        echo $escaped_template;
+    }
+
+    public static function radio_fields( $args ) {
+        $args = self::set_name( $args );
+        $radio_template = '<label class="description"><input type="radio" name="%s" value="%s" %s /> %s &nbsp;&nbsp;&nbsp;</label>';
+        $escaped_template = '';
+
+		foreach ( $args['fields'] as $key => $value ) {
+            $escaped_template .= sprintf($radio_template,
+                esc_attr( $args['name'] ), // Input's name.
+                sanitize_text_field( $key ), // Input's value.
+                checked( $args['value'], $key, 0 ), // If input checked or not.
+                $value // Translated text.
+            );
+		}
 
         // Description template
         if ( isset( $args['description'] ) ) {

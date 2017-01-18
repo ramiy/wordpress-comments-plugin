@@ -1,6 +1,18 @@
 <?php
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
+/**
+ * SpotIM_Comment
+ *
+ * Comment functions.
+ *
+ * @since 3.0.0
+ */
 class SpotIM_Comment {
+
     public static function sync( $events, $users, $post_id ) {
         $flag = true;
 

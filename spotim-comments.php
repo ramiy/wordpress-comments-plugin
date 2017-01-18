@@ -1,35 +1,63 @@
 <?php
-
 /**
- *
- * Official Spot.IM WP Plugin
- *
  * Plugin Name:         Spot.IM Comments
- * Plugin URI:          https://github.com/SpotIM/wordpress-comments-plugin
+ * Plugin URI:          https://wordpress.org/plugins/spotim-comments/
  * Description:         Real-time comments widget turns your site into its own content-circulating ecosystem. Implement an innovative conversation UI and dynamic newsfeed to spur user engagement, growth, and retention.
- * Version:             3.0.0
- * Author:              Spot.IM (@Spot_IM)
+ * Version:             4.0.0
+ * Author:              Spot.IM
  * Author URI:          https://github.com/SpotIM
  * License:             GPLv2
  * License URI:         license.txt
- * Text Domain:         wp-spotim
+ * Text Domain:         spotim-comments
  * GitHub Plugin URI:   git@github.com:SpotIM/wordpress-comments-plugin.git
- *
  */
 
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+// Load plugin files
 require_once( 'inc/helpers/class-spotim-form.php' );
 require_once( 'inc/helpers/class-spotim-message.php' );
 require_once( 'inc/helpers/class-spotim-comment.php' );
-
 require_once( 'inc/class-spotim-import.php' );
 require_once( 'inc/class-spotim-options.php' );
 require_once( 'inc/class-spotim-settings-fields.php' );
+require_once( 'inc/class-spotim-metabox.php' );
 require_once( 'inc/class-spotim-admin.php' );
 require_once( 'inc/class-spotim-frontend.php' );
 
+/**
+ * WP_SpotIM
+ *
+ * A general class for Spot.IM comments for WordPress.
+ *
+ * @since 1.0.2
+ */
 class WP_SpotIM {
+
+    /**
+     * Instance
+     *
+     * @since 1.0.2
+     *
+     * @access private
+     * @static
+     *
+     * @var WP_SpotIM
+     */
     private static $instance;
 
+    /**
+     * Constructor
+     *
+     * Get things started.
+     *
+     * @since 1.0.2
+     *
+     * @access protected
+     */
     protected function __construct() {
         $this->options = SpotIM_Options::get_instance();
 
@@ -44,6 +72,16 @@ class WP_SpotIM {
         }
     }
 
+    /**
+     * Get Instance
+     *
+     * @since 2.0.0
+     *
+     * @access public
+     * @static
+     *
+     * @return WP_SpotIM
+     */
     public static function get_instance() {
         if ( is_null( self::$instance ) ) {
             self::$instance = new self;
@@ -53,6 +91,13 @@ class WP_SpotIM {
     }
 }
 
+/**
+ * Spotim Instance
+ *
+ * @since 1.0
+ *
+ * @return WP_SpotIM
+ */
 function spotim_instance() {
     return WP_SpotIM::get_instance();
 }

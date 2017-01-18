@@ -1,18 +1,87 @@
 <?php
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 define( 'SPOTIM_API_URL', 'https://www.spot.im/api/open-api/v1/' );
 define( 'SPOTIM_EXPORT_URL', SPOTIM_API_URL . 'export/wordpress' );
 
+/**
+ * SpotIM_Import
+ *
+ * Plugin import class.
+ *
+ * @since 3.0.0
+ */
 class SpotIM_Import {
-    private $options, $posts_per_request, $page_number;
 
+    /**
+     * Options
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @var SpotIM_Options
+     */
+    private $options;
+
+    /**
+     * Posts Per Request
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @var int
+     */
+    private $posts_per_request;
+
+    /**
+     * Page Number
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @var int
+     */
+    private $page_number;
+
+    /**
+     * Constructor
+     *
+     * Get things started.
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     *
+     * @param SpotIM_Options $options Plugin options.
+     */
     public function __construct( $options ) {
         $this->options = $options;
-
         $this->posts_per_request = 50;
         $this->page_number = 0;
     }
 
+    /**
+     * Start
+     *
+     * Start the import.
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     *
+     * @param int $spot_id Sport ID.
+     * @param string $import_token Import token,
+     * @param int $page_number Page number.
+     * @param int $posts_per_request Posts Per Request.
+     *
+     * @return void
+     */
     public function start( $spot_id, $import_token, $page_number = 0, $posts_per_request = 1 ) {
 
         // save spot_id and import_token in plugin's options meta
@@ -36,6 +105,19 @@ class SpotIM_Import {
         $this->finish();
     }
 
+    /**
+     * Pull Comments
+     *
+     * Import comments from Spot.IM and merge them.
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @param array $post_ids An array of post IDs.
+     *
+     * @return void
+     */
     private function pull_comments( $post_ids = array() ) {
         if ( ! empty( $post_ids ) ) {
             // import comments data from Spot.IM
@@ -47,6 +129,19 @@ class SpotIM_Import {
         }
     }
 
+    /**
+     * Fetch Comments
+     *
+     * Import comments from Spot.IM.
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @param array $post_ids An array of post IDs.
+     *
+     * @return array $streams An array of streams.
+     */
     private function fetch_comments( $post_ids = array() ) {
         $streams = array();
 
@@ -75,6 +170,19 @@ class SpotIM_Import {
         return $streams;
     }
 
+    /**
+     * Merge Comments
+     *
+     * Sync comments data with wordpress comments.
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @param array $streams An array of streams.
+     *
+     * @return void
+     */
     private function merge_comments( $streams = array() ) {
         while ( ! empty( $streams ) ) {
             $stream = array_shift( $streams );
@@ -88,9 +196,7 @@ class SpotIM_Import {
                     );
 
                     if ( ! $sync_status ) {
-                        $translated_error = __(
-                            'Could not import comments of from this url: %s', 'wp-spotim'
-                        );
+                        $translated_error = esc_html__( 'Could not import comments of from this url: %s', 'spotim-comments' );
 
                         $this->response( array(
                             'status' => 'error',
@@ -112,6 +218,17 @@ class SpotIM_Import {
         }
     }
 
+    /**
+     * Finish
+     *
+     * Return a response to client via json.
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @return void
+     */
     private function finish() {
         $response_args = array(
             'status' => '',
@@ -127,16 +244,16 @@ class SpotIM_Import {
 
         if ( 0 === $total_posts_count ) {
             $response_args['status'] = 'success';
-            $response_args['message'] = __( 'Your website doesn\'t have any published blog posts', 'wp-spotim' );
+            $response_args['message'] = esc_html__( 'Your website doesn\'t have any published blog posts', 'spotim-comments' );
         } else if ( $current_posts_count < $total_posts_count ) {
-            $translated_message = __( '%d / %d posts are synchronize comments.', 'wp-spotim' );
+            $translated_message = esc_html__( '%d / %d posts are synchronize comments.', 'spotim-comments' );
             $parsed_message = sprintf( $translated_message, $current_posts_count, $total_posts_count );
 
             $response_args['status'] = 'continue';
             $response_args['message'] = $parsed_message;
         } else {
             $response_args['status'] = 'success';
-            $response_args['message'] = __( 'Your comments are up to date.', 'wp-spotim' );
+            $response_args['message'] = esc_html__( 'Your comments are up to date.', 'spotim-comments' );
 
             $this->options->reset('page_number');
         }
@@ -144,6 +261,20 @@ class SpotIM_Import {
         $this->response( $response_args );
     }
 
+    /**
+     * Get Post IDs
+     *
+     * Retrieve an array of post IDs.
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @param int $posts_per_page Posts per page.
+     * @param int $page_number Page number.
+     *
+     * @return array
+     */
     private function get_post_ids( $posts_per_page = -1, $page_number = 0 ) {
         $args = array(
             'posts_per_page' => $posts_per_page,
@@ -165,6 +296,19 @@ class SpotIM_Import {
         return get_posts( $args );
     }
 
+    /**
+     * Request
+     *
+     * Retrieve data from a remote server.
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     *
+     * @param string|array $query_args Either a query variable key, or an associative array of query variables.
+     *
+     * @return object
+     */
     private function request( $query_args ) {
         $url = add_query_arg( $query_args, SPOTIM_EXPORT_URL );
 
@@ -189,7 +333,7 @@ class SpotIM_Import {
         }
 
         if ( ! $result->is_ok ) {
-            $translated_error = __( 'Retriving data failed from this url: %s', 'wp-spotim' );
+            $translated_error = esc_html__( 'Retriving data failed from this url: %s', 'spotim-comments' );
 
             $result->body = sprintf( $translated_error, esc_attr( $url ) );
         }
@@ -197,6 +341,19 @@ class SpotIM_Import {
         return $result;
     }
 
+    /**
+     * Response
+     *
+     * Retrieve an array of post IDs.
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     *
+     * @param array $args An associative array of query variables.
+     *
+     * @return void
+     */
     public function response( $args = array() ) {
         $statuses_list = array( 'continue', 'success', 'cancel', 'error' );
 
