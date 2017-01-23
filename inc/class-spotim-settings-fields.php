@@ -144,44 +144,34 @@ class SpotIM_Settings_Fields {
             $this->options->slug
         );
 
-        add_settings_field(
-            'enable_comments_replacement',
-            esc_html__( 'Enable Spot.IM comments', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'yes_no_fields' ),
-            $this->options->slug,
-            'display_settings_section',
-            array(
-                'id' => 'enable_comments_replacement',
-                'page' => $this->options->slug,
-                'value' => $this->options->get( 'enable_comments_replacement' )
-            )
-        );
+        $post_types = get_post_types( array( 'public' => true ), 'objects' );
 
-        add_settings_field(
-            'enable_questions_replacement',
-            esc_html__( 'Enable Spot.IM questions', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'yes_no_fields' ),
-            $this->options->slug,
-            'display_settings_section',
-            array(
-                'id' => 'enable_questions_replacement',
-                'page' => $this->options->slug,
-                'value' => $this->options->get( 'enable_questions_replacement' )
-            )
-        );
+        if( ! empty( $post_types ) ) {
 
-        add_settings_field(
-            'enable_comments_on_page',
-            esc_html__( 'Enable Spot.IM on pages', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'yes_no_fields' ),
-            $this->options->slug,
-            'display_settings_section',
-            array(
-                'id' => 'enable_comments_on_page',
-                'page' => $this->options->slug,
-                'value' => $this->options->get( 'enable_comments_on_page' )
-            )
-        );
+            foreach ( $post_types as $key => $value ) {
+
+                // Check if post type support comments
+                if ( post_type_supports( $value->name, 'comments' ) ) {
+
+                    add_settings_field(
+                        "display_{$value->name}",
+                        sprintf( esc_html__( 'Display on %s', 'spotim-comments' ), $value->label ),
+                        array( 'SpotIM_Form_Helper', 'yes_no_fields' ),
+                        $this->options->slug,
+                        'display_settings_section',
+                        array(
+                            'id' => "display_{$value->name}",
+                            'page' => $this->options->slug,
+                            'text' => $value->label,
+                            'value' => $this->options->get( "display_{$value->name}" )
+                        )
+                    );
+
+                }
+
+            }
+
+        }
 
     }
 

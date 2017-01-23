@@ -67,7 +67,7 @@ class SpotIM_Options {
      *
      * @var string
      */
-	public $option_group;
+    public $option_group;
 
     /**
      * Active Tab
@@ -96,9 +96,9 @@ class SpotIM_Options {
             // General
             'spot_id' => '',
             // Display
-            'enable_comments_replacement' => 1,
-            'enable_questions_replacement' => 0,
-            'enable_comments_on_page' => 0,
+            'display_post' => 1,
+            'display_page' => 0,
+            'display_attachment' => 0,
             // Import
             'import_token' => '',
             'posts_per_request' => 10,
@@ -157,8 +157,9 @@ class SpotIM_Options {
         if ( empty( $data ) ) {
             $data = $this->create_options();
         } else {
-            $data['enable_comments_replacement'] = intval( $data['enable_comments_replacement'] );
-            $data['enable_comments_on_page'] = intval( $data['enable_comments_on_page'] );
+            $data['display_post'] = intval( $data['display_post'] );
+            $data['display_page'] = intval( $data['display_page'] );
+            $data['display_attachment'] = intval( $data['display_attachment'] );
 
             $data = array_merge( $this->default_options, $data );
         }
@@ -257,8 +258,9 @@ class SpotIM_Options {
 
         foreach ( $input as $key => $value ) {
             switch( $key ) {
-                case 'enable_comments_replacement':
-                case 'enable_comments_on_page':
+                case 'display_post':
+                case 'display_page':
+                case 'display_attachment':
                     $options[ $key ] = intval( $value );
                     break;
                 case 'posts_per_request':
