@@ -40,53 +40,51 @@ class SpotIM_Frontend {
     public static function launch( $options ) {
         self::$options = $options;
 
+        // SpotIM Comments
         add_filter( 'comments_template', array( __CLASS__, 'filter_comments_template' ), 20 );
         add_filter( 'comments_number', array( __CLASS__, 'filter_comments_number' ), 20 );
-        add_action( 'wp_footer', array( __CLASS__, 'action_wp_footer' ) );
+        add_action( 'wp_footer', array( __CLASS__, 'comments_footer_scripts' ) );
+
+        // SpotIM Questions
+        add_filter( 'before_displaying_spotim_comments', array( __CLASS__, 'add_spotim_questions' ), 10, 2 );
+
+        // SpotIM Recirculation
+        add_action( 'the_content', array( __CLASS__, 'add_spotim_recirculation' ) );
     }
 
     /**
-     * Allow comments on page
+     * Display Spot.im comments
      *
-     * @since 2.0.0
+     * @since 4.0.0
      *
      * @access public
      * @static
      *
      * @return bool
      */
-    public static function allow_comments_on_page() {
-        $are_comments_allowed = false;
+    public static function display_spotim_comments() {
+        global $post;
 
-        if ( is_page() && comments_open() ) {
-            if ( 1 === self::$options->get( 'enable_comments_on_page' ) ) {
-                $are_comments_allowed = true;
-            }
-        }
+        // Bail if it's not a single template
+        if ( ! ( is_single() || is_page() ) )
+            return false;
 
-        return $are_comments_allowed;
-    }
+        // Bail if comments are closed
+        if ( ! comments_open() )
+            return false;
 
-    /**
-     * Allow comments on single
-     *
-     * @since 2.0.0
-     *
-     * @access public
-     * @static
-     *
-     * @return bool
-     */
-    public static function allow_comments_on_single() {
-        $are_comments_allowed = false;
+        // Bail if Spot.IM is disabled for this post type
+        if ( ! self::$options->get( "display_{$post->post_type}" ) )
+            return false;
 
-        if ( is_single() && comments_open() ) {
-            if ( 1 === self::$options->get( 'enable_comments_replacement' ) ) {
-                $are_comments_allowed = true;
-            }
-        }
+        // Bail if Spot.IM Comments are disabled for this this specific content item
+        $specific_display = get_post_meta( absint( $post->ID ), 'spotim_display_comments', true );
+        $specific_display = in_array( $specific_display , array( 'enable', 'disable' ) ) ? $specific_display : 'enable';
+        if ( 'disable' === $specific_display )
+            return false;
 
-        return $are_comments_allowed;
+        // If all tests passed - show SpotIM
+        return true;
     }
 
     /**
@@ -102,12 +100,34 @@ class SpotIM_Frontend {
      * @return string
      */
     public static function filter_comments_template( $comments_template ) {
-        if ( self::allow_comments_on_page() || self::allow_comments_on_single() ) {
-            $require_template_path = self::$options->require_template( 'comments-template.php', true );
+        if ( self::display_spotim_comments() ) {
+            $spot_id = self::$options->get( 'spot_id' );
 
+            /**
+             * Befor loading SpotIM comments template
+             *
+             * @since 4.0.0
+             *
+             * @param string $comments_template Comments template file to load.
+             * @param int    $spot_id           SpotIM ID.
+             */
+            $comments_template = apply_filters( 'before_displaying_spotim_comments', $comments_template, $spot_id );
+
+            // Load SpotIM comments template
+            $require_template_path = self::$options->require_template( 'comments-template.php', true );
             if ( ! empty( $require_template_path ) ) {
                 $comments_template = $require_template_path;
             }
+
+            /**
+             * After loading SpotIM comments template
+             *
+             * @since 4.0.0
+             *
+             * @param string $comments_template Comments template file to load.
+             * @param int    $spot_id           SpotIM ID.
+             */
+            $comments_template = apply_filters( 'after_displaying_spotim_comments', $comments_template, $spot_id );
         }
 
         return $comments_template;
@@ -125,14 +145,14 @@ class SpotIM_Frontend {
      *
      * @return string
      */
-	 public static function filter_comments_number( $count ) {
+     public static function filter_comments_number( $count ) {
         global $post;
 
         return '<span class="spot-im-replies-count" data-post-id="' . absint( $post->ID ) . '"></span>';
     }
 
     /**
-     * Add to wp_footer
+     * Comments JS in the footer
      *
      * @since 1.0.2
      *
@@ -141,11 +161,120 @@ class SpotIM_Frontend {
      *
      * @return void
      */
-    public static function action_wp_footer() {
+    public static function comments_footer_scripts() {
         $spot_id = self::$options->get( 'spot_id' );
 
         if ( ! empty( $spot_id ) ) {
             self::$options->require_template( 'embed-template.php' );
         }
+    }
+
+    /**
+     * Display Spot.im questions
+     *
+     * @since 4.0.0
+     *
+     * @access public
+     * @static
+     *
+     * @return bool
+     */
+    public static function display_spotim_questions() {
+        global $post;
+
+        // Bail if it's not a single template
+        if ( ! ( is_single() || is_page() ) )
+            return false;
+
+        // Bail if comments are closed
+        if ( ! comments_open() )
+            return false;
+
+        // Bail if Spot.IM is disabled for this post type
+        if ( ! self::$options->get( "display_{$post->post_type}" ) )
+            return false;
+
+        // Bail if Spot.IM questions are disabled for this this specific content item
+        $specific_display = get_post_meta( absint( $post->ID ), 'spotim_question_text', true );
+        if ( empty( $specific_display ) )
+            return false;
+
+        // If all tests passed - show SpotIM
+        return true;
+    }
+
+    /**
+     * Add Spot.im questions
+     *
+     * @since 4.0.0
+     *
+     * @access public
+     * @static
+     *
+     * @param string $comments_template Comments template file to load.
+     * @param int    $spot_id           SpotIM ID.
+     *
+     * @return bool
+     */
+    public static function add_spotim_questions( $comments_template, $spot_id ) {
+        if ( self::display_spotim_questions() ) {
+            //$spot_id = self::$options->get( 'spot_id' );
+            $comments_template .= include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/questions-template.php' );
+        }
+        return $comments_template;
+    }
+
+    /**
+     * Display Spot.im recirculation
+     *
+     * @since 4.0.0
+     *
+     * @access public
+     * @static
+     *
+     * @return bool
+     */
+    public static function display_spotim_recirculation() {
+        global $post;
+
+        // Bail if it's not a single template
+        if ( ! ( is_single() || is_page() ) )
+            return false;
+
+        // Bail if comments are closed
+        if ( ! comments_open() )
+            return false;
+
+        // Bail if Spot.IM is disabled for this post type
+        if ( ! self::$options->get( "display_{$post->post_type}" ) )
+            return false;
+
+        // Bail if Spot.IM Recirculation are disabled for this this specific content item
+        $specific_display = get_post_meta( absint( $post->ID ), 'spotim_display_comments', true );
+        $specific_display = in_array( $specific_display , array( 'enable', 'disable' ) ) ? $specific_display : 'enable';
+        if ( 'disable' === $specific_display )
+            return false;
+
+        // If all tests passed - show SpotIM
+        return true;
+    }
+
+    /**
+     * Add Spot.im recirculation to the content
+     *
+     * @since 4.0.0
+     *
+     * @access public
+     * @static
+     *
+     * @return bool
+     */
+    public static function add_spotim_recirculation( $content ) {
+        if ( self::display_spotim_recirculation() ) {
+            $spot_id = self::$options->get( 'spot_id' );
+            $content .= include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-template.php' );
+        }
+
+        return $content;
     }
 }
