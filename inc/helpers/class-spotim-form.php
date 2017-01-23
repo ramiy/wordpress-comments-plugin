@@ -13,6 +13,18 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class SpotIM_Form_Helper {
 
+    /**
+     * Set name
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     * @static
+     *
+     * @param array $args
+     *
+     * @return array
+     */
     private static function set_name( $args ) {
         if ( ! isset( $args['name'] ) ) {
             $args['name'] = sprintf(
@@ -25,10 +37,34 @@ class SpotIM_Form_Helper {
         return $args;
     }
 
+    /**
+     * Get description
+     *
+     * @since 3.0.0
+     *
+     * @access private
+     * @static
+     *
+     * @param string $text
+     *
+     * @return string
+     */
     private static function get_description_html( $text = '' ) {
         return sprintf( '<p class="description">%s</p>', wp_kses_post( $text ) );
     }
 
+    /**
+     * Yes/No fields
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     * @static
+     *
+     * @param array $args
+     *
+     * @return string
+     */
     public static function yes_no_fields( $args ) {
         $args = self::set_name( $args );
         $radio_template = '<label class="description"><input type="radio" name="%s" value="%d" %s /> %s &nbsp;&nbsp;&nbsp;</label>';
@@ -66,6 +102,18 @@ class SpotIM_Form_Helper {
         echo $escaped_template;
     }
 
+    /**
+     * Radio fields
+     *
+     * @since 4.0.0
+     *
+     * @access public
+     * @static
+     *
+     * @param array $args
+     *
+     * @return string
+     */
     public static function radio_fields( $args ) {
         $args = self::set_name( $args );
         $radio_template = '<label class="description"><input type="radio" name="%s" value="%s" %s /> %s &nbsp;&nbsp;&nbsp;</label>';
@@ -88,6 +136,18 @@ class SpotIM_Form_Helper {
         echo $escaped_template;
     }
 
+    /**
+     * Text fields
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     * @static
+     *
+     * @param array $args
+     *
+     * @return string
+     */
     public static function text_field( $args ) {
         $args = self::set_name( $args );
         $args['value'] = sanitize_text_field( $args['value'] );
@@ -107,6 +167,18 @@ class SpotIM_Form_Helper {
         echo $escaped_template;
     }
 
+    /**
+     * Button fields
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     * @static
+     *
+     * @param array $args
+     *
+     * @return string
+     */
     public static function button( $args ) {
         $button_template = '<button id="%s" class="button button-primary">%s</button>';
 
@@ -123,6 +195,18 @@ class SpotIM_Form_Helper {
         echo $escaped_template;
     }
 
+    /**
+     * Import Button fields
+     *
+     * @since 3.0.0
+     *
+     * @access public
+     * @static
+     *
+     * @param array $args
+     *
+     * @return string
+     */
     public static function import_button( $args ) {
 
         // Import button template
