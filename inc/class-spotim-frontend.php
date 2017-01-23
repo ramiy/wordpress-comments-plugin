@@ -250,7 +250,7 @@ class SpotIM_Frontend {
             return false;
 
         // Bail if Spot.IM Recirculation are disabled for this this specific content item
-        $specific_display = get_post_meta( absint( $post->ID ), 'spotim_display_comments', true );
+        $specific_display = get_post_meta( absint( $post->ID ), 'spotim_display_recirculation', true );
         $specific_display = in_array( $specific_display , array( 'enable', 'disable' ) ) ? $specific_display : 'enable';
         if ( 'disable' === $specific_display )
             return false;
