@@ -1,10 +1,10 @@
 /**
- *  Gulp File
+ * Gulp File
  *
- *  Used for automating development tasks.
+ * Used for automating development tasks.
  */
 
-/* Modules (Can be installed with npm install command using package.json)
+/* Modules (Can be installed with "npm install" command using package.json)
  ------------------------------------- */
 var gulp = require('gulp'),
     sort = require('gulp-sort'),

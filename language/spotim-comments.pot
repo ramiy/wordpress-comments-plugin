@@ -15,106 +15,190 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: inc/class-spotim-admin.php:59
+#: inc/class-spotim-admin.php:147
 msgid "Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@spot.im."
 msgstr ""
 
-#: inc/class-spotim-admin.php:61
+#: inc/class-spotim-admin.php:149
 msgid "Cancel importing..."
 msgstr ""
 
-#: inc/class-spotim-admin.php:77, templates/admin-template.php:7
+#: inc/class-spotim-admin.php:185
 msgid "Spot.IM Settings"
 msgstr ""
 
-#: inc/class-spotim-admin.php:79
+#: inc/class-spotim-admin.php:187
 msgid "Spot.IM"
 msgstr ""
 
-#: inc/class-spotim-admin.php:133
+#: inc/class-spotim-admin.php:323
 msgid "Your Spot Id is missing."
 msgstr ""
 
-#: inc/class-spotim-admin.php:147
+#: inc/class-spotim-admin.php:337
 msgid "Your Token is missing."
 msgstr ""
 
-#: inc/class-spotim-import.php:189
+#: inc/class-spotim-import.php:397
 msgid "Could not import comments of from this url: %s"
 msgstr ""
 
-#: inc/class-spotim-import.php:263
+#: inc/class-spotim-import.php:493
 msgid "Your website doesn't have any published blog posts"
 msgstr ""
 
-#: inc/class-spotim-import.php:267
+#: inc/class-spotim-import.php:497
 msgid "%d / %d posts are synchronize comments."
 msgstr ""
 
-#: inc/class-spotim-import.php:281
+#: inc/class-spotim-import.php:511
 msgid "Your comments are up to date."
 msgstr ""
 
-#: inc/class-spotim-import.php:387
+#: inc/class-spotim-import.php:671
 msgid "Retriving data failed from this url: %s"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:41
-msgid "These are some basic settings for Spot.IM."
+#: inc/class-spotim-metabox.php:286
+msgid "Spot.im"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:49
+#: inc/class-spotim-metabox.php:403
+msgid "Comments"
+msgstr ""
+
+#: inc/class-spotim-metabox.php:412, inc/class-spotim-metabox.php:445, inc/class-spotim-metabox.php:481, inc/helpers/class-spotim-form.php:171
+msgid "Enable"
+msgstr ""
+
+#: inc/class-spotim-metabox.php:415, inc/class-spotim-metabox.php:448, inc/class-spotim-metabox.php:484, inc/helpers/class-spotim-form.php:187
+msgid "Disable"
+msgstr ""
+
+#: inc/class-spotim-metabox.php:421
+msgid "Display Spot.im comments."
+msgstr ""
+
+#: inc/class-spotim-metabox.php:436
+msgid "Recirculation"
+msgstr ""
+
+#: inc/class-spotim-metabox.php:454
+msgid "Display Spot.im recirculation."
+msgstr ""
+
+#: inc/class-spotim-metabox.php:472, inc/class-spotim-metabox.php:508
+msgid "Question"
+msgstr ""
+
+#: inc/class-spotim-metabox.php:490, inc/class-spotim-metabox.php:517
+msgid "Display Spot.im question."
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:119
+msgid "Basic settings to integrate your Spot.IM account with WordPress."
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:145
+msgid "Display settings to control where to display Spot.IM."
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:171
 msgid "Import your comments from Spot.IM to WordPress."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:61
-msgid "Commenting Options"
+#: inc/class-spotim-settings-fields.php:201
+msgid "General Options"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:75
-msgid "Enable Spot.IM comments"
+#: inc/class-spotim-settings-fields.php:213
+msgid "Find your Spot ID at the <a href=\"%s\" target=\"_blank\">Spot.IM's Admin Dashboard</a> under \"Features\" section."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:101
-msgid "Enable Spot.IM on pages"
+#: inc/class-spotim-settings-fields.php:219
+msgid "Don't have an account? <a href=\"%s\" target=\"_blank\">Create</a> one for free!"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:123
-msgid "Find your Spot ID at the Spot.IM's %1$sAdmin Dashboard%2$s under Integrations section.%3$s Don't have an account? %4$sCreate%5$s one for free!"
+#: inc/class-spotim-settings-fields.php:231
+msgid "Spot ID"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:147
-msgid "Your Spot ID"
+#: inc/class-spotim-settings-fields.php:283
+msgid "Display Options"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:179
+#: inc/class-spotim-settings-fields.php:315
+msgid "Display on %s"
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:379
 msgid "Import Options"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:193
+#: inc/class-spotim-settings-fields.php:393
 msgid "Your Token"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:221
+#: inc/class-spotim-settings-fields.php:407
+msgid "Don't have a token? please send us an email to support@spot.im and get one."
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:421
 msgid "Posts Per Request"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:263
-msgid "Import"
+#: inc/class-spotim-settings-fields.php:435
+msgid "Amount of posts to retrieve in each request, depending on your server's strength."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:271
-msgid "Cancel"
+#: inc/class-spotim-settings-fields.php:449
+msgid "Auto Import"
 msgstr ""
 
-#: inc/helpers/class-spotim-form.php:75
-msgid "Yes"
+#: inc/class-spotim-settings-fields.php:463
+msgid "Enable Auto-Import and how ofter should it reoccur."
 msgstr ""
 
-#: inc/helpers/class-spotim-form.php:91
+#: inc/class-spotim-settings-fields.php:467
 msgid "No"
 msgstr ""
 
-#: inc/helpers/class-spotim-message.php:425
+#: inc/class-spotim-settings-fields.php:469
+msgid "Hourly"
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:471
+msgid "Twice Daily"
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:473
+msgid "Daily"
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:489
+msgid "Manual Import"
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:503
+msgid "Import Now!"
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:511
+msgid "Cancel"
+msgstr ""
+
+#: inc/helpers/class-spotim-message.php:449
 msgid "This message was deleted."
+msgstr ""
+
+#: templates/admin-template.php:9
+msgid "General"
+msgstr ""
+
+#: templates/admin-template.php:11
+msgid "Display"
+msgstr ""
+
+#: templates/admin-template.php:13
+msgid "Import"
 msgstr ""

@@ -74,14 +74,23 @@ class Spotim_Meta_Box {
 	public function add_metabox() {
 
 		// Default screen where the boxes should be display in
-		$screen = array ( 'post' );
+		$screen = array();
 
-		// Check whete to show on Pages too
-		if ( self::$options->get( 'enable_comments_on_page' ) ) {
-			array_push( $screen, 'page' );
-		}
+        // Available post types
+        $post_types = get_post_types( array( 'public' => true ) );
 
-		// Add metabox
+		// Apply metabox only to 
+        foreach ( $post_types as $post_type ) {
+			if ( ( (bool) self::$options->get( "display_{$post_type}" ) ) ) {
+				$screen[] = $post_type;
+			}
+        }
+
+		// Bail if no post types selected
+		if ( empty( $screen ) )
+			return;
+
+		// Add metaboxes
 		add_meta_box(
 			'spotim',
 			esc_html__( 'Spot.im', 'spotim-comments' ),
@@ -108,14 +117,16 @@ class Spotim_Meta_Box {
 		wp_nonce_field( 'nonce_action', 'nonce' );
 
 		// Retrieve an existing value from the database.
-		$spotim_display_comments = get_post_meta( $post->ID, 'spotim_display_comments', true );
-		$spotim_display_question = get_post_meta( $post->ID, 'spotim_display_question', true );
-		$spotim_question_text = get_post_meta( $post->ID, 'spotim_question_text', true );
+		$spotim_display_comments      = get_post_meta( $post->ID, 'spotim_display_comments', true );
+		$spotim_display_recirculation = get_post_meta( $post->ID, 'spotim_display_recirculation', true );
+		//$spotim_display_question      = get_post_meta( $post->ID, 'spotim_display_question', true );
+		$spotim_question_text         = get_post_meta( $post->ID, 'spotim_question_text', true );
 
 		// Set default values.
-		if( empty( $spotim_display_comments ) ) $spotim_display_comments = '';
-		if( empty( $spotim_display_question ) ) $spotim_display_question = '';
-		if( empty( $spotim_question_text ) ) $spotim_question_text = '';
+		if( empty( $spotim_display_comments      ) ) $spotim_display_comments      = 'enable';
+		if( empty( $spotim_display_recirculation ) ) $spotim_display_recirculation = 'enable';
+		//if( empty( $spotim_display_question      ) ) $spotim_display_question      = 'enable';
+		if( empty( $spotim_question_text         ) ) $spotim_question_text         = '';
 
 		// Form fields.
 		echo '<table class="form-table">';
@@ -124,31 +135,42 @@ class Spotim_Meta_Box {
 		echo '		<th><label for="spotim_display_comments" class="spotim_display_comments_label">' . __( 'Comments', 'spotim-comments' ) . '</label></th>';
 		echo '		<td>';
 		echo '			<select id="spotim_display_comments" name="spotim_display_comments" class="spotim_display_comments_field">';
-		echo '			<option value="default" ' . selected( $spotim_display_comments, 'default', false ) . '> ' . __( 'Use Global Settings', 'spotim-comments' ) . '</option>';
-		echo '			<option value="1" ' . selected( $spotim_display_comments, '1', false ) . '> ' . __( 'Enable', 'spotim-comments' ) . '</option>';
-		echo '			<option value="0" ' . selected( $spotim_display_comments, '0', false ) . '> ' . __( 'Disable', 'spotim-comments' ) . '</option>';
+		echo '			<option value="enable" '  . selected( $spotim_display_comments, 'enable',  false ) . '> ' . __( 'Enable', 'spotim-comments' ) . '</option>';
+		echo '			<option value="disable" ' . selected( $spotim_display_comments, 'disable', false ) . '> ' . __( 'Disable', 'spotim-comments' ) . '</option>';
 		echo '			</select>';
-		echo '			<p class="description">' . __( 'Display settings for Spot.im comments. Use global settings or custom settings for this item.', 'spotim-comments' ) . '</p>';
+		echo '			<p class="description">' . __( 'Display Spot.im comments.', 'spotim-comments' ) . '</p>';
 		echo '		</td>';
 		echo '	</tr>';
 
+		echo '	<tr>';
+		echo '		<th><label for="spotim_display_recirculation" class="spotim_display_recirculation_label">' . __( 'Recirculation', 'spotim-comments' ) . '</label></th>';
+		echo '		<td>';
+		echo '			<select id="spotim_display_recirculation" name="spotim_display_recirculation" class="spotim_display_recirculation_field">';
+		echo '			<option value="enable" '  . selected( $spotim_display_recirculation, 'enable',  false ) . '> ' . __( 'Enable', 'spotim-comments' ) . '</option>';
+		echo '			<option value="disable" ' . selected( $spotim_display_recirculation, 'disable', false ) . '> ' . __( 'Disable', 'spotim-comments' ) . '</option>';
+		echo '			</select>';
+		echo '			<p class="description">' . __( 'Display Spot.im recirculation.', 'spotim-comments' ) . '</p>';
+		echo '		</td>';
+		echo '	</tr>';
+
+		/*
 		echo '	<tr>';
 		echo '		<th><label for="spotim_display_question" class="spotim_display_question_label">' . __( 'Question', 'spotim-comments' ) . '</label></th>';
 		echo '		<td>';
 		echo '			<select id="spotim_display_question" name="spotim_display_question" class="spotim_display_question_field">';
-		echo '			<option value="default" ' . selected( $spotim_display_question, 'default', false ) . '> ' . __( 'Use Global Settings', 'spotim-comments' ) . '</option>';
-		echo '			<option value="1" ' . selected( $spotim_display_question, '1', false ) . '> ' . __( 'Enable', 'spotim-comments' ) . '</option>';
-		echo '			<option value="0" ' . selected( $spotim_display_question, '0', false ) . '> ' . __( 'Disable', 'spotim-comments' ) . '</option>';
+		echo '			<option value="enable" '  . selected( $spotim_display_question, 'enable',  false ) . '> ' . __( 'Enable', 'spotim-comments' ) . '</option>';
+		echo '			<option value="disable" ' . selected( $spotim_display_question, 'disable', false ) . '> ' . __( 'Disable', 'spotim-comments' ) . '</option>';
 		echo '			</select>';
-		echo '			<p class="description">' . __( 'Display settings for Spot.im question. Use global settings or custom settings for this item.', 'spotim-comments' ) . '</p>';
+		echo '			<p class="description">' . __( 'Display Spot.im question.', 'spotim-comments' ) . '</p>';
 		echo '		</td>';
 		echo '	</tr>';
+		*/
 
 		echo '	<tr>';
-		echo '		<th><label for="spotim_question_text" class="spotim_question_text_label">' . __( 'Question Text', 'spotim-comments' ) . '</label></th>';
+		echo '		<th><label for="spotim_question_text" class="spotim_question_text_label">' . __( 'Question', 'spotim-comments' ) . '</label></th>';
 		echo '		<td>';
-		echo '			<input type="text" id="spotim_question_text" name="spotim_question_text" class="spotim_question_text_field" placeholder="' . esc_attr__( '', 'spotim-comments' ) . '" value="' . esc_attr__( $spotim_question_text ) . '">';
-		echo '			<p class="description">' . __( 'The question text to display.', 'spotim-comments' ) . '</p>';
+		echo '			<input type="text" id="spotim_question_text" name="spotim_question_text" class="spotim_question_text_field" value="' . esc_attr( $spotim_question_text ) . '">';
+		echo '			<p class="description">' . __( 'Display Spot.im question.', 'spotim-comments' ) . '</p>';
 		echo '		</td>';
 		echo '	</tr>';
 
@@ -192,14 +214,16 @@ class Spotim_Meta_Box {
 			return;
 
 		// Sanitize user input.
-		$new_spotim_display_comments = isset( $_POST[ 'spotim_display_comments' ] ) ? $_POST[ 'spotim_display_comments' ] : '';
-		$new_spotim_display_question = isset( $_POST[ 'spotim_display_question' ] ) ? $_POST[ 'spotim_display_question' ] : '';
-		$new_spotim_question_text = isset( $_POST[ 'spotim_question_text' ] ) ? sanitize_text_field( $_POST[ 'spotim_question_text' ] ) : '';
+		$new_spotim_display_comments      = isset( $_POST[ 'spotim_display_comments' ] )      ? $_POST[ 'spotim_display_comments' ]                     : '';
+		$new_spotim_display_recirculation = isset( $_POST[ 'spotim_display_recirculation' ] ) ? $_POST[ 'spotim_display_recirculation' ]                : '';
+		//$new_spotim_display_question      = isset( $_POST[ 'spotim_display_question' ] )      ? $_POST[ 'spotim_display_question' ]                     : '';
+		$new_spotim_question_text         = isset( $_POST[ 'spotim_question_text' ] )         ? sanitize_text_field( $_POST[ 'spotim_question_text' ] ) : '';
 
 		// Update the meta field in the database.
-		update_post_meta( $post_id, 'spotim_display_comments', $new_spotim_display_comments );
-		update_post_meta( $post_id, 'spotim_display_question', $new_spotim_display_question );
-		update_post_meta( $post_id, 'spotim_question_text', $new_spotim_question_text );
+		update_post_meta( $post_id, 'spotim_display_comments',      $new_spotim_display_comments );
+		update_post_meta( $post_id, 'spotim_display_recirculation', $new_spotim_display_recirculation );
+		//update_post_meta( $post_id, 'spotim_display_question',      $new_spotim_display_question );
+		update_post_meta( $post_id, 'spotim_question_text',         $new_spotim_question_text );
 
 	}
 
