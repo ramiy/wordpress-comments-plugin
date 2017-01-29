@@ -120,6 +120,9 @@ class SpotIM_Admin {
             case 'display':
                 $settings_fields->register_display_section();
                 break;
+	        case 'export':
+		        $settings_fields->register_export_section();
+		        break;
             case 'general':
             default:
                 $settings_fields->register_general_section();
