@@ -47,6 +47,29 @@ Spot.IM combines a host of features that keep your users engaged with your conte
 
 Check out Time Inc's Entertainment Weekly for a live example of Spot.IM on one of the Internet's most popular sites.
 
+= Features =
+
+* **Live Commenting** – Typing users and submitted comments are seen in real time. No waiting, no delay, no frustrating load times.
+* **Chat Interface** – A chat UI is integrated into the commenting experience to stimulate vibrant conversations. See if a user is online and engage in free-flowing dialogue.
+* **Newsfeed** – Hot topics and trending conversations are presented in a cross-site Newsfeed, driving discussion, clicks, and pageviews. Newsfeed offers smart content recommendation to your readers.
+* **Direct Messaging** – Community members can elect to talk privately, discuss your site’s content, and share common passions and interests.
+* **Above-the-Fold** – The Newsfeed can be accessed by clicking on an unobtrusive, yet attractive button that constantly sits on the side of your website.
+* **Mobile Integration** - Unlike other commenting platforms, Spot.IM’s mobile interface is smooth and easy to navigate, allowing your community to flourish even when it’s on the go.
+* **Notifications** – Spot.IM instantly notifies your readers about new comments and hot conversations, so your content is circulated – and never missed.
+* **Seamless Implementation** - Application of plugin within five minutes. User and commenting data imported or exported with a click.
+* **Automatic registration** – Single Sign On (SSO) with a variety of different platforms (Facebook, LinkedIn, Google+, Twitter)
+* **@Mentions** – With a simple “@,” your community members can address each other within a conversation. Mentioned users get an actionable, mobile notification (still?) and an email alert even if he or she is offline.
+* **Community Interfacing** – Beyond group and private messaging, users can like and share each other’s messages.
+* **Gameification** – Spot.IM incentivizes your community by rewarding active contributors in your community with points and rankings. High-ranking community members push the level and flow of conversation.
+* **Customization and Branding** – Make your community just that – yours – with a variety of customizable design options, including colors, schemes, and icons.
+* **Moderation** – Advanced automatic, manual, and user moderation lets you eliminate trolls and spam, keeping your User Generated Content clean while allowing your star commenters to shine.
+* **Media Sharing** – Videos, images, GIFs, you name it – Spot.IM’s system supports your community in bringing a little color to the conversation.
+* **Analytics** – Find out who’s clicking, where, and why to optimize and get the most out of your content. (I’d like to say more here but I’m not sure what state the analytics are in right now).
+* **Language Support** – You can control your spot in 16 different languages.
+* **SEO support**
+
+For more information, please visit our website – Spot.IM
+
 == Installation ==
 
 == Installation ==
@@ -76,29 +99,6 @@ Check out Time Inc's Entertainment Weekly for a live example of Spot.IM on one o
 2. Spot.IM on desktop and mobile.
 3. Spot.IM on mobile.
 4. Spot.IM on mobile.
-
-== Features ==
-
-* **Live Commenting** – Typing users and submitted comments are seen in real time. No waiting, no delay, no frustrating load times.
-* **Chat Interface** – A chat UI is integrated into the commenting experience to stimulate vibrant conversations. See if a user is online and engage in free-flowing dialogue.
-* **Newsfeed** – Hot topics and trending conversations are presented in a cross-site Newsfeed, driving discussion, clicks, and pageviews. Newsfeed offers smart content recommendation to your readers.
-* **Direct Messaging** – Community members can elect to talk privately, discuss your site’s content, and share common passions and interests.
-* **Above-the-Fold** – The Newsfeed can be accessed by clicking on an unobtrusive, yet attractive button that constantly sits on the side of your website.
-* **Mobile Integration** - Unlike other commenting platforms, Spot.IM’s mobile interface is smooth and easy to navigate, allowing your community to flourish even when it’s on the go.
-* **Notifications** – Spot.IM instantly notifies your readers about new comments and hot conversations, so your content is circulated – and never missed.
-* **Seamless Implementation** - Application of plugin within five minutes. User and commenting data imported or exported with a click.
-* **Automatic registration** – Single Sign On (SSO) with a variety of different platforms (Facebook, LinkedIn, Google+, Twitter)
-* **@Mentions** – With a simple “@,” your community members can address each other within a conversation. Mentioned users get an actionable, mobile notification (still?) and an email alert even if he or she is offline.
-* **Community Interfacing** – Beyond group and private messaging, users can like and share each other’s messages.
-* **Gameification** – Spot.IM incentivizes your community by rewarding active contributors in your community with points and rankings. High-ranking community members push the level and flow of conversation.
-* **Customization and Branding** – Make your community just that – yours – with a variety of customizable design options, including colors, schemes, and icons.
-* **Moderation** – Advanced automatic, manual, and user moderation lets you eliminate trolls and spam, keeping your User Generated Content clean while allowing your star commenters to shine.
-* **Media Sharing** – Videos, images, GIFs, you name it – Spot.IM’s system supports your community in bringing a little color to the conversation.
-* **Analytics** – Find out who’s clicking, where, and why to optimize and get the most out of your content. (I’d like to say more here but I’m not sure what state the analytics are in right now).
-* **Language Support** – You can control your spot in 16 different languages.
-* **SEO support**
-
-For more information, please visit our website – Spot.IM
 
 == Frequently Asked Questions ==
 
