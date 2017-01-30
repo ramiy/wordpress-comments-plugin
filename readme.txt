@@ -186,6 +186,17 @@ www.fightofthenight.com
 
 Why, how funny you should ask: there are! We strongly recommend you take a look at our Best Practices page to get a better idea o how to best utilize your Spot. A Spot is a versatile asset for your website, and you’ll want to manage it however best fits your specific needs.
 
+= As a developer, how can I extend the plugin? =
+
+The plugin supports four hooks to filter the **Comments Template** and the **Recirculation Template**:
+
+* `before_spotim_comments` - befor loading SpotIM comments template
+* `after_spotim_comments` - after loading SpotIM comments template
+* `before_spotim_recirculation` - befor loading SpotIM recirculation template
+* `after_spotim_recirculation` - after loading SpotIM recirculation template
+
+All those hooks recieve two paramarets: `$template` for the template to load ; `$spot_id` for the sites SpotIM ID.
+
 = My question wasn’t answered here. Where can I get further support? =
 
 We know managing a website can get complicated. That’s why we made Spot.IM easy to use, even with its innovation. If you still need help with anything, try our very own Spot.Im Community site. From there, you can examine our Knoweldge Base, our Blog, and more.
@@ -198,9 +209,8 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * New UI for Spot.IM settings page with tabs (General, Display and Import tabs).
 * Add support for all registered Custom Post Types, not only post and pages.
 * Add Spot.IM Meta Box to posts, to allow users setup SpotIM setting for each post.
-* Add "Spot.IM Questions" support to the WordPress plugin.
+* Add "Spot.IM Questions" support for "Spot.IM Comments" to increase engagement.
 * Add "Spot.IM Recirculation" support to the WordPress plugin.
-* Add new shortcode for Recirculation elements.
 * Add `[spotim_comments]` shortcode.
 * Add `[spotim_recirculation]` shortcode.
 * Add a sidebar widget for Spot.IM Recirculation.

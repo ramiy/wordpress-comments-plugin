@@ -156,13 +156,17 @@ class SpotIM_Settings_Fields {
                     add_settings_field(
                         "display_{$value->name}",
                         sprintf( esc_html__( 'Display on %s', 'spotim-comments' ), $value->label ),
-                        array( 'SpotIM_Form_Helper', 'yes_no_fields' ),
+                        array( 'SpotIM_Form_Helper', 'radio_fields' ),
                         $this->options->slug,
                         'display_settings_section',
                         array(
                             'id' => "display_{$value->name}",
                             'page' => $this->options->slug,
-                            'text' => $value->label,
+                            'fields' => array(
+                                '0' => esc_html__( 'Disable', 'spotim-comments' ),
+                                'comments' => esc_html__( 'Enable Comments', 'spotim-comments' ),
+                                'comments_recirculation' => esc_html__( 'Enable Comments & Recirculation', 'spotim-comments' ),
+                            ),
                             'value' => $this->options->get( "display_{$value->name}" )
                         )
                     );
@@ -201,7 +205,7 @@ class SpotIM_Settings_Fields {
             array(
                 'id' => 'import_token',
                 'page' => $this->options->slug,
-                'description' => esc_html__( 'Don\'t have a token? please send us an email to support@spot.im and get one.', 'spotim-comments' ),
+                'description' => sprintf ( esc_html__( 'Don\'t have a token? please send us an email to %s and get one.', 'spotim-comments' ), '<a href="mailto:support@spot.im">support@spot.im</a>' ),
                 'value' => $this->options->get( 'import_token' )
             )
         );
@@ -229,7 +233,7 @@ class SpotIM_Settings_Fields {
             array(
                 'id' => 'auto_import',
                 'page' => $this->options->slug,
-                'description' => esc_html__( 'Enable Auto-Import and how ofter should it reoccur.', 'spotim-comments' ),
+                'description' => esc_html__( 'Enable auto-import and set how ofter should it reoccur.', 'spotim-comments' ),
                 'fields' => array(
                     '0' => esc_html__( 'No', 'spotim-comments' ),
                     'hourly' => esc_html__( 'Hourly', 'spotim-comments' ),
