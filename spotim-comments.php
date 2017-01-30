@@ -28,6 +28,7 @@ require_once( 'inc/class-spotim-metabox.php' );
 require_once( 'inc/class-spotim-admin.php' );
 require_once( 'inc/class-spotim-frontend.php' );
 require_once( 'inc/spotim-shortcodes.php' );
+require_once( 'inc/spotim-widgets.php' );
 
 /**
  * WP_SpotIM

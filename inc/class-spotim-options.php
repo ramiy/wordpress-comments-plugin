@@ -96,9 +96,9 @@ class SpotIM_Options {
             // General
             'spot_id' => '',
             // Display
-            'display_post' => 1,
-            'display_page' => 0,
-            'display_attachment' => 0,
+            'display_post' => 'comments_recirculation',
+            'display_page' => 'comments_recirculation',
+            'display_attachment' => 'none',
             // Import
             'import_token' => '',
             'posts_per_request' => 10,
@@ -157,9 +157,9 @@ class SpotIM_Options {
         if ( empty( $data ) ) {
             $data = $this->create_options();
         } else {
-            $data['display_post'] = intval( $data['display_post'] );
-            $data['display_page'] = intval( $data['display_page'] );
-            $data['display_attachment'] = intval( $data['display_attachment'] );
+            $data['display_post'] = sanitize_text_field( $data['display_post'] );
+            $data['display_page'] = sanitize_text_field( $data['display_page'] );
+            $data['display_attachment'] = sanitize_text_field( $data['display_attachment'] );
 
             $data = array_merge( $this->default_options, $data );
         }
@@ -261,7 +261,7 @@ class SpotIM_Options {
                 case 'display_post':
                 case 'display_page':
                 case 'display_attachment':
-                    $options[ $key ] = intval( $value );
+                    $options[ $key ] = sanitize_text_field( $value );
                     break;
                 case 'posts_per_request':
                     $value = absint( $value );

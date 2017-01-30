@@ -83,7 +83,7 @@ class SpotIM_Form_Helper {
             esc_attr( $args['name'] ), // Input's name.
             sanitize_text_field( $yes_value ), // Input's value.
             checked( $args['value'], $yes_value, 0 ), // If input checked or not.
-            esc_html__( 'Enable', 'spotim-comments' ) // Translated text.
+            esc_html__( 'Yes', 'spotim-comments' ) // Translated text.
         );
 
         // No template
@@ -91,7 +91,7 @@ class SpotIM_Form_Helper {
             esc_attr( $args['name'] ), // Input's name.
             sanitize_text_field( $no_value ), // Input's value.
             checked( $args['value'], $no_value, 0 ), // If input checked or not.
-            esc_html__( 'Disable', 'spotim-comments' ) // Translated text.
+            esc_html__( 'No', 'spotim-comments' ) // Translated text.
         );
 
         // Description template
@@ -116,7 +116,7 @@ class SpotIM_Form_Helper {
      */
     public static function radio_fields( $args ) {
         $args = self::set_name( $args );
-        $radio_template = '<label class="description"><input type="radio" name="%s" value="%s" %s /> %s &nbsp;&nbsp;&nbsp;</label>';
+        $radio_template = '<label class="description"><input type="radio" name="%s" value="%s" %s /> %s</label><br>';
         $escaped_template = '';
 
         foreach ( $args['fields'] as $key => $value ) {
