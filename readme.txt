@@ -201,6 +201,8 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * Add "Spot.IM Questions" support to the WordPress plugin.
 * Add "Spot.IM Recirculation" support to the WordPress plugin.
 * Add new shortcode for Recirculation elements.
+* Add `[spotim_comments]` shortcode.
+* Add `[spotim_recirculation]` shortcode.
 * Add auto-import feature to import content from Spot.IM to local db.
 * Add gulp tasks for textdomain-check and pot-file-generation.
 * i18n: Update wrong translation textdomains to match the plugin slug.
