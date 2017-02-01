@@ -1,9 +1,40 @@
 <?php
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 require_once 'class-spotim-endpoint.php';
 
+/**
+ * SpotIM_Export
+ *
+ * Plugin export class.
+ *
+ * @since 4.0.0
+ */
 class SpotIM_Export extends SpotIM_Endpoint {
-	private $secret/*, $export_access_token*/;
 
+	/**
+	 * Export access token
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access private
+	 *
+	 * @var string
+	 */
+	private $secret;
+
+	/**
+	 * Constructor
+	 *
+	 * Get things started.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access public
+	 */
 	public function __construct() {
 		parent::__construct();
 		$this->secret = $this->options->get('plugin_secret');
@@ -11,40 +42,55 @@ class SpotIM_Export extends SpotIM_Endpoint {
 //		$this->export_access_token = $this->options->get('export_access_token');
 	}
 
-	/*	public function get_export_endpoint() {
+	/*
+	public function get_export_endpoint() {
 			return home_url('/?name='.$this->endpoint);
-		}
-		public function get_export_access_token() {
-			if (!empty($this->export_access_token))
-				return $this->export_access_token;
+	}
 
-			if (empty($this->secret))
-				return false;
-
-			$connect_data = ['plugin_secret' => $this->secret];
-			$result = $this->rest_get_data('export/access-token', $connect_data);
-
-			if ($result->success != 'true') {
-				$this->options->update('error', $result->error_code);
-				return false;
-			}
-			$this->options->update('error', '');
-
-			$this->options->update('export_access_token', $result->export_access_token);
-
-	//		$admin_notices = $this->options->get('admin_notices');
-	//		$this->options->update('admin_notices', "$admin_notices &nbsp; Export access token: {$result->export_access_token}");
+	public function get_export_access_token() {
+		if (!empty($this->export_access_token))
 			return $this->export_access_token;
-		}	*/
 
-	/// Hooks (actions/filters) methods:
+		if (empty($this->secret))
+			return false;
 
-	public function add_query_vars($vars) {
+		$connect_data = ['plugin_secret' => $this->secret];
+		$result = $this->rest_get_data('export/access-token', $connect_data);
+
+		if ($result->success != 'true') {
+			$this->options->update('error', $result->error_code);
+			return false;
+		}
+		$this->options->update('error', '');
+
+		$this->options->update('export_access_token', $result->export_access_token);
+
+//		$admin_notices = $this->options->get('admin_notices');
+//		$this->options->update('admin_notices', "$admin_notices &nbsp; Export access token: {$result->export_access_token}");
+		return $this->export_access_token;
+	}
+	*/
+
+	/**
+	 * Add query vars
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access public
+	 */
+	public function add_query_vars( $vars ) {
 		$vars[] = 'plugin_secret';
 		$vars[] = 'post_id';
 		return $vars;
 	}
 
+	/**
+	 * Do endpoint
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access public
+	 */
 	public function do_endpoint() {
 
 		if ( false === ($post_data = $this->get_data()) ) {
@@ -72,9 +118,14 @@ class SpotIM_Export extends SpotIM_Endpoint {
 		wp_send_json($comments);
 	}
 
-	/// Private methods:
-
-	private function get_comments_data($post_id) {
+	/**
+	 * Get comments data
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access private
+	 */
+	private function get_comments_data( $post_id ) {
 
 		$comments = get_comments(['post_id' => $post_id, 'status' => 'approve']);
 		$commentsData = [
@@ -100,6 +151,13 @@ class SpotIM_Export extends SpotIM_Endpoint {
 		return $commentsData;
 	}
 
+	/**
+	 * Add to tree
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access private
+	 */
 	private function add_to_tree(&$commentsTree, $id, $comment_parent) {
 		if (!array_key_exists($id, $commentsTree)) {
 			$commentsTree[$id] = [];
@@ -112,13 +170,27 @@ class SpotIM_Export extends SpotIM_Endpoint {
 		}
 	}
 
-	private function add_user(&$users, $user_id, $user_name) {
+	/**
+	 * Add user
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access private
+	 */
+	private function add_user( &$users, $user_id, $user_name ) {
 		if (!array_key_exists($user_id, $users)) {
 			$users[$user_id] = ['user_name' => $user_name];
 		}
 	}
 
-	private function get_comment_user($comment) {
+	/**
+	 * Get comment user
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access private
+	 */
+	private function get_comment_user( $comment ) {
 		if ($comment->user_id) {
 			return $comment->user_id;
 		}

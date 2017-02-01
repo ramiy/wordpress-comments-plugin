@@ -1,20 +1,62 @@
 <?php
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
- * Created by PhpStorm.
- * User: Ronny
- * Date: 30/08/2016
- * Time: 10:37
+ * SpotIM_Endpoint
+ *
+ * Plugin export endpoint.
+ *
+ * @since 4.0.0
  */
-abstract class SpotIM_Endpoint
-{
-	protected $options, $endpoint;
+abstract class SpotIM_Endpoint {
 
-	public function __construct()
-	{
+	/**
+	 * Options
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access private
+	 *
+	 * @var SpotIM_Options
+	 */
+	protected $options;
+
+	/**
+	 * endpoint
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access private
+	 *
+	 * @var string
+	 */
+	protected $endpoint;
+
+	/**
+	 * Constructor
+	 *
+	 * Get things started.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access public
+	 */
+	public function __construct() {
 		$this->options = SpotIM_Options::get_instance();
 	}
 
+	/**
+	 * Add endpoint
+	 *
+	 * Register new WordPress endpoint.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access public
+	 */
 	public function add_endpoint() {
 
 		global $wp_rewrite;
@@ -24,12 +66,26 @@ abstract class SpotIM_Endpoint
 		add_action('template_redirect', array($this, 'do_endpoint'));
 		add_filter('query_vars', array($this, 'add_query_vars'));
 		add_filter('wp_headers', array($this, 'access_control_allow_origin'), 91, 1);
+
 	}
 
+	/**
+	 * Do endpoint
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access public
+	 */
 	abstract public function do_endpoint();
 
-	protected function get_data()
-	{
+	/**
+	 * Get data
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access protected
+	 */
+	protected function get_data() {
 		$name = get_query_var('name');
 		if ($name != $this->endpoint) {
 			return false;
@@ -43,11 +99,24 @@ abstract class SpotIM_Endpoint
 		return $post_data;
 	}
 
-	public function add_query_vars($vars)
-	{
+	/**
+	 * Add query vars
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access public
+	 */
+	public function add_query_vars( $vars ) {
 		return $vars;
 	}
 
+	/**
+	 * Access control (allow origin)
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access public
+	 */
 	public function access_control_allow_origin( $headers ) {
 
 		$headers['Access-Control-Allow-Origin'] = get_http_origin(); // Can't use wildcard origin, instead use the requesting origin
@@ -58,7 +127,15 @@ abstract class SpotIM_Endpoint
 		return $headers;
 	}
 
-	// Copied from class WP_REST_Server
+	/**
+	 * get_raw_data
+	 *
+	 * Copied from class WP_REST_Server
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access private
+	 */
 	private function get_raw_data() {
 		global $HTTP_RAW_POST_DATA;
 

@@ -115,15 +115,15 @@ class SpotIM_Admin {
 
         // Register settings fields only for the active tab
         switch ( self::$options->active_tab ) {
+            case 'export':
+                $settings_fields->register_export_section();
+                break;
             case 'import':
                 $settings_fields->register_import_section();
                 break;
             case 'display':
                 $settings_fields->register_display_section();
                 break;
-	        case 'export':
-		        $settings_fields->register_export_section();
-		        break;
             case 'general':
             default:
                 $settings_fields->register_general_section();
@@ -222,15 +222,15 @@ class SpotIM_Admin {
      */
     public static function auto_import_cron_job() {
 
-		// Auto import recurrence
-		$recurrence = (int) self::$options->get('auto_import');
+        // Auto import recurrence
+        $recurrence = (int) self::$options->get('auto_import');
 
-		// Auto import action hook
-		$hook = array( __CLASS__, 'import_callback' );
+        // Auto import action hook
+        $hook = array( __CLASS__, 'import_callback' );
 
-		// Check if auto import enabled
-		if ( 0 >= $recurrence )
-			return;
+        // Check if auto import enabled
+        if ( 0 >= $recurrence )
+            return;
 
         // Schedule Cron Job Event
         if ( ! wp_next_scheduled( $hook ) ) {
