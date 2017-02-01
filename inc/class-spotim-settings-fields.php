@@ -198,7 +198,7 @@ class SpotIM_Settings_Fields {
 
         add_settings_field(
             'import_token',
-            esc_html__( 'Your Token', 'spotim-comments' ),
+            esc_html__( 'Import Token', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'text_field' ),
             $this->options->slug,
             'import_settings_section',
