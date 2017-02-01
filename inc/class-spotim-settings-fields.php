@@ -89,7 +89,7 @@ class SpotIM_Settings_Fields {
 	/**
 	 * Export Settings Section Header
 	 *
-	 * @since 2.0.0
+	 * @since 4.0.0
 	 *
 	 * @access public
 	 *
@@ -294,7 +294,7 @@ class SpotIM_Settings_Fields {
 	/**
 	 * Register Export Section
 	 *
-	 * @since 2.0.0
+	 * @since 4.0.0
 	 *
 	 * @access public
 	 *
@@ -308,71 +308,19 @@ class SpotIM_Settings_Fields {
 			$this->options->slug
 		);
 
-		/*add_settings_field(
-			'import_token',
-			esc_html__( 'Your Token', 'spotim-comments' ),
+		add_settings_field(
+			'plugin_secret',
+			esc_html__( 'Export Token', 'spotim-comments' ),
 			array( 'SpotIM_Form_Helper', 'text_field' ),
 			$this->options->slug,
-			'import_settings_section',
+			'export_settings_section',
 			array(
-				'id' => 'import_token',
+				'id' => 'plugin_secret',
 				'page' => $this->options->slug,
-				'description' => esc_html__( 'Don\'t have a token? please send us an email to support@spot.im and get one.', 'spotim-comments' ),
-				'value' => $this->options->get( 'import_token' )
+                'description' => sprintf ( esc_html__( 'Don\'t have a token? please send us an email to %s and get one.', 'spotim-comments' ), '<a href="mailto:support@spot.im">support@spot.im</a>' ),
+				'value' => $this->options->get( 'plugin_secret' )
 			)
 		);
-
-		add_settings_field(
-			'posts_per_request',
-			esc_html__( 'Posts Per Request', 'spotim-comments' ),
-			array( 'SpotIM_Form_Helper', 'text_field' ),
-			$this->options->slug,
-			'import_settings_section',
-			array(
-				'id' => 'posts_per_request',
-				'page' => $this->options->slug,
-				'description' => esc_html__( 'Amount of posts to retrieve in each request, depending on your server\'s strength.', 'spotim-comments' ),
-				'value' => $this->options->get( 'posts_per_request' )
-			)
-		);
-
-		add_settings_field(
-			'auto_import',
-			esc_html__( 'Auto Import', 'spotim-comments' ),
-			array( 'SpotIM_Form_Helper', 'radio_fields' ),
-			$this->options->slug,
-			'import_settings_section',
-			array(
-				'id' => 'auto_import',
-				'page' => $this->options->slug,
-				'description' => esc_html__( 'Enable Auto-Import and how ofter should it reoccur.', 'spotim-comments' ),
-				'fields' => array(
-					'0' => esc_html__( 'No', 'spotim-comments' ),
-					'hourly' => esc_html__( 'Hourly', 'spotim-comments' ),
-					'twicedaily' => esc_html__( 'Twice Daily', 'spotim-comments' ),
-					'daily' => esc_html__( 'Daily', 'spotim-comments' ),
-				),
-				'value' => $this->options->get( 'auto_import' )
-			)
-		);
-
-		add_settings_field(
-			'import_button',
-			esc_html__( 'Manual Import', 'spotim-comments' ),
-			array( 'SpotIM_Form_Helper', 'import_button' ),
-			$this->options->slug,
-			'import_settings_section',
-			array(
-				'import_button' => array(
-					'id' => 'import_button',
-					'text' => esc_html__( 'Import Now!', 'spotim-comments' )
-				),
-				'cancel_import_link' => array(
-					'id' => 'cancel_import_link',
-					'text' => esc_html__( 'Cancel', 'spotim-comments' )
-				)
-			)
-		);*/
 
 	}
 }
