@@ -4,8 +4,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once 'class-spotim-endpoint.php';
-
 /**
  * SpotIM_Export
  *
