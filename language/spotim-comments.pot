@@ -59,40 +59,40 @@ msgstr ""
 msgid "Retriving data failed from this url: %s"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:286
+#: inc/class-spotim-metabox.php:295
 msgid "Spot.im"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:403
+#: inc/class-spotim-metabox.php:406
 msgid "Comments"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:412, inc/class-spotim-metabox.php:445, inc/class-spotim-metabox.php:481, inc/helpers/class-spotim-form.php:171
+#: inc/class-spotim-metabox.php:415, inc/class-spotim-metabox.php:475
 msgid "Enable"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:415, inc/class-spotim-metabox.php:448, inc/class-spotim-metabox.php:484, inc/helpers/class-spotim-form.php:187
+#: inc/class-spotim-metabox.php:418, inc/class-spotim-metabox.php:478, inc/class-spotim-settings-fields.php:331
 msgid "Disable"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:421
+#: inc/class-spotim-metabox.php:424
 msgid "Display Spot.im comments."
 msgstr ""
 
-#: inc/class-spotim-metabox.php:436
-msgid "Recirculation"
-msgstr ""
-
-#: inc/class-spotim-metabox.php:454
-msgid "Display Spot.im recirculation."
-msgstr ""
-
-#: inc/class-spotim-metabox.php:472, inc/class-spotim-metabox.php:508
+#: inc/class-spotim-metabox.php:439
 msgid "Question"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:490, inc/class-spotim-metabox.php:517
+#: inc/class-spotim-metabox.php:448
 msgid "Display Spot.im question."
+msgstr ""
+
+#: inc/class-spotim-metabox.php:466
+msgid "Recirculation"
+msgstr ""
+
+#: inc/class-spotim-metabox.php:484
+msgid "Display Spot.im recirculation."
 msgstr ""
 
 #: inc/class-spotim-settings-fields.php:119
@@ -131,64 +131,88 @@ msgstr ""
 msgid "Display on %s"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:379
+#: inc/class-spotim-settings-fields.php:333
+msgid "Enable Comments"
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:335
+msgid "Enable Comments & Recirculation"
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:387
 msgid "Import Options"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:393
-msgid "Your Token"
+#: inc/class-spotim-settings-fields.php:401
+msgid "Import Token"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:407
-msgid "Don't have a token? please send us an email to support@spot.im and get one."
+#: inc/class-spotim-settings-fields.php:415
+msgid "Don't have a token? please send us an email to %s and get one."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:421
+#: inc/class-spotim-settings-fields.php:429
 msgid "Posts Per Request"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:435
+#: inc/class-spotim-settings-fields.php:443
 msgid "Amount of posts to retrieve in each request, depending on your server's strength."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:449
+#: inc/class-spotim-settings-fields.php:457
 msgid "Auto Import"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:463
-msgid "Enable Auto-Import and how ofter should it reoccur."
+#: inc/class-spotim-settings-fields.php:471
+msgid "Enable auto-import and set how ofter should it reoccur."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:467
+#: inc/class-spotim-settings-fields.php:475, inc/helpers/class-spotim-form.php:239
 msgid "No"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:469
+#: inc/class-spotim-settings-fields.php:477
 msgid "Hourly"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:471
+#: inc/class-spotim-settings-fields.php:479
 msgid "Twice Daily"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:473
+#: inc/class-spotim-settings-fields.php:481
 msgid "Daily"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:489
+#: inc/class-spotim-settings-fields.php:497
 msgid "Manual Import"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:503
+#: inc/class-spotim-settings-fields.php:511
 msgid "Import Now!"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:511
+#: inc/class-spotim-settings-fields.php:519
 msgid "Cancel"
+msgstr ""
+
+#: inc/helpers/class-spotim-form.php:223
+msgid "Yes"
 msgstr ""
 
 #: inc/helpers/class-spotim-message.php:449
 msgid "This message was deleted."
+msgstr ""
+
+#: inc/spotim-widgets.php:85
+msgid "SpotIM Recirculation"
+msgstr ""
+
+#: inc/spotim-widgets.php:91
+msgid "SpotIM related content."
+msgstr ""
+
+#: inc/spotim-widgets.php:268
+msgid "Title"
 msgstr ""
 
 #: templates/admin-template.php:9
