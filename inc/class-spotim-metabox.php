@@ -133,33 +133,33 @@ class Spotim_Meta_Box {
 		echo '<table class="form-table">';
 
 		echo '	<tr>';
-		echo '		<th><label for="spotim_display_comments" class="spotim_display_comments_label">' . __( 'Comments', 'spotim-comments' ) . '</label></th>';
+		echo '		<th><label for="spotim_display_comments" class="spotim_display_comments_label">' . esc_html__( 'Comments', 'spotim-comments' ) . '</label></th>';
 		echo '		<td>';
 		echo '			<select id="spotim_display_comments" name="spotim_display_comments" class="spotim_display_comments_field">';
-		echo '			<option value="enable" '  . selected( $spotim_display_comments, 'enable',  false ) . '> ' . __( 'Enable', 'spotim-comments' ) . '</option>';
-		echo '			<option value="disable" ' . selected( $spotim_display_comments, 'disable', false ) . '> ' . __( 'Disable', 'spotim-comments' ) . '</option>';
+		echo '			<option value="enable" '  . selected( $spotim_display_comments, 'enable',  false ) . '> ' . esc_html__( 'Enable', 'spotim-comments' ) . '</option>';
+		echo '			<option value="disable" ' . selected( $spotim_display_comments, 'disable', false ) . '> ' . esc_html__( 'Disable', 'spotim-comments' ) . '</option>';
 		echo '			</select>';
-		echo '			<p class="description">' . __( 'Display Spot.im comments.', 'spotim-comments' ) . '</p>';
+		echo '			<p class="description">' . esc_html__( 'Display Spot.im comments.', 'spotim-comments' ) . '</p>';
 		echo '		</td>';
 		echo '	</tr>';
 
 		echo '	<tr>';
-		echo '		<th><label for="spotim_display_question" class="spotim_display_question_label">' . __( 'Question', 'spotim-comments' ) . '</label></th>';
+		echo '		<th><label for="spotim_display_question" class="spotim_display_question_label">' . esc_html__( 'Question', 'spotim-comments' ) . '</label></th>';
 		echo '		<td>';
 		echo '			<input type="text" id="spotim_display_question" name="spotim_display_question" class="spotim_display_question_field" value="' . esc_attr( $spotim_display_question ) . '">';
-		echo '			<p class="description">' . __( 'Display Spot.im question.', 'spotim-comments' ) . '</p>';
+		echo '			<p class="description">' . esc_html__( 'Display Spot.im question.', 'spotim-comments' ) . '</p>';
 		echo '		</td>';
 		echo '	</tr>';
 
 		if ( 'comments_recirculation' == self::$options->get( "display_{$post->post_type}" ) ) {
 			echo '	<tr>';
-			echo '		<th><label for="spotim_display_recirculation" class="spotim_display_recirculation_label">' . __( 'Recirculation', 'spotim-comments' ) . '</label></th>';
+			echo '		<th><label for="spotim_display_recirculation" class="spotim_display_recirculation_label">' . esc_html__( 'Recirculation', 'spotim-comments' ) . '</label></th>';
 			echo '		<td>';
 			echo '			<select id="spotim_display_recirculation" name="spotim_display_recirculation" class="spotim_display_recirculation_field">';
-			echo '			<option value="enable" '  . selected( $spotim_display_recirculation, 'enable',  false ) . '> ' . __( 'Enable', 'spotim-comments' ) . '</option>';
-			echo '			<option value="disable" ' . selected( $spotim_display_recirculation, 'disable', false ) . '> ' . __( 'Disable', 'spotim-comments' ) . '</option>';
+			echo '			<option value="enable" '  . selected( $spotim_display_recirculation, 'enable',  false ) . '> ' . esc_html__( 'Enable', 'spotim-comments' ) . '</option>';
+			echo '			<option value="disable" ' . selected( $spotim_display_recirculation, 'disable', false ) . '> ' . esc_html__( 'Disable', 'spotim-comments' ) . '</option>';
 			echo '			</select>';
-			echo '			<p class="description">' . __( 'Display Spot.im recirculation.', 'spotim-comments' ) . '</p>';
+			echo '			<p class="description">' . esc_html__( 'Display Spot.im recirculation.', 'spotim-comments' ) . '</p>';
 			echo '		</td>';
 			echo '	</tr>';
 		}

@@ -198,7 +198,7 @@ class SpotIM_Settings_Fields {
 
         add_settings_field(
             'import_token',
-            esc_html__( 'Your Token', 'spotim-comments' ),
+            esc_html__( 'Import Token', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'text_field' ),
             $this->options->slug,
             'import_settings_section',
@@ -259,6 +259,20 @@ class SpotIM_Settings_Fields {
                     'id' => 'cancel_import_link',
                     'text' => esc_html__( 'Cancel', 'spotim-comments' )
                 )
+            )
+        );
+
+		// hidden spot id for the import js
+        add_settings_field(
+            'spot_id',
+            null,
+            array( 'SpotIM_Form_Helper', 'hidden_field' ),
+            $this->options->slug,
+            'import_settings_section',
+            array(
+                'id' => 'spot_id',
+                'page' => $this->options->slug,
+                'value' => $this->options->get( 'spot_id' )
             )
         );
 

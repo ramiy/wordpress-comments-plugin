@@ -54,6 +54,32 @@ class SpotIM_Form_Helper {
     }
 
     /**
+     * Hidden fields
+     *
+     * @since 4.0.0
+     *
+     * @access public
+     * @static
+     *
+     * @param array $args
+     *
+     * @return string
+     */
+    public static function hidden_field( $args ) {
+        $args = self::set_name( $args );
+        $args['value'] = sanitize_text_field( $args['value'] );
+        $text_template = '<input name="%s" type="hidden" value="%s" />';
+
+        // Text input template
+        $escaped_template = sprintf($text_template,
+            esc_attr( $args['name'] ), // Input's name.
+            esc_attr( $args['value'] ) // Input's value.
+        );
+
+        echo $escaped_template;
+    }
+
+    /**
      * Yes/No fields
      *
      * @since 3.0.0

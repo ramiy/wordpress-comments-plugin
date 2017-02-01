@@ -26,9 +26,9 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
 
 		parent::__construct(
 			'spotim_recirculation_widget',
-			__( 'SpotIM Recirculation', 'spotim-comments' ),
+			esc_html__( 'SpotIM Recirculation', 'spotim-comments' ),
 			array(
-				'description' => __( 'SpotIM related content.', 'spotim-comments' ),
+				'description' => esc_html__( 'SpotIM related content.', 'spotim-comments' ),
 				'classname'   => 'spotim_recirculation',
 			)
 		);
@@ -87,8 +87,8 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
 
 		// Form fields
 		echo '<p>';
-		echo '	<label for="' . $this->get_field_id( 'spotim_title' ) . '" class="spotim_title_label">' . __( 'Title', 'spotim-comments' ) . '</label>';
-		echo '	<input type="text" id="' . $this->get_field_id( 'spotim_title' ) . '" name="' . $this->get_field_name( 'spotim_title' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'spotim-comments' ) . '" value="' . esc_attr( $spotim_title ) . '">';
+		echo '	<label for="' . $this->get_field_id( 'spotim_title' ) . '" class="spotim_title_label">' . esc_html__( 'Title', 'spotim-comments' ) . '</label>';
+		echo '	<input type="text" id="' . $this->get_field_id( 'spotim_title' ) . '" name="' . $this->get_field_name( 'spotim_title' ) . '" class="widefat" value="' . esc_attr( $spotim_title ) . '">';
 		echo '</p>';
 
 	}
