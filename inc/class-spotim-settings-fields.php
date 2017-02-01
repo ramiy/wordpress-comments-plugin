@@ -262,5 +262,19 @@ class SpotIM_Settings_Fields {
             )
         );
 
+		// hidden spot id for the import js
+        add_settings_field(
+            'spot_id',
+            null,
+            array( 'SpotIM_Form_Helper', 'hidden_field' ),
+            $this->options->slug,
+            'import_settings_section',
+            array(
+                'id' => 'spot_id',
+                'page' => $this->options->slug,
+                'value' => $this->options->get( 'spot_id' )
+            )
+        );
+
     }
 }
