@@ -86,6 +86,19 @@ class SpotIM_Settings_Fields {
         echo '<p>' . esc_html__( 'Import your comments from Spot.IM to WordPress.', 'spotim-comments' ) . '</p>';
     }
 
+	/**
+	 * Export Settings Section Header
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function export_settings_section_header() {
+		echo '<p>' . esc_html__( 'Export your comments from WordPress to Spot.IM.', 'spotim-comments' ) . '</p>';
+	}
+
     /**
      * Register General Section
      *
@@ -277,4 +290,37 @@ class SpotIM_Settings_Fields {
         );
 
     }
+
+	/**
+	 * Register Export Section
+	 *
+	 * @since 4.0.0
+	 *
+	 * @access public
+	 *
+	 * @return void
+	 */
+	public function register_export_section() {
+		add_settings_section(
+			'export_settings_section',
+			esc_html__( 'Export Options', 'spotim-comments' ),
+			array( $this, 'export_settings_section_header' ),
+			$this->options->slug
+		);
+
+		add_settings_field(
+			'plugin_secret',
+			esc_html__( 'Export Token', 'spotim-comments' ),
+			array( 'SpotIM_Form_Helper', 'text_field' ),
+			$this->options->slug,
+			'export_settings_section',
+			array(
+				'id' => 'plugin_secret',
+				'page' => $this->options->slug,
+                'description' => sprintf ( esc_html__( 'Don\'t have a token? please send us an email to %s and get one.', 'spotim-comments' ), '<a href="mailto:support@spot.im">support@spot.im</a>' ),
+				'value' => $this->options->get( 'plugin_secret' )
+			)
+		);
+
+	}
 }
