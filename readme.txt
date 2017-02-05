@@ -95,10 +95,16 @@ For more information, please visit our website – Spot.IM
 
 == Screenshots ==
 
-1. Spot.IM on tablet.
-2. Spot.IM on desktop and mobile.
-3. Spot.IM on mobile.
-4. Spot.IM on mobile.
+1. Spot.IM Settings - General tab.
+2. Spot.IM Settings - Display tab.
+3. Spot.IM Settings - Import tab.
+4. Spot.IM Settings - Export tab.
+5. Spot.IM Meta Box - displayed on post, pages and other CPTs.
+6. Spot.IM comments on site's fronend.
+7. Spot.IM on desktop and mobile.
+8. Spot.IM on tablet.
+9. Spot.IM on mobile.
+10. Spot.IM on mobile.
 
 == Frequently Asked Questions ==
 
