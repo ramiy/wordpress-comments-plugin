@@ -46,7 +46,7 @@ class SpotIM_Admin {
         add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_assets' ) );
         add_action( 'wp_ajax_start_import', array( __CLASS__, 'import_callback' ) );
         add_action( 'wp_ajax_cancel_import', array( __CLASS__, 'cancel_import_callback' ) );
-        add_action( 'wp', array( __CLASS__, 'auto_import_cron_job' ) );
+
     }
 
     /**
@@ -208,35 +208,6 @@ class SpotIM_Admin {
         $import->response( array(
             'status' => 'cancel'
         ) );
-    }
-
-    /**
-     * Auto import cron job
-     *
-     * @since 4.0.0
-     *
-     * @access public
-     * @static
-     *
-     * @return void
-     */
-    public static function auto_import_cron_job() {
-
-        // Auto import recurrence
-        $recurrence = (int) self::$options->get('auto_import');
-
-        // Auto import action hook
-        $hook = array( __CLASS__, 'import_callback' );
-
-        // Check if auto import enabled
-        if ( 0 >= $recurrence )
-            return;
-
-        // Schedule Cron Job Event
-        if ( ! wp_next_scheduled( $hook ) ) {
-            wp_schedule_event( time(), $recurrence, $hook );
-        }
-
     }
 
 }

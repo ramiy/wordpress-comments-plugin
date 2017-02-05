@@ -29,6 +29,7 @@ require_once( 'inc/class-spotim-settings-fields.php' );
 require_once( 'inc/class-spotim-metabox.php' );
 require_once( 'inc/class-spotim-admin.php' );
 require_once( 'inc/class-spotim-frontend.php' );
+require_once( 'inc/class-spotim-cron.php' );
 require_once( 'inc/spotim-shortcodes.php' );
 require_once( 'inc/spotim-widgets.php' );
 
@@ -65,15 +66,20 @@ class WP_SpotIM {
     protected function __construct() {
         $this->options = SpotIM_Options::get_instance();
 
+        new SpotIM_Cron( $this->options );
+
         if ( is_admin() ) {
 
             // Launch Admin Page
             SpotIM_Admin::launch( $this->options );
+
         } else {
 
             // Launch frontend code: embed script, comments template, comments count.
             SpotIM_Frontend::launch( $this->options );
+
         }
+
     }
 
     /**
