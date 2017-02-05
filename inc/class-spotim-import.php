@@ -244,7 +244,7 @@ class SpotIM_Import {
 
         if ( 0 === $total_posts_count ) {
             $response_args['status'] = 'success';
-            $response_args['message'] = esc_html__( 'Your website doesn\'t have any published blog posts', 'spotim-comments' );
+            $response_args['message'] = esc_html__( 'Your website doesn\'t have any published posts.', 'spotim-comments' );
         } else if ( $current_posts_count < $total_posts_count ) {
             $translated_message = esc_html__( '%d / %d posts are synchronize comments.', 'spotim-comments' );
             $parsed_message = sprintf( $translated_message, $current_posts_count, $total_posts_count );

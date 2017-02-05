@@ -70,7 +70,7 @@ class SpotIM_Settings_Fields {
      * @return void
      */
     public function display_settings_section_header() {
-        echo '<p>' . esc_html__( 'Display settings to control where to display Spot.IM.', 'spotim-comments' ) . '</p>';
+        echo '<p>' . esc_html__( 'Select where to show Spot.IM component.', 'spotim-comments' ) . '</p>';
     }
 
     /**
@@ -118,9 +118,6 @@ class SpotIM_Settings_Fields {
 
         $translated_spot_id_description = sprintf(
             __('Find your Spot ID at the <a href="%s" target="_blank">Spot.IM\'s Admin Dashboard</a> under "Features" section.' , 'spotim-comments'),
-            'https://admin.spot.im/login'
-        ) . ' ' . sprintf(
-            __('Don\'t have an account? <a href="%s" target="_blank">Create</a> one for free!' , 'spotim-comments'),
             'https://admin.spot.im/login'
         );
 
