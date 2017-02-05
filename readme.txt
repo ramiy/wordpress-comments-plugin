@@ -209,13 +209,13 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * New UI for Spot.IM settings page with tabs (General, Display, Import and Export tabs).
 * Add support for all registered Custom Post Types, not only post and pages.
 * Add Spot.IM Meta Box to posts, to allow users setup SpotIM setting for each post.
-* Add "Spot.IM Questions" support for "Spot.IM Comments" to increase engagement.
+* Add "Spot.IM Community Question" support for "Spot.IM Comments" to increase engagement.
 * Add "Spot.IM Recirculation" support to the WordPress plugin.
-* Add `[spotim_comments]` shortcode.
-* Add `[spotim_recirculation]` shortcode.
+* Add `[spotim_comments]` shortcode to display comments everywhere.
+* Add `[spotim_recirculation]` shortcode to display recirculation everywhere.
 * Add a sidebar widget for Spot.IM Recirculation.
-* Add auto-import feature to import content from Spot.IM to wordpress.
-* Add export feature to export content from wordpress to Spot.IM.
+* Add auto-import feature to import content from Spot.IM to WordPress.
+* Add export feature to export content from WordPress to Spot.IM.
 * Add gulp tasks for textdomain-check and pot-file-generation.
 * i18n: Update wrong translation textdomains to match the plugin slug.
 * i18n: Add missin translation functions to translation strings.
