@@ -202,6 +202,7 @@ class SpotIM_Settings_Fields {
      * @return void
      */
     public function register_import_section() {
+
         add_settings_section(
             'import_settings_section',
             esc_html__( 'Import Options', 'spotim-comments' ),
@@ -237,6 +238,14 @@ class SpotIM_Settings_Fields {
             )
         );
 
+		$schedule_fields['0'] = esc_html__( 'No', 'spotim-comments' );
+        $registered_schedules = wp_get_schedules();
+        if( ! empty( $registered_schedules ) ) {
+            foreach ( $registered_schedules as $key => $value ) {
+				$schedule_fields[$key] = $value['display'];
+            }
+        }
+
         add_settings_field(
             'auto_import',
             esc_html__( 'Auto Import', 'spotim-comments' ),
@@ -247,12 +256,7 @@ class SpotIM_Settings_Fields {
                 'id' => 'auto_import',
                 'page' => $this->options->slug,
                 'description' => esc_html__( 'Enable auto-import and set how ofter should it reoccur.', 'spotim-comments' ),
-                'fields' => array(
-                    '0' => esc_html__( 'No', 'spotim-comments' ),
-                    'hourly' => esc_html__( 'Hourly', 'spotim-comments' ),
-                    'twicedaily' => esc_html__( 'Twice Daily', 'spotim-comments' ),
-                    'daily' => esc_html__( 'Daily', 'spotim-comments' ),
-                ),
+                'fields' => $schedule_fields,
                 'value' => $this->options->get( 'auto_import' )
             )
         );

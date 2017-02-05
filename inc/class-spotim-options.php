@@ -270,6 +270,16 @@ class SpotIM_Options {
                 case 'page_number':
                     $options[ $key ] = absint( $value );
                     break;
+                case 'auto_import':
+                    $options[ $key ] = sanitize_text_field( $value );
+                    // update scheduled cron job interval
+                    $old_interval = wp_get_schedule( 'spotim_scheduled_import' );
+                    $new_interval = $value;
+                    if ( $old_interval != $new_interval ) {
+                        wp_clear_scheduled_hook( 'spotim_scheduled_import' );
+                        wp_schedule_event( time(), $new_interval, 'spotim_scheduled_import' );
+                    }
+                    break;
                 case 'spot_id':
                 case 'import_token':
                 default:
