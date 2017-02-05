@@ -7,7 +7,7 @@ Stable tag: 4.0.0
 License: GPLv2 or later
 License URI: license.txt
 
-Real-time comments widget turns your site into its own content-circulating ecosystem. Implement an innovative conversation UI and dynamic newsfeed to spur user engagement, growth, and retention.
+Real-time comments widget turns your site into its own content-circulating ecosystem.
 
 == Description ==
 
@@ -95,10 +95,16 @@ For more information, please visit our website – Spot.IM
 
 == Screenshots ==
 
-1. Spot.IM on tablet.
-2. Spot.IM on desktop and mobile.
-3. Spot.IM on mobile.
-4. Spot.IM on mobile.
+1. Spot.IM Settings - General tab.
+2. Spot.IM Settings - Display tab.
+3. Spot.IM Settings - Import tab.
+4. Spot.IM Settings - Export tab.
+5. Spot.IM Meta Box - displayed on post, pages and other CPTs.
+6. Spot.IM comments on site's fronend.
+7. Spot.IM on desktop and mobile.
+8. Spot.IM on tablet.
+9. Spot.IM on mobile.
+10. Spot.IM on mobile.
 
 == Frequently Asked Questions ==
 
@@ -209,13 +215,13 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * New UI for Spot.IM settings page with tabs (General, Display, Import and Export tabs).
 * Add support for all registered Custom Post Types, not only post and pages.
 * Add Spot.IM Meta Box to posts, to allow users setup SpotIM setting for each post.
-* Add "Spot.IM Questions" support for "Spot.IM Comments" to increase engagement.
+* Add "Spot.IM Community Question" support for "Spot.IM Comments" to increase engagement.
 * Add "Spot.IM Recirculation" support to the WordPress plugin.
-* Add `[spotim_comments]` shortcode.
-* Add `[spotim_recirculation]` shortcode.
+* Add `[spotim_comments]` shortcode to display comments everywhere.
+* Add `[spotim_recirculation]` shortcode to display recirculation everywhere.
 * Add a sidebar widget for Spot.IM Recirculation.
-* Add auto-import feature to import content from Spot.IM to wordpress.
-* Add export feature to export content from wordpress to Spot.IM.
+* Add auto-import feature to import content from Spot.IM to WordPress.
+* Add export feature to export content from WordPress to Spot.IM.
 * Add gulp tasks for textdomain-check and pot-file-generation.
 * i18n: Update wrong translation textdomains to match the plugin slug.
 * i18n: Add missin translation functions to translation strings.

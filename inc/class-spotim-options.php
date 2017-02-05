@@ -270,6 +270,16 @@ class SpotIM_Options {
                 case 'page_number':
                     $options[ $key ] = absint( $value );
                     break;
+                case 'auto_import':
+                    $options[ $key ] = sanitize_text_field( $value );
+                    // update scheduled cron job interval
+                    $old_interval = wp_get_schedule( 'spotim_scheduled_import' );
+                    $new_interval = $value;
+                    if ( $old_interval != $new_interval ) {
+                        wp_clear_scheduled_hook( 'spotim_scheduled_import' );
+                        wp_schedule_event( time(), $new_interval, 'spotim_scheduled_import' );
+                    }
+                    break;
                 case 'spot_id':
                 case 'import_token':
                 default:
@@ -367,4 +377,46 @@ class SpotIM_Options {
 
         return $this->require_file( $path, $return_path );
     }
+
+    /**
+     * Get next cron execution
+     *
+     * @since 4.0.0
+     *
+     * @access public
+     *
+     * @param int $timestamp
+     *
+     * @return string
+     */
+    function get_next_cron_execution( $timestamp ) {
+
+        // Auto import recurrence
+        $recurrence = $this->get('auto_import');
+
+        // Get allowed schedules
+		$allowed_schedules = array();
+        $registered_schedules = wp_get_schedules();
+        if( ! empty( $registered_schedules ) ) {
+            foreach ( $registered_schedules as $key => $value ) {
+				$allowed_schedules[] = $key;
+            }
+        }
+
+        // Check if auto import enabled
+        if ( ! in_array( $recurrence, $allowed_schedules ) )
+            return;
+
+		// Return the next cron execution text
+        if ( ( $timestamp - time() ) <= 0 ) {
+            return esc_html__( 'Next import on next page refresh.', 'spotim-comments' );
+        } else {
+            return sprintf(
+                esc_html__( 'Next import in %s.', 'spotim-comments' ),
+                human_time_diff( current_time( 'timestamp' ), $timestamp )
+            );
+        }
+
+    }
+
 }

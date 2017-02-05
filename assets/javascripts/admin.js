@@ -3,6 +3,7 @@ jQuery( document ).ready(function ( $ ) {
 
     spotimVariables.pageNumber = parseInt( spotimVariables.pageNumber, 10 );
 
+    // Import
     $('#import_button').on('click', function( event ) {
         var $importButton = $(this),
             $parentElement = $importButton.parent(),
@@ -11,16 +12,14 @@ jQuery( document ).ready(function ( $ ) {
             importTokenInputValue = $importButton.parents('.form-table').find('[name="wp-spotim-settings[import_token]"]').attr('value').trim(),
             postsPerRequestValue = $importButton.parents('.form-table').find('[name="wp-spotim-settings[posts_per_request]"]').attr('value').trim();
 
-
         $parentElement.addClass('in-progress');
 
-        // empty message field from any text and reset css
+        // Empty message field from any text and reset css
         $messageField
             .removeClass('red-color')
             .html('');
 
-
-        // disable the import button
+        // Disable the import button
         $importButton.attr( 'disabled', true );
 
         var data = {
@@ -39,6 +38,7 @@ jQuery( document ).ready(function ( $ ) {
         event.preventDefault();
     });
 
+    // Cancel import
     $('#cancel_import_link').on('click', function( event ) {
         var cancelImportLink = $(this);
             $messageField = cancelImportLink.siblings('.description'),
@@ -66,11 +66,12 @@ jQuery( document ).ready(function ( $ ) {
         event.preventDefault();
     });
 
-    // checks for page number to be above zero to trigger #import_button
+    // Checks for page number to be above zero to trigger #import_button
     if ( !! spotimVariables.pageNumber ) {
         $('#import_button').trigger('click');
     }
 
+    // Import Commets to WordPress
     function importCommetsToWP( params, $importButton, $messageField ) {
         $.post( ajaxurl, params, function( response ) {
             if ( cancelImportProcess ) {
@@ -84,19 +85,19 @@ jQuery( document ).ready(function ( $ ) {
                     importCommetsToWP( params, $importButton, $messageField );
                     break;
                 case 'success':
-                    // enable the import button and hide cancel link
+                    // Enable the import button and hide cancel link
                     $importButton
                         .attr( 'disabled', false )
                         .parent()
                             .removeClass('in-progress');
 
-                    // reset page number to zero
+                    // Reset page number to zero
                     spotimVariables.pageNumber = 0;
                     break;
                 case 'error':
                     $messageField.addClass('red-color');
 
-                    // enable the import button and hide cancel link
+                    // Enable the import button and hide cancel link
                     $importButton
                         .attr( 'disabled', false )
                         .parent()
@@ -104,20 +105,20 @@ jQuery( document ).ready(function ( $ ) {
                     break;
             }
 
-            // show response message inside message field
+            // Show response message inside message field
             $messageField.html( response.message );
 
         }, 'json' )
         .fail(function( response ) {
             $messageField.addClass('red-color');
 
-            // enable the import button and hide cancel link
+            // Enable the import button and hide cancel link
             $importButton
                 .attr( 'disabled', false )
                 .parent()
                     .removeClass('in-progress');
 
-            // show response message inside message field
+            // Show response message inside message field
             $messageField.html( spotimVariables.errorMessage );
         });
     }
