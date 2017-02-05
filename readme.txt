@@ -7,7 +7,7 @@ Stable tag: 4.0.0
 License: GPLv2 or later
 License URI: license.txt
 
-Real-time comments widget turns your site into its own content-circulating ecosystem. Implement an innovative conversation UI and dynamic newsfeed to spur user engagement, growth, and retention.
+Real-time comments widget turns your site into its own content-circulating ecosystem.
 
 == Description ==
 
