@@ -3,7 +3,7 @@
  * Plugin Name:         Spot.IM Comments
  * Plugin URI:          https://wordpress.org/plugins/spotim-comments/
  * Description:         Real-time comments widget turns your site into its own content-circulating ecosystem.
- * Version:             4.0.0
+ * Version:             4.0.1
  * Author:              Spot.IM
  * Author URI:          https://github.com/SpotIM
  * License:             GPLv2
@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once( 'inc/helpers/class-spotim-form.php' );
 require_once( 'inc/helpers/class-spotim-message.php' );
 require_once( 'inc/helpers/class-spotim-comment.php' );
+require_once( 'inc/class-spotim-i18n.php' );
 require_once( 'inc/class-spotim-endpoint.php' );
 require_once( 'inc/class-spotim-export.php' );
 require_once( 'inc/class-spotim-import.php' );
@@ -66,6 +67,7 @@ class WP_SpotIM {
     protected function __construct() {
         $this->options = SpotIM_Options::get_instance();
 
+        new SpotIM_i18n();
         new SpotIM_Cron( $this->options );
 
         if ( is_admin() ) {

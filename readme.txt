@@ -3,7 +3,7 @@ Contributors: Spot.IM, ramiy, maor, rzvagelsky, idanm
 Tags: Comment, comment form, commenting, comments, comment author, comment form, comment system, comment template, comments box, community, discuss, discussion, discussions, commenter, live update, real time, realtime, real-time, Spot.IM, reply, social login, widget, social, moderation, community, communities, engagement, Facebook, profile, sharing, newsfeed, chat, chat interface, notification, notifications, SEO, retention, pageviews, email alerts, direct message, direct messaging, group message, group messaging, content, content circulation, UGC, user generated content
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 4.0.0
+Stable tag: 4.0.1
 License: GPLv2 or later
 License URI: license.txt
 
@@ -210,6 +210,9 @@ We know managing a website can get complicated. That’s why we made Spot.IM eas
 You are also always more than welcome to contact our team at support@spot.im. We’ll be glad to help.
 
 == Changelog ==
+
+= 4.0.1 =
+* i18n: Load text domain using `load_plugin_textdomain()` to fix the error message on translate.wordpress.org
 
 = 4.0.0 =
 * New UI for Spot.IM settings page with tabs (General, Display, Import and Export tabs).
