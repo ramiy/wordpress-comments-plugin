@@ -46,9 +46,6 @@ class SpotIM_Frontend {
         add_filter( 'comments_number', array( __CLASS__, 'filter_comments_number' ), 20 );
         add_action( 'wp_footer', array( __CLASS__, 'comments_footer_scripts' ) );
 
-        // SpotIM Questions
-        add_filter( 'before_spotim_comments', array( __CLASS__, 'add_spotim_questions' ), 10, 2 );
-
         // SpotIM Recirculation
         add_action( 'the_content', array( __CLASS__, 'add_spotim_recirculation' ), 100 );
     }
@@ -84,7 +81,7 @@ class SpotIM_Frontend {
         if ( 'disable' === $specific_display )
             return false;
 
-        // If all tests passed - show SpotIM
+        // Return true if all tests passed
         return true;
     }
 
@@ -201,30 +198,8 @@ class SpotIM_Frontend {
         if ( empty( $specific_display ) )
             return false;
 
-        // If all tests passed - show SpotIM
+        // Return true if all tests passed
         return true;
-    }
-
-    /**
-     * Add Spot.im questions
-     *
-     * @since 4.0.0
-     *
-     * @access public
-     * @static
-     *
-     * @param string $template Questions template file to load.
-     * @param int    $spot_id  SpotIM ID.
-     *
-     * @return bool
-     */
-    public static function add_spotim_questions( $template, $spot_id ) {
-
-        if ( self::has_spotim_questions() ) {
-            $template .= include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/questions-template.php' );
-        }
-
-        return $template;
     }
 
     /**
@@ -258,7 +233,7 @@ class SpotIM_Frontend {
         if ( 'disable' === $specific_display )
             return false;
 
-        // If all tests passed - show SpotIM
+        // Return true if all tests passed
         return true;
     }
 
