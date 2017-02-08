@@ -162,14 +162,14 @@ class SpotIM_Admin {
         if ( ! isset( $_POST['spotim_spot_id'] ) || empty( $_POST['spotim_spot_id'] ) ) {
             $import->response( array(
                 'status' => 'error',
-                'message' => esc_html__( 'Your Spot ID is missing.', 'spotim-comments' )
+                'message' => esc_html__( 'Spot ID is missing.', 'spotim-comments' )
             ) );
 
         // check for import token
         } else if ( ! isset( $_POST['spotim_import_token'] ) || empty( $_POST['spotim_import_token'] ) ) {
             $import->response( array(
                 'status' => 'error',
-                'message' => esc_html__( 'Your Token is missing.', 'spotim-comments' )
+                'message' => esc_html__( 'Import token is missing.', 'spotim-comments' )
             ) );
 
         //  else start the comments importing process
