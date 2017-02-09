@@ -3,7 +3,7 @@ Contributors: spotim, ramiy, maor, rzvagelsky, idanm
 Tags: Comment, comment form, commenting, comments, comment author, comment form, comment system, comment template, comments box, community, discuss, discussion, discussions, commenter, live update, real time, realtime, real-time, Spot.IM, reply, social login, widget, social, moderation, community, communities, engagement, Facebook, profile, sharing, newsfeed, chat, chat interface, notification, notifications, SEO, retention, pageviews, email alerts, direct message, direct messaging, group message, group messaging, content, content circulation, UGC, user generated content
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 4.0.1
+Stable tag: 4.0.2
 License: GPLv2 or later
 License URI: license.txt
 
@@ -211,6 +211,11 @@ You are also always more than welcome to contact our team at support@spot.im. We
 
 == Changelog ==
 
+= 4.0.2 =
+* [Code review](https://vip.wordpress.com/documentation/) for "[WordPress.com VIP](https://vip.wordpress.com/)" clients.
+* Security: Escaping HTML attributes and urls to prevent posible code injection vulnerabilities.
+* i18n: Merge similar translation strings.
+
 = 4.0.1 =
 * i18n: Load text domain using `load_plugin_textdomain()` to fix the error message on translate.wordpress.org
 
@@ -229,7 +234,7 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * i18n: Update wrong translation textdomains to match the plugin slug.
 * i18n: Add missin translation functions to translation strings.
 * i18n: Use translate.wordpress.org to translate the plugin.
-* Security: Escape translation strings.
+* Security: Escape translation strings to prevent posible code injection using PO/MO files.
 * Security: Prevent direct access to php files.
 * Security: Prevent direct access to directories.
 * Docs: Add phpDocs all over the code, to document everything.
