@@ -1,2 +1,2 @@
-﻿<div data-spotim-module="recirculation" data-spot-id="<?php echo esc_attr( $spot_id ); ?>"></div>
+<div data-spotim-module="recirculation" data-spot-id="<?php echo esc_attr( $spot_id ); ?>"></div>
 <script type="text/javascript" src="<?php echo esc_url( 'https://recirculation.spot.im/spot/' . $spot_id ); ?>"></script>
