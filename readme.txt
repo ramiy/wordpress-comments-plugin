@@ -3,7 +3,7 @@ Contributors: spotim, ramiy, maor, rzvagelsky, idanm
 Tags: Comment, comment form, commenting, comments, comment author, comment form, comment system, comment template, comments box, community, discuss, discussion, discussions, commenter, live update, real time, realtime, real-time, Spot.IM, reply, social login, widget, social, moderation, community, communities, engagement, Facebook, profile, sharing, newsfeed, chat, chat interface, notification, notifications, SEO, retention, pageviews, email alerts, direct message, direct messaging, group message, group messaging, content, content circulation, UGC, user generated content
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 4.0.3
+Stable tag: 4.0.4
 License: GPLv2 or later
 License URI: license.txt
 
@@ -194,14 +194,25 @@ Why, how funny you should ask: there are! We strongly recommend you take a look 
 
 = As a developer, how can I extend the plugin? =
 
-The plugin supports four hooks to filter the **Comments Template** and the **Recirculation Template**:
+The plugin supports several hooks. Developers can use them to modify the default behavior.
 
-* `before_spotim_comments` - befor loading SpotIM comments template
-* `after_spotim_comments` - after loading SpotIM comments template
-* `before_spotim_recirculation` - befor loading SpotIM recirculation template
-* `after_spotim_recirculation` - after loading SpotIM recirculation template
+**Comments Template**:
 
-All those hooks recieve two paramarets: `$template` for the template to load ; `$spot_id` for the sites SpotIM ID.
+* `before_spotim_comments` - Befor loading SpotIM comments template.
+* `after_spotim_comments` - After loading SpotIM comments template.
+
+Both hooks recieve two paramarets: `$template` for the template to load ; `$spot_id` for the sites SpotIM ID.
+
+**Recirculation Template**:
+
+* `before_spotim_recirculation` - Befor loading SpotIM recirculation template.
+* `after_spotim_recirculation` - After loading SpotIM recirculation template.
+
+Both hooks recieve two paramarets: `$template` for the template to load ; `$spot_id` for the sites SpotIM ID.
+
+**User capability to display settings**:
+
+* `spotim_menu_display_capability` - Filter the required capability to display Spot.IM settings page.
 
 = My question wasn’t answered here. Where can I get further support? =
 
@@ -210,6 +221,11 @@ We know managing a website can get complicated. That’s why we made Spot.IM eas
 You are also always more than welcome to contact our team at support@spot.im. We’ll be glad to help.
 
 == Changelog ==
+
+= 4.0.4 =
+* [Code review](https://vip.wordpress.com/documentation/) for "[WordPress.com VIP](https://vip.wordpress.com/)" clients.
+* Security: Prevent posible code injection vulnerabilities in JavaScript file.
+* Hooks: Add `spotim_menu_display_capability` filter that allows developers to filter the required capability to display Spot.IM settings.
 
 = 4.0.3 =
 * Bug Fix: update two files encoding to UTF-8 to fix a error on some servers / enviroments.
@@ -223,6 +239,7 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * i18n: Load text domain using `load_plugin_textdomain()` to fix the error message on translate.wordpress.org
 
 = 4.0.0 =
+* [Code review](https://vip.wordpress.com/documentation/) for "[WordPress.com VIP](https://vip.wordpress.com/)" clients.
 * New UI for Spot.IM settings page with tabs (General, Display, Import and Export tabs).
 * Add support for all registered Custom Post Types, not only post and pages.
 * Add Spot.IM Meta Box to posts, to allow users setup SpotIM setting for each post.

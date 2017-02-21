@@ -1,7 +1,7 @@
 <?php
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 /**
@@ -86,18 +86,18 @@ class SpotIM_Settings_Fields {
         echo '<p>' . esc_html__( 'Import your comments from Spot.IM to WordPress.', 'spotim-comments' ) . '</p>';
     }
 
-	/**
-	 * Export Settings Section Header
-	 *
-	 * @since 4.0.0
-	 *
-	 * @access public
-	 *
-	 * @return void
-	 */
-	public function export_settings_section_header() {
-		echo '<p>' . esc_html__( 'Export your comments from WordPress to Spot.IM.', 'spotim-comments' ) . '</p>';
-	}
+    /**
+     * Export Settings Section Header
+     *
+     * @since 4.0.0
+     *
+     * @access public
+     *
+     * @return void
+     */
+    public function export_settings_section_header() {
+        echo '<p>' . esc_html__( 'Export your comments from WordPress to Spot.IM.', 'spotim-comments' ) . '</p>';
+    }
 
     /**
      * Register General Section
@@ -117,7 +117,7 @@ class SpotIM_Settings_Fields {
         );
 
         $translated_spot_id_description = sprintf(
-            __('Find your Spot ID at the <a href="%s" target="_blank">Spot.IM\'s Admin Dashboard</a> under "Features" section.' , 'spotim-comments'),
+            __( 'Find your Spot ID at the <a href="%s" target="_blank">Spot.IM\'s Admin Dashboard</a> under "Features" section.' , 'spotim-comments' ),
             'https://admin.spot.im/login'
         );
 
@@ -156,7 +156,7 @@ class SpotIM_Settings_Fields {
 
         $post_types = get_post_types( array( 'public' => true ), 'objects' );
 
-        if( ! empty( $post_types ) ) {
+        if ( ! empty( $post_types ) ) {
 
             foreach ( $post_types as $key => $value ) {
 
@@ -235,11 +235,11 @@ class SpotIM_Settings_Fields {
             )
         );
 
-		$schedule_fields['0'] = esc_html__( 'No', 'spotim-comments' );
+        $schedule_fields[ '0' ] = esc_html__( 'No', 'spotim-comments' );
         $registered_schedules = wp_get_schedules();
-        if( ! empty( $registered_schedules ) ) {
+        if ( ! empty( $registered_schedules ) ) {
             foreach ( $registered_schedules as $key => $value ) {
-				$schedule_fields[$key] = $value['display'];
+                $schedule_fields[ $key ] = $value[ 'display' ];
             }
         }
 
@@ -252,11 +252,11 @@ class SpotIM_Settings_Fields {
             array(
                 'id' => 'auto_import',
                 'page' => $this->options->slug,
-                'description' => esc_html__( 'Enable auto-import and set how ofter should it reoccur.', 'spotim-comments' )
+                'description' => esc_html__( 'Enable auto-import and set how often should it reoccur.', 'spotim-comments' )
                     . '<br>'
                     . $this->options->get_next_cron_execution( wp_next_scheduled( 'spotim_scheduled_import' ) )
-					. ( ( empty( $this->options->get( 'spot_id' ) ) ) ? ' ' . esc_html__( 'Spot ID is missing.', 'spotim-comments' ) : '' )
-					. ( ( empty( $this->options->get( 'import_token' ) ) ) ? ' ' . esc_html__( 'Import token is missing.', 'spotim-comments' ) : '' ),
+                    . ( ( empty( $this->options->get( 'spot_id' ) ) ) ? ' ' . esc_html__( 'Spot ID is missing.', 'spotim-comments' ) : '' )
+                    . ( ( empty( $this->options->get( 'import_token' ) ) ) ? ' ' . esc_html__( 'Import token is missing.', 'spotim-comments' ) : '' ),
                 'fields' => $schedule_fields,
                 'value' => $this->options->get( 'auto_import' )
             )
@@ -280,7 +280,7 @@ class SpotIM_Settings_Fields {
             )
         );
 
-		// hidden spot id for the import js
+        // hidden spot id for the import js
         add_settings_field(
             'spot_id',
             null,
@@ -296,36 +296,36 @@ class SpotIM_Settings_Fields {
 
     }
 
-	/**
-	 * Register Export Section
-	 *
-	 * @since 4.0.0
-	 *
-	 * @access public
-	 *
-	 * @return void
-	 */
-	public function register_export_section() {
-		add_settings_section(
-			'export_settings_section',
-			esc_html__( 'Export Options', 'spotim-comments' ),
-			array( $this, 'export_settings_section_header' ),
-			$this->options->slug
-		);
+    /**
+     * Register Export Section
+     *
+     * @since 4.0.0
+     *
+     * @access public
+     *
+     * @return void
+     */
+    public function register_export_section() {
+        add_settings_section(
+            'export_settings_section',
+            esc_html__( 'Export Options', 'spotim-comments' ),
+            array( $this, 'export_settings_section_header' ),
+            $this->options->slug
+        );
 
-		add_settings_field(
-			'plugin_secret',
-			esc_html__( 'Export Token', 'spotim-comments' ),
-			array( 'SpotIM_Form_Helper', 'text_field' ),
-			$this->options->slug,
-			'export_settings_section',
-			array(
-				'id' => 'plugin_secret',
-				'page' => $this->options->slug,
+        add_settings_field(
+            'plugin_secret',
+            esc_html__( 'Export Token', 'spotim-comments' ),
+            array( 'SpotIM_Form_Helper', 'text_field' ),
+            $this->options->slug,
+            'export_settings_section',
+            array(
+                'id' => 'plugin_secret',
+                'page' => $this->options->slug,
                 'description' => sprintf ( esc_html__( 'Don\'t have a token? please send us an email to %s and get one.', 'spotim-comments' ), '<a href="mailto:support@spot.im">support@spot.im</a>' ),
-				'value' => $this->options->get( 'plugin_secret' )
-			)
-		);
+                'value' => $this->options->get( 'plugin_secret' )
+            )
+        );
 
-	}
+    }
 }

@@ -1,7 +1,7 @@
 <?php
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 /**
@@ -70,7 +70,7 @@ class SpotIM_Admin {
         wp_enqueue_script( 'admin_javascript', self::$options->require_javascript( 'admin.js', true ), array( 'jquery' ) );
 
         wp_localize_script( 'admin_javascript', 'spotimVariables', array(
-            'pageNumber' => self::$options->get('page_number'),
+            'pageNumber' => self::$options->get( 'page_number' ),
             'errorMessage' => esc_html__( 'Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@spot.im.', 'spotim-comments' ),
             'cancelImportMessage' => esc_html__( 'Cancel importing...', 'spotim-comments' )
         ) );
@@ -87,16 +87,27 @@ class SpotIM_Admin {
      * @return void
      */
     public static function create_admin_menu() {
+
+        /**
+         * User capability to display Spot.IM menu.
+         *
+         * Allows developers to filter the required capability to display Spot.IM settings.
+         *
+         * @since 4.0.4
+         */
+        $capability = apply_filters( 'spotim_menu_display_capability', 'manage_options' );
+
         $menu_icon = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTciIHZpZXdCb3g9IjAgMCAxNiAxNyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+Y2hhdCBjb3B5PC90aXRsZT48cGF0aCBkPSJNLjc0IDE1LjkxbC42MzQtMi42MTVjLjA1Ni0uMjMuMDEtLjQ4LS4xMy0uNzA3Qy0xLjg0NyA3LjU3OCAxLjE0NSAxLjAzIDYuNjY1LjExYzUuMzg2LS44OTYgMTAuMDkgMy43OTMgOS4yMzMgOS40MjItLjc4NiA1LjE2Ny02LjE5NCA4LjMxLTEwLjk3IDYuMjYtLjI1LS4xMS0uNTE4LS4xMS0uNzM0LS4wMDNMMS45NCAxNi45MWMtLjY1LjMyMi0xLjM3My0uMjc3LTEuMi0xem0yLjE5LTQuMzFjLjIzLjM3My4zLjguMjA2IDEuMjA1TDIuNjEzIDE1bDEuODU3LS45NGMuMzczLS4xOS44Mi0uMTk1IDEuMjMtLjAxNiAzLjU3IDEuNTU4IDcuNjM1LS44MjIgOC4yMjUtNC43Ny42MzQtNC4yNDUtMi44MjctNy44ODItNi45My03LjE5QzIuODI1IDIuNzk1LjYzIDcuODAyIDIuOTMgMTEuNnoiIGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==';
 
         add_menu_page(
             esc_html__( 'Spot.IM Settings', 'spotim-comments' ), // Page title
             esc_html__( 'Spot.IM', 'spotim-comments' ),          // Menu title
-            'manage_options',
+            $capability,
             self::$options->slug,
             array( __CLASS__, 'admin_page_callback' ),
             $menu_icon
         );
+
     }
 
     /**
@@ -159,14 +170,14 @@ class SpotIM_Admin {
         $import = new SpotIM_Import( self::$options );
 
         // check for spot id
-        if ( ! isset( $_POST['spotim_spot_id'] ) || empty( $_POST['spotim_spot_id'] ) ) {
+        if ( ! isset( $_POST[ 'spotim_spot_id' ] ) || empty( $_POST[ 'spotim_spot_id' ] ) ) {
             $import->response( array(
                 'status' => 'error',
                 'message' => esc_html__( 'Spot ID is missing.', 'spotim-comments' )
             ) );
 
         // check for import token
-        } else if ( ! isset( $_POST['spotim_import_token'] ) || empty( $_POST['spotim_import_token'] ) ) {
+        } else if ( ! isset( $_POST[ 'spotim_import_token' ] ) || empty( $_POST[ 'spotim_import_token' ] ) ) {
             $import->response( array(
                 'status' => 'error',
                 'message' => esc_html__( 'Import token is missing.', 'spotim-comments' )
@@ -174,12 +185,12 @@ class SpotIM_Admin {
 
         //  else start the comments importing process
         } else {
-            $spot_id = sanitize_text_field( $_POST['spotim_spot_id'] );
-            $import_token = sanitize_text_field( $_POST['spotim_import_token'] );
-            $page_number = isset( $_POST['spotim_page_number'] ) ? absint( $_POST['spotim_page_number'] ) : 0;
+            $spot_id = sanitize_text_field( $_POST[ 'spotim_spot_id' ] );
+            $import_token = sanitize_text_field( $_POST[ 'spotim_import_token' ] );
+            $page_number = isset( $_POST[ 'spotim_page_number' ] ) ? absint( $_POST[ 'spotim_page_number' ] ) : 0;
 
-            if ( isset( $_POST['spotim_posts_per_request'] ) ) {
-                $posts_per_request = absint( $_POST['spotim_posts_per_request'] );
+            if ( isset( $_POST[ 'spotim_posts_per_request' ] ) ) {
+                $posts_per_request = absint( $_POST[ 'spotim_posts_per_request' ] );
                 $posts_per_request = 0 === $posts_per_request ? 1 : $posts_per_request;
             } else {
                 $posts_per_request = 1;
@@ -201,7 +212,7 @@ class SpotIM_Admin {
      */
     public static function cancel_import_callback() {
         $import = new SpotIM_Import( self::$options );
-        $page_number = isset( $_POST['spotim_page_number'] ) ? absint( $_POST['spotim_page_number'] ) : 0;
+        $page_number = isset( $_POST[ 'spotim_page_number' ] ) ? absint( $_POST[ 'spotim_page_number' ] ) : 0;
 
         self::$options->update( 'page_number', $page_number );
 

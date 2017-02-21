@@ -1,7 +1,7 @@
 <?php
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 /**
@@ -39,7 +39,7 @@ class SpotIM_Frontend {
      */
     public static function launch( $options ) {
         // Set options
-    	self::$options = $options;
+        self::$options = $options;
 
         // SpotIM Comments
         add_filter( 'comments_template', array( __CLASS__, 'filter_comments_template' ), 20 );
@@ -103,7 +103,7 @@ class SpotIM_Frontend {
             $spot_id = self::$options->get( 'spot_id' );
 
             /**
-             * Befor loading SpotIM comments template
+             * Before loading SpotIM comments template
              *
              * @since 4.0.0
              *

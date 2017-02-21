@@ -1,7 +1,7 @@
 <?php
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 /**
@@ -157,9 +157,9 @@ class SpotIM_Options {
         if ( empty( $data ) ) {
             $data = $this->create_options();
         } else {
-            $data['display_post'] = sanitize_text_field( $data['display_post'] );
-            $data['display_page'] = sanitize_text_field( $data['display_page'] );
-            $data['display_attachment'] = sanitize_text_field( $data['display_attachment'] );
+            $data[ 'display_post' ] = sanitize_text_field( $data[ 'display_post' ] );
+            $data[ 'display_page' ] = sanitize_text_field( $data[ 'display_page' ] );
+            $data[ 'display_attachment' ] = sanitize_text_field( $data[ 'display_attachment' ] );
 
             $data = array_merge( $this->default_options, $data );
         }
@@ -392,14 +392,14 @@ class SpotIM_Options {
     function get_next_cron_execution( $timestamp ) {
 
         // Auto import recurrence
-        $recurrence = $this->get('auto_import');
+        $recurrence = $this->get( 'auto_import' );
 
         // Get allowed schedules
-		$allowed_schedules = array();
+        $allowed_schedules = array();
         $registered_schedules = wp_get_schedules();
-        if( ! empty( $registered_schedules ) ) {
+        if ( ! empty( $registered_schedules ) ) {
             foreach ( $registered_schedules as $key => $value ) {
-				$allowed_schedules[] = $key;
+                $allowed_schedules[] = $key;
             }
         }
 
@@ -407,7 +407,7 @@ class SpotIM_Options {
         if ( ! in_array( $recurrence, $allowed_schedules ) )
             return;
 
-		// Return the next cron execution text
+        // Return the next cron execution text
         if ( ( $timestamp - time() ) <= 0 ) {
             return esc_html__( 'Next import on next page refresh.', 'spotim-comments' );
         } else {

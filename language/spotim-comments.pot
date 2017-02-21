@@ -23,39 +23,43 @@ msgstr ""
 msgid "Cancel importing..."
 msgstr ""
 
-#: inc/class-spotim-admin.php:185
+#: inc/class-spotim-admin.php:205
 msgid "Spot.IM Settings"
 msgstr ""
 
-#: inc/class-spotim-admin.php:187, inc/class-spotim-metabox.php:197
+#: inc/class-spotim-admin.php:207, inc/class-spotim-metabox.php:197
 msgid "Spot.IM"
 msgstr ""
 
-#: inc/class-spotim-admin.php:329
-msgid "Your Spot ID is missing."
+#: inc/class-spotim-admin.php:351, inc/class-spotim-settings-fields.php:515
+msgid "Spot ID is missing."
 msgstr ""
 
-#: inc/class-spotim-admin.php:343
-msgid "Your Token is missing."
+#: inc/class-spotim-admin.php:365, inc/class-spotim-settings-fields.php:517
+msgid "Import token is missing."
 msgstr ""
 
-#: inc/class-spotim-import.php:397
+#: inc/class-spotim-export.php:393
+msgid "Unknown"
+msgstr ""
+
+#: inc/class-spotim-import.php:405
 msgid "Could not import comments of from this url: %s"
 msgstr ""
 
-#: inc/class-spotim-import.php:493
+#: inc/class-spotim-import.php:501
 msgid "Your website doesn't have any published posts."
 msgstr ""
 
-#: inc/class-spotim-import.php:497
+#: inc/class-spotim-import.php:505
 msgid "%d / %d posts are synchronize comments."
 msgstr ""
 
-#: inc/class-spotim-import.php:511
+#: inc/class-spotim-import.php:519
 msgid "Your comments are up to date."
 msgstr ""
 
-#: inc/class-spotim-import.php:671
+#: inc/class-spotim-import.php:679
 msgid "Retriving data failed from this url: %s"
 msgstr ""
 
@@ -172,15 +176,7 @@ msgid "Auto Import"
 msgstr ""
 
 #: inc/class-spotim-settings-fields.php:509
-msgid "Enable auto-import and set how ofter should it reoccur."
-msgstr ""
-
-#: inc/class-spotim-settings-fields.php:515
-msgid "Spot ID is missing."
-msgstr ""
-
-#: inc/class-spotim-settings-fields.php:517
-msgid "Import token is missing."
+msgid "Enable auto-import and set how often should it reoccur."
 msgstr ""
 
 #: inc/class-spotim-settings-fields.php:533
@@ -209,6 +205,10 @@ msgstr ""
 
 #: inc/helpers/class-spotim-message.php:449
 msgid "This message was deleted."
+msgstr ""
+
+#: inc/helpers/class-spotim-message.php:481
+msgid "Guest"
 msgstr ""
 
 #: inc/spotim-widgets.php:57

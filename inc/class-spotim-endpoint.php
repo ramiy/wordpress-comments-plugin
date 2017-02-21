@@ -60,12 +60,12 @@ abstract class SpotIM_Endpoint {
 	public function add_endpoint() {
 
 		global $wp_rewrite;
-		$wp_rewrite->add_endpoint($this->endpoint, EP_ROOT);
-//		$wp_rewrite->add_endpoint($this->endpoint.'_unittest', EP_ROOT);		// DEBUG only
+		$wp_rewrite->add_endpoint( $this->endpoint, EP_ROOT );
+//		$wp_rewrite->add_endpoint( $this->endpoint.'_unittest', EP_ROOT );		// DEBUG only
 		$wp_rewrite->flush_rules();
-		add_action('template_redirect', array($this, 'do_endpoint'));
-		add_filter('query_vars', array($this, 'add_query_vars'));
-		add_filter('wp_headers', array($this, 'access_control_allow_origin'), 91, 1);
+		add_action( 'template_redirect', array( $this, 'do_endpoint' ) );
+		add_filter( 'query_vars', array( $this, 'add_query_vars' ) );
+		add_filter( 'wp_headers', array( $this, 'access_control_allow_origin' ), 91, 1 );
 
 	}
 
@@ -86,14 +86,14 @@ abstract class SpotIM_Endpoint {
 	 * @access protected
 	 */
 	protected function get_data() {
-		$name = get_query_var('name');
-		if ($name != $this->endpoint) {
+		$name = get_query_var( 'name' );
+		if ( $name != $this->endpoint ) {
 			return false;
 		}
 		try {
 			$post_data = json_decode( $this->get_raw_data() );
 		}
-		catch (Exception $e) {
+		catch ( Exception $e ) {
 			return false;
 		}
 		return $post_data;
@@ -119,10 +119,10 @@ abstract class SpotIM_Endpoint {
 	 */
 	public function access_control_allow_origin( $headers ) {
 
-		$headers['Access-Control-Allow-Origin'] = get_http_origin(); // Can't use wildcard origin, instead use the requesting origin
-		$headers['Access-Control-Allow-Credentials'] = 'true';
-		$headers['Access-Control-Allow-Methods'] = 'POST';
-		$headers['Access-Control-Allow-Headers'] = 'Content-Type';
+		$headers[ 'Access-Control-Allow-Origin' ] = get_http_origin(); // Can't use wildcard origin, instead use the requesting origin
+		$headers[ 'Access-Control-Allow-Credentials' ] = 'true';
+		$headers[ 'Access-Control-Allow-Methods' ] = 'POST';
+		$headers[ 'Access-Control-Allow-Headers' ] = 'Content-Type';
 
 		return $headers;
 	}

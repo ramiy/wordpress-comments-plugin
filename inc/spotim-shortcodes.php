@@ -1,7 +1,7 @@
 <?php
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 /**
@@ -15,7 +15,7 @@ function spotim_comments_shortcode() {
 
     $options = SpotIM_Options::get_instance();
     $spot_id = $options->get( 'spot_id' );
-	$template = '';
+    $template = '';
 
     /**
      * Befor loading SpotIM comments template
@@ -59,7 +59,7 @@ function spotim_recirculation_shortcode() {
 
     $options = SpotIM_Options::get_instance();
     $spot_id = $options->get( 'spot_id' );
-	$template = '';
+    $template = '';
 
     /**
      * Befor loading SpotIM recirculation template

@@ -1,7 +1,7 @@
 <?php
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 /**
@@ -22,18 +22,18 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
      *
      * @access public
      */
-	public function __construct() {
+    public function __construct() {
 
-		parent::__construct(
-			'spotim_recirculation_widget',
-			esc_html__( 'Spot.IM Recirculation', 'spotim-comments' ),
-			array(
-				'description' => esc_html__( 'Spot.IM related content.', 'spotim-comments' ),
-				'classname'   => 'spotim_recirculation',
-			)
-		);
+        parent::__construct(
+            'spotim_recirculation_widget',
+            esc_html__( 'Spot.IM Recirculation', 'spotim-comments' ),
+            array(
+                'description' => esc_html__( 'Spot.IM related content.', 'spotim-comments' ),
+                'classname'   => 'spotim_recirculation',
+            )
+        );
 
-	}
+    }
 
     /**
      * Widget
@@ -44,27 +44,27 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
      *
      * @return string
      */
-	public function widget( $args, $instance ) {
+    public function widget( $args, $instance ) {
 
-		$options = SpotIM_Options::get_instance();
-		$spot_id = $options->get( 'spot_id' );
-		$title   = apply_filters( 'widget_title', empty( $instance['spotim_title'] ) ? '' : $instance['spotim_title'], $instance, $this->id_base );
+        $options = SpotIM_Options::get_instance();
+        $spot_id = $options->get( 'spot_id' );
+        $title   = apply_filters( 'widget_title', empty( $instance[ 'spotim_title' ] ) ? '' : $instance[ 'spotim_title' ], $instance, $this->id_base );
 
-		// Before widget tag
-		echo $args['before_widget'];
+        // Before widget tag
+        echo wp_kses_post( $args[ 'before_widget' ] );
 
-		// Title
-		if ( ! empty( $title ) ) {
-			echo $args['before_title'] . $title . $args['after_title'];
-		}
+        // Title
+        if ( ! empty( $title ) ) {
+            echo wp_kses_post( $args[ 'before_title' ] . $title . $args[ 'after_title' ] );
+        }
 
-		// Recirculation
-		include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-template.php' );
+        // Recirculation
+        include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-template.php' );
 
-		// After widget tag
-		echo $args['after_widget'];
+        // After widget tag
+        echo wp_kses_post( $args[ 'after_widget' ] );
 
-	}
+    }
 
     /**
      * Form
@@ -75,23 +75,23 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
      *
      * @return void
      */
-	public function form( $instance ) {
+    public function form( $instance ) {
 
-		// Set default values
-		$instance = wp_parse_args( (array) $instance, array( 
-			'spotim_title' => '',
-		) );
+        // Set default values
+        $instance = wp_parse_args( (array) $instance, array( 
+            'spotim_title' => '',
+        ) );
 
-		// Retrieve an existing value from the database
-		$spotim_title = !empty( $instance['spotim_title'] ) ? $instance['spotim_title'] : '';
+        // Retrieve an existing value from the database
+        $spotim_title = !empty( $instance[ 'spotim_title' ] ) ? $instance[ 'spotim_title' ] : '';
 
-		// Form fields
-		echo '<p>';
-		echo '	<label for="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" class="spotim_title_label">' . esc_html__( 'Title', 'spotim-comments' ) . '</label>';
-		echo '	<input type="text" id="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" name="' . esc_attr( $this->get_field_name( 'spotim_title' ) ) . '" class="widefat" value="' . esc_attr( $spotim_title ) . '">';
-		echo '</p>';
+        // Form fields
+        echo '<p>';
+        echo '	<label for="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" class="spotim_title_label">' . esc_html__( 'Title', 'spotim-comments' ) . '</label>';
+        echo '	<input type="text" id="' . esc_attr( $this->get_field_id( 'spotim_title' ) ) . '" name="' . esc_attr( $this->get_field_name( 'spotim_title' ) ) . '" class="widefat" value="' . esc_attr( $spotim_title ) . '">';
+        echo '</p>';
 
-	}
+    }
 
     /**
      * Update
@@ -102,15 +102,15 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
      *
      * @return instance
      */
-	public function update( $new_instance, $old_instance ) {
+    public function update( $new_instance, $old_instance ) {
 
-		$instance = $old_instance;
+        $instance = $old_instance;
 
-		$instance['spotim_title'] = !empty( $new_instance['spotim_title'] ) ? strip_tags( $new_instance['spotim_title'] ) : '';
+        $instance[ 'spotim_title' ] = !empty( $new_instance[ 'spotim_title' ] ) ? strip_tags( $new_instance[ 'spotim_title' ] ) : '';
 
-		return $instance;
+        return $instance;
 
-	}
+    }
 
 }
 
@@ -122,6 +122,6 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
  * @since 4.0.0
  */
 function spotim_register_recirculation_widgets() {
-	register_widget( 'SpotIM_Recirculation_Widget' );
+    register_widget( 'SpotIM_Recirculation_Widget' );
 }
 add_action( 'widgets_init', 'spotim_register_recirculation_widgets' );

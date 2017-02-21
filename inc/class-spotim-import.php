@@ -1,7 +1,7 @@
 <?php
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 define( 'SPOTIM_API_URL', 'https://www.spot.im/api/open-api/v1/' );
@@ -61,9 +61,13 @@ class SpotIM_Import {
      * @param SpotIM_Options $options Plugin options.
      */
     public function __construct( $options ) {
+
         $this->options = $options;
+
+        // Set default values - if not defined by the user in the settings page
         $this->posts_per_request = 50;
         $this->page_number = 0;
+
     }
 
     /**
@@ -243,19 +247,19 @@ class SpotIM_Import {
         }
 
         if ( 0 === $total_posts_count ) {
-            $response_args['status'] = 'success';
-            $response_args['message'] = esc_html__( 'Your website doesn\'t have any published posts.', 'spotim-comments' );
+            $response_args[ 'status' ] = 'success';
+            $response_args[ 'message' ] = esc_html__( 'Your website doesn\'t have any published posts.', 'spotim-comments' );
         } else if ( $current_posts_count < $total_posts_count ) {
             $translated_message = esc_html__( '%d / %d posts are synchronize comments.', 'spotim-comments' );
             $parsed_message = sprintf( $translated_message, $current_posts_count, $total_posts_count );
 
-            $response_args['status'] = 'continue';
-            $response_args['message'] = $parsed_message;
+            $response_args[ 'status' ] = 'continue';
+            $response_args[ 'message' ] = $parsed_message;
         } else {
-            $response_args['status'] = 'success';
-            $response_args['message'] = esc_html__( 'Your comments are up to date.', 'spotim-comments' );
+            $response_args[ 'status' ] = 'success';
+            $response_args[ 'message' ] = esc_html__( 'Your comments are up to date.', 'spotim-comments' );
 
-            $this->options->reset('page_number');
+            $this->options->reset( 'page_number' );
         }
 
         $this->response( $response_args );
@@ -286,11 +290,11 @@ class SpotIM_Import {
         );
 
         if ( -1 !== $posts_per_page ) {
-            $args['offset'] = $posts_per_page * $page_number;
+            $args[ 'offset' ] = $posts_per_page * $page_number;
         }
 
         if ( 1 === $this->options->get( 'enable_comments_on_page' ) ) {
-            $args['post_type'][] = 'page';
+            $args[ 'post_type' ][] = 'page';
         }
 
         return get_posts( $args );
@@ -365,10 +369,10 @@ class SpotIM_Import {
         if ( ! empty( $args ) ) {
             $args = array_merge( $defaults, $args );
 
-            if ( ! empty( $args['status'] ) ) {
-                $args['message'] = sanitize_text_field( $args['message'] );
+            if ( ! empty( $args[ 'status' ] ) ) {
+                $args[ 'message' ] = sanitize_text_field( $args[ 'message' ] );
 
-                if ( in_array( $args['status'], $statuses_list ) ) {
+                if ( in_array( $args[ 'status' ], $statuses_list ) ) {
                     wp_send_json( $args );
                 }
             }

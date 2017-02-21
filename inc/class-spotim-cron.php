@@ -1,7 +1,7 @@
 <?php
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 /**
@@ -53,7 +53,7 @@ class SpotIM_Cron {
     public function auto_import_cron_job() {
 
         // Auto import interval
-        $interval = self::$options->get('auto_import');
+        $interval = self::$options->get( 'auto_import' );
 
         // Check if auto import enabled
         if ( ! in_array( $interval, array( 'hourly', 'twicedaily', 'daily' ) ) )
@@ -82,8 +82,8 @@ class SpotIM_Cron {
 
         $spot_id           = sanitize_text_field( self::$options->get( 'spotim_spot_id' ) );
         $import_token      = sanitize_text_field( self::$options->get( 'spotim_import_token' ) );
-        $page_number       = empty( self::$options->get('spotim_page_number' ) ) ? absint( self::$options->get('spotim_page_number' ) ) : 0;
-        $posts_per_request = empty( self::$options->get('spotim_posts_per_request' ) ) ? absint( self::$options->get('spotim_posts_per_request' ) ) : 0;
+        $page_number       = empty( self::$options->get( 'spotim_page_number' ) ) ? absint( self::$options->get( 'spotim_page_number' ) ) : 0;
+        $posts_per_request = empty( self::$options->get( 'spotim_posts_per_request' ) ) ? absint( self::$options->get( 'spotim_posts_per_request' ) ) : 0;
 
         if ( empty( $spot_id ) )
             return;
