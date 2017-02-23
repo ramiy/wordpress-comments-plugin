@@ -180,7 +180,7 @@ class Spotim_Meta_Box {
     public function save_metabox( $post_id, $post ) {
 
         // Add nonce for security and authentication.
-        $nonce_name   = isset( $_POST[ 'nonce' ] ) ? $_POST[ 'nonce' ] : '';
+        $nonce_name   = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
         $nonce_action = 'nonce_action';
 
         // Check if a nonce is set.
@@ -204,10 +204,10 @@ class Spotim_Meta_Box {
             return;
 
         // Sanitize user input.
-        $new_spotim_display_comments = isset( $_POST[ 'spotim_display_comments' ] ) ? $_POST[ 'spotim_display_comments' ]                        : '';
-        $new_spotim_display_question = isset( $_POST[ 'spotim_display_question' ] ) ? sanitize_text_field( $_POST[ 'spotim_display_question' ] ) : '';
+        $new_spotim_display_comments = isset( $_POST['spotim_display_comments'] ) ? $_POST['spotim_display_comments']                        : '';
+        $new_spotim_display_question = isset( $_POST['spotim_display_question'] ) ? sanitize_text_field( $_POST['spotim_display_question'] ) : '';
         if ( 'comments_recirculation' == self::$options->get( "display_{$post->post_type}" ) ) {
-            $new_spotim_display_recirculation = isset( $_POST[ 'spotim_display_recirculation' ] ) ? $_POST[ 'spotim_display_recirculation' ] : '';
+            $new_spotim_display_recirculation = isset( $_POST['spotim_display_recirculation'] ) ? $_POST['spotim_display_recirculation'] : '';
         }
 
         // Update the meta field in the database.

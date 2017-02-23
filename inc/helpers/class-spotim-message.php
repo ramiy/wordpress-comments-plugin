@@ -55,7 +55,7 @@ class SpotIM_Message {
 
         if ( ! $this->get_comment_id() ) {
             $comments_args = array(
-                'parent' => absint( $this->comment_data[ 'comment_parent' ] ),
+                'parent' => absint( $this->comment_data['comment_parent'] ),
                 'post_id' => absint( $this->post_id ),
                 'status' => 'approve',
                 'user_id' => 0
@@ -66,11 +66,11 @@ class SpotIM_Message {
             while ( ! empty( $comments ) ) {
                 $comment = array_shift( $comments );
 
-                if ( $comment->comment_author === $this->comment_data[ 'comment_author' ] &&
-                    $comment->comment_author_email === $this->comment_data[ 'comment_author_email' ] &&
-                    $comment->comment_content === $this->comment_data[ 'comment_content' ] &&
-                    $comment->comment_date === $this->comment_data[ 'comment_date' ] &&
-                    absint( $comment->comment_parent ) === absint( $this->comment_data[ 'comment_parent' ] ) ) {
+                if ( $comment->comment_author === $this->comment_data['comment_author'] &&
+                    $comment->comment_author_email === $this->comment_data['comment_author_email'] &&
+                    $comment->comment_content === $this->comment_data['comment_content'] &&
+                    $comment->comment_date === $this->comment_data['comment_date'] &&
+                    absint( $comment->comment_parent ) === absint( $this->comment_data['comment_parent'] ) ) {
 
                     $this->update_messages_map( $comment->comment_ID );
 
@@ -94,9 +94,9 @@ class SpotIM_Message {
             $comment = get_comment( $comment_id, ARRAY_A );
 
             if ( null !== $comment &&
-                $comment[ 'comment_author' ] === $this->comment_data[ 'comment_author' ] &&
-                $comment[ 'comment_author_email' ] === $this->comment_data[ 'comment_author_email' ] &&
-                $comment[ 'comment_content' ] === $this->comment_data[ 'comment_content' ] ) {
+                $comment['comment_author'] === $this->comment_data['comment_author'] &&
+                $comment['comment_author_email'] === $this->comment_data['comment_author_email'] &&
+                $comment['comment_content'] === $this->comment_data['comment_content'] ) {
                 $same_comment = true;
             }
         }
@@ -112,7 +112,7 @@ class SpotIM_Message {
         $comment_id = 0;
 
         if ( isset( $this->messages_map[ $this->message->id ] ) ) {
-            $comment_id = $this->messages_map[ $this->message->id ][ 'comment_id' ];
+            $comment_id = $this->messages_map[ $this->message->id ]['comment_id'];
         }
 
         return $comment_id;
@@ -124,19 +124,19 @@ class SpotIM_Message {
         );
 
         if ( isset( $this->message->comment_id ) ) {
-            $this->messages_map[ $this->message->id ][ 'parent_message_id' ] = $this->message->comment_id;
+            $this->messages_map[ $this->message->id ]['parent_message_id'] = $this->message->comment_id;
         }
 
         return update_post_meta( $this->post_id, 'spotim_messages_map', $this->messages_map );
     }
 
     public function get_message_and_children_ids_map() {
-        $messages_map[ $this->message->id ] = $this->messages_map[ $this->message->id ][ 'comment_id' ];
+        $messages_map[ $this->message->id ] = $this->messages_map[ $this->message->id ]['comment_id'];
 
         foreach( $this->messages_map as $message_id => $message ) {
-            if ( isset( $message[ 'parent_message_id' ] ) &&
-                 $this->message->id === $message[ 'parent_message_id' ] ) {
-                $messages_map[ $message_id ] = $message[ 'comment_id' ];
+            if ( isset( $message['parent_message_id'] ) &&
+                 $this->message->id === $message['parent_message_id'] ) {
+                $messages_map[ $message_id ] = $message['comment_id'];
             }
         }
 
@@ -157,7 +157,7 @@ class SpotIM_Message {
 
         if ( isset( $this->message->comment_id ) ) {
             if ( isset( $this->messages_map[ $this->message->comment_id ] ) ) {
-                $comment_parent_id = $this->messages_map[ $this->message->comment_id ][ 'comment_id' ];
+                $comment_parent_id = $this->messages_map[ $this->message->comment_id ]['comment_id'];
             }
         }
 
@@ -185,8 +185,8 @@ class SpotIM_Message {
         return array(
             'comment_agent' => SPOTIM_COMMENT_IMPORT_AGENT,
             'comment_approved' => 1,
-            'comment_author' => $author[ 'comment_author' ],
-            'comment_author_email' => $author[ 'comment_author_email' ],
+            'comment_author' => $author['comment_author'],
+            'comment_author_email' => $author['comment_author_email'],
             'comment_author_url' => '',
             'comment_content' => wp_kses_post( $this->message->content ),
             'comment_date' => $date,
@@ -213,7 +213,7 @@ class SpotIM_Message {
         }
 
         if ( ! empty( $this->message->content ) ) {
-            $new_comment[ 'comment_content' ] = wp_kses_post( $this->message->content );
+            $new_comment['comment_content'] = wp_kses_post( $this->message->content );
         }
 
         return $new_comment;
@@ -222,7 +222,7 @@ class SpotIM_Message {
     private function soft_delete_comment_data() {
         $comment_data = $this->anonymous_comment_data();
 
-        $comment_data[ 'comment_content' ] = esc_html__( 'This message was deleted.', 'spotim-comments' );
+        $comment_data['comment_content'] = esc_html__( 'This message was deleted.', 'spotim-comments' );
 
         return $comment_data;
     }
@@ -247,17 +247,17 @@ class SpotIM_Message {
             // set author's name
             if ( isset( $this->users->{ $this->message->user_id }->nick_name ) &&
                 ! empty ( $this->users->{ $this->message->user_id }->nick_name ) ) {
-                $author[ 'comment_author' ] = sanitize_text_field(
+                $author['comment_author'] = sanitize_text_field(
                     $this->users->{ $this->message->user_id }->nick_name
                 );
             } else if ( isset( $this->users->{ $this->message->user_id }->display_name ) &&
                 ! empty ( $this->users->{ $this->message->user_id }->display_name ) ) {
-                $author[ 'comment_author' ] = sanitize_text_field(
+                $author['comment_author'] = sanitize_text_field(
                     $this->users->{ $this->message->user_id }->display_name
                 );
             } else if ( isset( $this->users->{ $this->message->user_id }->user_name ) &&
                 ! empty ( $this->users->{ $this->message->user_id }->user_name ) ) {
-                $author[ 'comment_author' ] = sanitize_text_field(
+                $author['comment_author'] = sanitize_text_field(
                     $this->users->{ $this->message->user_id }->user_name
                 );
             }
@@ -265,7 +265,7 @@ class SpotIM_Message {
             // set author's email
             if ( isset( $this->users->{ $this->message->user_id }->email ) &&
                  is_email( $this->users->{ $this->message->user_id }->email ) ) {
-                $author[ 'comment_author_email' ] = $this->users->{ $this->message->user_id }->email;
+                $author['comment_author_email'] = $this->users->{ $this->message->user_id }->email;
             }
         }
 

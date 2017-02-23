@@ -37,37 +37,7 @@ class SpotIM_Export extends SpotIM_Endpoint {
 		parent::__construct();
 		$this->secret = $this->options->get( 'plugin_secret' );
 		$this->endpoint = 'spot_im_wp_endpoint';
-//		$this->export_access_token = $this->options->get( 'export_access_token' );
 	}
-
-	/*
-	public function get_export_endpoint() {
-			return home_url( '/?name='.$this->endpoint );
-	}
-
-	public function get_export_access_token() {
-		if ( ! empty( $this->export_access_token ) )
-			return $this->export_access_token;
-
-		if ( empty( $this->secret ) )
-			return false;
-
-		$connect_data = [ 'plugin_secret' => $this->secret];
-		$result = $this->rest_get_data( 'export/access-token', $connect_data );
-
-		if ( $result->success != 'true' ) {
-			$this->options->update( 'error', $result->error_code );
-			return false;
-		}
-		$this->options->update( 'error', '' );
-
-		$this->options->update( 'export_access_token', $result->export_access_token );
-
-//		$admin_notices = $this->options->get( 'admin_notices' );
-//		$this->options->update( 'admin_notices', "$admin_notices &nbsp; Export access token: {$result->export_access_token}" );
-		return $this->export_access_token;
-	}
-	*/
 
 	/**
 	 * Add query vars
@@ -130,11 +100,11 @@ class SpotIM_Export extends SpotIM_Endpoint {
 		];
 		foreach ( $comments as $comment ) {
 			$id = $comment->comment_ID;
-			$commentsData[ 'comments_ids' ][] = $id;
-			$this->add_to_tree( $commentsData[ 'tree' ], $id, $comment->comment_parent );
+			$commentsData['comments_ids'][] = $id;
+			$this->add_to_tree( $commentsData['tree'], $id, $comment->comment_parent );
 			$user_id = $this->get_comment_user( $comment );
-			$this->add_user( $commentsData[ 'users' ], $user_id, $comment->comment_author );
-			$commentsData[ 'messages' ][ $id ] =
+			$this->add_user( $commentsData['users'], $user_id, $comment->comment_author );
+			$commentsData['messages'][ $id ] =
 				[
 					'user_id'    => $user_id,
 					'content'    => preg_replace( '[ ]+', ' ', strip_tags( str_replace( '<', ' <', $comment->comment_content ) ) ),
@@ -173,7 +143,7 @@ class SpotIM_Export extends SpotIM_Endpoint {
 	 */
 	private function add_user( &$users, $user_id, $user_name ) {
 		if ( ! array_key_exists( $user_id, $users ) ) {
-			$users[$user_id] = [ 'user_name' => $user_name];
+			$users[ $user_id ] = [ 'user_name' => $user_name ];
 		}
 	}
 

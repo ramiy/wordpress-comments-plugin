@@ -106,7 +106,7 @@ class SpotIM_Options {
         );
         $this->data = $this->get_meta_data();
 
-        $this->active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'general';
+        $this->active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general';
     }
 
     /**
@@ -157,9 +157,9 @@ class SpotIM_Options {
         if ( empty( $data ) ) {
             $data = $this->create_options();
         } else {
-            $data[ 'display_post' ] = sanitize_text_field( $data[ 'display_post' ] );
-            $data[ 'display_page' ] = sanitize_text_field( $data[ 'display_page' ] );
-            $data[ 'display_attachment' ] = sanitize_text_field( $data[ 'display_attachment' ] );
+            $data['display_post'] = sanitize_text_field( $data['display_post'] );
+            $data['display_page'] = sanitize_text_field( $data['display_page'] );
+            $data['display_attachment'] = sanitize_text_field( $data['display_attachment'] );
 
             $data = array_merge( $this->default_options, $data );
         }

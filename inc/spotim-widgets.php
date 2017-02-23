@@ -48,21 +48,21 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
 
         $options = SpotIM_Options::get_instance();
         $spot_id = $options->get( 'spot_id' );
-        $title   = apply_filters( 'widget_title', empty( $instance[ 'spotim_title' ] ) ? '' : $instance[ 'spotim_title' ], $instance, $this->id_base );
+        $title   = apply_filters( 'widget_title', empty( $instance['spotim_title'] ) ? '' : $instance['spotim_title'], $instance, $this->id_base );
 
         // Before widget tag
-        echo wp_kses_post( $args[ 'before_widget' ] );
+        echo wp_kses_post( $args['before_widget'] );
 
         // Title
         if ( ! empty( $title ) ) {
-            echo wp_kses_post( $args[ 'before_title' ] . $title . $args[ 'after_title' ] );
+            echo wp_kses_post( $args['before_title'] . $title . $args['after_title'] );
         }
 
         // Recirculation
         include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-template.php' );
 
         // After widget tag
-        echo wp_kses_post( $args[ 'after_widget' ] );
+        echo wp_kses_post( $args['after_widget'] );
 
     }
 
@@ -83,7 +83,7 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
         ) );
 
         // Retrieve an existing value from the database
-        $spotim_title = !empty( $instance[ 'spotim_title' ] ) ? $instance[ 'spotim_title' ] : '';
+        $spotim_title = !empty( $instance['spotim_title'] ) ? $instance['spotim_title'] : '';
 
         // Form fields
         echo '<p>';
@@ -106,7 +106,7 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
 
         $instance = $old_instance;
 
-        $instance[ 'spotim_title' ] = !empty( $new_instance[ 'spotim_title' ] ) ? strip_tags( $new_instance[ 'spotim_title' ] ) : '';
+        $instance['spotim_title'] = !empty( $new_instance['spotim_title'] ) ? strip_tags( $new_instance['spotim_title'] ) : '';
 
         return $instance;
 

@@ -235,11 +235,11 @@ class SpotIM_Settings_Fields {
             )
         );
 
-        $schedule_fields[ '0' ] = esc_html__( 'No', 'spotim-comments' );
+        $schedule_fields['0'] = esc_html__( 'No', 'spotim-comments' );
         $registered_schedules = wp_get_schedules();
         if ( ! empty( $registered_schedules ) ) {
             foreach ( $registered_schedules as $key => $value ) {
-                $schedule_fields[ $key ] = $value[ 'display' ];
+                $schedule_fields[ $key ] = $value['display'];
             }
         }
 

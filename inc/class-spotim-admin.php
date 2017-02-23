@@ -170,14 +170,14 @@ class SpotIM_Admin {
         $import = new SpotIM_Import( self::$options );
 
         // check for spot id
-        if ( ! isset( $_POST[ 'spotim_spot_id' ] ) || empty( $_POST[ 'spotim_spot_id' ] ) ) {
+        if ( ! isset( $_POST['spotim_spot_id'] ) || empty( $_POST['spotim_spot_id'] ) ) {
             $import->response( array(
                 'status' => 'error',
                 'message' => esc_html__( 'Spot ID is missing.', 'spotim-comments' )
             ) );
 
         // check for import token
-        } else if ( ! isset( $_POST[ 'spotim_import_token' ] ) || empty( $_POST[ 'spotim_import_token' ] ) ) {
+        } else if ( ! isset( $_POST['spotim_import_token'] ) || empty( $_POST['spotim_import_token'] ) ) {
             $import->response( array(
                 'status' => 'error',
                 'message' => esc_html__( 'Import token is missing.', 'spotim-comments' )
@@ -185,12 +185,12 @@ class SpotIM_Admin {
 
         //  else start the comments importing process
         } else {
-            $spot_id = sanitize_text_field( $_POST[ 'spotim_spot_id' ] );
-            $import_token = sanitize_text_field( $_POST[ 'spotim_import_token' ] );
-            $page_number = isset( $_POST[ 'spotim_page_number' ] ) ? absint( $_POST[ 'spotim_page_number' ] ) : 0;
+            $spot_id = sanitize_text_field( $_POST['spotim_spot_id'] );
+            $import_token = sanitize_text_field( $_POST['spotim_import_token'] );
+            $page_number = isset( $_POST['spotim_page_number'] ) ? absint( $_POST['spotim_page_number'] ) : 0;
 
-            if ( isset( $_POST[ 'spotim_posts_per_request' ] ) ) {
-                $posts_per_request = absint( $_POST[ 'spotim_posts_per_request' ] );
+            if ( isset( $_POST['spotim_posts_per_request'] ) ) {
+                $posts_per_request = absint( $_POST['spotim_posts_per_request'] );
                 $posts_per_request = 0 === $posts_per_request ? 1 : $posts_per_request;
             } else {
                 $posts_per_request = 1;
@@ -212,7 +212,7 @@ class SpotIM_Admin {
      */
     public static function cancel_import_callback() {
         $import = new SpotIM_Import( self::$options );
-        $page_number = isset( $_POST[ 'spotim_page_number' ] ) ? absint( $_POST[ 'spotim_page_number' ] ) : 0;
+        $page_number = isset( $_POST['spotim_page_number'] ) ? absint( $_POST['spotim_page_number'] ) : 0;
 
         self::$options->update( 'page_number', $page_number );
 
