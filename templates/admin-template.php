@@ -1,5 +1,5 @@
 <div class="wrap spotim-page-wrap">
-    <h1><?php echo get_admin_page_title(); ?></h1>
+    <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 
     <nav class="nav-tab-wrapper">
         <a href="<?php echo esc_attr( '?page=' . $this->slug . '&tab=general' ); ?>" class="nav-tab <?php echo ( 'general' === $this->active_tab ) ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'General', 'spotim-comments' ); ?></a>
