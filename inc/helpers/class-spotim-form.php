@@ -150,7 +150,7 @@ class SpotIM_Form_Helper {
                 esc_attr( $args['name'] ), // Input's name.
                 esc_attr( $key ), // Input's value.
                 checked( $args['value'], $key, 0 ), // If input checked or not.
-                $value // Translated text.
+                esc_html( $value ) // Translated text.
             );
         }
 
