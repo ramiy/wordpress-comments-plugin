@@ -71,12 +71,11 @@ class SpotIM_Form_Helper {
         $text_template = '<input name="%s" type="hidden" value="%s" />';
 
         // Text input template
-        $escaped_template = sprintf( $text_template,
+        printf(
+            $text_template,
             esc_attr( $args['name'] ), // Input's name.
             esc_attr( $args['value'] ) // Input's value.
         );
-
-        echo $escaped_template;
     }
 
     /**
