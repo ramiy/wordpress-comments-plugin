@@ -275,7 +275,7 @@ class SpotIM_Options {
                     // update scheduled cron job interval
                     $old_interval = wp_get_schedule( 'spotim_scheduled_import' );
                     $new_interval = $value;
-                    if ( $old_interval != $new_interval ) {
+                    if ( $old_interval !== $new_interval ) {
                         wp_clear_scheduled_hook( 'spotim_scheduled_import' );
                         wp_schedule_event( time(), $new_interval, 'spotim_scheduled_import' );
                     }

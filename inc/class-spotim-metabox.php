@@ -151,7 +151,7 @@ class Spotim_Meta_Box {
         echo '		</td>';
         echo '	</tr>';
 
-        if ( 'comments_recirculation' == self::$options->get( "display_{$post->post_type}" ) ) {
+        if ( 'comments_recirculation' === self::$options->get( "display_{$post->post_type}" ) ) {
             echo '	<tr>';
             echo '		<th><label for="spotim_display_recirculation" class="spotim_display_recirculation_label">' . esc_html__( 'Recirculation', 'spotim-comments' ) . '</label></th>';
             echo '		<td>';
@@ -206,14 +206,14 @@ class Spotim_Meta_Box {
         // Sanitize user input.
         $new_spotim_display_comments = isset( $_POST['spotim_display_comments'] ) ? $_POST['spotim_display_comments']                        : '';
         $new_spotim_display_question = isset( $_POST['spotim_display_question'] ) ? sanitize_text_field( $_POST['spotim_display_question'] ) : '';
-        if ( 'comments_recirculation' == self::$options->get( "display_{$post->post_type}" ) ) {
+        if ( 'comments_recirculation' === self::$options->get( "display_{$post->post_type}" ) ) {
             $new_spotim_display_recirculation = isset( $_POST['spotim_display_recirculation'] ) ? $_POST['spotim_display_recirculation'] : '';
         }
 
         // Update the meta field in the database.
         update_post_meta( $post_id, 'spotim_display_comments', $new_spotim_display_comments );
         update_post_meta( $post_id, 'spotim_display_question', $new_spotim_display_question );
-        if ( 'comments_recirculation' == self::$options->get( "display_{$post->post_type}" ) ) {
+        if ( 'comments_recirculation' === self::$options->get( "display_{$post->post_type}" ) ) {
             update_post_meta( $post_id, 'spotim_display_recirculation', $new_spotim_display_recirculation );
         }
 

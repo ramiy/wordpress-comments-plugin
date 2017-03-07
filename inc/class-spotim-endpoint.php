@@ -86,7 +86,7 @@ abstract class SpotIM_Endpoint {
 	 */
 	protected function get_data() {
 		$name = get_query_var( 'name' );
-		if ( $name != $this->endpoint ) {
+		if ( $name !== $this->endpoint ) {
 			return false;
 		}
 		try {
