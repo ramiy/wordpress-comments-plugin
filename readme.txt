@@ -224,7 +224,7 @@ You are also always more than welcome to contact our team at support@spot.im. We
 
 = 4.0.4 =
 * [Code review](https://vip.wordpress.com/documentation/) for "[WordPress.com VIP](https://vip.wordpress.com/)" clients.
-* Security: Prevent posible code injection vulnerabilities in JavaScript file.
+* Security: Prevent posible code injection vulnerabilities.
 * Hooks: Add `spotim_menu_display_capability` filter that allows developers to filter the required capability to display Spot.IM settings.
 
 = 4.0.3 =
