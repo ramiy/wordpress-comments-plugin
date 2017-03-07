@@ -224,7 +224,7 @@ class SpotIM_Frontend {
             return false;
 
         // Bail if Spot.IM is disabled for this post type
-        if ( 'comments_recirculation' !== self::$options->get( "display_{$post->post_type}" ) )
+        if ( 'comments_recirculation' != self::$options->get( "display_{$post->post_type}" ) )
             return false;
 
         // Bail if Spot.IM Recirculation are disabled for this this specific content item
