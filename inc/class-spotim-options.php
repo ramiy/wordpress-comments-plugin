@@ -106,7 +106,7 @@ class SpotIM_Options {
         );
         $this->data = $this->get_meta_data();
 
-        $this->active_tab = isset( $_GET['tab'] ) ? esc_html( $_GET['tab'] ) : 'general';
+        $this->active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'general';
     }
 
     /**
