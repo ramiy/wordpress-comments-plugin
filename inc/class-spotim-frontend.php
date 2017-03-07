@@ -72,12 +72,12 @@ class SpotIM_Frontend {
             return false;
 
         // Bail if Spot.IM is disabled for this post type
-        if ( ! in_array( self::$options->get( "display_{$post->post_type}" ), array( 'comments', 'comments_recirculation' ) ) )
+        if ( ! in_array( self::$options->get( "display_{$post->post_type}" ), array( 'comments', 'comments_recirculation' ), true ) )
             return false;
 
         // Bail if Spot.IM Comments are disabled for this this specific content item
         $specific_display = get_post_meta( absint( $post->ID ), 'spotim_display_comments', true );
-        $specific_display = in_array( $specific_display , array( 'enable', 'disable' ) ) ? $specific_display : 'enable';
+        $specific_display = in_array( $specific_display , array( 'enable', 'disable' ), true ) ? $specific_display : 'enable';
         if ( 'disable' === $specific_display )
             return false;
 
@@ -190,7 +190,7 @@ class SpotIM_Frontend {
             return false;
 
         // Bail if Spot.IM is disabled for this post type
-        if ( ! in_array( self::$options->get( "display_{$post->post_type}" ), array( 'comments', 'comments_recirculation' ) ) )
+        if ( ! in_array( self::$options->get( "display_{$post->post_type}" ), array( 'comments', 'comments_recirculation' ), true ) )
             return false;
 
         // Bail if Spot.IM questions are disabled for this this specific content item
@@ -229,7 +229,7 @@ class SpotIM_Frontend {
 
         // Bail if Spot.IM Recirculation are disabled for this this specific content item
         $specific_display = get_post_meta( absint( $post->ID ), 'spotim_display_recirculation', true );
-        $specific_display = in_array( $specific_display , array( 'enable', 'disable' ) ) ? $specific_display : 'enable';
+        $specific_display = in_array( $specific_display , array( 'enable', 'disable' ), true ) ? $specific_display : 'enable';
         if ( 'disable' === $specific_display )
             return false;
 

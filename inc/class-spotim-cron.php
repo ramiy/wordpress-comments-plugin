@@ -56,7 +56,7 @@ class SpotIM_Cron {
         $interval = self::$options->get( 'auto_import' );
 
         // Check if auto import enabled
-        if ( ! in_array( $interval, array( 'hourly', 'twicedaily', 'daily' ) ) )
+        if ( ! in_array( $interval, array( 'hourly', 'twicedaily', 'daily' ), true ) )
             return;
 
         // Schedule cron job event, if not scheduled yet
@@ -96,4 +96,4 @@ class SpotIM_Cron {
 
     }
 
-}
+}

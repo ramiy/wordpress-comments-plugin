@@ -404,7 +404,7 @@ class SpotIM_Options {
         }
 
         // Check if auto import enabled
-        if ( ! in_array( $recurrence, $allowed_schedules ) )
+        if ( ! in_array( $recurrence, $allowed_schedules, true ) )
             return;
 
         // Return the next cron execution text

@@ -83,7 +83,7 @@ class Spotim_Meta_Box {
         foreach ( $post_types as $post_type ) {
 
             // only for post types where comments or recirculation are enabled
-            if ( in_array( self::$options->get( "display_{$post_type}" ), array( 'comments', 'comments_recirculation' ) ) ) {
+            if ( in_array( self::$options->get( "display_{$post_type}" ), array( 'comments', 'comments_recirculation' ), true ) ) {
                 $screen[] = $post_type;
             }
 

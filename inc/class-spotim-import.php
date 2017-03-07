@@ -372,7 +372,7 @@ class SpotIM_Import {
             if ( ! empty( $args['status'] ) ) {
                 $args['message'] = sanitize_text_field( $args['message'] );
 
-                if ( in_array( $args['status'], $statuses_list ) ) {
+                if ( in_array( $args['status'], $statuses_list, true ) ) {
                     wp_send_json( $args );
                 }
             }
