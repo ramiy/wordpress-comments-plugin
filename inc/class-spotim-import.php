@@ -81,8 +81,8 @@ class SpotIM_Import {
      *
      * @param int $spot_id Sport ID.
      * @param string $import_token Import token,
-     * @param int $page_number Page number.
-     * @param int $posts_per_request Posts Per Request.
+     * @param int $page_number Page number. Default is 0.
+     * @param int $posts_per_request Posts Per Request. Default is 1.
      *
      * @return void
      */
@@ -274,12 +274,12 @@ class SpotIM_Import {
      *
      * @access private
      *
-     * @param int $posts_per_page Posts per page.
-     * @param int $page_number Page number.
+     * @param int $posts_per_page Posts per page. Default is 100.
+     * @param int $page_number Page number. Default is 0.
      *
      * @return array
      */
-    private function get_post_ids( $posts_per_page = -1, $page_number = 0 ) {
+    private function get_post_ids( $posts_per_page = 100, $page_number = 0 ) {
         $args = array(
             'posts_per_page' => $posts_per_page,
             'post_type' => array( 'post' ),
