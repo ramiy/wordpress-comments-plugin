@@ -297,7 +297,13 @@ class SpotIM_Import {
             $args['post_type'][] = 'page';
         }
 
-        return get_posts( $args );
+        $query = new WP_Query( $args );
+        if ( $query->have_posts() ) {
+            $post_ids = $query->posts;
+        } else {
+            $post_ids = array();
+        }
+        return $post_ids;
     }
 
     /**
