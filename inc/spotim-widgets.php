@@ -51,18 +51,18 @@ class SpotIM_Recirculation_Widget extends WP_Widget {
         $title   = apply_filters( 'widget_title', empty( $instance['spotim_title'] ) ? '' : $instance['spotim_title'], $instance, $this->id_base );
 
         // Before widget tag
-        echo $args['before_widget'];
+        echo wp_kses_post( $args['before_widget'] );
 
         // Title
         if ( ! empty( $title ) ) {
-            echo $args['before_title'] . $title . $args['after_title'];
+            echo wp_kses_post( $args['before_title'] . $title . $args['after_title'] );
         }
 
         // Recirculation
         include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-template.php' );
 
         // After widget tag
-        echo $args['after_widget'];
+        echo wp_kses_post( $args['after_widget'] );
 
     }
 
