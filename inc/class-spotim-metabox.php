@@ -180,15 +180,14 @@ class Spotim_Meta_Box {
     public function save_metabox( $post_id, $post ) {
 
         // Add nonce for security and authentication.
-        $nonce_name   = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
-        $nonce_action = 'nonce_action';
+        $nonce_name = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
 
         // Check if a nonce is set.
         if ( ! isset( $nonce_name ) )
             return;
 
         // Check if a nonce is valid.
-        if ( ! wp_verify_nonce( $nonce_name, $nonce_action ) )
+        if ( ! wp_verify_nonce( $nonce_name, 'nonce_action' ) )
             return;
 
         // Check if the user has permissions to save data.
