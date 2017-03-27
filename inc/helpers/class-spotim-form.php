@@ -176,20 +176,53 @@ class SpotIM_Form_Helper {
     public static function text_field( $args ) {
         $args = self::set_name( $args );
         $args['value'] = sanitize_text_field( $args['value'] );
-        $text_template = '<input name="%s" type="text" value="%s" autocomplete="off" />';
 
         // Text input template
-        $escaped_template = sprintf( $text_template,
+        $text_template = sprintf(
+            '<input name="%1$s" type="text" value="%2$s" autocomplete="off" />',
             esc_attr( $args['name'] ), // Input's name.
             esc_attr( $args['value'] ) // Input's value.
         );
 
         // Description template
         if ( isset( $args['description'] ) ) {
-            $escaped_template .= self::get_description_html( $args['description'] );
+            $text_template .= self::get_description_html( $args['description'] );
         }
 
-        echo $escaped_template;
+        echo $text_template;
+    }
+
+    /**
+     * Number fields
+     *
+     * @since 4.0.4
+     *
+     * @access public
+     * @static
+     *
+     * @param array $args
+     *
+     * @return string
+     */
+    public static function number_field( $args ) {
+        $args = self::set_name( $args );
+        $args['value'] = (int) $args['value'];
+
+        // Text input template
+        $number_template = sprintf(
+            '<input name="%1$s" type="number" value="%2$s" min="%3$s" max="%4$s" autocomplete="off" />',
+            esc_attr( $args['name'] ),  // Input's name.
+            esc_attr( $args['value'] ), // Input's value.
+            esc_attr( $args['min'] ),   // Input's min value.
+            esc_attr( $args['max'] )    // Input's max value.
+        );
+
+        // Description template
+        if ( isset( $args['description'] ) ) {
+            $number_template .= self::get_description_html( $args['description'] );
+        }
+
+        echo $number_template;
     }
 
     /**
@@ -205,19 +238,18 @@ class SpotIM_Form_Helper {
      * @return string
      */
     public static function button( $args ) {
-        $button_template = '<button id="%s" class="button button-primary">%s</button>';
-
-        $escaped_template = sprintf( $button_template,
+        $button_template = sprintf(
+            '<button id="%1$s" class="button button-primary">%2$s</button>',
             esc_attr( $args['id'] ), // Button's id.
             esc_attr( $args['text'] ) // Button's text.
         );
 
         // Description template
         if ( isset( $args['description'] ) ) {
-            $escaped_template .= self::get_description_html( $args['description'] );
+            $button_template .= self::get_description_html( $args['description'] );
         }
 
-        echo $escaped_template;
+        echo $button_template;
     }
 
     /**

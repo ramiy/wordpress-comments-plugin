@@ -224,14 +224,16 @@ class SpotIM_Settings_Fields {
         add_settings_field(
             'posts_per_request',
             esc_html__( 'Posts Per Request', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'text_field' ),
+            array( 'SpotIM_Form_Helper', 'number_field' ),
             $this->options->slug,
             'import_settings_section',
             array(
                 'id' => 'posts_per_request',
                 'page' => $this->options->slug,
                 'description' => esc_html__( 'Amount of posts to retrieve in each request, depending on your server\'s strength.', 'spotim-comments' ),
-                'value' => $this->options->get( 'posts_per_request' )
+                'value' => $this->options->get( 'posts_per_request' ),
+				'min' => '0',
+				'max' => '100'
             )
         );
 

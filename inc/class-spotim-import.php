@@ -65,7 +65,7 @@ class SpotIM_Import {
         $this->options = $options;
 
         // Set default values - if not defined by the user in the settings page
-        $this->posts_per_request = 50;
+        $this->posts_per_request = 100;
         $this->page_number = 0;
 
     }
@@ -274,12 +274,15 @@ class SpotIM_Import {
      *
      * @access private
      *
-     * @param int $posts_per_page Posts per page. Default is 100.
+     * @param int $posts_per_page Posts per page (Max 100). Default is 100.
      * @param int $page_number Page number. Default is 0.
      *
      * @return array
      */
     private function get_post_ids( $posts_per_page = 100, $page_number = 0 ) {
+        // Check for limit
+        if ( $posts_per_page > 100 ) $posts_per_page = 100;
+
         $args = array(
             'posts_per_page' => $posts_per_page,
             'post_type' => array( 'post' ),

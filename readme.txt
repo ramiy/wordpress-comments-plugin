@@ -224,7 +224,8 @@ You are also always more than welcome to contact our team at support@spot.im. We
 
 = 4.0.4 =
 * [Code review](https://vip.wordpress.com/documentation/) for "[WordPress.com VIP](https://vip.wordpress.com/)" clients.
-* Performance: replace uncached query with cached query when running the import.
+* Performance: Replace uncached query with cached query when running the import.
+* Performance: Set max post per request to 100.
 * Security: Prevent posible code injection vulnerabilities.
 * Hooks: Add `spotim_menu_display_capability` filter that allows developers to filter the required capability to display Spot.IM settings.
 
