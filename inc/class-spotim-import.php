@@ -292,10 +292,6 @@ class SpotIM_Import {
             'fields' => 'ids'
         );
 
-        if ( -1 !== $posts_per_page ) {
-            $args['offset'] = $posts_per_page * $page_number;
-        }
-
         if ( 1 === $this->options->get( 'enable_comments_on_page' ) ) {
             $args['post_type'][] = 'page';
         }
