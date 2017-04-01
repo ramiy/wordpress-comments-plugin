@@ -280,9 +280,12 @@ class SpotIM_Import {
      * @return array
      */
     private function get_post_ids( $posts_per_page = 100, $page_number = 0 ) {
-        // Check for limit
-        if ( $posts_per_page > 100 ) $posts_per_page = 100;
+        // Set limits for post per page
+        if ( $posts_per_page > 100 || $posts_per_page < 0 ) {
+            $posts_per_page = 100;
+        }
 
+        // Set default values
         $args = array(
             'posts_per_page' => $posts_per_page,
             'post_type' => array( 'post' ),
@@ -291,6 +294,11 @@ class SpotIM_Import {
             'order' => 'ASC',
             'fields' => 'ids'
         );
+
+        // Set offset
+        if ( 0 !== $page_number ) {
+            $args['offset'] = $posts_per_page * $page_number;
+        }
 
         if ( 1 === $this->options->get( 'enable_comments_on_page' ) ) {
             $args['post_type'][] = 'page';
