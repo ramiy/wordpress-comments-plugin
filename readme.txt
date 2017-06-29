@@ -60,7 +60,7 @@ Check out Time Inc's Entertainment Weekly for a live example of Spot.IM on one o
 * **Automatic registration** – Single Sign On (SSO) with a variety of different platforms (Facebook, LinkedIn, Google+, Twitter)
 * **@Mentions** – With a simple “@,” your community members can address each other within a conversation. Mentioned users get an actionable, mobile notification (still?) and an email alert even if he or she is offline.
 * **Community Interfacing** – Beyond group and private messaging, users can like and share each other’s messages.
-* **Gameification** – Spot.IM incentivizes your community by rewarding active contributors in your community with points and rankings. High-ranking community members push the level and flow of conversation.
+* **Gamification** – Spot.IM incentivizes your community by rewarding active contributors in your community with points and rankings. High-ranking community members push the level and flow of conversation.
 * **Customization and Branding** – Make your community just that – yours – with a variety of customizable design options, including colors, schemes, and icons.
 * **Moderation** – Advanced automatic, manual, and user moderation lets you eliminate trolls and spam, keeping your User Generated Content clean while allowing your star commenters to shine.
 * **Media Sharing** – Videos, images, GIFs, you name it – Spot.IM’s system supports your community in bringing a little color to the conversation.
@@ -77,7 +77,7 @@ For more information, please visit our website – Spot.IM
 3. Spot.IM Settings - Import tab.
 4. Spot.IM Settings - Export tab.
 5. Spot.IM Meta Box - displayed on post, pages and other CPTs.
-6. Spot.IM comments on site's fronend.
+6. Spot.IM comments on site's fronted.
 7. Spot.IM on desktop and mobile.
 8. Spot.IM on tablet.
 9. Spot.IM on mobile.
@@ -106,13 +106,13 @@ For more information, please visit our website – Spot.IM
 * PHP version 7.0 or greater.
 * MySQL version 5.6 or greater.
 
-= Export data was finished but the donwload of exported file didn't start? =
+= Export data was finished but the download of exported file didn't start? =
 
-Check the permission of the file `/plugin_dir/sample-data/export.json` or copy export text from textarea section on the fininsh step.
+Check the permission of the file `/plugin_dir/sample-data/export.json` or copy export text from textarea section on the finish step.
 
 = If I don't set Spot’s ID what will happen? =
 
-The standart comment form will be used.
+The standard comment form will be used.
 
 = How I can get Spot’s ID? =
 
@@ -126,9 +126,9 @@ Spot’s comments won't show your site comments that was saved by old Spot’s I
 
 You can remove the plugin and install it again.
 
-= Export data stop at X(any number)%? =
+= Export data stop at XX%? =
 
-It happens when you have too many comments and memory of the server does not lack. Contact with your hosting provider support and ask them to increase php memory limit. Or you if you have PHP knowledge you can put code `define( 'WP_MEMORY_LIMIT', '256M' );` in your `wp-config.php` file.
+It happens when you have too many comments and memory of the server does not lack. Contact with your hosting provider support and ask them to increase PHP memory limit. Or you if you have PHP knowledge you can put code `define( 'WP_MEMORY_LIMIT', '256M' );` in your `wp-config.php` file.
 
 You can read more here https://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP
 
@@ -196,17 +196,17 @@ The plugin supports several hooks. Developers can use them to modify the default
 
 **Comments Template**:
 
-* `before_spotim_comments` - Befor loading SpotIM comments template.
+* `before_spotim_comments` - Before loading SpotIM comments template.
 * `after_spotim_comments` - After loading SpotIM comments template.
 
-Both hooks recieve two paramarets: `$template` for the template to load ; `$spot_id` for the sites SpotIM ID.
+Both hooks receive two parameters: `$template` for the template to load ; `$spot_id` for the sites SpotIM ID.
 
 **Recirculation Template**:
 
-* `before_spotim_recirculation` - Befor loading SpotIM recirculation template.
+* `before_spotim_recirculation` - Before loading SpotIM recirculation template.
 * `after_spotim_recirculation` - After loading SpotIM recirculation template.
 
-Both hooks recieve two paramarets: `$template` for the template to load ; `$spot_id` for the sites SpotIM ID.
+Both hooks receive two parameters: `$template` for the template to load ; `$spot_id` for the sites SpotIM ID.
 
 **User capability to display settings**:
 
@@ -226,15 +226,15 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * [Code review](https://vip.wordpress.com/documentation/) for "[WordPress.com VIP](https://vip.wordpress.com/)" clients.
 * Performance: Replace uncached query with cached query when running the import.
 * Performance: Set max post per request to 100.
-* Security: Prevent posible code injection vulnerabilities.
+* Security: Prevent possible code injection vulnerabilities.
 * Hooks: Add `spotim_menu_display_capability` filter that allows developers to filter the required capability to display Spot.IM settings.
 
 = 4.0.3 =
-* Bug Fix: update two files encoding to UTF-8 to fix a error on some servers / enviroments.
+* Bug Fix: update two files encoding to UTF-8 to fix a error on some servers / environments.
 
 = 4.0.2 =
 * [Code review](https://vip.wordpress.com/documentation/) for "[WordPress.com VIP](https://vip.wordpress.com/)" clients.
-* Security: Escaping HTML attributes and urls to prevent posible code injection vulnerabilities.
+* Security: Escaping HTML attributes and URLs to prevent possible code injection vulnerabilities.
 * i18n: Merge similar translation strings.
 
 = 4.0.1 =
@@ -254,33 +254,33 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * Add export feature to export content from WordPress to Spot.IM.
 * Add gulp tasks for textdomain-check and pot-file-generation.
 * i18n: Update wrong translation textdomains to match the plugin slug.
-* i18n: Add missin translation functions to translation strings.
+* i18n: Add missing translation functions to translation strings.
 * i18n: Use translate.wordpress.org to translate the plugin.
-* Security: Escape translation strings to prevent posible code injection using PO/MO files.
-* Security: Prevent direct access to php files.
+* Security: Escape translation strings to prevent possible code injection using PO/MO files.
+* Security: Prevent direct access to PHP files.
 * Security: Prevent direct access to directories.
 * Docs: Add phpDocs all over the code, to document everything.
-* a11y: Remove depricated admin icon from the plugin settings page.
+* a11y: Remove deprecated admin icon from the plugin settings page.
 * a11y: Replace `<h2>` with `<h1>` heading in the settings page.
 
 = 3.0.0 =
-* Import comments from Spot.IM to Wordpress feature is out.
+* Import comments from Spot.IM to WordPress feature is out.
 * Added features to options file.
 * Restructure settings fields file.
 * and many more stuff, you can check the full changelog at our github.
 
 = 2.1.1 =
-* Rearrange escaping and sanitisation to the end of the functions.
+* Rearrange escaping and sanitization to the end of the functions.
 
 = 2.1.0 =
 * Added admin menu icon.
 * Change the way we use templates and require templates.
 * Validating, sanitizing, and escaping user data.
-* Remove lang slug variable and replaced it with the string.
+* Remove `lang` slug variable and replaced it with the string.
 * More information - https://github.com/SpotIM/wordpress-comments-plugin/pull/1
 
 = 2.0.3 =
-* Change javascript loader.
+* Change JavaScript loader.
 
 = 2.0.2 =
 * Fix for minimized html.
@@ -292,10 +292,10 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * New rewritten version.
 
 = 1.10.6 =
-* Fix a bug with an api.
+* Fix a bug with an API.
 
 = 1.10.5 =
-* Move plugin's script from wp_head to wp_footer hook
+* Move plugin's script from `wp_head` to `wp_footer` hook
 * Fix a bug with filter comments number
 
 = 1.10.4 =
@@ -305,13 +305,13 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * Added user comment export
 
 = 1.10.1 =
-* Updated to use wp_new_comment function
+* Updated to use `wp_new_comment()` function
 
 = 1.10.1 =
-* Updated to use home_url()
+* Updated to use `home_url()``
 
 = 1.10.0 =
-* Updated to use conversation_url during comment sync from Spot.IM
+* Updated to use `conversation_url` during comment sync from Spot.IM
 
 = 1.0.9 =
 * Sync functionality of Spot.IM comments to WordPress.
@@ -323,7 +323,7 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * Added endpoint URL for import w/ JSON export of comments
 
 = 1.0.6 =
-* Added disqus identifier and url tags
+* Added Disqus identifier and URL tags
 
 = 1.0.5 =
 * Added comment count
