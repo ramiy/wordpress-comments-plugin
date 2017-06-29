@@ -95,6 +95,7 @@ class SpotIM_Options {
         $this->default_options = array(
             // General
             'spot_id' => '',
+            'comments_per_page' => 10,
             // Display
             'display_post' => 'comments_recirculation',
             'display_page' => 'comments_recirculation',

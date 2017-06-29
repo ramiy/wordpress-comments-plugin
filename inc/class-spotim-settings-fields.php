@@ -135,6 +135,21 @@ class SpotIM_Settings_Fields {
             )
         );
 
+        add_settings_field(
+            'comments_per_page',
+            esc_html__( 'Comments Per Page', 'facebook-comments-plugin' ),
+            array( 'SpotIM_Form_Helper', 'number_field' ),
+            $this->options->slug,
+            'general_settings_section',
+            array(
+                'id' => 'comments_per_page',
+                'page' => $this->options->slug,
+                'value' => $this->options->get( 'comments_per_page' ),
+				'min' => 1,
+				'max' => '999'
+            )
+        );
+
     }
 
     /**

@@ -221,6 +221,7 @@ You are also always more than welcome to contact our team at support@spot.im. We
 == Changelog ==
 
 = 4.1.0 =
+* Add the ability to control the number of comments displayed per page.
 * Backwards Compatibility: Don't use short arrays syntax, to support sites using older PHP versions.
 
 = 4.0.4 =
