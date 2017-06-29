@@ -106,17 +106,13 @@ For more information, please visit our website – Spot.IM
 * PHP version 7.0 or greater.
 * MySQL version 5.6 or greater.
 
-= Export data was finished but the download of exported file didn't start? =
+= How I can get Spot’s ID? =
 
-Check the permission of the file `/plugin_dir/sample-data/export.json` or copy export text from textarea section on the finish step.
+You can get it sending them exported data to support@spot.im alongside contact details.
 
 = If I don't set Spot’s ID what will happen? =
 
 The standard comment form will be used.
-
-= How I can get Spot’s ID? =
-
-You can get it sending them exported data to support@spot.im alongside contact details.
 
 = If I change Spot’s ID or selected owner what will be happen? =
 
@@ -125,6 +121,10 @@ Spot’s comments won't show your site comments that was saved by old Spot’s I
 = How I can change the selected owner? =
 
 You can remove the plugin and install it again.
+
+= Export data was finished but the download of exported file didn't start? =
+
+Check the permission of the file `/plugin_dir/sample-data/export.json` or copy export text from textarea section on the finish step.
 
 = Export data stop at XX%? =
 
