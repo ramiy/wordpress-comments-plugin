@@ -75,7 +75,7 @@ class SpotIM_Export extends SpotIM_Endpoint {
 		}
 		if ( $plugin_secret !== $this->secret || ! is_numeric( $post_id ) || 'publish' !== get_post_status( $post_id ) ) {
 			status_header( 200 );
-			wp_send_json( [ 'success' => 'false', 'reason' => 'bad secret or bad id' ] );
+			wp_send_json( array( 'success' => 'false', 'reason' => 'bad secret or bad id' ) );
 		}
 		status_header( 200 );
 		$comments = $this->get_comments_data( $post_id );
@@ -91,13 +91,13 @@ class SpotIM_Export extends SpotIM_Endpoint {
 	 */
 	private function get_comments_data( $post_id ) {
 
-		$comments = get_comments( [ 'post_id' => $post_id, 'status' => 'approve' ] );
-		$commentsData = [
-			'comments_ids' => [],
-			'tree' => [],
-			'messages' => [],
-			'users' => [],
-		];
+		$comments = get_comments( array( 'post_id' => $post_id, 'status' => 'approve' ) );
+		$commentsData = array(
+			'comments_ids' => array(),
+			'tree' => array(),
+			'messages' => array(),
+			'users' => array(),
+		);
 		foreach ( $comments as $comment ) {
 			$id = $comment->comment_ID;
 			$commentsData['comments_ids'][] = $id;
@@ -105,11 +105,11 @@ class SpotIM_Export extends SpotIM_Endpoint {
 			$user_id = $this->get_comment_user( $comment );
 			$this->add_user( $commentsData['users'], $user_id, $comment->comment_author );
 			$commentsData['messages'][ $id ] =
-				[
+				array(
 					'user_id'    => $user_id,
 					'content'    => preg_replace( '[ ]+', ' ', strip_tags( str_replace( '<', ' <', $comment->comment_content ) ) ),
 					'written_at' => strtotime( $comment->comment_date ),
-				];
+				);
 		}
 
 		return $commentsData;
@@ -124,11 +124,11 @@ class SpotIM_Export extends SpotIM_Endpoint {
 	 */
 	private function add_to_tree( &$commentsTree, $id, $comment_parent ) {
 		if ( ! array_key_exists( $id, $commentsTree ) ) {
-			$commentsTree[ $id ] = [];
+			$commentsTree[ $id ] = array();
 		}
 		if ( $comment_parent ) {
 			if ( ! array_key_exists( $comment_parent, $commentsTree ) ) {
-				$commentsTree[ $comment_parent ] = [];
+				$commentsTree[ $comment_parent ] = array();
 			}
 			$commentsTree[ $comment_parent ][] = $id;
 		}
@@ -143,7 +143,7 @@ class SpotIM_Export extends SpotIM_Endpoint {
 	 */
 	private function add_user( &$users, $user_id, $user_name ) {
 		if ( ! array_key_exists( $user_id, $users ) ) {
-			$users[ $user_id ] = [ 'user_name' => $user_name ];
+			$users[ $user_id ] = array( 'user_name' => $user_name );
 		}
 	}
 

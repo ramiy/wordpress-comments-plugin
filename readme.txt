@@ -221,6 +221,7 @@ You are also always more than welcome to contact our team at support@spot.im. We
 == Changelog ==
 
 = 4.1.0 =
+* Backwards Compatibility: Don't use short arrays syntax, to support sites using older PHP versions.
 
 = 4.0.4 =
 * [Code review](https://vip.wordpress.com/documentation/) for "[WordPress.com VIP](https://vip.wordpress.com/)" clients.
