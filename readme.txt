@@ -70,29 +70,6 @@ Check out Time Inc's Entertainment Weekly for a live example of Spot.IM on one o
 
 For more information, please visit our website – Spot.IM
 
-== Installation ==
-
-== Installation ==
-
-= Installation =
-1. In your WordPress Dashboard go to "Plugins" -> "Add Plugin".
-2. Search for "Spot.IM Comments".
-3. Install the plugin by pressing the "Install" button.
-4. Activate the plugin by pressing the "Activate" button.
-5. Then go to the Spot.IM Plugin Synchronize page (Spot.IM > Synchronize) and then in the first step ("choose Onwer") select the admin user.
-6. Send the exported data to support@spot.im alongside contact details.
-7. Then go to the Spot.IM Plugin settings page (Spot.IM > Settings) and fill the Spot’s ID that You have recieved from step 5.
-
-= Minimum Requirements =
-* WordPress version 4.0 or greater.
-* PHP version 5.2.4 or greater.
-* MySQL version 5.0 or greater.
-
-= Recommended Requirements =
-* The latest WordPress version.
-* PHP version 7.0 or greater.
-* MySQL version 5.6 or greater.
-
 == Screenshots ==
 
 1. Spot.IM Settings - General tab.
@@ -107,6 +84,27 @@ For more information, please visit our website – Spot.IM
 10. Spot.IM on mobile.
 
 == Frequently Asked Questions ==
+
+= Installation Instructions =
+1. In your WordPress Dashboard go to "Plugins" > "Add Plugin".
+2. Search for "Spot.IM Comments".
+3. Install the plugin by pressing the "Install" button.
+4. Activate the plugin by pressing the "Activate" button.
+5. Then go to the Spot.IM Plugin settings page (Spot.IM > Settings) and fill your Spot ID.
+
+= Plugin Requirements =
+
+**Minimum Requirements**
+
+* WordPress version 4.0 or greater.
+* PHP version 5.2.4 or greater.
+* MySQL version 5.0 or greater.
+
+**Recommended Requirements**
+
+* The latest WordPress version.
+* PHP version 7.0 or greater.
+* MySQL version 5.6 or greater.
 
 = Export data was finished but the donwload of exported file didn't start? =
 
