@@ -66,20 +66,27 @@ class WP_SpotIM {
      * @access protected
      */
     protected function __construct() {
+
+        // Activation/Deactivation hooks
+        register_activation_hook( __FILE__, array( $this, 'flush_rewrite_rules' ) );
+        register_deactivation_hook( __FILE__, array( $this, 'flush_rewrite_rules' ) );
+
+        // Get the Options
         $this->options = SpotIM_Options::get_instance();
 
+        // Run the plugin
         new SpotIM_i18n();
         new SpotIM_Cron( $this->options );
         new SpotIM_Feed();
 
         if ( is_admin() ) {
 
-            // Launch Admin Page
+            // Admin Page
             new SpotIM_Admin( $this->options );
 
         } else {
 
-            // Launch frontend code: embed script, comments template, comments count.
+            // Frontend code: embed script, comments template, comments count.
             new SpotIM_Frontend( $this->options );
 
         }
@@ -102,6 +109,20 @@ class WP_SpotIM {
         }
 
         return self::$instance;
+
+    }
+
+    /**
+     * Flush rewrite rules
+     *
+     * @since 4.1.0
+     *
+     * @access public
+     *
+     * @return void
+     */
+    public function flush_rewrite_rules() {
+        flush_rewrite_rules();
     }
 
 }

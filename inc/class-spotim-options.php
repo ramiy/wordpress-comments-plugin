@@ -199,6 +199,10 @@ class SpotIM_Options {
      * @return array
      */
     public function update( $name, $value ) {
+
+        // Recreate rewrite rules
+        flush_rewrite_rules();
+
         $new_option = array();
         $new_option[ $name ] = $value;
 
@@ -206,7 +210,6 @@ class SpotIM_Options {
         $options = $this->validate( $new_option );
 
         $options_updated = update_option( $this->slug, $options );
-
 
         if ( $options_updated ) {
             $this->data = $options;
