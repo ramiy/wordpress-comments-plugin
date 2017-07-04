@@ -14,7 +14,7 @@
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 // Load plugin files
@@ -30,6 +30,7 @@ require_once( 'inc/class-spotim-settings-fields.php' );
 require_once( 'inc/class-spotim-metabox.php' );
 require_once( 'inc/class-spotim-admin.php' );
 require_once( 'inc/class-spotim-frontend.php' );
+require_once( 'inc/class-spotim-feed.php' );
 require_once( 'inc/class-spotim-cron.php' );
 require_once( 'inc/spotim-shortcodes.php' );
 require_once( 'inc/spotim-widgets.php' );
@@ -69,6 +70,7 @@ class WP_SpotIM {
 
         new SpotIM_i18n();
         new SpotIM_Cron( $this->options );
+        new SpotIM_Feed();
 
         if ( is_admin() ) {
 
@@ -101,6 +103,7 @@ class WP_SpotIM {
 
         return self::$instance;
     }
+
 }
 
 /**
