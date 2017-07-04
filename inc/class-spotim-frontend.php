@@ -31,13 +31,12 @@ class SpotIM_Frontend {
      * @since 2.0.0
      *
      * @access public
-     * @static
      *
      * @param SpotIM_Options $options Plugin options.
      *
      * @return void
      */
-    public static function launch( $options ) {
+    public function __construct( $options ) {
         // Set options
         self::$options = $options;
 

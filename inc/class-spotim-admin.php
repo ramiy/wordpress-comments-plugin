@@ -31,13 +31,12 @@ class SpotIM_Admin {
      * @since 2.0.0
      *
      * @access public
-     * @static
      *
      * @param SpotIM_Options $options Plugin options.
      *
      * @return void
      */
-    public static function launch( $options ) {
+    public function __construct( $options ) {
         self::$options = $options;
         new SpotIM_Meta_Box( $options );
 

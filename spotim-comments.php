@@ -73,12 +73,12 @@ class WP_SpotIM {
         if ( is_admin() ) {
 
             // Launch Admin Page
-            SpotIM_Admin::launch( $this->options );
+            new SpotIM_Admin( $this->options );
 
         } else {
 
             // Launch frontend code: embed script, comments template, comments count.
-            SpotIM_Frontend::launch( $this->options );
+            new SpotIM_Frontend( $this->options );
 
         }
 
