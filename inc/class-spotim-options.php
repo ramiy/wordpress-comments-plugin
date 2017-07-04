@@ -95,6 +95,8 @@ class SpotIM_Options {
         $this->default_options = array(
             // General
             'spot_id' => '',
+            'embed_method' => 'comments',
+            'display_priority' => 9999,
             'comments_per_page' => 10,
             // Display
             'display_post' => 'comments_recirculation',

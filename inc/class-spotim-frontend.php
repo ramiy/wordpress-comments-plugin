@@ -37,16 +37,32 @@ class SpotIM_Frontend {
      * @return void
      */
     public function __construct( $options ) {
+
         // Set options
         self::$options = $options;
 
-        // SpotIM Comments
-        add_filter( 'comments_template', array( __CLASS__, 'filter_comments_template' ), 20 );
-        add_filter( 'comments_number', array( __CLASS__, 'filter_comments_number' ), 20 );
-        add_action( 'wp_footer', array( __CLASS__, 'comments_footer_scripts' ) );
+        $embed_method = self::$options->get( 'embed_method' );
+        $display_priority = self::$options->get( 'display_priority' );
 
         // SpotIM Recirculation
-        add_action( 'the_content', array( __CLASS__, 'add_spotim_recirculation' ), 100 );
+        add_action( 'the_content', array( __CLASS__, 'add_spotim_recirculation' ), $display_priority );
+
+        // SpotIM Comments
+        add_action( 'wp_footer', array( __CLASS__, 'comments_footer_scripts' ) );
+        if ( $embed_method == 'content' ) {
+
+            // Add after the content
+            add_action( 'the_content', array( __CLASS__, 'the_content_comments_template' ), $display_priority );
+            add_filter( 'comments_template', array( __CLASS__, 'empty_comments_template' ), 20 );
+
+        } else {
+
+            // Replace the WordPress comments
+            add_filter( 'comments_template', array( __CLASS__, 'filter_comments_template' ), 20 );
+            add_filter( 'comments_number', array( __CLASS__, 'filter_comments_number' ), 20 );
+
+        }
+
     }
 
     /**
@@ -82,6 +98,61 @@ class SpotIM_Frontend {
 
         // Return true if all tests passed
         return true;
+    }
+
+    /**
+     * Empty comments template
+     *
+     * @since 4.1.0
+     *
+     * @access public
+     * @static
+     *
+     * @param string $template Comments template to load.
+     *
+     * @return string
+     */
+    public static function empty_comments_template( $template ) {
+
+        if ( self::has_spotim_comments() ) {
+
+            // Load empty comments template
+            $require_template_path = self::$options->require_template( 'comments-template-empty.php', true );
+            if ( ! empty( $require_template_path ) ) {
+                $template = $require_template_path;
+            }
+
+        }
+
+        return $template;
+    }
+
+    /**
+     * Filter comments template
+     *
+     * @since 4.1.0
+     *
+     * @access public
+     * @static
+     *
+     * @param string $template Comments template to load.
+     *
+     * @return string
+     */
+    public static function the_content_comments_template( $content ) {
+
+        if ( self::has_spotim_comments() ) {
+
+            // Load SpotIM comments template
+            ob_start();
+            include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/comments-template.php' );
+            $content .= ob_get_contents();
+            ob_end_clean();
+
+        }
+
+        return $content;
+
     }
 
     /**
