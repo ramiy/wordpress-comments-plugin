@@ -179,8 +179,8 @@ class SpotIM_Settings_Fields {
                 'id' => 'comments_per_page',
                 'page' => $this->options->slug,
                 'value' => $this->options->get( 'comments_per_page' ),
-				'min' => 1,
-				'max' => '999'
+                'min' => 1,
+                'max' => '999'
             )
         );
 
@@ -281,8 +281,8 @@ class SpotIM_Settings_Fields {
                 'page' => $this->options->slug,
                 'description' => esc_html__( 'Amount of posts to retrieve in each request, depending on your server\'s strength.', 'spotim-comments' ),
                 'value' => $this->options->get( 'posts_per_request' ),
-				'min' => '0',
-				'max' => '100'
+                'min' => '0',
+                'max' => '100'
             )
         );
 
