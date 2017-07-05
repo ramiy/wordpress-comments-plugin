@@ -24,6 +24,17 @@ class SpotIM_JSON_Feed {
      */
     private $post_id;
 
+	/**
+     * Comments
+     *
+     * @since 4.1.0
+     *
+     * @access private
+     *
+     * @var array
+     */
+    private $comments;
+
     /**
      * Conversation
      *
@@ -56,17 +67,6 @@ class SpotIM_JSON_Feed {
      * @var array
      */
     public $users;
-
-    /**
-     * Comments
-     *
-     * @since 4.1.0
-     *
-     * @access private
-     *
-     * @var array
-     */
-    public $comments;
 
     /**
      * Constructor
