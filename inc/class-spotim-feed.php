@@ -121,36 +121,17 @@ class SpotIM_Feed {
      */
     public function output() {
 
-        if ( have_posts() ) :
+        if ( have_posts() ) {
 
-            while( have_posts() ) : the_post();
+            while( have_posts() ) {
 
-                $comments_query = new WP_Comment_Query();
-                $comments_ids = $comments_query->query( array(
-                    'status' => 'approve',
-                    'post_id' => get_the_id(),
-                    'fields' => 'ids',
-                ) );
-                $comments = $comments_query->query( array(
-                    'status' => 'approve',
-                    'post_id' => get_the_id(),
-                ) );
+                the_post();
+                $json_feed = new SpotIM_JSON_Feed( get_the_id() );
+                echo json_encode( $json_feed );
 
-                $data = array(
-                    "post" => array(
-                        "post_id" => get_the_id(),
-                        "post_url" => get_the_permalink(),
-                        "publish_date" => get_the_time( 'U' ),
-                        "comments_ids" => $comments_ids,
-                    ),
-                    "conversation" => $comments
-                );
+            }
 
-                echo json_encode( $data );
-
-            endwhile;
-
-        endif;
+        }
 
     }
 

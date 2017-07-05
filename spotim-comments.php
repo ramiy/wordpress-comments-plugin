@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once( 'inc/helpers/class-spotim-form.php' );
 require_once( 'inc/helpers/class-spotim-message.php' );
 require_once( 'inc/helpers/class-spotim-comment.php' );
+require_once( 'inc/helpers/class-spotim-json-feed.php' );
 require_once( 'inc/class-spotim-i18n.php' );
 require_once( 'inc/class-spotim-endpoint.php' );
 require_once( 'inc/class-spotim-export.php' );
