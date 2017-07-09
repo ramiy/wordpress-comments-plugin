@@ -290,7 +290,7 @@ class SpotIM_JSON_Feed {
                     //$users[ $comment->comment_author_email ]['display_name'] = $comment->comment_author;
                 } else {
                     // User exists - SHOW
-                    $users[ $registered_user->id ]['email'] = $comment->comment_author_email;
+                    //$users[ $registered_user->id ]['email'] = $comment->comment_author_email;
                     $users[ $registered_user->id ]['display_name'] = $comment->comment_author;
                     $users[ $registered_user->id ]['user_name'] = $registered_user->user_login;
                     $users[ $registered_user->id ]['avatar'] = esc_url( get_avatar_url( $registered_user->ID ) );
