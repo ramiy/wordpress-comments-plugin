@@ -109,16 +109,13 @@ class SpotIM_Settings_Fields {
      * @return void
      */
     public function register_general_section() {
+        $spot_id = $this->options->get( 'spot_id' );
+
         add_settings_section(
             'general_settings_section',
             esc_html__( 'General Options', 'spotim-comments' ),
             array( $this, 'general_settings_section_header' ),
             $this->options->slug
-        );
-
-        $translated_spot_id_description = sprintf(
-            __( 'Find your Spot ID at the <a href="%s" target="_blank">Spot.IM\'s Admin Dashboard</a> under "Features" section.' , 'spotim-comments' ),
-            'https://admin.spot.im/login'
         );
 
         add_settings_field(
@@ -130,8 +127,11 @@ class SpotIM_Settings_Fields {
             array(
                 'id' => 'spot_id',
                 'page' => $this->options->slug,
-                'description' => $translated_spot_id_description,
-                'value' => $this->options->get( 'spot_id' )
+                'description' => sprintf(
+                    __( 'Find your Spot ID at the <a href="%s" target="_blank">Spot.IM\'s Admin Dashboard</a> under "Features" section.' , 'spotim-comments' ),
+                    'https://admin.spot.im/login'
+                ),
+                'value' => $spot_id
             )
         );
 
@@ -286,6 +286,8 @@ class SpotIM_Settings_Fields {
             )
         );
 
+        $spot_id = $this->options->get( 'spot_id' );
+        $import_token = $this->options->get( 'import_token' );
         $schedule_fields['0'] = esc_html__( 'No', 'spotim-comments' );
         $registered_schedules = wp_get_schedules();
         if ( ! empty( $registered_schedules ) ) {
@@ -306,8 +308,8 @@ class SpotIM_Settings_Fields {
                 'description' => esc_html__( 'Enable auto-import and set how often should it reoccur.', 'spotim-comments' )
                     . '<br>'
                     . $this->options->get_next_cron_execution( wp_next_scheduled( 'spotim_scheduled_import' ) )
-                    . ( ( $this->options->get( 'spot_id' ) != '' ) ? ' ' . esc_html__( 'Spot ID is missing.', 'spotim-comments' ) : '' ) // We replaced empty() check with !='' to support older PHP versions.
-                    . ( ( $this->options->get( 'import_token' ) != '' ) ? ' ' . esc_html__( 'Import token is missing.', 'spotim-comments' ) : '' ), // We replaced empty() check with !='' to support older PHP versions.
+                    . ( empty( $spot_id ) ? ' ' . esc_html__( 'Spot ID is missing.', 'spotim-comments' ) : '' )
+                    . ( empty( $import_token ) ? ' ' . esc_html__( 'Import token is missing.', 'spotim-comments' ) : '' ),
                 'fields' => $schedule_fields,
                 'value' => $this->options->get( 'auto_import' )
             )
@@ -341,7 +343,7 @@ class SpotIM_Settings_Fields {
             array(
                 'id' => 'spot_id',
                 'page' => $this->options->slug,
-                'value' => $this->options->get( 'spot_id' )
+                'value' => $spot_id
             )
         );
 

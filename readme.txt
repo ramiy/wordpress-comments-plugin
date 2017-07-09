@@ -223,7 +223,7 @@ You are also always more than welcome to contact our team at support@spot.im. We
 = 4.1.0 =
 * Add the ability to control the number of comments displayed per page.
 * Backwards Compatibility: Don't use short arrays syntax, to support sites using older PHP versions.
-* Backwards Compatibility: Replace `empty()` check with `!=''` to support sites using older PHP versions.
+* Backwards Compatibility: Fix `empty()` checks in for sites using older PHP versions.
 
 = 4.0.4 =
 * [Code review](https://vip.wordpress.com/documentation/) for "[WordPress.com VIP](https://vip.wordpress.com/)" clients.
