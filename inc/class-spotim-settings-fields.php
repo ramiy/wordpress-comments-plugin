@@ -306,8 +306,8 @@ class SpotIM_Settings_Fields {
                 'description' => esc_html__( 'Enable auto-import and set how often should it reoccur.', 'spotim-comments' )
                     . '<br>'
                     . $this->options->get_next_cron_execution( wp_next_scheduled( 'spotim_scheduled_import' ) )
-                    . ( ( empty( $this->options->get( 'spot_id' ) ) ) ? ' ' . esc_html__( 'Spot ID is missing.', 'spotim-comments' ) : '' )
-                    . ( ( empty( $this->options->get( 'import_token' ) ) ) ? ' ' . esc_html__( 'Import token is missing.', 'spotim-comments' ) : '' ),
+                    . ( ( $this->options->get( 'spot_id' ) != '' ) ? ' ' . esc_html__( 'Spot ID is missing.', 'spotim-comments' ) : '' ) // We replaced empty() check with !='' to support older PHP versions.
+                    . ( ( $this->options->get( 'import_token' ) != '' ) ? ' ' . esc_html__( 'Import token is missing.', 'spotim-comments' ) : '' ), // We replaced empty() check with !='' to support older PHP versions.
                 'fields' => $schedule_fields,
                 'value' => $this->options->get( 'auto_import' )
             )
