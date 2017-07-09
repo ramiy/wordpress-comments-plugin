@@ -24,7 +24,7 @@ class SpotIM_JSON_Feed {
      */
     private $post_id;
 
-	/**
+    /**
      * Comments
      *
      * @since 4.1.0
@@ -247,20 +247,20 @@ class SpotIM_JSON_Feed {
             $messages[ $comment->comment_ID ]['content'] = apply_filters( 'get_comment_text', $comment->comment_content, $comment, array() );
             $messages[ $comment->comment_ID ]['written_at'] = strtotime( $comment->comment_date_gmt );
 
-			if ( ! trim( $comment->comment_author_email ) ) {
-				// Comment without an email
+            if ( ! trim( $comment->comment_author_email ) ) {
+                // Comment without an email
                 $messages[ $comment->comment_ID ]['anonymous'] = true;
-			} else {
+            } else {
                 // Registered User
                 $registered_user = get_user_by( 'email', $comment->comment_author_email );
-				if ( ! $registered_user ) {
-					// Anonymous comment
-					$messages[ $comment->comment_ID ]['anonymous'] = true;
-				} else {
-					$messages[ $comment->comment_ID ]['anonymous'] = false;
-					$messages[ $comment->comment_ID ]['user_id'] = $registered_user->id;
-				}
-			}
+                if ( ! $registered_user ) {
+                    // Anonymous comment
+                    $messages[ $comment->comment_ID ]['anonymous'] = true;
+                } else {
+                    $messages[ $comment->comment_ID ]['anonymous'] = false;
+                    $messages[ $comment->comment_ID ]['user_id'] = $registered_user->id;
+                }
+            }
         }
         return $messages;
     }
@@ -277,25 +277,25 @@ class SpotIM_JSON_Feed {
     public function aggregate_users() {
         $users = array();
         foreach ( $this->comments as $comment_id => $comment ) {
-			if ( ! trim( $comment->comment_author_email ) ) {
-				// Comment without an email - HIDE
+            if ( ! trim( $comment->comment_author_email ) ) {
+                // Comment without an email - HIDE
                 //$users[ $comment->comment_author_email ]['email'] = '';
                 //$users[ $comment->comment_author_email ]['display_name'] = $comment->comment_author;
-			} else {
+            } else {
                 // Registered User
                 $registered_user = get_user_by( 'email', $comment->comment_author_email );
-				if ( ! $registered_user ) {
-					// User doesn't exists - HIDE
-					//$users[ $comment->comment_author_email ]['email'] = $comment->comment_author_email;
-					//$users[ $comment->comment_author_email ]['display_name'] = $comment->comment_author;
-				} else {
-					// User exists - SHOW
-					$users[ $registered_user->id ]['email'] = $comment->comment_author_email;
-					$users[ $registered_user->id ]['display_name'] = $comment->comment_author;
-					$users[ $registered_user->id ]['user_name'] = $registered_user->user_login;
-					$users[ $registered_user->id ]['avatar'] = esc_url( get_avatar_url( $registered_user->ID ) );
-				}
-			}
+                if ( ! $registered_user ) {
+                    // User doesn't exists - HIDE
+                    //$users[ $comment->comment_author_email ]['email'] = $comment->comment_author_email;
+                    //$users[ $comment->comment_author_email ]['display_name'] = $comment->comment_author;
+                } else {
+                    // User exists - SHOW
+                    $users[ $registered_user->id ]['email'] = $comment->comment_author_email;
+                    $users[ $registered_user->id ]['display_name'] = $comment->comment_author;
+                    $users[ $registered_user->id ]['user_name'] = $registered_user->user_login;
+                    $users[ $registered_user->id ]['avatar'] = esc_url( get_avatar_url( $registered_user->ID ) );
+                }
+            }
         }
         return $users;
     }
