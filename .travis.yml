@@ -1,0 +1,22 @@
+language: php
+
+notifications:
+  email:
+    on_success: never
+    on_failure: change
+
+php:
+  - 5.2
+  - 5.3
+  - 5.5
+
+env:
+  - WP_VERSION=latest WP_MULTISITE=0
+
+matrix:
+  include:
+    - php: 5.2
+      env: WP_VERSION=latest WP_MULTISITE=1
+
+before_script:
+  - bash echo $WP_VERSION
