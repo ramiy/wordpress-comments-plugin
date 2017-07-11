@@ -125,9 +125,6 @@ class SpotIM_Admin {
 
         // Register settings fields only for the active tab
         switch ( self::$options->active_tab ) {
-            case 'export':
-                $settings_fields->register_export_section();
-                break;
             case 'import':
                 $settings_fields->register_import_section();
                 break;

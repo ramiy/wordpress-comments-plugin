@@ -23,8 +23,6 @@ require_once( 'inc/helpers/class-spotim-message.php' );
 require_once( 'inc/helpers/class-spotim-comment.php' );
 require_once( 'inc/helpers/class-spotim-json-feed.php' );
 require_once( 'inc/class-spotim-i18n.php' );
-require_once( 'inc/class-spotim-endpoint.php' );
-require_once( 'inc/class-spotim-export.php' );
 require_once( 'inc/class-spotim-import.php' );
 require_once( 'inc/class-spotim-options.php' );
 require_once( 'inc/class-spotim-settings-fields.php' );
