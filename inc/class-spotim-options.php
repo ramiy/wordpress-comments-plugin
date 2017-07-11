@@ -105,6 +105,7 @@ class SpotIM_Options {
             'embed_method' => 'comments',
             'display_priority' => 9999,
             'external_import' => '',
+			'disqus_identifier' => 'id_short_url',
             // Import
             'import_token' => '',
             'posts_per_request' => 10,
