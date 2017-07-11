@@ -285,7 +285,7 @@ class SpotIM_Settings_Fields {
 
         add_settings_section(
             'import_settings_section',
-            esc_html__( 'Import Options', 'spotim-comments' ),
+            esc_html__( 'WP Sync Options', 'spotim-comments' ),
             array( $this, 'import_settings_section_header' ),
             $this->options->slug
         );
