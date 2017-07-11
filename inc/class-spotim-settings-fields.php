@@ -74,6 +74,19 @@ class SpotIM_Settings_Fields {
     }
 
     /**
+     * Advanced Settings Section Header
+     *
+     * @since 4.1.0
+     *
+     * @access public
+     *
+     * @return void
+     */
+    public function advanced_settings_section_header() {
+        echo '<p>' . esc_html__( 'Set advanced Spot.IM settings.', 'spotim-comments' ) . '</p>';
+    }
+
+    /**
      * Import Settings Section Header
      *
      * @since 2.0.0
@@ -235,6 +248,20 @@ class SpotIM_Settings_Fields {
             }
 
         }
+
+    }
+
+    /**
+     * Register Advanced Section
+     *
+     * @since 4.1.0
+     *
+     * @access public
+     *
+     * @return void
+     */
+    public function register_advanced_section() {
+
 
     }
 

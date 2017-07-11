@@ -131,6 +131,9 @@ class SpotIM_Admin {
             case 'import':
                 $settings_fields->register_import_section();
                 break;
+            case 'advanced':
+                $settings_fields->register_advanced_section();
+                break;
             case 'display':
                 $settings_fields->register_display_section();
                 break;
