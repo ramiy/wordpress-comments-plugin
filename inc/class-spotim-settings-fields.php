@@ -148,40 +148,6 @@ class SpotIM_Settings_Fields {
             )
         );
 
-        add_settings_field(
-            'embed_method',
-            esc_html__( 'Embed Method', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
-            $this->options->slug,
-            'general_settings_section',
-            array(
-                'id' => 'embed_method',
-                'page' => $this->options->slug,
-                'fields' => array(
-                    'comments' => esc_html__( 'Replace WordPress Comments', 'spotim-comments' ),
-                    'content' => esc_html__( 'Insert After the Content', 'spotim-comments' ),
-                ),
-                'description' => esc_html__( 'Dafault methode should be replacing WordPress Comments. If it\'s not working, insert Spot.IM after the comments.', 'spotim-comments' ),
-                'value' => $this->options->get( 'embed_method' )
-            )
-        );
-
-        add_settings_field(
-            'display_priority',
-            esc_html__( 'Display Priority', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'number_field' ),
-            $this->options->slug,
-            'general_settings_section',
-            array(
-                'id' => 'display_priority',
-                'page' => $this->options->slug,
-                'description' => esc_html__( 'Set display priority among the items added by other plugin that use "the_content" filter.', 'spotim-comments' ),
-                'value' => $this->options->get( 'display_priority' ),
-                'min' => '0',
-                'max' => '10000'
-            )
-        );
-
     }
 
     /**
@@ -262,6 +228,46 @@ class SpotIM_Settings_Fields {
      */
     public function register_advanced_section() {
 
+        add_settings_section(
+            'advanced_settings_section',
+            esc_html__( 'Advanced Options', 'spotim-comments' ),
+            array( $this, 'advanced_settings_section_header' ),
+            $this->options->slug
+        );
+
+        add_settings_field(
+            'embed_method',
+            esc_html__( 'Embed Method', 'spotim-comments' ),
+            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            $this->options->slug,
+            'advanced_settings_section',
+            array(
+                'id' => 'embed_method',
+                'page' => $this->options->slug,
+                'fields' => array(
+                    'comments' => esc_html__( 'Replace WordPress Comments', 'spotim-comments' ),
+                    'content' => esc_html__( 'Insert After the Content', 'spotim-comments' ),
+                ),
+                'description' => esc_html__( 'Dafault methode should be replacing WordPress Comments. If it\'s not working, insert Spot.IM after the comments.', 'spotim-comments' ),
+                'value' => $this->options->get( 'embed_method' )
+            )
+        );
+
+        add_settings_field(
+            'display_priority',
+            esc_html__( 'Display Priority', 'spotim-comments' ),
+            array( 'SpotIM_Form_Helper', 'number_field' ),
+            $this->options->slug,
+            'advanced_settings_section',
+            array(
+                'id' => 'display_priority',
+                'page' => $this->options->slug,
+                'description' => esc_html__( 'Set display priority among the items added by other plugin that use "the_content" filter.', 'spotim-comments' ),
+                'value' => $this->options->get( 'display_priority' ),
+                'min' => '0',
+                'max' => '10000'
+            )
+        );
 
     }
 
