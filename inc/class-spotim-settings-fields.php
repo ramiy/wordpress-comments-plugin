@@ -301,9 +301,9 @@ class SpotIM_Settings_Fields {
                 'fields' => array(
                     'id' => esc_html__( 'ID', 'spotim-comments' ),
                     'short_url' => esc_html__( 'Short URL', 'spotim-comments' ),
-                    'id_short_url' => esc_html__( 'ID + Short URL', 'spotim-comments' ) . ' ' . esc_html__( '(Default)', 'spotim-comments' ),
+                    'id_short_url' => esc_html__( 'ID + Short URL (Default)', 'spotim-comments' ),
                 ),
-                'description' => esc_html__( 'Import comments from external services.', 'spotim-comments' ),
+                'description' => esc_html__( 'The structure of your Disqus identifier.', 'spotim-comments' ),
                 'value' => $this->options->get( 'disqus_identifier' )
             )
         );
