@@ -236,6 +236,20 @@ class SpotIM_Settings_Fields {
         );
 
         add_settings_field(
+            'plugin_secret',
+            esc_html__( 'Plugin Secret Token', 'spotim-comments' ),
+            array( 'SpotIM_Form_Helper', 'text_field' ),
+            $this->options->slug,
+            'advanced_settings_section',
+            array(
+                'id' => 'plugin_secret',
+                'page' => $this->options->slug,
+                'description' => sprintf ( esc_html__( 'Don\'t have a token? please send us an email to %s and get one.', 'spotim-comments' ), '<a href="mailto:support@spot.im">support@spot.im</a>' ),
+                'value' => $this->options->get( 'plugin_secret' )
+            )
+        );
+
+        add_settings_field(
             'embed_method',
             esc_html__( 'Embed Method', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'radio_fields' ),
@@ -397,20 +411,6 @@ class SpotIM_Settings_Fields {
             esc_html__( 'Export Options', 'spotim-comments' ),
             array( $this, 'export_settings_section_header' ),
             $this->options->slug
-        );
-
-        add_settings_field(
-            'plugin_secret',
-            esc_html__( 'Export Token', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'text_field' ),
-            $this->options->slug,
-            'export_settings_section',
-            array(
-                'id' => 'plugin_secret',
-                'page' => $this->options->slug,
-                'description' => sprintf ( esc_html__( 'Don\'t have a token? please send us an email to %s and get one.', 'spotim-comments' ), '<a href="mailto:support@spot.im">support@spot.im</a>' ),
-                'value' => $this->options->get( 'plugin_secret' )
-            )
         );
 
     }
