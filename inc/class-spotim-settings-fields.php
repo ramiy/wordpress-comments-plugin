@@ -270,6 +270,25 @@ class SpotIM_Settings_Fields {
             )
         );
 
+        add_settings_field(
+            'external_import',
+            esc_html__( 'External Import', 'spotim-comments' ),
+            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            $this->options->slug,
+            'advanced_settings_section',
+            array(
+                'id' => 'external_import',
+                'page' => $this->options->slug,
+                'fields' => array(
+                    'facebook' => esc_html__( 'Facebook Comments', 'spotim-comments' ),
+                    'disqus' => esc_html__( 'Disqus Comments', 'spotim-comments' ),
+                    'wordpress' => esc_html__( 'WordPress Comments', 'spotim-comments' ),
+                ),
+                'description' => esc_html__( 'Import comments from external services.', 'spotim-comments' ),
+                'value' => $this->options->get( 'external_import' )
+            )
+        );
+
     }
 
     /**

@@ -104,6 +104,7 @@ class SpotIM_Options {
             'plugin_secret' => '',
             'embed_method' => 'comments',
             'display_priority' => 9999,
+            'external_import' => '',
             // Import
             'import_token' => '',
             'posts_per_request' => 10,
