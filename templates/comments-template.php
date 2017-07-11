@@ -1,6 +1,7 @@
 <div class="spot-im-comments comments-area">
     <div class="spot-im-frame-inpage"
         data-post-id="<?php echo esc_attr( apply_filters( 'spotim_comments_post_id', get_the_ID() ) ); ?>"
+        data-post-url="<?php echo esc_attr( apply_filters( 'spotim_comments_post_url', get_permalink() ) ); ?>"
         data-messages-count="<?php $options = SpotIM_Options::get_instance(); echo esc_attr( $options->get( 'comments_per_page' ) ); ?>"
         data-wp-import-endpoint="<?php echo esc_url( apply_filters( 'spotim_comments_feed_link', get_post_comments_feed_link( get_the_id(), 'spotim' ) ) ); ?>"
         data-facebook-url="<?php echo esc_url( apply_filters( 'spotim_comments_facebook_url', get_permalink() ) ); ?>"
