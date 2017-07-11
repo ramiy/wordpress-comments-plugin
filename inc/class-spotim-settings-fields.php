@@ -100,19 +100,6 @@ class SpotIM_Settings_Fields {
     }
 
     /**
-     * Export Settings Section Header
-     *
-     * @since 4.0.0
-     *
-     * @access public
-     *
-     * @return void
-     */
-    public function export_settings_section_header() {
-        echo '<p>' . esc_html__( 'Export your comments from WordPress to Spot.IM.', 'spotim-comments' ) . '</p>';
-    }
-
-    /**
      * Register General Section
      *
      * @since 2.0.0
@@ -396,22 +383,4 @@ class SpotIM_Settings_Fields {
 
     }
 
-    /**
-     * Register Export Section
-     *
-     * @since 4.0.0
-     *
-     * @access public
-     *
-     * @return void
-     */
-    public function register_export_section() {
-        add_settings_section(
-            'export_settings_section',
-            esc_html__( 'Export Options', 'spotim-comments' ),
-            array( $this, 'export_settings_section_header' ),
-            $this->options->slug
-        );
-
-    }
 }
