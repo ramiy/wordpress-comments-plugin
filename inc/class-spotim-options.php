@@ -95,13 +95,15 @@ class SpotIM_Options {
         $this->default_options = array(
             // General
             'spot_id' => '',
-            'embed_method' => 'comments',
-            'display_priority' => 9999,
-            'comments_per_page' => 10,
             // Display
             'display_post' => 'comments_recirculation',
             'display_page' => 'comments_recirculation',
             'display_attachment' => 'none',
+            'comments_per_page' => 10,
+            // Advanced
+            'plugin_secret' => '',
+            'embed_method' => 'comments',
+            'display_priority' => 9999,
             // Import
             'import_token' => '',
             'posts_per_request' => 10,
