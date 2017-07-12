@@ -82,8 +82,8 @@ class Spotim_Meta_Box {
         // Apply metabox only to selected post types
         foreach ( $post_types as $post_type ) {
 
-            // only for post types where comments or recirculation are enabled
-            if ( in_array( self::$options->get( "display_{$post_type}" ), array( 'comments', 'comments_recirculation' ), true ) ) {
+            // only for post types where Spot.IM is enabled
+            if ( '0' !== self::$options->get( "display_{$post_type}" ) ) {
                 $screen[] = $post_type;
             }
 
@@ -151,18 +151,16 @@ class Spotim_Meta_Box {
         echo '		</td>';
         echo '	</tr>';
 
-        if ( 'comments_recirculation' === self::$options->get( "display_{$post->post_type}" ) ) {
-            echo '	<tr>';
-            echo '		<th><label for="spotim_display_recirculation" class="spotim_display_recirculation_label">' . esc_html__( 'Recirculation', 'spotim-comments' ) . '</label></th>';
-            echo '		<td>';
-            echo '			<select id="spotim_display_recirculation" name="spotim_display_recirculation" class="spotim_display_recirculation_field">';
-            echo '			<option value="enable" '  . selected( $spotim_display_recirculation, 'enable',  false ) . '> ' . esc_html__( 'Enable', 'spotim-comments' ) . '</option>';
-            echo '			<option value="disable" ' . selected( $spotim_display_recirculation, 'disable', false ) . '> ' . esc_html__( 'Disable', 'spotim-comments' ) . '</option>';
-            echo '			</select>';
-            echo '			<p class="description">' . esc_html__( 'Show Spot.IM recirculation.', 'spotim-comments' ) . '</p>';
-            echo '		</td>';
-            echo '	</tr>';
-        }
+		echo '	<tr>';
+		echo '		<th><label for="spotim_display_recirculation" class="spotim_display_recirculation_label">' . esc_html__( 'Recirculation', 'spotim-comments' ) . '</label></th>';
+		echo '		<td>';
+		echo '			<select id="spotim_display_recirculation" name="spotim_display_recirculation" class="spotim_display_recirculation_field">';
+		echo '			<option value="enable" '  . selected( $spotim_display_recirculation, 'enable',  false ) . '> ' . esc_html__( 'Enable', 'spotim-comments' ) . '</option>';
+		echo '			<option value="disable" ' . selected( $spotim_display_recirculation, 'disable', false ) . '> ' . esc_html__( 'Disable', 'spotim-comments' ) . '</option>';
+		echo '			</select>';
+		echo '			<p class="description">' . esc_html__( 'Show Spot.IM recirculation.', 'spotim-comments' ) . '</p>';
+		echo '		</td>';
+		echo '	</tr>';
 
         echo '</table>';
 
@@ -198,16 +196,12 @@ class Spotim_Meta_Box {
         // Sanitize user input.
         $new_spotim_display_comments = isset( $_POST['spotim_display_comments'] ) ? sanitize_text_field( $_POST['spotim_display_comments'] ) : '';
         $new_spotim_display_question = isset( $_POST['spotim_display_question'] ) ? sanitize_text_field( $_POST['spotim_display_question'] ) : '';
-        if ( 'comments_recirculation' === self::$options->get( "display_{$post->post_type}" ) ) {
-            $new_spotim_display_recirculation = isset( $_POST['spotim_display_recirculation'] ) ? sanitize_text_field( $_POST['spotim_display_recirculation'] ) : '';
-        }
+        $new_spotim_display_recirculation = isset( $_POST['spotim_display_recirculation'] ) ? sanitize_text_field( $_POST['spotim_display_recirculation'] ) : '';
 
         // Update the meta field in the database.
         update_post_meta( $post_id, 'spotim_display_comments', $new_spotim_display_comments );
         update_post_meta( $post_id, 'spotim_display_question', $new_spotim_display_question );
-        if ( 'comments_recirculation' === self::$options->get( "display_{$post->post_type}" ) ) {
-            update_post_meta( $post_id, 'spotim_display_recirculation', $new_spotim_display_recirculation );
-        }
+        update_post_meta( $post_id, 'spotim_display_recirculation', $new_spotim_display_recirculation );
 
     }
 

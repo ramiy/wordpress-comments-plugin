@@ -163,6 +163,11 @@ class SpotIM_Settings_Fields {
                 // Check if post type support comments
                 if ( post_type_supports( $value->name, 'comments' ) ) {
 
+                    $display_value = $this->options->get( "display_{$value->name}" );
+
+                    // Backwards compitability check - rewrite old structure
+					if ( ( 'comments' === $display_value ) || ( 'comments_recirculation' === $display_value ) ) { $display_value = 1; }
+
                     add_settings_field(
                         "display_{$value->name}",
                         sprintf( esc_html__( 'Display on %s', 'spotim-comments' ), $value->label ),
@@ -174,10 +179,9 @@ class SpotIM_Settings_Fields {
                             'page' => $this->options->slug,
                             'fields' => array(
                                 '0' => esc_html__( 'Disable', 'spotim-comments' ),
-                                'comments' => esc_html__( 'Enable Comments', 'spotim-comments' ),
-                                'comments_recirculation' => esc_html__( 'Enable Comments & Recirculation', 'spotim-comments' ),
+                                '1' => esc_html__( 'Enable', 'spotim-comments' ),
                             ),
-                            'value' => $this->options->get( "display_{$value->name}" )
+                            'value' => $display_value
                         )
                     );
 

@@ -96,9 +96,9 @@ class SpotIM_Options {
             // General
             'spot_id' => '',
             // Display
-            'display_post' => 'comments_recirculation',
-            'display_page' => 'comments_recirculation',
-            'display_attachment' => 'none',
+            'display_post' => '1',
+            'display_page' => '1',
+            'display_attachment' => '0',
             'comments_per_page' => 10,
             // Advanced
             'plugin_secret' => '',
