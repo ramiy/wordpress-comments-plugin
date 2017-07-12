@@ -221,7 +221,23 @@ You are also always more than welcome to contact our team at support@spot.im. We
 == Changelog ==
 
 = 4.1.0 =
+* Fresh admin design.
+* Add new tab linking to Spot.IM Dashboard.
+* Add new "Advanced" tab.
+* Rename "Import" tab to "WP Sync".
+* Remove "Export" tab and the old export functionality.
+* Simpler display options per post type - either Enable or Disable spotim functionality.
 * Add the ability to control the number of comments displayed per page.
+* Add the ability to control the comments template container class.
+* Allow users to select the "Embed Method" and set the "Display Priority"
+* When migrating from Disqus, now you can set custom Disqus identifier structure.
+* When migrating from Facebook Comments, now the embed code has "data-facebook-url" attribute.
+* Add new "data-post-url" attribute to the embed code, with the post URL.
+* Add new "data-disqus-short-url" attribute to the embed code, with the post short URL.
+* Add new "data-wp-import-endpoint" attribute to the embed code, With "spotim" feed URL.
+* Add new feed type called "spotim", and a link to this feed from the embed code.
+* Hooks: Filter all the data attributes in embed template.
+* Backwards Compatibility: Fix singleton issue on `SpotIM_Options()` class.
 * Backwards Compatibility: Don't use short arrays syntax, to support sites using older PHP versions.
 * Backwards Compatibility: Fix `empty()` checks in for sites using older PHP versions.
 
