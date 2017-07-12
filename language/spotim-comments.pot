@@ -32,11 +32,11 @@ msgstr ""
 msgid "Spot.IM"
 msgstr ""
 
-#: inc/class-spotim-admin.php:349, inc/class-spotim-settings-fields.php:773
+#: inc/class-spotim-admin.php:349, inc/class-spotim-settings-fields.php:801
 msgid "Spot ID is missing."
 msgstr ""
 
-#: inc/class-spotim-admin.php:363, inc/class-spotim-settings-fields.php:775
+#: inc/class-spotim-admin.php:363, inc/class-spotim-settings-fields.php:803
 msgid "Import token is missing."
 msgstr ""
 
@@ -92,11 +92,11 @@ msgstr ""
 msgid "Show Spot.IM recirculation."
 msgstr ""
 
-#: inc/class-spotim-options.php:843
+#: inc/class-spotim-options.php:845
 msgid "Next import on next page refresh."
 msgstr ""
 
-#: inc/class-spotim-options.php:849
+#: inc/class-spotim-options.php:851
 msgid "Next import in %s."
 msgstr ""
 
@@ -148,7 +148,7 @@ msgstr ""
 msgid "Plugin Secret Token"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:475, inc/class-spotim-settings-fields.php:687
+#: inc/class-spotim-settings-fields.php:475, inc/class-spotim-settings-fields.php:715
 msgid "Don't have a token? please send us an email to %s and get one."
 msgstr ""
 
@@ -177,82 +177,90 @@ msgid "Set display priority among the items added by other plugin that use \"the
 msgstr ""
 
 #: inc/class-spotim-settings-fields.php:557
+msgid "Container Class"
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:571
+msgid "Comments template container class. WordPress default class is \"comments-area\"."
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:585
 msgid "External Import"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:573
+#: inc/class-spotim-settings-fields.php:601
 msgid "Facebook Comments"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:575
+#: inc/class-spotim-settings-fields.php:603
 msgid "Disqus Comments"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:577
+#: inc/class-spotim-settings-fields.php:605
 msgid "WordPress Comments"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:581
+#: inc/class-spotim-settings-fields.php:609
 msgid "Import comments from external services."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:595
+#: inc/class-spotim-settings-fields.php:623
 msgid "Disqus Identifier Structure"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:611
+#: inc/class-spotim-settings-fields.php:639
 msgid "ID"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:613
+#: inc/class-spotim-settings-fields.php:641
 msgid "Short URL"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:615
+#: inc/class-spotim-settings-fields.php:643
 msgid "ID + Short URL (Default)"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:619
+#: inc/class-spotim-settings-fields.php:647
 msgid "The structure of your Disqus identifier."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:659
+#: inc/class-spotim-settings-fields.php:687
 msgid "WP Sync Options"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:673
+#: inc/class-spotim-settings-fields.php:701
 msgid "Import Token"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:701
+#: inc/class-spotim-settings-fields.php:729
 msgid "Posts Per Request"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:715
+#: inc/class-spotim-settings-fields.php:743
 msgid "Amount of posts to retrieve in each request, depending on your server's strength."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:733, inc/helpers/class-spotim-form.php:237
+#: inc/class-spotim-settings-fields.php:761, inc/helpers/class-spotim-form.php:237
 msgid "No"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:753
+#: inc/class-spotim-settings-fields.php:781
 msgid "Auto Import"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:767
+#: inc/class-spotim-settings-fields.php:795
 msgid "Enable auto-import and set how often should it reoccur."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:791
+#: inc/class-spotim-settings-fields.php:819
 msgid "Manual Import"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:805
+#: inc/class-spotim-settings-fields.php:833
 msgid "Import Now!"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:813
+#: inc/class-spotim-settings-fields.php:841
 msgid "Cancel"
 msgstr ""
 
