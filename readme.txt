@@ -77,7 +77,7 @@ For more information, please visit our website – Spot.IM
 3. Spot.IM Settings - Import tab.
 4. Spot.IM Settings - Export tab.
 5. Spot.IM Meta Box - displayed on post, pages and other CPTs.
-6. Spot.IM comments on site's fronted.
+6. Spot.IM comments on site's frontend.
 7. Spot.IM on desktop and mobile.
 8. Spot.IM on tablet.
 9. Spot.IM on mobile.
@@ -192,25 +192,7 @@ Why, how funny you should ask: there are! We strongly recommend you take a look 
 
 = As a developer, how can I extend the plugin? =
 
-The plugin supports several hooks. Developers can use them to modify the default behavior.
-
-**Comments Template**:
-
-* `before_spotim_comments` - Before loading SpotIM comments template.
-* `after_spotim_comments` - After loading SpotIM comments template.
-
-Both hooks receive two parameters: `$template` for the template to load ; `$spot_id` for the sites SpotIM ID.
-
-**Recirculation Template**:
-
-* `before_spotim_recirculation` - Before loading SpotIM recirculation template.
-* `after_spotim_recirculation` - After loading SpotIM recirculation template.
-
-Both hooks receive two parameters: `$template` for the template to load ; `$spot_id` for the sites SpotIM ID.
-
-**User capability to display settings**:
-
-* `spotim_menu_display_capability` - Filter the required capability to display Spot.IM settings page.
+The plugin supports many hooks. Developers can use them to modify the default behavior. You can add elements to the comments and the recirculation template, alter required capabilities to display admin settings, change the value of each data attribute in the embed code, and more.
 
 = My question wasn’t answered here. Where can I get further support? =
 
