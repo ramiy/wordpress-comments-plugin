@@ -253,7 +253,7 @@ class SpotIM_Settings_Fields {
                     'comments' => esc_html__( 'Replace WordPress Comments', 'spotim-comments' ),
                     'content' => esc_html__( 'Insert After the Content', 'spotim-comments' ),
                 ),
-                'description' => esc_html__( 'Dafault methode should be replacing WordPress Comments. If it\'s not working, insert Spot.IM after the comments.', 'spotim-comments' ),
+                'description' => esc_html__( 'Dafault method should be replacing WordPress Comments. If it\'s not working, insert Spot.IM after the comments.', 'spotim-comments' ),
                 'value' => $this->options->get( 'embed_method' )
             )
         );

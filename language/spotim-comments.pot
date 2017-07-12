@@ -165,7 +165,7 @@ msgid "Insert After the Content"
 msgstr ""
 
 #: inc/class-spotim-settings-fields.php:511
-msgid "Dafault methode should be replacing WordPress Comments. If it's not working, insert Spot.IM after the comments."
+msgid "Dafault method should be replacing WordPress Comments. If it's not working, insert Spot.IM after the comments."
 msgstr ""
 
 #: inc/class-spotim-settings-fields.php:525
