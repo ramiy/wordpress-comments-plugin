@@ -82,7 +82,7 @@ class SpotIM_Cron {
 
         $spot_id           = sanitize_text_field( self::$options->get( 'spotim_spot_id' ) );
         $import_token      = sanitize_text_field( self::$options->get( 'spotim_import_token' ) );
-		$page_number       = self::$options->get( 'spotim_page_number' );
+        $page_number       = self::$options->get( 'spotim_page_number' );
         $page_number       = empty( $page_number ) ? absint( $page_number ) : 0;
         $posts_per_request = self::$options->get( 'spotim_posts_per_request' );
         $posts_per_request = empty( $posts_per_request ) ? absint( $posts_per_request ) : 0;

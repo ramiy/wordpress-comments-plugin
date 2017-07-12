@@ -151,16 +151,16 @@ class Spotim_Meta_Box {
         echo '		</td>';
         echo '	</tr>';
 
-		echo '	<tr>';
-		echo '		<th><label for="spotim_display_recirculation" class="spotim_display_recirculation_label">' . esc_html__( 'Recirculation', 'spotim-comments' ) . '</label></th>';
-		echo '		<td>';
-		echo '			<select id="spotim_display_recirculation" name="spotim_display_recirculation" class="spotim_display_recirculation_field">';
-		echo '			<option value="enable" '  . selected( $spotim_display_recirculation, 'enable',  false ) . '> ' . esc_html__( 'Enable', 'spotim-comments' ) . '</option>';
-		echo '			<option value="disable" ' . selected( $spotim_display_recirculation, 'disable', false ) . '> ' . esc_html__( 'Disable', 'spotim-comments' ) . '</option>';
-		echo '			</select>';
-		echo '			<p class="description">' . esc_html__( 'Show Spot.IM recirculation.', 'spotim-comments' ) . '</p>';
-		echo '		</td>';
-		echo '	</tr>';
+        echo '	<tr>';
+        echo '		<th><label for="spotim_display_recirculation" class="spotim_display_recirculation_label">' . esc_html__( 'Recirculation', 'spotim-comments' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<select id="spotim_display_recirculation" name="spotim_display_recirculation" class="spotim_display_recirculation_field">';
+        echo '			<option value="enable" '  . selected( $spotim_display_recirculation, 'enable',  false ) . '> ' . esc_html__( 'Enable', 'spotim-comments' ) . '</option>';
+        echo '			<option value="disable" ' . selected( $spotim_display_recirculation, 'disable', false ) . '> ' . esc_html__( 'Disable', 'spotim-comments' ) . '</option>';
+        echo '			</select>';
+        echo '			<p class="description">' . esc_html__( 'Show Spot.IM recirculation.', 'spotim-comments' ) . '</p>';
+        echo '		</td>';
+        echo '	</tr>';
 
         echo '</table>';
 

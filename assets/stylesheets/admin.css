@@ -1,21 +1,21 @@
 .spotim-page-wrap  .nav-tab-wrapper {
-	border-bottom: 0;
+    border-bottom: 0;
 }
 .spotim-page-wrap  .nav-tab-wrapper a {
-	border-bottom: 1px solid #ccc;
-	margin: 0 10px 0 0;
+    border-bottom: 1px solid #ccc;
+    margin: 0 10px 0 0;
 }
 .spotim-page-wrap .nav-tab-active {
     background-color: #fff;
     border-bottom-color: #fff;
 }
 .spotim-page-wrap .nav-tab-wrapper .pull-to-end {
-	float: right;
-	margin-right: 0;
+    float: right;
+    margin-right: 0;
 }
 .spotim-page-wrap .nav-tab-wrapper .pull-to-end:hover,
 .spotim-page-wrap .nav-tab-wrapper .pull-to-end:focus {
-	color: #0073aa;
+    color: #0073aa;
 }
 .spotim-page-wrap form {
     background-color: #fff;

@@ -106,7 +106,7 @@ class SpotIM_Options {
             'display_priority' => 9999,
             'class' => 'comments-area',
             'external_import' => '',
-			'disqus_identifier' => 'id_short_url',
+            'disqus_identifier' => 'id_short_url',
             // Import
             'import_token' => '',
             'posts_per_request' => 10,

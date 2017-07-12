@@ -166,7 +166,7 @@ class SpotIM_Settings_Fields {
                     $display_value = $this->options->get( "display_{$value->name}" );
 
                     // Backwards compitability check - rewrite old structure
-					if ( ( 'comments' === $display_value ) || ( 'comments_recirculation' === $display_value ) ) { $display_value = 1; }
+                    if ( ( 'comments' === $display_value ) || ( 'comments_recirculation' === $display_value ) ) { $display_value = 1; }
 
                     add_settings_field(
                         "display_{$value->name}",
