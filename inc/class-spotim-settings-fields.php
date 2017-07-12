@@ -275,6 +275,20 @@ class SpotIM_Settings_Fields {
         );
 
         add_settings_field(
+            'class',
+            esc_html__( 'Container Class', 'spotim-comments' ),
+            array( 'SpotIM_Form_Helper', 'text_field' ),
+            $this->options->slug,
+            'advanced_settings_section',
+            array(
+                'id' => 'class',
+                'page' => $this->options->slug,
+                'description' => esc_html__( 'Comments template container class. WordPress default class is "comments-area".', 'spotim-comments' ),
+                'value' => $this->options->get( 'class' ),
+            )
+        );
+
+        add_settings_field(
             'external_import',
             esc_html__( 'External Import', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'radio_fields' ),

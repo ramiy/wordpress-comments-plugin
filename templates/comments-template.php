@@ -12,7 +12,7 @@ switch( $options->get( 'disqus_identifier' ) ) {
         $disqus_identifier = get_the_id() . ' ' . esc_url( site_url( '/?p=' . get_the_id() ) );
 }
 ?>
-<div class="spot-im-comments comments-area">
+<div class="spot-im-comments <?php echo esc_attr( apply_filters( 'spotim_comments_class', $options->get( 'class' ) ) ); ?>">
     <div class="spot-im-frame-inpage"
         data-post-id="<?php echo esc_attr( apply_filters( 'spotim_comments_post_id', get_the_ID() ) ); ?>"
         data-post-url="<?php echo esc_url( apply_filters( 'spotim_comments_post_url', get_permalink() ) ); ?>"

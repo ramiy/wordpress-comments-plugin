@@ -104,6 +104,7 @@ class SpotIM_Options {
             'plugin_secret' => '',
             'embed_method' => 'comments',
             'display_priority' => 9999,
+            'class' => 'comments-area',
             'external_import' => '',
 			'disqus_identifier' => 'id_short_url',
             // Import
