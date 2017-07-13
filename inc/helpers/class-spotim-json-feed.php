@@ -190,7 +190,7 @@ class SpotIM_JSON_Feed {
         foreach ( $parent_comments as $comment ) {
             $this->traverse( $comment->comment_ID, $tree );
         }
-        return $tree;
+        return (object) $tree;
     }
 
     /**
