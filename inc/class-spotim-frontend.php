@@ -41,6 +41,11 @@ class SpotIM_Frontend {
         // Set options
         self::$options = $options;
 
+		// Make sure Spot ID is not empty.
+		$spot_id = self::$options->get( 'spot_id' );
+		if ( empty( $spot_id ) )
+			return;
+
         $embed_method = self::$options->get( 'embed_method' );
         $display_priority = self::$options->get( 'display_priority' );
 
