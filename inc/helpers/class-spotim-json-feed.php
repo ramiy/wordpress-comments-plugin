@@ -277,6 +277,7 @@ class SpotIM_JSON_Feed {
                 $messages[ $comment->comment_ID ]['anonymous'] = true;
             } else {
                 // Registered User
+                $registered_user = get_user_by( 'email', $comment->comment_author_email );
                 if ( ! $registered_user ) {
                     // Anonymous comment
                     $messages[ $comment->comment_ID ]['anonymous'] = true;
