@@ -47,6 +47,17 @@ class SpotIM_JSON_Feed {
     public $conversation;
 
     /**
+     * Comments IDs
+     *
+     * @since 4.1.0
+     *
+     * @access public
+     *
+     * @var array
+     */
+    public $comments_ids;
+
+    /**
      * Messages
      *
      * @since 4.1.0
@@ -94,6 +105,7 @@ class SpotIM_JSON_Feed {
 
         // Aggregate Data
         $this->conversation = $this->aggregate_conversation();
+        $this->comments_ids = $this->aggregate_comments_ids();
         $this->messages = $this->aggregate_messages();
         $this->users = $this->aggregate_users();
 
@@ -227,9 +239,22 @@ class SpotIM_JSON_Feed {
         $conversation['post_id'] = $this->post_id;
         $conversation['published_at'] = get_the_time( 'U', $this->post_id );
         $conversation['conversation_url'] = get_the_permalink( $this->post_id );
-        $conversation['comments_ids'] = array_reverse( array_values( wp_list_pluck( $this->get_top_level_comments(), 'comment_ID' ) ) );
         $conversation['tree'] = $this->get_tree();
         return $conversation;
+    }
+
+    /**
+     * Aggregate Comments IDs
+     *
+     * @since 4.1.0
+     *
+     * @access public
+     *
+     * @return array
+     */
+    public function aggregate_comments_ids() {
+        $comments_ids = array_reverse( array_values( wp_list_pluck( $this->get_top_level_comments(), 'comment_ID' ) ) );
+        return $comments_ids;
     }
 
     /**
