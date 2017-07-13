@@ -182,7 +182,7 @@ class SpotIM_JSON_Feed {
      *
      * @access public
      *
-     * @return array
+     * @return object
      */
     public function get_tree() {
         $tree = array();
