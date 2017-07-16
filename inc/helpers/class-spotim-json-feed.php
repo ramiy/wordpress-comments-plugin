@@ -58,6 +58,17 @@ class SpotIM_JSON_Feed {
     public $comments_ids;
 
     /**
+     * Tree of child-parent comments
+     *
+     * @since 4.1.0
+     *
+     * @access public
+     *
+     * @var object
+     */
+    public $tree;
+
+    /**
      * Messages
      *
      * @since 4.1.0
@@ -106,6 +117,7 @@ class SpotIM_JSON_Feed {
         // Aggregate Data
         $this->conversation = $this->aggregate_conversation();
         $this->comments_ids = $this->aggregate_comments_ids();
+        $this->tree = $this->aggregate_tree();
         $this->messages = $this->aggregate_messages();
         $this->users = $this->aggregate_users();
 
@@ -188,24 +200,6 @@ class SpotIM_JSON_Feed {
     }
 
     /**
-     * Get Tree
-     *
-     * @since 4.1.0
-     *
-     * @access public
-     *
-     * @return object
-     */
-    public function get_tree() {
-        $tree = array();
-        $parent_comments = $this->get_top_level_comments();
-        foreach ( $parent_comments as $comment ) {
-            $this->traverse( $comment->comment_ID, $tree );
-        }
-        return (object) $tree;
-    }
-
-    /**
      * Traverse
      *
      * @since 4.1.0
@@ -239,7 +233,6 @@ class SpotIM_JSON_Feed {
         $conversation['post_id'] = $this->post_id;
         $conversation['published_at'] = get_the_time( 'U', $this->post_id );
         $conversation['conversation_url'] = get_the_permalink( $this->post_id );
-        $conversation['tree'] = $this->get_tree();
         return $conversation;
     }
 
@@ -255,6 +248,24 @@ class SpotIM_JSON_Feed {
     public function aggregate_comments_ids() {
         $comments_ids = array_reverse( array_values( wp_list_pluck( $this->get_top_level_comments(), 'comment_ID' ) ) );
         return $comments_ids;
+    }
+
+    /**
+     * Aggregate Tree
+     *
+     * @since 4.1.0
+     *
+     * @access public
+     *
+     * @return object
+     */
+    public function aggregate_tree() {
+        $tree = array();
+        $parent_comments = $this->get_top_level_comments();
+        foreach ( $parent_comments as $comment ) {
+            $this->traverse( $comment->comment_ID, $tree );
+        }
+        return (object) $tree;
     }
 
     /**
