@@ -105,7 +105,7 @@ class SpotIM_Options {
             'embed_method' => 'comments',
             'display_priority' => 9999,
             'class' => 'comments-area',
-            'external_import' => '',
+            // 'external_import' => '',
             'disqus_identifier' => 'id_short_url',
             // Import
             'import_token' => '',
@@ -420,10 +420,10 @@ class SpotIM_Options {
 
         // Return the next cron execution text
         if ( ( $timestamp - time() ) <= 0 ) {
-            return esc_html__( 'Next import on next page refresh.', 'spotim-comments' );
+            return esc_html__( 'Next sync on next page refresh.', 'spotim-comments' );
         } else {
             return sprintf(
-                esc_html__( 'Next import in %s.', 'spotim-comments' ),
+                esc_html__( 'Next sync in %s.', 'spotim-comments' ),
                 human_time_diff( current_time( 'timestamp' ), $timestamp )
             );
         }

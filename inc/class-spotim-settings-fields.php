@@ -57,7 +57,7 @@ class SpotIM_Settings_Fields {
      * @return void
      */
     public function general_settings_section_header() {
-        echo '<p>' . esc_html__( 'Basic settings to integrate your Spot.IM account with WordPress.', 'spotim-comments' ) . '</p>';
+        echo '<p>' . sprintf( esc_html__('%s', 'spotim-comments'), 'Spot.IM\'s WordPress plug-in is currently available for Spot.IM partners only.<br />To become a partner and retrieve your Spot ID, please submit your information <a href="https://www.spot.im/request-an-invite/" target="_blank">here</a>.') . '</p>';
     }
 
     /**
@@ -70,7 +70,7 @@ class SpotIM_Settings_Fields {
      * @return void
      */
     public function display_settings_section_header() {
-        echo '<p>' . esc_html__( 'Select where to show Spot.IM component.', 'spotim-comments' ) . '</p>';
+        echo '<p>' . esc_html__( 'Select where to display Spot.IM.', 'spotim-comments' ) . '</p>';
     }
 
     /**
@@ -83,7 +83,7 @@ class SpotIM_Settings_Fields {
      * @return void
      */
     public function advanced_settings_section_header() {
-        echo '<p>' . esc_html__( 'Set advanced Spot.IM settings.', 'spotim-comments' ) . '</p>';
+        echo '<p>' . esc_html__( 'Your Spot.IM account manager may ask you to change these settings after revewing the installation.', 'spotim-comments' ) . '</p>';
     }
 
     /**
@@ -96,7 +96,7 @@ class SpotIM_Settings_Fields {
      * @return void
      */
     public function import_settings_section_header() {
-        echo '<p>' . esc_html__( 'Import your comments from Spot.IM to WordPress.', 'spotim-comments' ) . '</p>';
+        echo '<p>' . sprintf( esc_html__( 'Export your comments from Spot.IM to WordPress.%s', 'spotim-comments'), '<br /><em>This is different from importing comments from WordPress to Spot.IM.<br />Contact your Spot.IM account manager to configure import from WordPress to Spot.IM.</em>' ) . '</p>';
     }
 
     /**
@@ -128,7 +128,7 @@ class SpotIM_Settings_Fields {
                 'id' => 'spot_id',
                 'page' => $this->options->slug,
                 'description' => sprintf(
-                    __( 'Find your Spot ID at the <a href="%s" target="_blank">Spot.IM\'s Admin Dashboard</a> under "Features" section.' , 'spotim-comments' ),
+                    __( 'Contact your Spot.IM account manager to get your Spot ID.' , 'spotim-comments' ),
                     'https://admin.spot.im/login'
                 ),
                 'value' => $spot_id
@@ -199,6 +199,7 @@ class SpotIM_Settings_Fields {
             'display_settings_section',
             array(
                 'id' => 'comments_per_page',
+                'description' => esc_html__( 'Dafault:  10', 'spotim-comments' ),
                 'page' => $this->options->slug,
                 'value' => $this->options->get( 'comments_per_page' ),
                 'min' => 1,
@@ -227,20 +228,6 @@ class SpotIM_Settings_Fields {
         );
 
         add_settings_field(
-            'plugin_secret',
-            esc_html__( 'Plugin Secret Token', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'text_field' ),
-            $this->options->slug,
-            'advanced_settings_section',
-            array(
-                'id' => 'plugin_secret',
-                'page' => $this->options->slug,
-                'description' => sprintf ( esc_html__( 'Don\'t have a token? please send us an email to %s and get one.', 'spotim-comments' ), '<a href="mailto:support@spot.im">support@spot.im</a>' ),
-                'value' => $this->options->get( 'plugin_secret' )
-            )
-        );
-
-        add_settings_field(
             'embed_method',
             esc_html__( 'Embed Method', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'radio_fields' ),
@@ -253,7 +240,7 @@ class SpotIM_Settings_Fields {
                     'comments' => esc_html__( 'Replace WordPress Comments', 'spotim-comments' ),
                     'content' => esc_html__( 'Insert After the Content', 'spotim-comments' ),
                 ),
-                'description' => esc_html__( 'Dafault method should be replacing WordPress Comments. If it\'s not working, insert Spot.IM after the comments.', 'spotim-comments' ),
+                // 'description' => esc_html__( 'Dafault method should be replacing WordPress Comments. If it\'s not working, insert Spot.IM after the comments.', 'spotim-comments' ),
                 'value' => $this->options->get( 'embed_method' )
             )
         );
@@ -267,7 +254,7 @@ class SpotIM_Settings_Fields {
             array(
                 'id' => 'display_priority',
                 'page' => $this->options->slug,
-                'description' => esc_html__( 'Set display priority among the items added by other plugin that use "the_content" filter.', 'spotim-comments' ),
+                // 'description' => esc_html__( 'Set display priority among the items added by other plugin that use "the_content" filter.', 'spotim-comments' ),
                 'value' => $this->options->get( 'display_priority' ),
                 'min' => '0',
                 'max' => '10000'
@@ -283,12 +270,12 @@ class SpotIM_Settings_Fields {
             array(
                 'id' => 'class',
                 'page' => $this->options->slug,
-                'description' => esc_html__( 'Comments template container class. WordPress default class is "comments-area".', 'spotim-comments' ),
+                // 'description' => esc_html__( 'Comments template container class. WordPress default class is "comments-area".', 'spotim-comments' ),
                 'value' => $this->options->get( 'class' ),
             )
         );
 
-        add_settings_field(
+        /*add_settings_field(
             'external_import',
             esc_html__( 'External Import', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'radio_fields' ),
@@ -305,7 +292,7 @@ class SpotIM_Settings_Fields {
                 'description' => esc_html__( 'Import comments from external services.', 'spotim-comments' ),
                 'value' => $this->options->get( 'external_import' )
             )
-        );
+        );*/
 
         add_settings_field(
             'disqus_identifier',
@@ -321,7 +308,7 @@ class SpotIM_Settings_Fields {
                     'short_url' => esc_html__( 'Short URL', 'spotim-comments' ),
                     'id_short_url' => esc_html__( 'ID + Short URL (Default)', 'spotim-comments' ),
                 ),
-                'description' => esc_html__( 'The structure of your Disqus identifier.', 'spotim-comments' ),
+                // 'description' => esc_html__( 'The structure of your Disqus identifier.', 'spotim-comments' ),
                 'value' => $this->options->get( 'disqus_identifier' )
             )
         );
@@ -341,21 +328,21 @@ class SpotIM_Settings_Fields {
 
         add_settings_section(
             'import_settings_section',
-            esc_html__( 'WP Sync Options', 'spotim-comments' ),
+            esc_html__( 'Comments Sync Options', 'spotim-comments' ),
             array( $this, 'import_settings_section_header' ),
             $this->options->slug
         );
 
         add_settings_field(
             'import_token',
-            esc_html__( 'Import Token', 'spotim-comments' ),
+            esc_html__( 'Sync Token', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'text_field' ),
             $this->options->slug,
             'import_settings_section',
             array(
                 'id' => 'import_token',
                 'page' => $this->options->slug,
-                'description' => sprintf ( esc_html__( 'Don\'t have a token? please send us an email to %s and get one.', 'spotim-comments' ), '<a href="mailto:support@spot.im">support@spot.im</a>' ),
+                'description' => sprintf ( esc_html__( 'Contact your Spot.IM account manager to get your sync token.', 'spotim-comments' ) ),
                 'value' => $this->options->get( 'import_token' )
             )
         );
@@ -369,7 +356,7 @@ class SpotIM_Settings_Fields {
             array(
                 'id' => 'posts_per_request',
                 'page' => $this->options->slug,
-                'description' => esc_html__( 'Amount of posts to retrieve in each request, depending on your server\'s strength.', 'spotim-comments' ),
+                'description' => esc_html__( 'On every sync, several requests will be made to your server. This is the amount of posts that will be retrieved in each request. Default: 10.', 'spotim-comments' ),
                 'value' => $this->options->get( 'posts_per_request' ),
                 'min' => '0',
                 'max' => '100'
@@ -388,14 +375,14 @@ class SpotIM_Settings_Fields {
 
         add_settings_field(
             'auto_import',
-            esc_html__( 'Auto Import', 'spotim-comments' ),
+            esc_html__( 'Enable Auto Sync', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'import_settings_section',
             array(
                 'id' => 'auto_import',
                 'page' => $this->options->slug,
-                'description' => esc_html__( 'Enable auto-import and set how often should it reoccur.', 'spotim-comments' )
+                'description' => esc_html__( 'Enable auto-sync and set how often should it reoccur.', 'spotim-comments' )
                     . '<br>'
                     . $this->options->get_next_cron_execution( wp_next_scheduled( 'spotim_scheduled_import' ) )
                     . ( empty( $spot_id ) ? ' ' . esc_html__( 'Spot ID is missing.', 'spotim-comments' ) : '' )
@@ -407,14 +394,14 @@ class SpotIM_Settings_Fields {
 
         add_settings_field(
             'import_button',
-            esc_html__( 'Manual Import', 'spotim-comments' ),
+            esc_html__( 'Start Manual Sync', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'import_button' ),
             $this->options->slug,
             'import_settings_section',
             array(
                 'import_button' => array(
                     'id' => 'import_button',
-                    'text' => esc_html__( 'Import Now!', 'spotim-comments' )
+                    'text' => esc_html__( 'Sync Now', 'spotim-comments' )
                 ),
                 'cancel_import_link' => array(
                     'id' => 'cancel_import_link',
