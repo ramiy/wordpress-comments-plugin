@@ -103,6 +103,7 @@ class SpotIM_Options {
             // Advanced
             'plugin_secret' => '',
             'embed_method' => 'comments',
+            'enable_seo' => 'false',
             'display_priority' => 9999,
             'class' => 'comments-area',
             // 'external_import' => '',

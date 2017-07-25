@@ -246,6 +246,23 @@ class SpotIM_Settings_Fields {
         );
 
         add_settings_field(
+            "enable-seo",
+            esc_html__( 'Enable SEO', 'spotim-comments' ),
+            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            $this->options->slug,
+            'advanced_settings_section',
+            array(
+                'id' => "enable_seo",
+                'page' => $this->options->slug,
+                'fields' => array(
+                    'false' => esc_html__( 'Disable', 'spotim-comments' ),
+                    'true' => esc_html__( 'Enable', 'spotim-comments' ),
+                ),
+                'value' => $this->options->get( 'enable_seo' )
+            )
+        );
+
+        add_settings_field(
             'display_priority',
             esc_html__( 'Display Priority', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'number_field' ),

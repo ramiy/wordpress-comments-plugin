@@ -22,6 +22,8 @@ switch( $options->get( 'disqus_identifier' ) ) {
         data-facebook-url="<?php echo esc_url( apply_filters( 'spotim_comments_facebook_url', get_permalink() ) ); ?>"
         data-disqus-url="<?php echo esc_url( apply_filters( 'spotim_comments_disqus_url', get_permalink() ) ); ?>"
         data-disqus-identifier="<?php echo apply_filters( 'spotim_comments_disqus_identifier', $disqus_identifier ); ?>"
-        data-community-question="<?php echo esc_attr( apply_filters( 'spotim_comments_community_question',  get_post_meta( get_the_id(), 'spotim_display_question', true ) ) ); ?>">
+        data-community-question="<?php echo esc_attr( apply_filters( 'spotim_comments_community_question',  get_post_meta( get_the_id(), 'spotim_display_question', true ) ) ); ?>"
+        data-seo-enabled="<?php echo apply_filters( 'spotim_comments_seo_enabled', $options->get( 'enable_seo' ) ); ?>"
+        >
     </div>
 </div>
