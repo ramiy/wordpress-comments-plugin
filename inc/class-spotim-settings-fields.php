@@ -229,7 +229,7 @@ class SpotIM_Settings_Fields {
 
         add_settings_field(
             'embed_method',
-            esc_html__( 'Embed Method', 'spotim-comments' ),
+            esc_html__( 'Comments Embed Method', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'advanced_settings_section',
@@ -240,8 +240,41 @@ class SpotIM_Settings_Fields {
                     'comments' => esc_html__( 'Replace WordPress Comments', 'spotim-comments' ),
                     'content' => esc_html__( 'Insert After the Content', 'spotim-comments' ),
                 ),
-                // 'description' => esc_html__( 'Dafault method should be replacing WordPress Comments. If it\'s not working, insert Spot.IM after the comments.', 'spotim-comments' ),
                 'value' => $this->options->get( 'embed_method' )
+            )
+        );
+
+        add_settings_field(
+            'rc_embed_method',
+            esc_html__( 'Recirculation Embed Method', 'spotim-comments' ),
+            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            $this->options->slug,
+            'advanced_settings_section',
+            array(
+                'id' => 'rc_embed_method',
+                'page' => $this->options->slug,
+                'fields' => array(
+                    'regular' => esc_html__( 'Regular', 'spotim-comments' ),
+                    'top' => esc_html__( 'Inline - top', 'spotim-comments' ),
+                    'bottom' => esc_html__( 'Inline - bottom', 'spotim-comments' ),
+                    'none' => esc_html__( 'None', 'spotim-comments' ),
+                ),
+                'value' => $this->options->get( 'rc_embed_method' )
+            )
+        );
+
+        add_settings_field(
+            'display_priority',
+            esc_html__( 'Display Priority', 'spotim-comments' ),
+            array( 'SpotIM_Form_Helper', 'number_field' ),
+            $this->options->slug,
+            'advanced_settings_section',
+            array(
+                'id' => 'display_priority',
+                'page' => $this->options->slug,
+                'value' => $this->options->get( 'display_priority' ),
+                'min' => '0',
+                'max' => '10000'
             )
         );
 
@@ -263,22 +296,6 @@ class SpotIM_Settings_Fields {
         );
 
         add_settings_field(
-            'display_priority',
-            esc_html__( 'Display Priority', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'number_field' ),
-            $this->options->slug,
-            'advanced_settings_section',
-            array(
-                'id' => 'display_priority',
-                'page' => $this->options->slug,
-                // 'description' => esc_html__( 'Set display priority among the items added by other plugin that use "the_content" filter.', 'spotim-comments' ),
-                'value' => $this->options->get( 'display_priority' ),
-                'min' => '0',
-                'max' => '10000'
-            )
-        );
-
-        add_settings_field(
             'class',
             esc_html__( 'Container Class', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'text_field' ),
@@ -287,29 +304,22 @@ class SpotIM_Settings_Fields {
             array(
                 'id' => 'class',
                 'page' => $this->options->slug,
-                // 'description' => esc_html__( 'Comments template container class. WordPress default class is "comments-area".', 'spotim-comments' ),
                 'value' => $this->options->get( 'class' ),
             )
         );
 
-        /*add_settings_field(
-            'external_import',
-            esc_html__( 'External Import', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+         add_settings_field(
+            'class',
+            esc_html__( 'Disqus Shortname', 'spotim-comments' ),
+            array( 'SpotIM_Form_Helper', 'text_field' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
-                'id' => 'external_import',
+                'id' => 'disqus_shortname',
                 'page' => $this->options->slug,
-                'fields' => array(
-                    'facebook' => esc_html__( 'Facebook Comments', 'spotim-comments' ),
-                    'disqus' => esc_html__( 'Disqus Comments', 'spotim-comments' ),
-                    'wordpress' => esc_html__( 'WordPress Comments', 'spotim-comments' ),
-                ),
-                'description' => esc_html__( 'Import comments from external services.', 'spotim-comments' ),
-                'value' => $this->options->get( 'external_import' )
+                'value' => $this->options->get( 'disqus_shortname' ),
             )
-        );*/
+        );
 
         add_settings_field(
             'disqus_identifier',
@@ -325,8 +335,25 @@ class SpotIM_Settings_Fields {
                     'short_url' => esc_html__( 'Short URL', 'spotim-comments' ),
                     'id_short_url' => esc_html__( 'ID + Short URL (Default)', 'spotim-comments' ),
                 ),
-                // 'description' => esc_html__( 'The structure of your Disqus identifier.', 'spotim-comments' ),
                 'value' => $this->options->get( 'disqus_identifier' )
+            )
+        );
+
+        add_settings_field(
+            'import_button',
+            esc_html__( 'Start Manual Sync', 'spotim-comments' ),
+            array( 'SpotIM_Form_Helper', 'import_button' ),
+            $this->options->slug,
+            'advanced_settings_section',
+            array(
+                'import_button' => array(
+                    'id' => 'import_button',
+                    'text' => esc_html__( 'Sync Now', 'spotim-comments' )
+                ),
+                'cancel_import_link' => array(
+                    'id' => 'cancel_import_link',
+                    'text' => esc_html__( 'Cancel', 'spotim-comments' )
+                )
             )
         );
 
@@ -364,22 +391,6 @@ class SpotIM_Settings_Fields {
             )
         );
 
-        add_settings_field(
-            'posts_per_request',
-            esc_html__( 'Posts Per Request', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'number_field' ),
-            $this->options->slug,
-            'import_settings_section',
-            array(
-                'id' => 'posts_per_request',
-                'page' => $this->options->slug,
-                'description' => esc_html__( 'On every sync, several requests will be made to your server. This is the amount of posts that will be retrieved in each request. Default: 10.', 'spotim-comments' ),
-                'value' => $this->options->get( 'posts_per_request' ),
-                'min' => '0',
-                'max' => '100'
-            )
-        );
-
         $spot_id = $this->options->get( 'spot_id' );
         $import_token = $this->options->get( 'import_token' );
         $schedule_fields['0'] = esc_html__( 'No', 'spotim-comments' );
@@ -410,20 +421,18 @@ class SpotIM_Settings_Fields {
         );
 
         add_settings_field(
-            'import_button',
-            esc_html__( 'Start Manual Sync', 'spotim-comments' ),
-            array( 'SpotIM_Form_Helper', 'import_button' ),
+            'posts_per_request',
+            esc_html__( 'Posts Per Request', 'spotim-comments' ),
+            array( 'SpotIM_Form_Helper', 'number_field' ),
             $this->options->slug,
             'import_settings_section',
             array(
-                'import_button' => array(
-                    'id' => 'import_button',
-                    'text' => esc_html__( 'Sync Now', 'spotim-comments' )
-                ),
-                'cancel_import_link' => array(
-                    'id' => 'cancel_import_link',
-                    'text' => esc_html__( 'Cancel', 'spotim-comments' )
-                )
+                'id' => 'posts_per_request',
+                'page' => $this->options->slug,
+                'description' => esc_html__( 'On every sync, several requests will be made to your server. This is the amount of posts that will be retrieved in each request. Default: 10.', 'spotim-comments' ),
+                'value' => $this->options->get( 'posts_per_request' ),
+                'min' => '0',
+                'max' => '100'
             )
         );
 
