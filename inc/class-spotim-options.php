@@ -103,14 +103,16 @@ class SpotIM_Options {
             // Advanced
             'plugin_secret' => '',
             'embed_method' => 'comments',
+            'rc_embed_method' => 'regular',
+            'enable_seo' => 'false',
             'display_priority' => 9999,
             'class' => 'comments-area',
-            'external_import' => '',
             'disqus_identifier' => 'id_short_url',
+            'disqus_shortname' => '',
             // Import
             'import_token' => '',
-            'posts_per_request' => 10,
             'auto_import' => 0,
+            'posts_per_request' => 10,
         );
         $this->data = $this->get_meta_data();
 
@@ -420,10 +422,10 @@ class SpotIM_Options {
 
         // Return the next cron execution text
         if ( ( $timestamp - time() ) <= 0 ) {
-            return esc_html__( 'Next import on next page refresh.', 'spotim-comments' );
+            return esc_html__( 'Next sync on next page refresh.', 'spotim-comments' );
         } else {
             return sprintf(
-                esc_html__( 'Next import in %s.', 'spotim-comments' ),
+                esc_html__( 'Next sync in %s.', 'spotim-comments' ),
                 human_time_diff( current_time( 'timestamp' ), $timestamp )
             );
         }
