@@ -33,7 +33,7 @@ class SpotIM_JSON_Feed {
      *
      * @var array
      */
-    private $comments;
+    private $comments = array();
 
     /**
      * Conversation
@@ -44,7 +44,7 @@ class SpotIM_JSON_Feed {
      *
      * @var array
      */
-    public $conversation;
+    public $conversation = array();
 
     /**
      * Comments IDs
@@ -55,7 +55,7 @@ class SpotIM_JSON_Feed {
      *
      * @var array
      */
-    public $comments_ids;
+    public $comments_ids = array();
 
     /**
      * Tree of child-parent comments
@@ -77,7 +77,7 @@ class SpotIM_JSON_Feed {
      *
      * @var array
      */
-    public $messages;
+    public $messages = array();
 
     /**
      * Users
@@ -88,7 +88,7 @@ class SpotIM_JSON_Feed {
      *
      * @var array
      */
-    public $users;
+    public $users = array();
 
     /**
      * Constructor
