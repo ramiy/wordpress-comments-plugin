@@ -57,7 +57,14 @@ class SpotIM_Settings_Fields {
      * @return void
      */
     public function general_settings_section_header() {
-        echo '<p>' . sprintf( esc_html__('%s', 'spotim-comments'), 'Spot.IM\'s WordPress plug-in is currently available for Spot.IM partners only.<br />To become a partner and retrieve your Spot ID, please submit your information <a href="https://www.spot.im/request-an-invite/" target="_blank">here</a>.') . '</p>';
+        echo '<p>';
+		esc_html_e( 'Spot.IM\'s WordPress plugin is currently available for Spot.IM partners only.', 'spotim-comments' );
+		echo '<br>';
+		printf(
+			__( 'To become a partner and retrieve your Spot ID, please submit your information <a href="%s" target="_blank">here</a>.', 'spotim-comments'),
+			'https://www.spot.im/request-an-invite/'
+		);
+		echo '</p>';
     }
 
     /**
@@ -96,7 +103,13 @@ class SpotIM_Settings_Fields {
      * @return void
      */
     public function import_settings_section_header() {
-        echo '<p>' . sprintf( esc_html__( 'Export your comments from Spot.IM to WordPress.%s', 'spotim-comments'), '<br /><em>This is different from importing comments from WordPress to Spot.IM.<br />Contact your Spot.IM account manager to configure import from WordPress to Spot.IM.</em>' ) . '</p>';
+        echo '<p>';
+		esc_html_e( 'Export your comments from Spot.IM to WordPress.', 'spotim-comments' );
+		echo '<br><em>';
+		esc_html_e( 'This is different from importing comments from WordPress to Spot.IM.', 'spotim-comments' );
+		echo '<br>';
+		esc_html_e( 'Contact your Spot.IM account manager to configure import from WordPress to Spot.IM.', 'spotim-comments' );
+		echo '</em></p>';
     }
 
     /**
@@ -127,10 +140,7 @@ class SpotIM_Settings_Fields {
             array(
                 'id' => 'spot_id',
                 'page' => $this->options->slug,
-                'description' => sprintf(
-                    __( 'Contact your Spot.IM account manager to get your Spot ID.' , 'spotim-comments' ),
-                    'https://admin.spot.im/login'
-                ),
+                'description' => esc_html__( 'Contact your Spot.IM account manager to get your Spot ID.' , 'spotim-comments' ),
                 'value' => $spot_id
             )
         );
@@ -309,7 +319,7 @@ class SpotIM_Settings_Fields {
         );
 
          add_settings_field(
-            'class',
+            'disqus_shortname',
             esc_html__( 'Disqus Shortname', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'text_field' ),
             $this->options->slug,
@@ -386,7 +396,7 @@ class SpotIM_Settings_Fields {
             array(
                 'id' => 'import_token',
                 'page' => $this->options->slug,
-                'description' => sprintf ( esc_html__( 'Contact your Spot.IM account manager to get your sync token.', 'spotim-comments' ) ),
+                'description' => esc_html__( 'Contact your Spot.IM account manager to get your sync token.', 'spotim-comments' ),
                 'value' => $this->options->get( 'import_token' )
             )
         );
