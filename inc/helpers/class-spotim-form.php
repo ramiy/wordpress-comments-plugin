@@ -265,11 +265,15 @@ class SpotIM_Form_Helper {
      * @return string
      */
     public static function import_button( $args ) {
+        $spotim = spotim_instance();
 
         // Import button template
-        $button_template = '<button id="%s" class="button button-primary">%s</button>';
+        $button_template = '<button id="%s" class="button button-primary" data-import-token="%s" data-spot-id="%s" data-posts-per-request="%s">%s</button>';
         $escaped_template = sprintf( $button_template,
             esc_attr( $args['import_button']['id'] ), // Button's id.
+            esc_attr( $spotim->options->get( 'import_token' ) ), // Import token
+            esc_attr( $spotim->options->get( 'spot_id' ) ), // Spot ID
+            esc_attr( $spotim->options->get( 'posts_per_request' ) ), // Posts per request
             esc_attr( $args['import_button']['text'] ) // Button's text.
         );
 

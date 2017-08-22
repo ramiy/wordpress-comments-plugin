@@ -8,9 +8,9 @@ jQuery( document ).ready(function ( $ ) {
         var $importButton = $(this),
             $parentElement = $importButton.parent(),
             $messageField = $importButton.siblings( '.description' ),
-            spotIdInputValue = $importButton.parents( 'form' ).find( '[name="wp-spotim-settings[spot_id]"]' ).attr( 'value' ).trim(),
-            importTokenInputValue = $importButton.parents( '.form-table' ).find( '[name="wp-spotim-settings[import_token]"]' ).attr( 'value' ).trim(),
-            postsPerRequestValue = $importButton.parents( '.form-table' ).find( '[name="wp-spotim-settings[posts_per_request]"]' ).attr( 'value' ).trim();
+            spotIdInputValue = $importButton.data( 'spot-id' ).trim(),
+            importTokenInputValue = $importButton.data( 'import-token' ).trim(),
+            postsPerRequestValue = parseInt( $importButton.data( 'posts-per-request' ) );
 
         $parentElement.addClass( 'in-progress' );
 
