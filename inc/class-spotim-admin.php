@@ -190,7 +190,7 @@ class SpotIM_Admin {
 
             if ( isset( $_POST['spotim_posts_per_request'] ) ) {
                 $posts_per_request = absint( $_POST['spotim_posts_per_request'] );
-                $posts_per_request = 0 === $posts_per_request ? 1 : $posts_per_request;
+                $posts_per_request = ( 0 === $posts_per_request ) ? 1 : $posts_per_request;
             } else {
                 $posts_per_request = 1;
             }
