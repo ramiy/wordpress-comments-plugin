@@ -366,9 +366,16 @@ class SpotIM_Import {
         }
 
         if ( ! $result->is_ok ) {
-            $translated_error = esc_html__( 'Retriving data failed from this url: %s', 'spotim-comments' );
+            $error = sprintf(
+				esc_html__( 'Retriving data failed from this url: %s', 'spotim-comments' ),
+				esc_html( $url )
+			);
 
-            $result->body = sprintf( $translated_error, esc_attr( $url ) );
+            // Log error
+            $this->log( $error );
+            $this->log( wp_remote_retrieve_body( $response ) );
+
+            $result->body = $error;
         }
 
         return $result;
@@ -407,4 +414,33 @@ class SpotIM_Import {
             }
         }
     }
+
+    /**
+     * Logger
+     *
+     * Log any debug messages.
+     *
+     * @since 4.1.1
+     *
+     * @access private
+     *
+     * @param mixed $args Any amount of variables to add to log
+     *
+     * @return void
+     */
+    private function log( $message ) {
+        // Can we safely log?
+        if ( WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+            $logText = 'SpotIM Log: ';
+
+            if ( func_num_args() == 1 && is_string( $message ) ) {
+                $logText .= $message;
+            } else {
+                $logText .= print_r( func_get_args(), true );
+            }
+
+            error_log( $logText );
+        }
+    }
+
 }
