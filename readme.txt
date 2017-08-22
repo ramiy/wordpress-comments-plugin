@@ -206,6 +206,7 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * Add new "data-disqus-shortname" attribute to the embed code.
 * Add new "data-enable-seo" attribute to the embed code.
 * Add import log to debug import error messages.
+* Move "Manual Sync" to the "Advanced" tab.
 * Fix import functionality that restricted the import to 100 posts.
 * Fix JSON Feed error for posts without comments, by setting default empty array.
 * Performance: Don't flush rewrite rules on every settings update.
