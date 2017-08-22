@@ -270,7 +270,7 @@ class SpotIM_Import {
      * 
      * Retrieves count for all published posts
      * 
-     * @since 4.1.1
+     * @since 4.2.0
      * 
      * @access private
      * 
@@ -420,7 +420,7 @@ class SpotIM_Import {
      *
      * Log any debug messages.
      *
-     * @since 4.1.1
+     * @since 4.2.0
      *
      * @access private
      *
