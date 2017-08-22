@@ -239,7 +239,7 @@ class SpotIM_Import {
             'message' => ''
         );
 
-        $total_posts_count = count( $this->get_post_ids() );
+        $total_posts_count = $this->get_posts_count();
         $current_posts_count = $this->posts_per_request;
 
         if ( 0 < $this->page_number ) {
@@ -263,6 +263,22 @@ class SpotIM_Import {
         }
 
         $this->response( $response_args );
+    }
+    
+    /**
+     * Get post count
+     * 
+     * Retrieves count for all published posts
+     * 
+     * @since 4.1.1
+     * 
+     * @access private
+     * 
+     * @return int
+     */
+    private function get_posts_count() {
+        $count = wp_count_posts();
+        return $count->publish;
     }
 
     /**
