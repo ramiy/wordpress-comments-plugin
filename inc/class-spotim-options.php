@@ -207,9 +207,6 @@ class SpotIM_Options {
      */
     public function update( $name, $value ) {
 
-        // Recreate rewrite rules
-        flush_rewrite_rules();
-
         $new_option = array();
         $new_option[ $name ] = $value;
 
