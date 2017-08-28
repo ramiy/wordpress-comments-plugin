@@ -1,5 +1,7 @@
 <?php
 $options = SpotIM_Options::get_instance();
+$spot_id = $options->get( 'spot_id' );
+$recirculation_method = $options->get( 'rc_embed_method' );
 switch( $options->get( 'disqus_identifier' ) ) {
     case 'id':
         $disqus_identifier = get_the_id();
@@ -13,6 +15,15 @@ switch( $options->get( 'disqus_identifier' ) ) {
 }
 ?>
 <div class="spot-im-comments <?php echo esc_attr( apply_filters( 'spotim_comments_class', $options->get( 'class' ) ) ); ?>">
+	<?php
+	if ( 'top' === $recirculation_method ) {
+		ob_start();
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-template.php' );
+		$recirculation = ob_get_contents();
+		ob_end_clean();
+		echo $recirculation;
+	}
+	?>
     <div class="spot-im-frame-inpage"
         data-post-id="<?php echo esc_attr( apply_filters( 'spotim_comments_post_id', get_the_ID() ) ); ?>"
         data-post-url="<?php echo esc_url( apply_filters( 'spotim_comments_post_url', get_permalink() ) ); ?>"
@@ -27,4 +38,13 @@ switch( $options->get( 'disqus_identifier' ) ) {
         data-seo-enabled="<?php echo apply_filters( 'spotim_comments_seo_enabled', $options->get( 'enable_seo' ) ); ?>"
         >
     </div>
+	<?php
+	if ( 'bottom' === $recirculation_method ) {
+		ob_start();
+		include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-template.php' );
+		$recirculation = ob_get_contents();
+		ob_end_clean();
+		echo $recirculation;
+	}
+	?>
 </div>
