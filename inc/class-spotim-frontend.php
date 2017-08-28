@@ -302,6 +302,10 @@ class SpotIM_Frontend {
         if ( '0' === self::$options->get( "display_{$post->post_type}" ) )
             return false;
 
+        // Bail if Recirculation are disabled
+        if ( 'none' === self::$options->get( 'rc_embed_method' ) )
+            return false;
+
         // Bail if Spot.IM Recirculation are disabled for this this specific content item
         $specific_display = get_post_meta( absint( $post->ID ), 'spotim_display_recirculation', true );
         $specific_display = in_array( $specific_display , array( 'enable', 'disable' ), true ) ? $specific_display : 'enable';
