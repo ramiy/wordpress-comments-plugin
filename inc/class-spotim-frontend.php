@@ -47,10 +47,16 @@ class SpotIM_Frontend {
 			return;
 
         $embed_method = self::$options->get( 'embed_method' );
+        $rc_embed_method = self::$options->get( 'rc_embed_method' );
         $display_priority = self::$options->get( 'display_priority' );
 
         // SpotIM Recirculation
-        add_action( 'the_content', array( __CLASS__, 'add_spotim_recirculation' ), $display_priority );
+        if ( 'regular' === $rc_embed_method ) {
+
+			// Add Recirculation after the content
+			add_action( 'the_content', array( __CLASS__, 'add_spotim_recirculation' ), $display_priority );
+
+		}
 
         // SpotIM Comments
         add_action( 'wp_footer', array( __CLASS__, 'comments_footer_scripts' ) );
