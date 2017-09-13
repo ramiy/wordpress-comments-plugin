@@ -267,13 +267,13 @@ class SpotIM_Import {
     
     /**
      * Get post count
-     * 
+     *
      * Retrieves count for all published posts
-     * 
+     *
      * @since 4.2.0
-     * 
+     *
      * @access private
-     * 
+     *
      * @return int
      */
     private function get_posts_count() {
@@ -348,7 +348,7 @@ class SpotIM_Import {
         $result = new stdClass();
         $result->is_ok = false;
 
-        $response = wp_remote_get( $url, array( 'sslverify' => true ) );
+        $response = wp_remote_get( $url, array( 'sslverify' => true, 'timeout' => 60 ) );
 
         if ( ! is_wp_error( $response ) &&
              'OK' === wp_remote_retrieve_response_message( $response ) &&
@@ -367,9 +367,9 @@ class SpotIM_Import {
 
         if ( ! $result->is_ok ) {
             $error = sprintf(
-				esc_html__( 'Retriving data failed from this url: %s', 'spotim-comments' ),
-				esc_html( $url )
-			);
+                esc_html__( 'Failed retriving data from: %s', 'spotim-comments' ),
+                esc_url( $url )
+            );
 
             // Log error
             $this->log( $error );
