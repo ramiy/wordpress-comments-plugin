@@ -317,7 +317,6 @@ class SpotIM_Options {
         $valid = validate_file( $path );
 
         if ( 0 === $valid ) {
-
             if ( $return_path ) {
                 $path = plugin_dir_url( dirname( __FILE__ ) ) . $path;
                 $output = $path;
