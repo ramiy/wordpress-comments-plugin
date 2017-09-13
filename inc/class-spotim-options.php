@@ -317,9 +317,12 @@ class SpotIM_Options {
         $valid = validate_file( $path );
 
         if ( 0 === $valid ) {
+
             if ( $return_path ) {
+                $path = plugin_dir_url( dirname( __FILE__ ) ) . $path;
                 $output = $path;
             } else {
+                $path = plugin_dir_path( dirname( __FILE__ ) ) . $path;
                 require_once( $path );
                 $output = $valid;
             }
@@ -347,7 +350,7 @@ class SpotIM_Options {
      * @return string
      */
     public function require_template( $path = '', $return_path = false ) {
-        $path = plugin_dir_path( dirname( __FILE__ ) ) . 'templates/' . $path;
+        $path = 'templates/' . $path;
 
         return $this->require_file( $path, $return_path );
     }
@@ -365,7 +368,7 @@ class SpotIM_Options {
      * @return string
      */
     public function require_javascript( $path = '', $return_path = false ) {
-        $path = plugin_dir_url( dirname( __FILE__ ) ) . 'assets/javascripts/' . $path;
+        $path = 'assets/javascripts/' . $path;
 
         return $this->require_file( $path, $return_path );
     }
@@ -383,7 +386,7 @@ class SpotIM_Options {
      * @return string
      */
     public function require_stylesheet( $path = '', $return_path = false ) {
-        $path = plugin_dir_url( dirname( __FILE__ ) ) . 'assets/stylesheets/' . $path;
+        $path = 'assets/stylesheets/' . $path;
 
         return $this->require_file( $path, $return_path );
     }
