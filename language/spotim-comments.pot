@@ -40,24 +40,24 @@ msgstr ""
 msgid "Import token is missing."
 msgstr ""
 
-#: inc/class-spotim-import.php:405
+#: inc/class-spotim-import.php:409
 msgid "Could not import comments of from this url: %s"
 msgstr ""
 
-#: inc/class-spotim-import.php:501
+#: inc/class-spotim-import.php:505
 msgid "Your website doesn't have any published posts."
 msgstr ""
 
-#: inc/class-spotim-import.php:505
+#: inc/class-spotim-import.php:509
 msgid "%d / %d posts are synchronizing comments."
 msgstr ""
 
-#: inc/class-spotim-import.php:519
+#: inc/class-spotim-import.php:523
 msgid "Your comments are up to date."
 msgstr ""
 
-#: inc/class-spotim-import.php:739
-msgid "Retriving data failed from this url: %s"
+#: inc/class-spotim-import.php:743
+msgid "Failed retriving data from: %s"
 msgstr ""
 
 #: inc/class-spotim-metabox.php:271
