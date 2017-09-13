@@ -4,9 +4,6 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'SPOTIM_API_URL', 'https://www.spot.im/api/open-api/v1/' );
-define( 'SPOTIM_EXPORT_URL', SPOTIM_API_URL . 'export/wordpress' );
-
 /**
  * SpotIM_Import
  *
@@ -15,6 +12,11 @@ define( 'SPOTIM_EXPORT_URL', SPOTIM_API_URL . 'export/wordpress' );
  * @since 3.0.0
  */
 class SpotIM_Import {
+
+    /**
+     * SpotIM Sync API URL
+     */
+    const SPOTIM_SYNC_API_URL = 'https://www.spot.im/api/open-api/v1/export/wordpress';
 
     /**
      * Options
@@ -343,7 +345,7 @@ class SpotIM_Import {
      * @return object
      */
     private function request( $query_args ) {
-        $url = add_query_arg( $query_args, SPOTIM_EXPORT_URL );
+        $url = add_query_arg( $query_args, self::SPOTIM_SYNC_API_URL );
 
         $result = new stdClass();
         $result->is_ok = false;
