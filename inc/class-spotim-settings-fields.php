@@ -58,13 +58,13 @@ class SpotIM_Settings_Fields {
      */
     public function general_settings_section_header() {
         echo '<p>';
-		esc_html_e( 'Spot.IM\'s WordPress plugin is currently available for Spot.IM partners only.', 'spotim-comments' );
-		echo '<br>';
-		printf(
-			__( 'To become a partner and retrieve your Spot ID, please submit your information <a href="%s" target="_blank">here</a>.', 'spotim-comments'),
-			'https://www.spot.im/request-an-invite/'
-		);
-		echo '</p>';
+        esc_html_e( 'Spot.IM\'s WordPress plugin is currently available for Spot.IM partners only.', 'spotim-comments' );
+        echo '<br>';
+        printf(
+            __( 'To become a partner and retrieve your Spot ID, please submit your information <a href="%s" target="_blank">here</a>.', 'spotim-comments'),
+            'https://www.spot.im/request-an-invite/'
+        );
+        echo '</p>';
     }
 
     /**
@@ -104,12 +104,12 @@ class SpotIM_Settings_Fields {
      */
     public function import_settings_section_header() {
         echo '<p>';
-		esc_html_e( 'Export your comments from Spot.IM to WordPress.', 'spotim-comments' );
-		echo '<br><em>';
-		esc_html_e( 'This is different from importing comments from WordPress to Spot.IM.', 'spotim-comments' );
-		echo '<br>';
-		esc_html_e( 'Contact your Spot.IM account manager to configure import from WordPress to Spot.IM.', 'spotim-comments' );
-		echo '</em></p>';
+        esc_html_e( 'Export your comments from Spot.IM to WordPress.', 'spotim-comments' );
+        echo '<br><em>';
+        esc_html_e( 'This is different from importing comments from WordPress to Spot.IM.', 'spotim-comments' );
+        echo '<br>';
+        esc_html_e( 'Contact your Spot.IM account manager to configure import from WordPress to Spot.IM.', 'spotim-comments' );
+        echo '</em></p>';
     }
 
     /**
@@ -289,13 +289,13 @@ class SpotIM_Settings_Fields {
         );
 
         add_settings_field(
-            "enable-seo",
+            'enable-seo',
             esc_html__( 'Enable SEO', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'radio_fields' ),
             $this->options->slug,
             'advanced_settings_section',
             array(
-                'id' => "enable_seo",
+                'id' => 'enable_seo',
                 'page' => $this->options->slug,
                 'fields' => array(
                     'false' => esc_html__( 'Disable', 'spotim-comments' ),
@@ -318,7 +318,7 @@ class SpotIM_Settings_Fields {
             )
         );
 
-         add_settings_field(
+        add_settings_field(
             'disqus_shortname',
             esc_html__( 'Disqus Shortname', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'text_field' ),

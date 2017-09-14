@@ -68,11 +68,10 @@ class SpotIM_Form_Helper {
     public static function hidden_field( $args ) {
         $args = self::set_name( $args );
         $args['value'] = sanitize_text_field( $args['value'] );
-        $text_template = '<input name="%s" type="hidden" value="%s" />';
 
         // Text input template
         printf(
-            $text_template,
+            '<input name="%1$s" type="hidden" value="%2$s" />',
             esc_attr( $args['name'] ), // Input's name.
             esc_attr( $args['value'] ) // Input's value.
         );
@@ -104,7 +103,7 @@ class SpotIM_Form_Helper {
         }
 
         // Yes template
-        $escaped_template = sprintf( $radio_template,
+        $template = sprintf( $radio_template,
             esc_attr( $args['name'] ), // Input's name.
             esc_html( $yes_value ), // Input's value.
             checked( $args['value'], $yes_value, 0 ), // If input checked or not.
@@ -112,7 +111,7 @@ class SpotIM_Form_Helper {
         );
 
         // No template
-        $escaped_template .= sprintf( $radio_template,
+        $template .= sprintf( $radio_template,
             esc_attr( $args['name'] ), // Input's name.
             esc_html( $no_value ), // Input's value.
             checked( $args['value'], $no_value, 0 ), // If input checked or not.
@@ -121,10 +120,10 @@ class SpotIM_Form_Helper {
 
         // Description template
         if ( isset( $args['description'] ) ) {
-            $escaped_template .= self::get_description_html( $args['description'] );
+            $template .= self::get_description_html( $args['description'] );
         }
 
-        echo $escaped_template;
+        echo $template;
     }
 
     /**
@@ -141,11 +140,11 @@ class SpotIM_Form_Helper {
      */
     public static function radio_fields( $args ) {
         $args = self::set_name( $args );
-        $radio_template = '<label class="description"><input type="radio" name="%s" value="%s" %s /> %s</label><br>';
-        $escaped_template = '';
+        $template = '';
 
         foreach ( $args['fields'] as $key => $value ) {
-            $escaped_template .= sprintf( $radio_template,
+            $template .= sprintf(
+                '<label class="description"><input type="radio" name="%1$s" value="%2$s" %3$s /> %4$s</label><br>',
                 esc_attr( $args['name'] ), // Input's name.
                 esc_attr( $key ), // Input's value.
                 checked( $args['value'], $key, 0 ), // If input checked or not.
@@ -155,10 +154,10 @@ class SpotIM_Form_Helper {
 
         // Description template
         if ( isset( $args['description'] ) ) {
-            $escaped_template .= self::get_description_html( $args['description'] );
+            $template .= self::get_description_html( $args['description'] );
         }
 
-        echo $escaped_template;
+        echo $template;
     }
 
     /**
@@ -178,7 +177,7 @@ class SpotIM_Form_Helper {
         $args['value'] = sanitize_text_field( $args['value'] );
 
         // Text input template
-        $text_template = sprintf(
+        $template = sprintf(
             '<input name="%1$s" type="text" value="%2$s" autocomplete="off" />',
             esc_attr( $args['name'] ), // Input's name.
             esc_attr( $args['value'] ) // Input's value.
@@ -186,10 +185,10 @@ class SpotIM_Form_Helper {
 
         // Description template
         if ( isset( $args['description'] ) ) {
-            $text_template .= self::get_description_html( $args['description'] );
+            $template .= self::get_description_html( $args['description'] );
         }
 
-        echo $text_template;
+        echo $template;
     }
 
     /**
@@ -209,7 +208,7 @@ class SpotIM_Form_Helper {
         $args['value'] = (int) $args['value'];
 
         // Text input template
-        $number_template = sprintf(
+        $template = sprintf(
             '<input name="%1$s" type="number" value="%2$s" min="%3$s" max="%4$s" autocomplete="off" />',
             esc_attr( $args['name'] ),  // Input's name.
             esc_attr( $args['value'] ), // Input's value.
@@ -219,10 +218,10 @@ class SpotIM_Form_Helper {
 
         // Description template
         if ( isset( $args['description'] ) ) {
-            $number_template .= self::get_description_html( $args['description'] );
+            $template .= self::get_description_html( $args['description'] );
         }
 
-        echo $number_template;
+        echo $template;
     }
 
     /**
@@ -238,7 +237,7 @@ class SpotIM_Form_Helper {
      * @return string
      */
     public static function button( $args ) {
-        $button_template = sprintf(
+        $template = sprintf(
             '<button id="%1$s" class="button button-primary">%2$s</button>',
             esc_attr( $args['id'] ), // Button's id.
             esc_attr( $args['text'] ) // Button's text.
@@ -246,10 +245,10 @@ class SpotIM_Form_Helper {
 
         // Description template
         if ( isset( $args['description'] ) ) {
-            $button_template .= self::get_description_html( $args['description'] );
+            $template .= self::get_description_html( $args['description'] );
         }
 
-        echo $button_template;
+        echo $template;
     }
 
     /**
@@ -267,9 +266,9 @@ class SpotIM_Form_Helper {
     public static function import_button( $args ) {
         $spotim = spotim_instance();
 
-        // Import button template
-        $button_template = '<button id="%s" class="button button-primary" data-import-token="%s" data-spot-id="%s" data-posts-per-request="%s">%s</button>';
-        $escaped_template = sprintf( $button_template,
+        // Import button
+        $template = sprintf(
+            '<button id="%1$s" class="button button-primary" data-import-token="%2$s" data-spot-id="%3$s" data-posts-per-request="%4$s">%5$s</button>',
             esc_attr( $args['import_button']['id'] ), // Button's id.
             esc_attr( $spotim->options->get( 'import_token' ) ), // Import token
             esc_attr( $spotim->options->get( 'spot_id' ) ), // Spot ID
@@ -277,16 +276,17 @@ class SpotIM_Form_Helper {
             esc_attr( $args['import_button']['text'] ) // Button's text.
         );
 
-        // Cancel import link
-        $link_template = '<a href="#cancel" id="%s" class="">%s</a>';
-        $escaped_template .= sprintf( $link_template,
+        // Cancel import
+        $template .= sprintf(
+            '<a href="#cancel" id="%1$s" class="">%2$s</a>',
             esc_attr( $args['cancel_import_link']['id'] ), // Link's id.
             esc_attr( $args['cancel_import_link']['text'] ) // Link's text.
         );
 
         // Description template
-        $escaped_template .= self::get_description_html();
+        $template .= self::get_description_html();
+        $template .= '<div class="errors spotim-errors spotim-hide red-color"></div>';
 
-        echo $escaped_template;
+        echo $template;
     }
 }

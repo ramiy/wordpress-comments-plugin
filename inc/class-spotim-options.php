@@ -224,7 +224,7 @@ class SpotIM_Options {
     }
 
     /**
-     * Update
+     * Reset
      *
      * @since 3.0.0
      *

@@ -150,6 +150,7 @@ class SpotIM_Import {
      */
     private function fetch_comments( $post_ids = array() ) {
         $streams = array();
+        $errored_streams = array();
 
         while ( ! empty( $post_ids ) ) {
             $post_id = array_shift( $post_ids );
@@ -164,13 +165,17 @@ class SpotIM_Import {
             ) );
 
             if ( $stream->is_ok ) {
+				// Posts that synced successfully
                 $streams[] = $stream->body;
             } else {
-                $this->response( array(
-                    'status' => 'error',
-                    'message' => $stream->body
-                ) );
+				// Posts that returned errors
+                $errored_streams[] = $stream->body;
             }
+        }
+        
+        // Did we have any errors?
+        if ( ! empty( $errored_streams ) ) {
+            $this->errored_streams = $errored_streams;
         }
 
         return $streams;
@@ -252,14 +257,21 @@ class SpotIM_Import {
             $response_args['status'] = 'success';
             $response_args['message'] = esc_html__( 'Your website doesn\'t have any published posts.', 'spotim-comments' );
         } else if ( $current_posts_count < $total_posts_count ) {
-            $translated_message = esc_html__( '%d / %d posts are synchronizing comments.', 'spotim-comments' );
+            $translated_message = esc_html__( '%d / %d posts are synchronizing.', 'spotim-comments' );
             $parsed_message = sprintf( $translated_message, $current_posts_count, $total_posts_count );
 
             $response_args['status'] = 'continue';
+
+            if ( isset( $this->errored_streams ) && $this->errored_streams ) {
+                $response_args['status'] = 'error';
+                $parsed_message .= ' ' . esc_html__( 'Some posts have errored.', 'spotim-comments' );
+                $response_args['messages'] = $this->errored_streams;
+            }
+
             $response_args['message'] = $parsed_message;
         } else {
             $response_args['status'] = 'success';
-            $response_args['message'] = esc_html__( 'Your comments are up to date.', 'spotim-comments' );
+            $response_args['message'] = esc_html__( 'Sync has been completed.', 'spotim-comments' );
 
             $this->options->reset( 'page_number' );
         }
@@ -369,8 +381,8 @@ class SpotIM_Import {
 
         if ( ! $result->is_ok ) {
             $error = sprintf(
-                esc_html__( 'Failed retriving data from: %s', 'spotim-comments' ),
-                esc_url( $url )
+                esc_html__( 'Failed retriving data for Post ID %s', 'spotim-comments' ),
+                esc_html( $query_args['post_id'] )
             );
 
             // Log error

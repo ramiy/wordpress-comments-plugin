@@ -26,8 +26,20 @@
 .spotim-page-wrap h2 {
     font-weight: bold;
 }
-.spotim-page-wrap p.description.red-color {
+.spotim-page-wrap .red-color {
     color: #db3737;
+}
+.spotim-page-wrap .spotim-errors {
+    max-height: 200px;
+    overflow: scroll;
+    display: inline-block;
+    padding: 0.25em 1em;
+    border: 1px solid #e2e2e2;
+    margin-top: 1em;
+    min-width: 50%;
+}
+.spotim-page-wrap .spotim-hide {
+    display: none;
 }
 .spotim-page-wrap #import_button[disabled] {
     position: relative;

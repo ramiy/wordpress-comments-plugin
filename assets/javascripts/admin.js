@@ -8,6 +8,7 @@ jQuery( document ).ready(function ( $ ) {
         var $importButton = $(this),
             $parentElement = $importButton.parent(),
             $messageField = $importButton.siblings( '.description' ),
+            $errorsField = $importButton.siblings( '.errors' ),
             spotIdInputValue = $importButton.data( 'spot-id' ).trim(),
             importTokenInputValue = $importButton.data( 'import-token' ).trim(),
             postsPerRequestValue = parseInt( $importButton.data( 'posts-per-request' ) );
@@ -33,7 +34,7 @@ jQuery( document ).ready(function ( $ ) {
             'spotim_page_number': spotimVariables.pageNumber
         };
 
-        importCommentsToWP( data, $importButton, $messageField );
+        importCommentsToWP( data, $importButton, $messageField, $errorsField );
 
         event.preventDefault();
     });
@@ -72,7 +73,7 @@ jQuery( document ).ready(function ( $ ) {
     }
 
     // Import Commets to WordPress
-    function importCommentsToWP( params, $importButton, $messageField ) {
+    function importCommentsToWP( params, $importButton, $messageField, $errorsField ) {
         $.post( ajaxurl, params, function( response ) {
             if ( cancelImportProcess ) {
                 return;
@@ -82,7 +83,7 @@ jQuery( document ).ready(function ( $ ) {
                 case 'continue':
                     params.spotim_page_number = params.spotim_page_number + 1;
 
-                    importCommentsToWP( params, $importButton, $messageField );
+                    importCommentsToWP( params, $importButton, $messageField, $errorsField );
                     break;
                 case 'success':
                     // Enable the import button and hide cancel link
@@ -95,13 +96,24 @@ jQuery( document ).ready(function ( $ ) {
                     spotimVariables.pageNumber = 0;
                     break;
                 case 'error':
-                    $messageField.addClass( 'red-color' );
+                    $errorsField.removeClass( 'spotim-hide' );
+
+                    // Append to error box
+                    for (var message of response.messages) {
+                        $errorsField.append(
+                            $( '<p>' ).text( message )
+                        );
+                    }
+
+                    // Keep importing, don't stop
+                    params.spotim_page_number = params.spotim_page_number + 1;
+                    importCommentsToWP( params, $importButton, $messageField, $errorsField );
 
                     // Enable the import button and hide cancel link
-                    $importButton
-                        .attr( 'disabled', false )
-                        .parent()
-                            .removeClass( 'in-progress' );
+                    // $importButton
+                    //     .attr( 'disabled', false )
+                    //     .parent()
+                    //         .removeClass( 'in-progress' );
                     break;
             }
 
