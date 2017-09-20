@@ -430,6 +430,12 @@ class SpotIM_Settings_Fields {
             )
         );
 
+        // If import is running don't allow the user to update "Posts Per Request"
+        $other_attr = '';
+        if ( $this->options->get( 'page_number' ) > 0 ) {
+            $other_attr = 'readonly';
+        }
+
         add_settings_field(
             'posts_per_request',
             esc_html__( 'Posts Per Request', 'spotim-comments' ),
@@ -442,7 +448,8 @@ class SpotIM_Settings_Fields {
                 'description' => esc_html__( 'On every sync, several requests will be made to your server. This is the amount of posts that will be retrieved in each request. Default: 10.', 'spotim-comments' ),
                 'value' => $this->options->get( 'posts_per_request' ),
                 'min' => '0',
-                'max' => '100'
+                'max' => '100',
+                'other' => $other_attr
             )
         );
 
