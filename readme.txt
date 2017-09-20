@@ -75,8 +75,8 @@ For more information, please visit our website – Spot.IM
 
 1. Spot.IM Settings - General tab.
 2. Spot.IM Settings - Display tab.
-3. Spot.IM Settings - Import tab.
-4. Spot.IM Settings - Export tab.
+3. Spot.IM Settings - Comments Sync tab.
+4. Spot.IM Settings - Advanced tab.
 5. Spot.IM Meta Box - displayed on post, pages and other CPTs.
 6. Spot.IM comments on site's frontend.
 7. Spot.IM on desktop and mobile.
@@ -193,7 +193,7 @@ Why, how funny you should ask: there are! We strongly recommend you take a look 
 
 = As a developer, how can I extend the plugin? =
 
-The plugin supports many hooks. Developers can use them to modify the default behavior. You can add elements to the comments and the recirculation template, alter required capabilities to display admin settings, change the value of each data attribute in the embed code, and more.
+The plugin supports many hooks. Developers can use them to modify the default behavior. You can add elements to comments / recirculation / siderail template, you can alter required capabilities to display admin settings, change the value of each data attribute in the embed code, and much more.
 
 = My question wasn’t answered here. Where can I get further support? =
 
@@ -205,7 +205,7 @@ You are also always more than welcome to contact our team at support@spot.im. We
 
 = 4.2.0 =
 * Add new Siderail Widget.
-* Add new Siderail Shortcode.
+* Add new `[spotim_siderail]` shortcode to display the siderail everywhere.
 * Allow the user to control where to display the Recirculation.
 * Add new "data-disqus-shortname" attribute to the embed code.
 * Add new "data-enable-seo" attribute to the embed code.

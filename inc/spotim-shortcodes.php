@@ -7,8 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * SpotIM Comments Shortcode
  *
- * Plugin frontend.
- *
  * @since 4.0.0
  */
 function spotim_comments_shortcode() {
@@ -18,7 +16,7 @@ function spotim_comments_shortcode() {
     $template = '';
 
     /**
-     * Befor loading SpotIM comments template
+     * Before loading SpotIM comments template
      *
      * @since 4.0.0
      *
@@ -51,8 +49,6 @@ add_shortcode( 'spotim_comments', 'spotim_comments_shortcode' );
 /**
  * SpotIM Recirculation Shortcode
  *
- * Plugin frontend.
- *
  * @since 4.0.0
  */
 function spotim_recirculation_shortcode() {
@@ -62,7 +58,7 @@ function spotim_recirculation_shortcode() {
     $template = '';
 
     /**
-     * Befor loading SpotIM recirculation template
+     * Before loading SpotIM recirculation template
      *
      * @since 4.0.0
      *

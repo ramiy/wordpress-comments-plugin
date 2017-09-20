@@ -340,7 +340,7 @@ class SpotIM_Frontend {
             $spot_id = self::$options->get( 'spot_id' );
 
             /**
-             * Befor loading SpotIM recirculation template
+             * Before loading SpotIM recirculation template
              *
              * @since 4.0.0
              *
