@@ -175,12 +175,18 @@ class SpotIM_Form_Helper {
     public static function text_field( $args ) {
         $args = self::set_name( $args );
         $args['value'] = sanitize_text_field( $args['value'] );
+        if ( isset( $args['other'] ) ) {
+            $args['other'] = sanitize_text_field( $args['other'] );
+        } else {
+            $args['other'] = '';
+        }
 
         // Text input template
         $template = sprintf(
-            '<input name="%1$s" type="text" value="%2$s" autocomplete="off" />',
-            esc_attr( $args['name'] ), // Input's name.
-            esc_attr( $args['value'] ) // Input's value.
+            '<input name="%1$s" type="text" value="%2$s" autocomplete="off" %3$s />',
+            esc_attr( $args['name'] ),  // Input's name.
+            esc_attr( $args['value'] ), // Input's value.
+            esc_attr( $args['other'] )  // Other input attributes like 'readonly' or `disabled`.
         );
 
         // Description template
@@ -206,14 +212,20 @@ class SpotIM_Form_Helper {
     public static function number_field( $args ) {
         $args = self::set_name( $args );
         $args['value'] = (int) $args['value'];
+        if ( isset( $args['other'] ) ) {
+            $args['other'] = sanitize_text_field( $args['other'] );
+        } else {
+            $args['other'] = '';
+        }
 
         // Text input template
         $template = sprintf(
-            '<input name="%1$s" type="number" value="%2$s" min="%3$s" max="%4$s" autocomplete="off" />',
+            '<input name="%1$s" type="number" value="%2$s" min="%3$s" max="%4$s" autocomplete="off" %5$s />',
             esc_attr( $args['name'] ),  // Input's name.
             esc_attr( $args['value'] ), // Input's value.
             esc_attr( $args['min'] ),   // Input's min value.
-            esc_attr( $args['max'] )    // Input's max value.
+            esc_attr( $args['max'] ),   // Input's max value.
+            esc_attr( $args['other'] )  // Other input attributes like 'readonly' or `disabled`.
         );
 
         // Description template
