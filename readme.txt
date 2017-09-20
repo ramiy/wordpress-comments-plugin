@@ -211,6 +211,7 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * Add error log to debug sync error messages.
 * Move "Manual Sync" to the "Advanced" tab.
 * Fix sync functionality that restricted the sync to 100 posts.
+* Fix wrong field names in Auto Sync.
 * Fix JSON Feed error for posts without comments, by setting default empty array.
 * Remove the "Plugin Secret Token" field from the admin screen.
 * Performance: Don't flush rewrite rules on every settings update.
