@@ -40,27 +40,27 @@ msgstr ""
 msgid "Import token is missing."
 msgstr ""
 
-#: inc/class-spotim-import.php:210
+#: inc/class-spotim-import.php:214
 msgid "Could not import comments of from this url: %s"
 msgstr ""
 
-#: inc/class-spotim-import.php:258
+#: inc/class-spotim-import.php:260
 msgid "Your website doesn't have any published posts."
 msgstr ""
 
-#: inc/class-spotim-import.php:260
+#: inc/class-spotim-import.php:263
 msgid "%d / %d posts are synchronizing."
 msgstr ""
 
-#: inc/class-spotim-import.php:267
+#: inc/class-spotim-import.php:272
 msgid "Some posts have errored."
 msgstr ""
 
-#: inc/class-spotim-import.php:274
+#: inc/class-spotim-import.php:279
 msgid "Sync has been completed."
 msgstr ""
 
-#: inc/class-spotim-import.php:384
+#: inc/class-spotim-import.php:389
 msgid "Failed retriving data for Post ID %s"
 msgstr ""
 
@@ -157,7 +157,7 @@ msgid "Comments Per Page"
 msgstr ""
 
 #: inc/class-spotim-settings-fields.php:423
-msgid "Dafault:  10"
+msgid "Dafault: 10"
 msgstr ""
 
 #: inc/class-spotim-settings-fields.php:469
@@ -264,11 +264,11 @@ msgstr ""
 msgid "Enable auto-sync and set how often should it reoccur."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:869
+#: inc/class-spotim-settings-fields.php:881
 msgid "Posts Per Request"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:883
+#: inc/class-spotim-settings-fields.php:895
 msgid "On every sync, several requests will be made to your server. This is the amount of posts that will be retrieved in each request. Default: 10."
 msgstr ""
 
@@ -288,12 +288,16 @@ msgstr ""
 msgid "Spot.IM Recirculation"
 msgstr ""
 
-#: inc/spotim-widgets.php:61
+#: inc/spotim-widgets.php:61, inc/spotim-widgets.php:285
 msgid "Spot.IM related content."
 msgstr ""
 
-#: inc/spotim-widgets.php:179
+#: inc/spotim-widgets.php:179, inc/spotim-widgets.php:403
 msgid "Title"
+msgstr ""
+
+#: inc/spotim-widgets.php:281
+msgid "Spot.IM Siderail"
 msgstr ""
 
 #: templates/admin-template.php:9
