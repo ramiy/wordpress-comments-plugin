@@ -165,14 +165,14 @@ class SpotIM_Import {
             ) );
 
             if ( $stream->is_ok ) {
-				// Posts that synced successfully
+                // Posts that synced successfully
                 $streams[] = $stream->body;
             } else {
-				// Posts that returned errors
+                // Posts that returned errors
                 $errored_streams[] = $stream->body;
             }
         }
-        
+
         // Did we have any errors?
         if ( ! empty( $errored_streams ) ) {
             $this->errored_streams = $errored_streams;
@@ -207,11 +207,13 @@ class SpotIM_Import {
                     );
 
                     if ( ! $sync_status ) {
-                        $translated_error = esc_html__( 'Could not import comments of from this url: %s', 'spotim-comments' );
 
                         $this->response( array(
                             'status' => 'error',
-                            'message' => sprintf( $translated_error, esc_attr( $stream->url ) )
+                            'message' => sprintf(
+                                esc_html__( 'Could not import comments of from this url: %s', 'spotim-comments' ),
+                                esc_attr( $stream->url )
+                            )
                         ) );
                     }
                 }
@@ -257,8 +259,11 @@ class SpotIM_Import {
             $response_args['status'] = 'success';
             $response_args['message'] = esc_html__( 'Your website doesn\'t have any published posts.', 'spotim-comments' );
         } else if ( $current_posts_count < $total_posts_count ) {
-            $translated_message = esc_html__( '%d / %d posts are synchronizing.', 'spotim-comments' );
-            $parsed_message = sprintf( $translated_message, $current_posts_count, $total_posts_count );
+            $parsed_message = sprintf(
+                esc_html__( '%d / %d posts are synchronizing.', 'spotim-comments' ),
+                $current_posts_count,
+                $total_posts_count
+            );
 
             $response_args['status'] = 'continue';
 
@@ -278,7 +283,7 @@ class SpotIM_Import {
 
         $this->response( $response_args );
     }
-    
+
     /**
      * Get post count
      *

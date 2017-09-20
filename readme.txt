@@ -207,10 +207,10 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * Allow the user to control where to display the Recirculation.
 * Add new "data-disqus-shortname" attribute to the embed code.
 * Add new "data-enable-seo" attribute to the embed code.
-* Add posts IDs that failed when manually syncing comments.
-* Add error log to debug sync error messages.
 * Move "Manual Sync" to the "Advanced" tab.
-* Fix sync functionality that restricted the sync to 100 posts.
+* Add new report to the Manual Sync displaying post IDs when the import failed.
+* Fix Sync bug that restricted the sync to 100 posts.
+* Fix Sync bug that stopped the process when an error accord.
 * Fix wrong field names in Auto Sync.
 * Fix JSON Feed error for posts without comments, by setting default empty array.
 * Remove the "Plugin Secret Token" field from the admin screen.
