@@ -151,7 +151,12 @@ class Spotim_Meta_Box {
         echo '		</td>';
         echo '	</tr>';
 
-        echo '	<tr>';
+		// Check if recirculation is disabled globally
+		$hide_recirculation = '';
+        if ( 'none' === self::$options->get( 'rc_embed_method' ) )
+            $hide_recirculation = 'style="display: none;"';
+
+        echo '	<tr ' . $hide_recirculation . '>';
         echo '		<th><label for="spotim_display_recirculation" class="spotim_display_recirculation_label">' . esc_html__( 'Recirculation', 'spotim-comments' ) . '</label></th>';
         echo '		<td>';
         echo '			<select id="spotim_display_recirculation" name="spotim_display_recirculation" class="spotim_display_recirculation_field">';
