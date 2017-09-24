@@ -1,5 +1,6 @@
 <?php
 $options = SpotIM_Options::get_instance();
+$front = new SpotIM_Frontend( $options );
 $spot_id = $options->get( 'spot_id' );
 $recirculation_method = $options->get( 'rc_embed_method' );
 switch( $options->get( 'disqus_identifier' ) ) {
@@ -16,7 +17,7 @@ switch( $options->get( 'disqus_identifier' ) ) {
 ?>
 <div class="spot-im-comments <?php echo esc_attr( apply_filters( 'spotim_comments_class', $options->get( 'class' ) ) ); ?>">
     <?php
-    if ( 'top' === $recirculation_method ) {
+    if ( ( 'top' === $recirculation_method ) && ( $front->has_spotim_recirculation() ) ) {
         ob_start();
         include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-template.php' );
         $recirculation = ob_get_contents();
@@ -39,7 +40,7 @@ switch( $options->get( 'disqus_identifier' ) ) {
         >
     </div>
     <?php
-    if ( 'bottom' === $recirculation_method ) {
+	if ( ( 'bottom' === $recirculation_method ) && ( $front->has_spotim_recirculation() ) ) {
         ob_start();
         include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-template.php' );
         $recirculation = ob_get_contents();
