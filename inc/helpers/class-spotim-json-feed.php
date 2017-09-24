@@ -103,11 +103,21 @@ class SpotIM_JSON_Feed {
         $this->post_id = $post_id;
 
         // Load post comments
-        $comments_query = new WP_Comment_Query();
-        $comments = $comments_query->query( apply_filters( 'spotim_json_feed_query_args', array(
+		$json_feed_query_args = array(
             'status' => 'approve',
             'post_id' => $post_id,
-        ) ) );
+        );
+
+		/**
+		 * Filtering the default comments query args used to generate SpotIM JSON feed.
+		 *
+		 * @since 4.1.0
+		 *
+		 * @param array $json_feed_query_args Default feed query args.
+		 */
+		$json_feed_query_args = apply_filters( 'spotim_json_feed_query_args', $json_feed_query_args );
+		$comments_query = new WP_Comment_Query();
+        $comments = $comments_query->query( $json_feed_query_args );
 
         // Structure Comments
         foreach ( $comments as $comment ) {
@@ -121,7 +131,13 @@ class SpotIM_JSON_Feed {
         $this->messages = $this->aggregate_messages();
         $this->users = $this->aggregate_users();
 
-        // Return JSON
+		/**
+		 * Filter the JSON feed
+		 *
+		 * @since 4.1.0
+		 *
+		 * @param SpotIM_JSON_Feed $this SpotIM JSON feed.
+		 */
         return apply_filters( 'spotim_json_feed', json_encode( $this ) );
     }
 
