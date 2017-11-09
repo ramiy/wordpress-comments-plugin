@@ -262,6 +262,7 @@ class SpotIM_JSON_Feed {
      * @return array
      */
     public function aggregate_comments_ids() {
+		$comments_ids = array();
         $comments_ids = array_reverse( array_values( wp_list_pluck( $this->get_top_level_comments(), 'comment_ID' ) ) );
         return $comments_ids;
     }
