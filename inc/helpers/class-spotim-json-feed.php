@@ -98,6 +98,10 @@ class SpotIM_JSON_Feed {
      * @since 4.1.0
      *
      * @access public
+	 *
+	 * @param mixed $post_id The ID of the post.
+	 *
+	 * @return SpotIM_JSON_Feed SpotIM JSON feed.
      */
     public function __construct( $post_id ) {
         $this->post_id = $post_id;
@@ -148,7 +152,7 @@ class SpotIM_JSON_Feed {
      *
      * @access public
      *
-     * @return bool
+     * @return bool Whether there are any comments.
      */
     public function has_comments() {
         return empty( $this->comments );
@@ -161,7 +165,7 @@ class SpotIM_JSON_Feed {
      *
      * @access public
      *
-     * @return int
+     * @return int Comments Count.
      */
     public function get_comment_count() {
         return count( $this->comments );
@@ -174,9 +178,9 @@ class SpotIM_JSON_Feed {
      *
      * @access public
      *
-     * @param obj $comment Comment object.
+     * @param object $comment Comment object.
      *
-     * @return bool
+     * @return bool Whether the comments has a perent comment.
      */
     public static function has_parent_comment( $comment ) {
         return ( 0 == $comment->comment_parent );
@@ -189,7 +193,7 @@ class SpotIM_JSON_Feed {
      *
      * @access public
      *
-     * @return array
+     * @return array Parrent comments.
      */
     public function get_top_level_comments() {
         return array_filter( $this->comments, array( $this, 'has_parent_comment' ) );
@@ -204,7 +208,7 @@ class SpotIM_JSON_Feed {
      *
      * @param int $parent_id Parrent comment ID.
      *
-     * @return array
+     * @return array Child comments.
      */
     public function get_children( $parent_id ) {
         $children = array();
@@ -222,6 +226,9 @@ class SpotIM_JSON_Feed {
      *
      * @access public
      *
+	 * @param int   $comment_id The ID of the comment.
+	 * @param array $bank       Comments tree.
+	 *
      * @return void
      */
     private function traverse( $comment_id, &$bank ) {
@@ -242,7 +249,7 @@ class SpotIM_JSON_Feed {
      *
      * @access public
      *
-     * @return array
+     * @return array General post data.
      */
     public function aggregate_conversation() {
         $conversation = array();
@@ -259,7 +266,7 @@ class SpotIM_JSON_Feed {
      *
      * @access public
      *
-     * @return array
+     * @return array Comments IDs.
      */
     public function aggregate_comments_ids() {
 		$comments_ids = array();
@@ -274,7 +281,7 @@ class SpotIM_JSON_Feed {
      *
      * @access public
      *
-     * @return object
+     * @return object Comments tree.
      */
     public function aggregate_tree() {
         $tree = array();
@@ -292,7 +299,7 @@ class SpotIM_JSON_Feed {
      *
      * @access public
      *
-     * @return array
+     * @return array Comments list.
      */
     public function aggregate_messages() {
         $messages = array();
@@ -327,7 +334,7 @@ class SpotIM_JSON_Feed {
      *
      * @access public
      *
-     * @return array
+     * @return array Comments users.
      */
     public function aggregate_users() {
         $users = array();
