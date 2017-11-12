@@ -101,7 +101,7 @@ class SpotIM_Frontend {
         if ( '0' === self::$options->get( "display_{$post->post_type}" ) )
             return false;
 
-        // Bail if Spot.IM Comments are disabled for this this specific content item
+        // Bail if Spot.IM Comments are disabled for this specific content item
         $specific_display = get_post_meta( absint( $post->ID ), 'spotim_display_comments', true );
         $specific_display = in_array( $specific_display, array( 'enable', 'disable' ), true ) ? $specific_display : 'enable';
         if ( 'disable' === $specific_display )
@@ -274,7 +274,7 @@ class SpotIM_Frontend {
         if ( '0' === self::$options->get( "display_{$post->post_type}" ) )
             return false;
 
-        // Bail if Spot.IM questions are disabled for this this specific content item
+        // Bail if Spot.IM questions are disabled for this specific content item
         $specific_display = get_post_meta( absint( $post->ID ), 'spotim_display_question', true );
         if ( empty( $specific_display ) )
             return false;
