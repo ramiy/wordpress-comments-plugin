@@ -50,6 +50,17 @@ class SpotIM_Import {
      * @var int
      */
     private $page_number;
+    
+    /**
+     * Return values mode
+     *
+     * @since 4.3.0
+     *
+     * @access private
+     *
+     * @var int
+     */
+    private $return;
 
     /**
      * Constructor
@@ -61,14 +72,17 @@ class SpotIM_Import {
      * @access public
      *
      * @param SpotIM_Options $options Plugin options.
+     * @param bool $return Should return mode be on? This will return values instead of echo to browser.
+     *                     Default is false.
      */
-    public function __construct( $options ) {
+    public function __construct( $options, $return = false ) {
 
         $this->options = $options;
 
         // Set default values - if not defined by the user in the settings page
         $this->posts_per_request = 100;
         $this->page_number = 0;
+        $this->return = $return;
 
     }
 
@@ -90,17 +104,24 @@ class SpotIM_Import {
      */
     public function start( $spot_id, $import_token, $page_number = 0, $posts_per_request = 1 ) {
 
-        // save spot_id and import_token in plugin's options meta
-        $this->options->update( 'spot_id', $spot_id );
-        $this->options->update( 'import_token', $import_token );
-
-        $this->page_number = $this->options->update(
-            'page_number', absint( $page_number )
-        );
-
-        $this->posts_per_request = $this->options->update(
-            'posts_per_request', absint( $posts_per_request )
-        );
+        // If not run in return mode, update these options
+        if ( ! $this->return ) {
+            
+            // save spot_id and import_token in plugin's options meta
+            $this->options->update( 'spot_id', $spot_id );
+            $this->options->update( 'import_token', $import_token );
+    
+            $this->page_number = $this->options->update(
+                'page_number', absint( $page_number )
+            );
+    
+            $this->posts_per_request = $this->options->update(
+                'posts_per_request', absint( $posts_per_request )
+            );
+        } else {
+            $this->page_number = $page_number;
+            $this->posts_per_request = $posts_per_request;
+        }
 
         $post_ids = $this->get_post_ids( $this->posts_per_request, $this->page_number );
 
@@ -108,7 +129,7 @@ class SpotIM_Import {
         $this->pull_comments( $post_ids );
 
         // return a response to client via json
-        $this->finish();
+        return $this->finish();
     }
 
     /**
@@ -208,13 +229,14 @@ class SpotIM_Import {
 
                     if ( ! $sync_status ) {
 
-                        $this->response( array(
+                        $return = array(
                             'status' => 'error',
                             'message' => sprintf(
                                 esc_html__( 'Could not import comments of from this url: %s', 'spotim-comments' ),
                                 esc_attr( $stream->url )
                             )
-                        ) );
+                        );
+                        return ( $this->return ) ? $return : $this->response( $return );
                     }
                 }
 
@@ -278,10 +300,12 @@ class SpotIM_Import {
             $response_args['status'] = 'success';
             $response_args['message'] = esc_html__( 'Sync has been completed.', 'spotim-comments' );
 
-            $this->options->reset( 'page_number' );
+            if ( ! $this->return ) {
+                $this->options->reset( 'page_number' );
+            }
         }
 
-        $this->response( $response_args );
+        return ( $this->return ) ? $response_args : $this->response( $response_args );
     }
 
     /**
@@ -291,11 +315,11 @@ class SpotIM_Import {
      *
      * @since 4.2.0
      *
-     * @access private
+     * @access public
      *
      * @return int
      */
-    private function get_posts_count() {
+    public function get_posts_count() {
         $count = wp_count_posts();
         return $count->publish;
     }
@@ -441,13 +465,13 @@ class SpotIM_Import {
      *
      * @since 4.2.0
      *
-     * @access private
+     * @access public
      *
      * @param mixed $args Any amount of variables to add to log
      *
      * @return void
      */
-    private function log( $message ) {
+    public function log( $message ) {
         // Can we safely log?
         if ( WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
             $logText = 'SpotIM Log: ';
