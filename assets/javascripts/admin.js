@@ -41,9 +41,9 @@ jQuery( document ).ready(function ( $ ) {
 
     // Cancel import
     $( '#cancel_import_link' ).on( 'click', function( event ) {
-        var cancelImportLink = $(this);
+        var cancelImportLink = $(this),
             $messageField = cancelImportLink.siblings( '.description' ),
-            $parentElement = cancelImportLink.parent();
+            $parentElement = cancelImportLink.parent(),
             data = {
                 'action': 'cancel_import',
                 'spotim_page_number': 0
@@ -96,13 +96,21 @@ jQuery( document ).ready(function ( $ ) {
                     spotimVariables.pageNumber = 0;
                     break;
                 case 'error':
-                    $errorsField.removeClass( 'spotim-hide' );
+                    var displayErrorLog = false;
 
                     // Append to error box
                     for (var message of response.messages) {
+                        // Check if message is not empty, display error log
+                        if ( message.trim() ) {
+                            displayErrorLog = true;
+                        }
                         $errorsField.append(
                             $( '<p>' ).text( message )
                         );
+                    }
+
+                    if ( displayErrorLog ) {
+                        $errorsField.removeClass( 'spotim-hide' );
                     }
 
                     // Keep importing, don't stop
