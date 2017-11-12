@@ -326,7 +326,7 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * Updated to use `wp_new_comment()` function
 
 = 1.10.1 =
-* Updated to use `home_url()``
+* Updated to use `home_url()`
 
 = 1.10.0 =
 * Updated to use `conversation_url` during comment sync from Spot.IM

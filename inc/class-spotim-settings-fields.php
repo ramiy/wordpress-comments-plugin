@@ -209,7 +209,7 @@ class SpotIM_Settings_Fields {
             'display_settings_section',
             array(
                 'id' => 'comments_per_page',
-                'description' => esc_html__( 'Dafault: 10', 'spotim-comments' ),
+                'description' => esc_html__( 'Default: 10', 'spotim-comments' ),
                 'page' => $this->options->slug,
                 'value' => $this->options->get( 'comments_per_page' ),
                 'min' => 1,
