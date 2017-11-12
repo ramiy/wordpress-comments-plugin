@@ -56,7 +56,7 @@ class SpotIM_Cron {
         $interval = self::$options->get( 'auto_import' );
 
         // Check if auto import enabled
-        if ( ! in_array( $interval, wp_get_schedules(), true ) )
+        if ( ! in_array( $interval, array_keys( wp_get_schedules() ), true ) )
             return;
 
         // Schedule cron job event, if not scheduled yet
