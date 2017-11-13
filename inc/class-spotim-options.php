@@ -103,12 +103,12 @@ class SpotIM_Options {
             // Advanced
             'embed_method' => 'comments',
             'rc_embed_method' => 'regular',
+            'display_priority' => 9999,
             'enable_seo' => 'false',
             'enable_og' => 'false',
-            'display_priority' => 9999,
             'class' => 'comments-area',
-            'disqus_identifier' => 'id_short_url',
             'disqus_shortname' => '',
+            'disqus_identifier' => 'id_short_url',
             // Import
             'import_token' => '',
             'auto_import' => 0,
