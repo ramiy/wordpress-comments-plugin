@@ -16,51 +16,59 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: inc/class-spotim-admin.php:145
-msgid "Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@spot.im."
+#: inc/class-spotim-admin.php:133
+msgid "To properly run %1$s please visit your sites <a href=\"%2$s\">Discussion Settings</a> and turn on \"%3$s\"."
 msgstr ""
 
-#: inc/class-spotim-admin.php:147
-msgid "Cancel importing..."
-msgstr ""
-
-#: inc/class-spotim-admin.php:203
-msgid "Spot.IM Settings"
-msgstr ""
-
-#: inc/class-spotim-admin.php:205, inc/class-spotim-metabox.php:197
+#: inc/class-spotim-admin.php:135, inc/class-spotim-admin.php:257, inc/class-spotim-metabox.php:197
 msgid "Spot.IM"
 msgstr ""
 
-#: inc/class-spotim-admin.php:349, inc/class-spotim-settings-fields.php:851
+#: inc/class-spotim-admin.php:139
+msgid "Allow people to post comments on new articles"
+msgstr ""
+
+#: inc/class-spotim-admin.php:197
+msgid "Oops something got wrong. Please lower your amount of Posts Per Request and try again or send us an email to support@spot.im."
+msgstr ""
+
+#: inc/class-spotim-admin.php:199
+msgid "Cancel importing..."
+msgstr ""
+
+#: inc/class-spotim-admin.php:255
+msgid "Spot.IM Settings"
+msgstr ""
+
+#: inc/class-spotim-admin.php:401, inc/class-spotim-settings-fields.php:885
 msgid "Spot ID is missing."
 msgstr ""
 
-#: inc/class-spotim-admin.php:363, inc/class-spotim-settings-fields.php:853
+#: inc/class-spotim-admin.php:415, inc/class-spotim-settings-fields.php:887
 msgid "Import token is missing."
 msgstr ""
 
-#: inc/class-spotim-import.php:214
+#: inc/class-spotim-import.php:469
 msgid "Could not import comments of from this url: %s"
 msgstr ""
 
-#: inc/class-spotim-import.php:260
+#: inc/class-spotim-import.php:563
 msgid "Your website doesn't have any published posts."
 msgstr ""
 
-#: inc/class-spotim-import.php:263
+#: inc/class-spotim-import.php:569
 msgid "%d / %d posts are synchronizing."
 msgstr ""
 
-#: inc/class-spotim-import.php:272
+#: inc/class-spotim-import.php:587
 msgid "Some posts have errored."
 msgstr ""
 
-#: inc/class-spotim-import.php:279
+#: inc/class-spotim-import.php:601
 msgid "Sync has been completed."
 msgstr ""
 
-#: inc/class-spotim-import.php:389
+#: inc/class-spotim-import.php:825
 msgid "Failed retriving data for Post ID %s"
 msgstr ""
 
@@ -68,11 +76,11 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:277, inc/class-spotim-metabox.php:315, inc/class-spotim-settings-fields.php:383, inc/class-spotim-settings-fields.php:603
+#: inc/class-spotim-metabox.php:277, inc/class-spotim-metabox.php:325, inc/class-spotim-settings-fields.php:383, inc/class-spotim-settings-fields.php:603, inc/class-spotim-settings-fields.php:637
 msgid "Enable"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:279, inc/class-spotim-metabox.php:317, inc/class-spotim-settings-fields.php:381, inc/class-spotim-settings-fields.php:601
+#: inc/class-spotim-metabox.php:279, inc/class-spotim-metabox.php:327, inc/class-spotim-settings-fields.php:381, inc/class-spotim-settings-fields.php:601, inc/class-spotim-settings-fields.php:635
 msgid "Disable"
 msgstr ""
 
@@ -88,11 +96,11 @@ msgstr ""
 msgid "Show Spot.IM community question."
 msgstr ""
 
-#: inc/class-spotim-metabox.php:309
+#: inc/class-spotim-metabox.php:319
 msgid "Recirculation"
 msgstr ""
 
-#: inc/class-spotim-metabox.php:321
+#: inc/class-spotim-metabox.php:331
 msgid "Show Spot.IM recirculation."
 msgstr ""
 
@@ -157,7 +165,7 @@ msgid "Comments Per Page"
 msgstr ""
 
 #: inc/class-spotim-settings-fields.php:423
-msgid "Dafault: 10"
+msgid "Default: 10"
 msgstr ""
 
 #: inc/class-spotim-settings-fields.php:469
@@ -205,70 +213,74 @@ msgid "Enable SEO"
 msgstr ""
 
 #: inc/class-spotim-settings-fields.php:619
+msgid "OpenGraph Tags"
+msgstr ""
+
+#: inc/class-spotim-settings-fields.php:653
 msgid "Container Class"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:645
+#: inc/class-spotim-settings-fields.php:679
 msgid "Disqus Shortname"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:671
+#: inc/class-spotim-settings-fields.php:705
 msgid "Disqus Identifier Structure"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:687
+#: inc/class-spotim-settings-fields.php:721
 msgid "ID"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:689
+#: inc/class-spotim-settings-fields.php:723
 msgid "Short URL"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:691
+#: inc/class-spotim-settings-fields.php:725
 msgid "ID + Short URL (Default)"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:707
+#: inc/class-spotim-settings-fields.php:741
 msgid "Start Manual Sync"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:721
+#: inc/class-spotim-settings-fields.php:755
 msgid "Sync Now"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:729
+#: inc/class-spotim-settings-fields.php:763
 msgid "Cancel"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:769
+#: inc/class-spotim-settings-fields.php:803
 msgid "Comments Sync Options"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:783
+#: inc/class-spotim-settings-fields.php:817
 msgid "Sync Token"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:797
+#: inc/class-spotim-settings-fields.php:831
 msgid "Contact your Spot.IM account manager to get your sync token."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:811, inc/helpers/class-spotim-form.php:235
+#: inc/class-spotim-settings-fields.php:845, inc/helpers/class-spotim-form.php:235
 msgid "No"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:831
+#: inc/class-spotim-settings-fields.php:865
 msgid "Enable Auto Sync"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:845
+#: inc/class-spotim-settings-fields.php:879
 msgid "Enable auto-sync and set how often should it reoccur."
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:881
+#: inc/class-spotim-settings-fields.php:915
 msgid "Posts Per Request"
 msgstr ""
 
-#: inc/class-spotim-settings-fields.php:895
+#: inc/class-spotim-settings-fields.php:929
 msgid "On every sync, several requests will be made to your server. This is the amount of posts that will be retrieved in each request. Default: 10."
 msgstr ""
 
