@@ -59,7 +59,6 @@ class SpotIM_Frontend {
         }
 
         // SpotIM Comments
-        add_action( 'wp_footer', array( __CLASS__, 'comments_footer_scripts' ) );
         if ( $embed_method == 'content' ) {
 
             // Add after the content
@@ -232,24 +231,6 @@ class SpotIM_Frontend {
         global $post;
 
         return '<span class="spot-im-replies-count" data-post-id="' . absint( $post->ID ) . '"></span>';
-    }
-
-    /**
-     * Comments JS in the footer
-     *
-     * @since 1.0.2
-     *
-     * @access public
-     * @static
-     *
-     * @return void
-     */
-    public static function comments_footer_scripts() {
-        $spot_id = self::$options->get( 'spot_id' );
-
-        if ( ! empty( $spot_id ) ) {
-            self::$options->require_template( 'embed-template.php' );
-        }
     }
 
     /**

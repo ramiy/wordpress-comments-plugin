@@ -9,7 +9,7 @@ switch( $options->get( 'disqus_identifier' ) ) {
         break;
     case 'short_url':
         $disqus_identifier = esc_url( site_url( '/?p=' . get_the_id() ) );
-        break;
+        break; 
     case 'id_short_url':
     default:
         $disqus_identifier = get_the_id() . ' ' . esc_url( site_url( '/?p=' . get_the_id() ) );
@@ -25,7 +25,9 @@ switch( $options->get( 'disqus_identifier' ) ) {
         echo $recirculation;
     }
     ?>
-    <div class="spot-im-frame-inpage"
+    <script async
+        data-spotim-module="spotim-launcher"
+        src="<?php echo esc_url( 'https://launcher.spot.im/spot/' . $spot_id ); ?>"
         data-post-id="<?php echo esc_attr( apply_filters( 'spotim_comments_post_id', get_the_ID() ) ); ?>"
         data-post-url="<?php echo esc_url( apply_filters( 'spotim_comments_post_url', get_permalink() ) ); ?>"
         data-short-url="<?php echo esc_url( apply_filters( 'spotim_comments_disqus_short_url', site_url( '/?p=' . get_the_id() ) ) ); ?>"
@@ -37,10 +39,10 @@ switch( $options->get( 'disqus_identifier' ) ) {
         data-disqus-identifier="<?php echo apply_filters( 'spotim_comments_disqus_identifier', $disqus_identifier ); ?>"
         data-community-question="<?php echo esc_attr( apply_filters( 'spotim_comments_community_question',  get_post_meta( get_the_id(), 'spotim_display_question', true ) ) ); ?>"
         data-seo-enabled="<?php echo apply_filters( 'spotim_comments_seo_enabled', $options->get( 'enable_seo' ) ); ?>"
-        >
-    </div>
+        data-wp-v="<?php echo esc_attr( 'p-4.3.0/wp-' . get_bloginfo( 'version' ) ); ?>"
+    ></script>
     <?php
-	if ( ( 'bottom' === $recirculation_method ) && ( $front->has_spotim_recirculation() ) ) {
+    if ( ( 'bottom' === $recirculation_method ) && ( $front->has_spotim_recirculation() ) ) {
         ob_start();
         include( plugin_dir_path( dirname( __FILE__ ) ) . 'templates/recirculation-template.php' );
         $recirculation = ob_get_contents();
