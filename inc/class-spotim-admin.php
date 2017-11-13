@@ -43,8 +43,34 @@ class SpotIM_Admin {
         add_action( 'admin_menu', array( __CLASS__, 'create_admin_menu' ), 20 );
         add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
         add_action( 'admin_enqueue_scripts', array( __CLASS__, 'admin_assets' ) );
+        add_action( 'admin_notices', array( __CLASS__, 'admin_notice' ) );
         add_action( 'wp_ajax_start_import', array( __CLASS__, 'import_callback' ) );
         add_action( 'wp_ajax_cancel_import', array( __CLASS__, 'cancel_import_callback' ) );
+
+    }
+
+    /**
+     * Admin Notice
+     *
+     * @since 4.3.0
+     *
+     * @access public
+     * @static
+     *
+     * @return void
+     */
+    public static function admin_notice() {
+
+        if ( 'closed' === get_default_comment_status() ) {
+            $message = sprintf(
+                /* translators: 1: Spot.IM 2: Elementor */
+                __( 'To properly run %1$s please visit your sites <a href="%2$s">Discussion Settings</a> and turn on "%3$s".', 'spotim-comments' ),
+                '<strong>' . esc_html__( 'Spot.IM', 'spotim-comments' ) . '</strong>',
+                admin_url( 'options-discussion.php' ),
+                '<strong>' . esc_html__( 'Allow people to post comments on new articles', 'spotim-comments' ) . '</strong>'
+            );
+            printf( '<div class="notice notice-warning"><p>%1$s</p></div>', $message );
+        }
 
     }
 
