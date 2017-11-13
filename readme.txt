@@ -4,7 +4,7 @@ Tags: Comment, comment form, commenting, comments, comment author, comment form,
 Requires at least: 4.0
 Tested up to: 4.8
 Requires PHP: 5.2
-Stable tag: 4.2.0
+Stable tag: 4.3.0
 License: GPLv2 or later
 License URI: license.txt
 
@@ -202,6 +202,16 @@ We know managing a website can get complicated. That’s why we made Spot.IM eas
 You are also always more than welcome to contact our team at support@spot.im. We’ll be glad to help.
 
 == Changelog ==
+
+= 4.3.0 =
+* Add admin notice when global WordPress comments are disabled.
+* Add the ability to output Open Graph tags in single pages.
+* Add new "data-wp-v" attribute to track Spot.IM plugin version and WordPress version.
+* Update all embed codes using the new launcher script.
+* Update wrong ID used in "enale_seo" field.
+* Fix Manual Sync to display error log only when error messages are not empty.
+* Fix Auto Sync when validating cron to check against all registered schedules, not only WordPress default schedules.
+* Remove default value of deprecated "plugin_secret" field.
 
 = 4.2.0 =
 * Add new Siderail Widget.
