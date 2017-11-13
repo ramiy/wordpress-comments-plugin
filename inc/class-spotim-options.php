@@ -101,7 +101,6 @@ class SpotIM_Options {
             'display_attachment' => '0',
             'comments_per_page' => 10,
             // Advanced
-            'plugin_secret' => '',
             'embed_method' => 'comments',
             'rc_embed_method' => 'regular',
             'enable_seo' => 'false',
