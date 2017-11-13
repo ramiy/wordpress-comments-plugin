@@ -289,7 +289,7 @@ class SpotIM_Settings_Fields {
         );
 
         add_settings_field(
-            'enable-seo',
+            'enable_seo',
             esc_html__( 'Enable SEO', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'radio_fields' ),
             $this->options->slug,
