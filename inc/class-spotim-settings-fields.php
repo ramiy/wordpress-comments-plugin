@@ -306,6 +306,23 @@ class SpotIM_Settings_Fields {
         );
 
         add_settings_field(
+            'enable_og',
+            esc_html__( 'OpenGraph Tags', 'spotim-comments' ),
+            array( 'SpotIM_Form_Helper', 'radio_fields' ),
+            $this->options->slug,
+            'advanced_settings_section',
+            array(
+                'id' => 'enable_og',
+                'page' => $this->options->slug,
+                'fields' => array(
+                    'false' => esc_html__( 'Disable', 'spotim-comments' ),
+                    'true' => esc_html__( 'Enable', 'spotim-comments' ),
+                ),
+                'value' => $this->options->get( 'enable_og' )
+            )
+        );
+
+        add_settings_field(
             'class',
             esc_html__( 'Container Class', 'spotim-comments' ),
             array( 'SpotIM_Form_Helper', 'text_field' ),

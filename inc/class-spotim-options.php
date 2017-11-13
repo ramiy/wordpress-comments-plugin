@@ -105,6 +105,7 @@ class SpotIM_Options {
             'embed_method' => 'comments',
             'rc_embed_method' => 'regular',
             'enable_seo' => 'false',
+            'enable_og' => 'false',
             'display_priority' => 9999,
             'class' => 'comments-area',
             'disqus_identifier' => 'id_short_url',

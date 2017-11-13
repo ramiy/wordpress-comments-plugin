@@ -73,6 +73,9 @@ class SpotIM_Frontend {
             add_filter( 'comments_number', array( __CLASS__, 'filter_comments_number' ), 20 );
 
         }
+        
+        // OG tags
+        add_action( 'wp_head', array( __CLASS__, 'open_graph_tags' ) );
 
     }
 
@@ -367,5 +370,51 @@ class SpotIM_Frontend {
         }
 
         return $content;
+    }
+    
+    /**
+     * Add Spot.im Open Graph tags to the header
+     *
+     * @since 4.3.0
+     *
+     * @access public
+     * @static
+     */
+    public static function open_graph_tags() {
+
+        // Bail if it's not a single template
+        if ( ! is_singular() )
+            return;
+
+        // Bail if Spot.IM Open Graph tags are disabled
+        if ( 'true' !== self::$options->get( 'enable_og' ) )
+            return;
+
+        // Set default Open Graph tags
+        $tags = array(
+            'og:url'         => get_permalink(),
+            'og:type'        => 'article',
+            'og:title'       => get_the_title(),
+            'og:description' => get_the_excerpt(),
+        );
+        if ( has_post_thumbnail() ) {
+            $tags['og:image'] = get_the_post_thumbnail_url();
+        }
+
+        /**
+         * Filtering the default Open Graph tags added by Spot.IM.
+         *
+         * @since 4.3.0
+         *
+         * @param array $tags Default Open Graph tags.
+         */
+        $tags = (array) apply_filters( 'spotim_open_graph_tags', $tags );
+
+        // Generate Open Graph tags markup
+        foreach ( $tags as $tagname => $tag ) {
+            printf( '<meta property="%s" content="%s" />' . "\n", $tagname, esc_attr( $tag ) );
+        }
+
+        do_action( 'spotim_after_open_tags');
     }
 }
