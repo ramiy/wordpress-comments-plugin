@@ -17,23 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-// Load plugin files
-require_once( 'inc/helpers/class-spotim-form.php' );
-require_once( 'inc/helpers/class-spotim-message.php' );
-require_once( 'inc/helpers/class-spotim-comment.php' );
-require_once( 'inc/helpers/class-spotim-json-feed.php' );
-require_once( 'inc/class-spotim-i18n.php' );
-require_once( 'inc/class-spotim-import.php' );
-require_once( 'inc/class-spotim-options.php' );
-require_once( 'inc/class-spotim-settings-fields.php' );
-require_once( 'inc/class-spotim-metabox.php' );
-require_once( 'inc/class-spotim-admin.php' );
-require_once( 'inc/class-spotim-frontend.php' );
-require_once( 'inc/class-spotim-feed.php' );
-require_once( 'inc/class-spotim-cron.php' );
-require_once( 'inc/spotim-shortcodes.php' );
-require_once( 'inc/spotim-widgets.php' );
-
 /**
  * WP_SpotIM
  *
@@ -69,6 +52,9 @@ class WP_SpotIM {
         // Activation/Deactivation hooks
         register_activation_hook( __FILE__, array( $this, 'flush_rewrite_rules' ) );
         register_deactivation_hook( __FILE__, array( $this, 'flush_rewrite_rules' ) );
+
+        // Load plugin files
+        $this->load_files();
 
         // Get the Options
         $this->options = SpotIM_Options::get_instance();
@@ -123,6 +109,40 @@ class WP_SpotIM {
     public function flush_rewrite_rules() {
         flush_rewrite_rules();
     }
+
+    /**
+     * Load plugin files
+     *
+     * @since 4.3.0 The functionality moved to a method.
+     *
+     * @access public
+     *
+     * @return void
+     */
+    public function load_files() {
+        $files = [
+            'helpers/class-spotim-form.php',
+            'helpers/class-spotim-message.php',
+            'helpers/class-spotim-comment.php',
+            'helpers/class-spotim-json-feed.php',
+            'class-spotim-i18n.php',
+            'class-spotim-import.php',
+            'class-spotim-options.php',
+            'class-spotim-settings-fields.php',
+            'class-spotim-metabox.php',
+            'class-spotim-admin.php',
+            'class-spotim-frontend.php',
+            'class-spotim-feed.php',
+            'class-spotim-cron.php',
+            'spotim-shortcodes.php',
+            'spotim-widgets.php',
+        ];
+
+        foreach ( $files as $file ) {
+            require_once( 'inc/' . $file );
+        }
+
+	}
 
 }
 
