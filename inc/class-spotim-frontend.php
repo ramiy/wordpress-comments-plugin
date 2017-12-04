@@ -94,8 +94,8 @@ class SpotIM_Frontend {
     public static function has_spotim_comments() {
         global $post;
 
-        // Bail if it's not a single template
-        if ( ! ( is_single() || is_page() ) )
+        // Bail if it's not a singular template
+        if ( ! is_singular() )
             return false;
 
         // Bail if comments are closed
@@ -249,8 +249,8 @@ class SpotIM_Frontend {
     public static function has_spotim_questions() {
         global $post;
 
-        // Bail if it's not a single template
-        if ( ! ( is_single() || is_page() ) )
+        // Bail if it's not a singular template
+        if ( ! is_singular() )
             return false;
 
         // Bail if comments are closed
@@ -283,8 +283,8 @@ class SpotIM_Frontend {
     public static function has_spotim_recirculation() {
         global $post;
 
-        // Bail if it's not a single template
-        if ( ! ( is_single() || is_page() ) )
+        // Bail if it's not a singular template
+        if ( ! is_singular() )
             return false;
 
         // Bail if comments are closed
@@ -388,7 +388,7 @@ class SpotIM_Frontend {
      */
     public static function open_graph_tags() {
 
-        // Bail if it's not a single template
+        // Bail if it's not a singular template
         if ( ! is_singular() )
             return;
 
