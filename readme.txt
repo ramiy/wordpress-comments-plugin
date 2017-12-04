@@ -209,6 +209,7 @@ You are also always more than welcome to contact our team at support@spot.im. We
 * Add new "data-wp-v" attribute to track Spot.IM plugin version and WordPress version.
 * Update all embed codes using the new launcher script.
 * Update wrong ID used in "enale_seo" field.
+* Seperate the Spot.IM NewsFeed from Spot.IM Comments.
 * Fix Manual Sync to display error log only when error messages are not empty.
 * Fix Auto Sync when validating cron to check against all registered schedules, not only WordPress default schedules.
 * Remove default value of deprecated "plugin_secret" field.
