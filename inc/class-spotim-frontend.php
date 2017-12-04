@@ -82,7 +82,7 @@ class SpotIM_Frontend {
     }
 
     /**
-     * Has Spot.im comments
+     * Has Spot.IM comments
      *
      * @since 4.0.0
      *
@@ -237,7 +237,7 @@ class SpotIM_Frontend {
     }
 
     /**
-     * Has Spot.im questions
+     * Has Spot.IM questions
      *
      * @since 4.0.0
      *
@@ -271,7 +271,7 @@ class SpotIM_Frontend {
     }
 
     /**
-     * Has Spot.im recirculation
+     * Has Spot.IM recirculation
      *
      * @since 4.0.0
      *
@@ -310,7 +310,7 @@ class SpotIM_Frontend {
     }
 
     /**
-     * Add Spot.im recirculation to the content
+     * Add Spot.IM recirculation to the content
      *
      * @since 4.0.0
      *
@@ -379,7 +379,7 @@ class SpotIM_Frontend {
     }
 
     /**
-     * Add Spot.im Open Graph tags to the header
+     * Add Spot.IM Open Graph tags to the header
      *
      * @since 4.3.0
      *
