@@ -50,6 +50,9 @@ class SpotIM_Frontend {
         $rc_embed_method = self::$options->get( 'rc_embed_method' );
         $display_priority = self::$options->get( 'display_priority' );
 
+        // SpotIM Newsfeed
+		add_action( 'wp_footer', array( __CLASS__, 'add_spotim_newsfeed' ) );
+
         // SpotIM Recirculation
         if ( 'regular' === $rc_embed_method ) {
 
@@ -352,7 +355,29 @@ class SpotIM_Frontend {
 
         return $content;
     }
-    
+
+    /**
+     * Add Spot.IM newsfeed
+     *
+     * @since 4.3.0
+     *
+     * @access public
+     * @static
+     *
+     * @return void
+     */
+    public static function add_spotim_newsfeed() {
+
+        if ( ! is_singular() ) {
+            $spot_id = self::$options->get( 'spot_id' );
+
+            if ( ! empty( $spot_id ) ) {
+                self::$options->require_template( 'newsfeed-template.php' );
+            }
+        }
+
+    }
+
     /**
      * Add Spot.im Open Graph tags to the header
      *
